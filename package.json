@@ -1,0 +1,20 @@
+{
+  "name": "v3-test",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "js-cookie": "^2.2.1",
+    "vue": "^3.0.4",
+    "vue-router": "^4.0.3",
+    "vue-svgicon": "^3.2.9",
+    "vuex": "^4.0.0-rc.2"
+  },
+  "devDependencies": {
+    "vite": "^1.0.0-rc.13",
+    "@vue/compiler-sfc": "^3.0.4"
+  }
+}

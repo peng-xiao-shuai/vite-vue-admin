@@ -1,0 +1,5 @@
+export default {
+    LOGIN_REQUEST: "LOGIN_REQUEST",
+    LOGIN_THEN: "LOGIN_REQUEST",
+    LOGIN_CATCH: "LOGIN_REQUEST",
+}
