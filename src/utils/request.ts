@@ -36,6 +36,13 @@ service.interceptors.response.use(response =>{
             break;
         case 401:
             console.error(response.data.code,response.data.message)
+
+            store.dispatch('outLoing')
+            // .then((res) => {
+            //     router.push('/login')
+            // }).catch((err) => {
+                
+            // });
             break;
         case 500:
             console.error(response.data.code,'服务器打瞌睡了')

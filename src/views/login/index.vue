@@ -47,7 +47,6 @@ import { ref, reactive } from "vue";
 import router  from '/@/router/index';
 import { login } from "/@/api/logins";
 import store from '../../store';
-import _router from '../../router';
 
 export default {
   setup() {
