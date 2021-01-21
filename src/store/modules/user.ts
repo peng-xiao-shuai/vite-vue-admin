@@ -3,44 +3,79 @@ import TYPE from "../type/userType"
 import Cookies from 'js-cookie'
 
 import { getUser,login } from '/@/api/logins';
+import router,{addRouter as asyncRouter}  from '/@/router/index';
+
+// 筛选该账号可展示路由
+function menusFilter(menus: []){
+
+	menus.forEach((item: any) =>{
+		let filter: [] = asyncRouter.filter((each: any) => each.name == item.name)
+
+		if(filter.length > 0){
+			
+			router.addRoute(filter[0])
+			
+			state.menus = router.options.routes.concat(filter)
+
+			console.log(state.menus);
+			
+		}
+	})
+
+	// console.log(router);
+
+}
 
 const state = {
 	token:Cookies.get('token'),
-	userInfo:{}
+	userInfo:{},
+	menus:[]
 }
 
 const actions = {
-	async loginAction({state,commit},user: any){
-
-		commit(TYPE.LOGIN_REQUEST)
-
-		await login(user)
+	// 登录
+	loginAction({state},user: any){
+		login(user)
 		.then((res: { data:{tokenHead: string , token: string}}) => {
 			state.token = res.data.tokenHead + res.data.token
 			Cookies.set('token',res.data.tokenHead + res.data.token)
-		})
 
-		// 模拟接口
-		// 状态 失败or成功
+			router.push({path:'/'})
+		})
+	},
+
+	// 获取用户信息
+	userInfo({commit}){
 		return new Promise((resovle) =>{
 			getUser()
 			.then((res:any) => {
 				commit(TYPE.LOGIN_THEN,res.data)
-
-				resovle('success')
+				
+				menusFilter(res.data.menus)
+				
+				resovle(res.data.menus)
 			})
 		})
-		
+	},
+
+	// 登出
+	outLoing({commit}){
+		commit('outLogin','')
+		Cookies.remove('token')
+	},
+
+	navTo({},val){
+		router.push(val)
 	}
 }
 
 const mutations = {
-
-	[TYPE.LOGIN_REQUEST](){
-		console.log('开始请求');
+	outLogin(state: any,val: any){
+		state.token = val
+		router.push('/login')
 	},
-	[TYPE.LOGIN_THEN](state:{userInfo: object},val: object){
-		console.log('接受数据',val);
+	[TYPE.LOGIN_THEN](state:{userInfo: object,menus: []},val: any){
+		// console.log('接受数据',val);
 		state.userInfo = val
 	}
 }
