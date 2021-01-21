@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <span>{{count}}</span>
-    <div @click="outlogin">登出</div>
     <img alt="Vue logo" src="@/assets/logo.png" @click="add">
     <HelloWorld msg="Welcome to Your Vue.js App" @hook:mounted = 'worldMounted'/>
   </div>
@@ -10,7 +9,8 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '/@/components/HelloWorld.vue'
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import router from '/@/router/index';
 import store from '../../store';
 export default {
   name: 'Home',
@@ -20,6 +20,10 @@ export default {
   setup(){
     let count = ref(0)
 
+    // onMounted(()=>{
+		// 	router.replace({path: '/login'})
+    // })
+
     let add = () =>{
       count.value++
     }
@@ -28,15 +32,10 @@ export default {
       console.log(e,111);
     }
 
-    function outlogin(){
-      store.dispatch('outLoing')
-    }
-
     return{
       count,
       add,
-      outlogin,
-      worldMounted
+      worldMounted,
     }
   }
 }

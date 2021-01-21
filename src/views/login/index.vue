@@ -43,7 +43,7 @@
 <script>
 //   import {isvalidUsername} from '@/utils/validate';
 //   import {setSupport,getSupport,setCookie,getCookie} from '@/utils/support';
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import router  from '/@/router/index';
 import { login } from "/@/api/logins";
 import store from '../../store';
@@ -56,13 +56,13 @@ export default {
       password: "",
     });
 
+    onMounted(()=>{
+      // 登录页清楚token
+      store.dispatch('outLoing')
+    })
+
     function handleLogin() {
-      
       store.dispatch('loginAction',user)
-      .then((res) => {
-        router.push('/')
-      })
-      .catch((err) => {});
     }
 
     return {
