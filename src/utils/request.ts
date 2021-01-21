@@ -15,8 +15,6 @@ service.interceptors.request.use(config=> {
     // 在发送请求之前做些什么
     if(store.getters.getToken){
         config.headers['Authorization'] = store.getters.getToken
-    }else{
-        console.log('没有token');
     }
     
     return config;
