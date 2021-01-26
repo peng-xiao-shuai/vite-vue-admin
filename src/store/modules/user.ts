@@ -40,11 +40,7 @@ function menusFilter(menus: []){
 
 		return each
 	})
-
-	state.menus = asyncrouter
-
-	console.log(asyncrouter);
-	
+	state.menus = router.options.routes.concat(asyncrouter)
 	
 }
 

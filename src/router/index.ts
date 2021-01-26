@@ -24,6 +24,7 @@ const routes = [
       title: '登录',
       icon: 'about'
     },
+    hidden: true,
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
