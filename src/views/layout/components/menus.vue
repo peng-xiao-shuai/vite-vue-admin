@@ -1,46 +1,70 @@
 <template>
   <div class="menus">
-    <template v-for="(item,index) in menus" :key='index'>
-        <div v-if="!item.hidden" @click="navTo(item.redirect || item.path)">
-            {{item.meta && item.meta.title  || item.children && item.children[0].meta.title || ''}}
-        </div>
-    </template>
+    <!-- @open="handleOpen" -->
+      <!-- @close="handleClose" -->
+      <!-- :collapse="isCollapse" -->
+
+    <el-menu
+      class="el-menu-vertical-demo"
+    >
+      <template v-for="(item, _index) in menus" :key="item.name">
+        <el-submenu :index="String(_index)" v-if="!item.hidden">
+          <template #title>
+            <i class="el-icon-location"></i>
+            <span>
+              {{
+                (item.meta && item.meta.title) ||
+                (item.children && item.children[0].meta.title) ||
+                ""
+              }}
+            </span>
+          </template>
+          <template v-for="(each,idx) in item.children" :key='idx'>
+            <el-menu-item-group
+              v-if="!each.hidden"
+              @click='navTo(each.path)'
+            >
+              <el-menu-item :index="_index + '-' + idx">{{each.meta && each.meta.title}}</el-menu-item>
+            </el-menu-item-group>
+          </template>
+        </el-submenu>
+      </template>
+    </el-menu>
   </div>
 </template>
 
 <script>
-import router from '/@/router/index';
-import store from '/@/store/index';
+import router from "/@/router/index";
+import store from "/@/store/index";
 export default {
-    name: 'menus',
-    setup(){
-        function navTo(e){
-            console.log(e);
-            router.push(e)
-        }
-
-        function outlogin(){
-            store.dispatch('outLoing')
-        }
-
-        return{
-            navTo,
-            outlogin,
-
-            menus: store.state.user.menus
-        }
+  name: "menus",
+  setup() {
+    function navTo(e) {
+      router.push({
+        name: e
+      });
     }
-}
+
+    function outlogin() {
+      store.dispatch("outLoing");
+    }
+
+    let menus = store.state.user.menus;
+    console.log(menus);
+
+    return {
+      navTo,
+      outlogin,
+
+      menus,
+    };
+  },
+};
 </script>
 
-<style lang="scss" scoped>
-    .menus{
-        div{
-            height: 60px;
-            line-height: 60px;
-            background: lightblue;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-    }
-</style>>
+<style lang="scss">
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
+</style>

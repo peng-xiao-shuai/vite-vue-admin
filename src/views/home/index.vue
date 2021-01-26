@@ -9,7 +9,8 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '/@/components/HelloWorld.vue'
-import { onMounted, ref } from 'vue';
+import { onMounted, ref,getCurrentInstance } from 'vue';
+import { ElMessage } from 'element-plus'
 import router from '/@/router/index';
 import store from '../../store';
 export default {
@@ -19,12 +20,14 @@ export default {
   },
   setup(){
     let count = ref(0)
-
+    const { ctx } = getCurrentInstance() // 获取上下文，类似原来的this
     // onMounted(()=>{
 		// 	router.replace({path: '/login'})
     // })
 
     let add = () =>{
+      ctx.$message({type: 'warning',message:'123'})
+      // ElMessage({type: 'warning',message:'123'})
       count.value++
     }
 

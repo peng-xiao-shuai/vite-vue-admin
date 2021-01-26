@@ -1,6 +1,6 @@
 import TYPE from "../type/userType"
 
-import Cookies from 'js-cookie'
+import Cookies from '/@modules/js-cookie'
 
 import { getUser,login } from '/@/api/logins';
 import router,{addRouter as asyncRouter}  from '/@/router/index';
@@ -8,22 +8,77 @@ import router,{addRouter as asyncRouter}  from '/@/router/index';
 // 筛选该账号可展示路由
 function menusFilter(menus: []){
 
+	// 所有一级
+	let levelOne:[] = []
+	// 所有子集
+	let childOne:[] = []
+
 	menus.forEach((item: any) =>{
-		let filter: [] = asyncRouter.filter((each: any) => each.name == item.name)
 
-		if(filter.length > 0){
-			
-			router.addRoute(filter[0])
-			
-			state.menus = router.options.routes.concat(filter)
-
-			console.log(state.menus);
-			
+		if(item.level === 0){
+			levelOne.push(item)
+		}else{
+			childOne.push(item)
 		}
 	})
 
-	// console.log(router);
+	_sort(levelOne)
 
+	let asyncrouter = asyncRouter.filter((item:any)=>{
+		let each = addRouterFun(levelOne,item)
+
+		if(each && each.children && each.children.length>0){
+			// 获取当前导航所有子集
+			each.children = each.children.filter((i:any)=>{
+				return addRouterFun(childOne,i)
+			})
+
+			_sort(each.children);
+
+		}
+		router.addRoute(each)
+
+		return each
+	})
+
+	state.menus = asyncrouter
+
+	console.log(asyncrouter);
+	
+	
+}
+
+// 排序
+function _sort(arr:[]){
+	arr.sort((a:any,b:any)=>{
+		return b.sort - a.sort
+	})
+}
+
+// 格式数据
+function addRouterFun(router:[],each:any){
+	let item:any
+	for(item of router){
+		if(item.name == each.name){
+
+			if(item.title){
+				each.meta.title = item.title
+			}
+			if(item.icon){
+				each.meta.icon = item.icon
+			}
+
+			each.sort = item.sort
+			
+			return each
+
+		}else{
+			each.sort = 0
+			if(each.hidden){
+				return each
+			}
+		}
+	}
 }
 
 const state = {
@@ -36,11 +91,12 @@ const actions = {
 	// 登录
 	loginAction({state},user: any){
 		login(user)
-		.then((res: { data:{tokenHead: string , token: string}}) => {
-			state.token = res.data.tokenHead + res.data.token
-			Cookies.set('token',res.data.tokenHead + res.data.token)
-
-			router.push({path:'/'})
+		.then((res: {data:{tokenHead: string , token: string}}) => {
+			if(res){
+				state.token = res.data.tokenHead + res.data.token
+				Cookies.set('token',res.data.tokenHead + res.data.token)
+				router.push({path:'/'})
+			}
 		})
 	},
 
@@ -63,10 +119,6 @@ const actions = {
 		commit('outLogin','')
 		Cookies.remove('token')
 	},
-
-	navTo({},val){
-		router.push(val)
-	}
 }
 
 const mutations = {

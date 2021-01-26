@@ -2,6 +2,8 @@ import axios from 'axios';
 
 import store from '../store/index';
 
+import { ElMessage } from 'element-plus';
+
 const ENV =  import.meta.env
 
 console.log(ENV);
@@ -30,10 +32,10 @@ service.interceptors.response.use(response =>{
     
     switch(code){
         case 502:
-            console.error(response.data.code,response.data.message)
+            ElMessage({message:response.data.message,type:'warning'})
             break;
         case 401:
-            console.error(response.data.code,response.data.message)
+            ElMessage({message:response.data.message,type:'error'})
 
             store.dispatch('outLoing')
             // .then((res) => {
@@ -43,13 +45,13 @@ service.interceptors.response.use(response =>{
             // });
             break;
         case 500:
-            console.error(response.data.code,'服务器打瞌睡了')
+            ElMessage({message:'服务器打瞌睡了！',type:'error'})
             break;
         case 400:
-            console.error(response.data.code,response.data.message)
+            ElMessage({message:'参数错误！',type:'error'})
             break;
         case 405:
-            console.error(response.data.code,'请检查你的请求类型')
+            ElMessage({message:'请检查你的请求类型！',type:'error'})
             break;
         case 200:
             if(response.headers['content-type'].indexOf('application/json') != -1){
@@ -60,7 +62,8 @@ service.interceptors.response.use(response =>{
 
             break;
         default:
-            console.error(response.data.code,response.data.message)
+            ElMessage({message:response.data.message,type:'error'})
+            console.error(response.data.code,)
             break;
     }
 }, 
