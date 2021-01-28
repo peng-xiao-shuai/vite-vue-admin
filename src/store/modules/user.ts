@@ -8,39 +8,43 @@ import router,{addRouter as asyncRouter}  from '/@/router/index';
 // 筛选该账号可展示路由
 function menusFilter(menus: []){
 
-	// 所有一级
-	let levelOne:[] = []
-	// 所有子集
-	let childOne:[] = []
+	// return new Promise((resovle,reject)=>{
+		// 所有一级
+		let levelOne:[] = []
+		// 所有子集
+		let childOne:[] = []
 
-	menus.forEach((item: any) =>{
+		menus.forEach((item: any) =>{
 
-		if(item.level === 0){
-			levelOne.push(item)
-		}else{
-			childOne.push(item)
-		}
-	})
+			if(item.level === 0){
+				levelOne.push(item)
+			}else{
+				childOne.push(item)
+			}
+		})
 
-	_sort(levelOne)
+		_sort(levelOne)
 
-	let asyncrouter = asyncRouter.filter((item:any)=>{
-		let each = addRouterFun(levelOne,item)
+		let asyncrouter = asyncRouter.filter((item:any)=>{
+			let each = addRouterFun(levelOne,item)
 
-		if(each && each.children && each.children.length>0){
-			// 获取当前导航所有子集
-			each.children = each.children.filter((i:any)=>{
-				return addRouterFun(childOne,i)
-			})
+			if(each && each.children && each.children.length>0){
+				// 获取当前导航所有子集
+				each.children = each.children.filter((i:any)=>{
+					return addRouterFun(childOne,i)
+				})
 
-			_sort(each.children);
+				_sort(each.children);
 
-		}
-		router.addRoute(each)
+			}
+			router.addRoute(each)
 
-		return each
-	})
-	state.menus = router.options.routes.concat(asyncrouter)
+			return each
+		})
+		state.menus = router.options.routes.concat(asyncrouter)
+
+		// resovle(state.menus)
+	// })
 	
 }
 
@@ -100,12 +104,12 @@ const actions = {
 	userInfo({commit}){
 		return new Promise((resovle) =>{
 			getUser()
-			.then((res:any) => {
+			.then(async (res:any) => {
 				commit(TYPE.LOGIN_THEN,res.data)
 				
 				menusFilter(res.data.menus)
 				
-				resovle(res.data.menus)
+				resovle(state.menus)
 			})
 		})
 	},

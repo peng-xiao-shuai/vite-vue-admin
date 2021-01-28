@@ -49,12 +49,6 @@ const routes = [
 			}
 		}]
   },
-  {
-    path: '/:pathMatch(.*)',
-    name: '404',
-    component: () => import('../views/404.vue'),
-    hidden: true
-  }
 ]
 
 export const addRouter = [{
