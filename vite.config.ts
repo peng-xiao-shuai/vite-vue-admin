@@ -23,6 +23,8 @@ module.exports = {
     },
     hostname: 'localhost',
     port: 8088,
+    // eslint-loader 是否在保存的时候检查
+    lintOnSave: true,
     // 是否自动在浏览器打开
     open: false,
     // 是否开启 https

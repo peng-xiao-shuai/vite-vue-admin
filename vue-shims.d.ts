@@ -3,7 +3,6 @@ declare module "*.vue" {
     export default Vue;
 }
 
-declare module "js-cookie" {
-    import Cookies from 'js-cookie';
-    export default Cookies;
-}
+declare module "js-cookie"
+
+declare module 'mockjs'
