@@ -4,7 +4,7 @@ import store from '../store/index';
 
 import { ElMessage } from 'element-plus';
 
-const ENV =  import.meta.env
+const ENV = import.meta.env
 
 console.log(ENV);
 
@@ -13,7 +13,10 @@ const service = axios.create({
     timeout: ENV.VITE_TIMEOUT
 })
 
+service.defaults.headers['content-type'] = 'application/json'
+
 service.interceptors.request.use(config=> {
+
     // 在发送请求之前做些什么
     if(store.getters.getToken){
         config.headers['Authorization'] = store.getters.getToken
@@ -28,7 +31,12 @@ service.interceptors.request.use(config=> {
 // 添加响应拦截器
 service.interceptors.response.use(response =>{
     // 对响应数据做点什么
-    let code = response.data.code
+    let code
+    if(ENV.VITE_MOCK){ 
+        code = JSON.parse(response.request.response).code
+    }else{
+        code = response.data.code
+    }
     
     switch(code){
         case 502:
@@ -54,7 +62,12 @@ service.interceptors.response.use(response =>{
             ElMessage({message:'请检查你的请求类型！',type:'error'})
             break;
         case 200:
-            if(response.headers['content-type'].indexOf('application/json') != -1){
+        
+            if(ENV.VITE_MOCK){ 
+                return response.data
+            }
+
+            if(response.headers['content-type'] && response.headers['content-type'].indexOf('application/json') != -1){
                 return response.data
             }else{
                 return response
@@ -69,6 +82,7 @@ service.interceptors.response.use(response =>{
 }, 
 error=> {
 // 对响应错误做点什么
+    
     return Promise.reject(error);
 });
 
