@@ -1,113 +1,189 @@
 <template>
   <div>
     <div class="login-form-layout">
-      <form>
-        <div style="text-align: center">
-          <!-- <svg-icon icon-class="login-mall" style="width: 56px;height: 56px;color: #409EFF"></svg-icon> -->
-        </div>
-        <h2 class="login-title color-main">商城管理系统</h2>
-        <div class="inpBox">
-          <input
-            name="username"
-            v-model="user.username"
-            autoComplete="on"
-            placeholder="请输入用户名"
-          />
-        </div>
-        <div class="inpBox">
-          <!-- :type="pwdType" -->
-          <input
-            name="password"
-            @keyup.enter="handleLogin"
-            v-model="user.password"
-            placeholder="请输入密码"
-          />
-          <span>
-            <!-- <svg-icon icon-class="password" class="color-main"></svg-icon> -->
-          </span>
-          <span @click="showPwd">
-            <!-- <svg-icon icon-class="eye" class="color-main"></svg-icon> -->
-          </span>
-        </div>
-        <div style="margin-bottom: 100px; text-align: center">
-          <button style="width: 45%" @click.prevent="handleLogin">
+      <span class="login-title color-main">商城管理系统</span>
+      <!-- :rules="loginRules" -->
+      <el-form autoComplete="on"
+               :model="loginForm"
+               ref="login_form"
+               label-position="left">
+        <el-form-item prop="username">
+          <el-input name="username"
+                    type="text"
+                    v-model="loginForm.username"
+                    autoComplete="on"
+                    class="login-input borderBottom"
+                    placeholder="请输入用户名">
+              <template #prefix>
+                <i class="el-icon-user icon" @click="handleIconClick"> </i>
+              </template>
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input name="password"
+                    :type="pwdType"
+                    class="login-input"
+                    @keyup.enter="handleLogin"
+                    v-model="loginForm.password"
+                    autoComplete="on"
+                    placeholder="请输入密码">
+              <template #prefix>
+                <i class="el-icon-lock icon" @click="handleIconClick"> </i>
+              </template>
+              <template #suffix>
+                <i :class="[pwdType == 'password' ? 'vitebiyan' : 'viteyanjing','viteIcon']" @click="pwdType = pwdType == 'password' ? 'text' : 'password'"> </i>
+              </template>
+          </el-input>
+        </el-form-item>
+      </el-form>
+
+      <div class="btn">
+        <el-button :style="{width: '45%',backgroundColor: background}" :loading="loading" @click.native.prevent="handleLogin('login_form')">
             登录
-          </button>
-        </div>
-      </form>
+        </el-button>      
+      </div>
     </div>
-    <img src="/@/assets/login_center_bg.png" class="login-center-layout" />
+    <el-image src="@/assets/bgImg.png" fit="cover" class='bgImage'></el-image>
   </div>
 </template>
 
 <script>
 //   import {isvalidUsername} from '@/utils/validate';
 //   import {setSupport,getSupport,setCookie,getCookie} from '@/utils/support';
-import { ref, reactive, onMounted } from "vue";
-import router  from '/@/router/index';
-import { login } from "/@/api/logins";
+import { ref, reactive, onMounted, defineComponent, getCurrentInstance } from "vue";
 import store from '../../store';
+import { ElMessage } from 'element-plus'
 
-export default {
+export default defineComponent({
   setup() {
 
-    let user = reactive({
-      username: "",
-      password: "",
+    let loginForm = reactive({
+      username: '',
+      password: ""
     });
+
+    let loginRules = {
+        username: [{required: true, trigger: 'blur', message: '请输入用户名'}],
+        password: [{required: true, trigger: 'blur', message: '请输入密码'}]
+    }
+    let pwdType = ref('password')
+    let loading = ref(false)
+    // $ref
+    let login_form = ref(null);
 
     onMounted(()=>{
       // 登录页清楚token
       store.dispatch('outLoing')
     })
+    
+    // console.log(getCurrentInstance().appContext.config.globalProperties.defalutData);
 
     function handleLogin() {
-      store.dispatch('loginAction',user)
+      login_form.value.validate((valid) => {
+          if (valid) {
+            // alert('submit!');
+
+            if(loginForm.username == ''){
+              ElMessage.warning('请输入用户名')
+              return false
+            }else if(loginForm.password == ''){
+              ElMessage.warning('请输入密码')
+              return false
+            }
+
+            loading.value = true
+            store.dispatch('loginAction',loginForm).then(res =>{if(!res){loading.value = false}})
+
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
     }
 
     return {
-      user,
+      // 2.0 ref
+      login_form,
+      // 表单数据
+      loginForm,
+      // 提交事件
       handleLogin,
+      // 规则效验
+      loginRules,
+      pwdType,
+      loading,
+      
+      background: store.getters.getThemeColor.background
     };
-  },
-  methods: {},
-};
+  }
+});
 </script>
 
-<style scoped lang='scss'>
-.login-form-layout {
+<style scoped>
+.login-title{
+  text-align: center;
+  color: #fff;
+  display: block;
+  font-size: 28px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.el-form{
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+.el-form-item{
+  margin: 10px 0;
+}
+
+.login-input{
+}
+.login-input /deep/ .el-input__prefix{
+  /* display: flex; */
+  /* align-items: center; */
+}
+.login-input /deep/ input{
+  background: rgba(0, 0, 0, 0);
+  border:none;
+  border-radius: 0;
+  color: #fff;
+  line-height: 50px;
+  /* height: 50px; */
+}
+.borderBottom{
+  padding-bottom: 10px;
+
+  border-bottom: 1px solid #fff !important;
+} 
+
+.bgImage{
   position: absolute;
   left: 0;
-  right: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+}
+
+.login-form-layout {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
   width: 360px;
-  margin: 140px auto;
-  background: #fff;
+  margin: 0 auto;
   border-radius: 5px;
-  border-top: 10px solid #409eff;
-  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
 }
 
-.login-title {
-  text-align: center;
-}
-
-.inpBox {
+.btn{
+  width: 100%;
   display: flex;
-  align-items: center;
-
-  input {
-    width: 80%;
-    height: 25px;
-    padding: 5px;
-    margin: 0 auto;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    outline-color: #409eff;
-    margin-bottom: 20px;
-  }
+  justify-content: center;
+  margin: 20px 0;
 }
-
-button {
+.btn /deep/ .el-button{
   height: 35px;
   border-radius: 3px;
   background: #409eff;
@@ -119,12 +195,4 @@ button:focus {
   outline: none;
 }
 
-.login-center-layout {
-  background: #409eff;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  margin-top: 200px;
-}
 </style>
