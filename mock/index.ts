@@ -32,7 +32,7 @@ export function mockXHR(){
 
     let i:any
     for(i of apis){
-        Mock.mock(ENV.VITE_BASE_URL + i.url, i.type || 'get', XHRreq(i.response))
+        Mock.mock(new RegExp(ENV.VITE_BASE_URL + i.url), i.type || 'get', XHRreq(i.response))
     }
 
 }

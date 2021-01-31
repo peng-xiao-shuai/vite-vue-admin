@@ -38,10 +38,13 @@
       </el-form>
 
       <div class="btn">
-        <el-button :style="{width: '45%',backgroundColor: background}" :loading="loading" @click.native.prevent="handleLogin('login_form')">
+        <el-button :style="{width: '100%',backgroundColor: background}" :loading="loading" @click.native.prevent="handleLogin('login_form')">
             登录
         </el-button>      
       </div>
+
+      <div style="color:#ccc">账号：admin 密码：123456</div>
+      <div style="color:#ccc">账号：ordinary 密码：123456</div>
     </div>
     <el-image src="@/assets/bgImg.png" fit="cover" class='bgImage'></el-image>
   </div>
@@ -58,8 +61,8 @@ export default defineComponent({
   setup() {
 
     let loginForm = reactive({
-      username: '',
-      password: ""
+      username: 'admin',
+      password: 123456
     });
 
     let loginRules = {

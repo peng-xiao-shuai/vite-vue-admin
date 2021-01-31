@@ -8,8 +8,9 @@ export function login(data: Object){
     })
 }
 
-export function getUser(){
+export function getUser(params:Object){
     return request({
-        url:'info'
+        url:'info',
+        params
     })
 }

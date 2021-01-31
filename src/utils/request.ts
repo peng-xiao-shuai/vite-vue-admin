@@ -33,6 +33,8 @@ service.interceptors.response.use(response =>{
     // 对响应数据做点什么
     let code
     if(ENV.VITE_MOCK){ 
+        console.log(response);
+        
         code = JSON.parse(response.request.response).code
     }else{
         code = response.data.code
@@ -64,6 +66,8 @@ service.interceptors.response.use(response =>{
         case 200:
         
             if(ENV.VITE_MOCK){ 
+                console.log(response.data);
+                
                 return response.data
             }
 

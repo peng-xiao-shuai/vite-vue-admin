@@ -1,30 +1,35 @@
+import roles from './menus';
+
 const tokens:any = {
-    admin: {
-        token: 'admin-token',
-        roles: ['admin'],
-        introduction: 'I am a super administrator',
-        avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-        name: 'Super Admin'
+    'admin-token': {
+          icon: "http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/images/20180607/timg.jpg",
+          id: 3,
+          menus: roles['admin'],
+          roles: ['admin'],
+          username: "admin",
     },
-    ordinary: {
-        token: 'editor-token',
-        roles: ['ordinary'],
-        introduction: 'I am an editor',
-        avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-        name: 'Normal Editor'
+    'editor-token': {
+          icon: "http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/images/20180607/timg.jpg",
+          id: 3,
+          menus: roles['ordinary'],
+          roles: ['ordinary'],
+          username: "ordinary",
     }
 }
-const users = {
+const users:any = {
     'admin': {
-      password: 123456
+      password: 123456,
+      token: 'admin-token',
+
     },
     'ordinary': {
-      password: 123456
+      password: 123456,
+      token: 'editor-token',
     }
   }
 
 interface config {
-  body:any,type:string,url:string
+  body:any,method:string,query:any
 }
 
 export default [
@@ -35,11 +40,12 @@ export default [
 
           let index = Object.keys(users).indexOf(config.body.username)
           if(index !== -1){
-            if(config.body.password === '123456'){
+            if(config.body.password == 123456){
               return{
                 data:{
-                  token: tokens[config.body.username].token,
-                  tokenHead: "Bearer ",
+                  token: users[config.body.username].token,
+                  // tokenHead: "Bearer ",
+                  tokenHead: "",
                 },
                 code: 200
               }
@@ -58,10 +64,14 @@ export default [
       }
     },
     {
-      url: 'info',
-      response: {
-            data:1,
-            code: 200
-        }
+      url: 'info\*',
+      response: (config:config)=> {
+          console.log(tokens[config.query.token]);
+          return {
+            code: 200,
+            data: tokens[config.query.token],
+            message: "操作成功"
+          }
+      }
     }
 ]

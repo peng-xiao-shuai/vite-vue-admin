@@ -107,7 +107,7 @@ const actions = {
 	// 获取用户信息
 	userInfo({commit}){
 		return new Promise((resovle) =>{
-			getUser()
+			getUser({token: state.token})
 			.then(async (res:any) => {
 				commit(TYPE.LOGIN_THEN,res.data)
 				
