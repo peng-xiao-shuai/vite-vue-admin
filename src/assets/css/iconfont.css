@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'viteIcon';  /* project id 2351447 */
+    src: url('//at.alicdn.com/t/font_2351447_a58c1n5cqwa.eot');
+    src: url('//at.alicdn.com/t/font_2351447_a58c1n5cqwa.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_2351447_a58c1n5cqwa.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_2351447_a58c1n5cqwa.woff') format('woff'),
+    url('//at.alicdn.com/t/font_2351447_a58c1n5cqwa.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_2351447_a58c1n5cqwa.svg#viteIcon') format('svg');
+  }
+  
+.viteIcon {
+    font-family: "viteIcon" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .viteyanjing:before {
+    content: "\e60d";
+  }
+  
+  .vitebiyan:before {
+    content: "\e610";
+  }
