@@ -90,13 +90,17 @@ const state = {
 const actions = {
 	// 登录
 	loginAction({state},user: any){
-		login(user)
-		.then((res: {data:{tokenHead: string , token: string}}) => {
-			if(res){
-				state.token = res.data.tokenHead + res.data.token
-				Cookies.set('token',res.data.tokenHead + res.data.token)
-				router.push({path:'/'})
-			}
+		new Promise((resolve)=>{
+			login(user)
+			.then((res: {data:{tokenHead: string , token: string}}) => {
+				if(res){
+					state.token = res.data.tokenHead + res.data.token
+					Cookies.set('token',res.data.tokenHead + res.data.token)
+					router.push({path:'/'})
+				
+				}
+				resolve(res)
+			})
 		})
 	},
 
