@@ -6,6 +6,7 @@ import store from './store'
 // import { getToken } from '@/utils/auth' // 验权
 
 const notRedirect = ['/login'] // 不重定向白名单
+
 router.beforeEach((to, from, next) => {
 
   // 1 判断是否有token
@@ -22,7 +23,7 @@ router.beforeEach((to, from, next) => {
       
       store.dispatch('userInfo')
       .then(res => {
-        next()
+        next({ ...to, replace: true })
       })
     }else{
       next()
@@ -38,6 +39,5 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
-  console.log();
   // NProgress.done() // 结束Progress
 })
