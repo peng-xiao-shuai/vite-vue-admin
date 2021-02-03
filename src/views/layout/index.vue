@@ -52,12 +52,13 @@ export default {
             width: 100%;
 
             .top{
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             }
 
             .view{
                 background: #f3f3f3;
                 min-height: calc(100% - 50px);
+                padding: 20px;
             }
         }
     }

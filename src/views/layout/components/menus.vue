@@ -1,5 +1,5 @@
 <template>
-  <div class="menus" :style="{width: collapse ? '64px' : 'auto'}">
+  <div class="menus">
     <!-- @open="handleOpen" -->
       <!-- @close="handleClose" -->
 

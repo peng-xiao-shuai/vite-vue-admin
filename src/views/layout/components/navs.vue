@@ -1,36 +1,70 @@
 <template>
   <div style="padding:10px" class="navs">
     <div class="left">
-        <div class="viteIcon el-icon-s-unfold" @click="$emit('isCollapse',collapse = !collapse)">
-        </div>
+        <i class="viteIcon el-icon-s-operation" @click="$emit('isCollapse',collapse = !collapse)">
+        </i>
         <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }" v-for="(item,index) in matched" :key='index'>{{item.meta.title}}</el-breadcrumb-item>
+            <transition-group name="list">
+                <!-- <span v-for="(item,index) in matched" :key='index'>
+                    {{item.meta.title}}{{index}}
+                </span> -->
+                <el-breadcrumb-item :to="{ path: item.path }" v-for="(item,index) in matched" :key='index'>   
+                    <span v-if="item.redirect" class="no-redirect">{{item.meta.title}}</span>
+                    <router-link v-else :to="item.redirect||item.path">{{item.meta.title}}</router-link>
+                </el-breadcrumb-item>
+            </transition-group>
         </el-breadcrumb>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, reactive, ref, watch,watchEffect } from 'vue';
 import { useRoute,onBeforeRouteUpdate } from 'vue-router';
 
 export default {
     setup(){
-        // onBeforeRouteUpdate((to) => {
-        //     console.log(to.matched);
-        // })
-
         let route = useRoute()
-        let matched = computed(() => {
-            return route.matched
-        })
+		let matched = []
+		matched = computed(() => {
+			let arr = route.matched
+			if (arr[0].path !== '/') {
+				arr = [{ path: '/', meta: { title: '首页' }}].concat(route.matched)
+			}
 
+			return arr.filter(item => item.meta && item.meta.title && !item.meta.breadcrumb)
+		})
+		// let matched = reactive({
+		// 	value:[]
+		// })
+		// watch(route,()=>{
+		// 	console.log(route);
+		// 	let arr = route.matched
+		// 	if (arr[0].path !== '/') {
+		// 		arr = [{ path: '/', meta: { title: '首页' }}].concat(route.matched)
+		// 	}
+
+		// 	matched = arr
+
+		// 	console.log(matched);
+		// },{
+		// 	immediate:true,
+		// 	deep:true
+		// })
+
+		// watchEffect(() => {
+		// 	let arr = route.matched
+		// 	if (arr[0].path !== '/') {
+		// 		arr = [{ path: '/', meta: { title: '首页' }}].concat(route.matched)
+		// 	}
+		// 	matched.value = arr	
+		// })
         let collapse = ref(true)
+		console.log(matched);
 
-        console.log(collapse);
         return{
             matched,
-            collapse
+			collapse,
         }
     }
 }
@@ -50,5 +84,16 @@ export default {
                 font-size: 22px;
             }
         }
+    }
+    .list-item {
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .list-enter-active, .list-leave-active {
+		transition: all .3s;
+    }
+    .list-enter, .list-leave-to {
+        opacity: 0;
+        transform: translateX(30px);
     }
 </style>

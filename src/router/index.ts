@@ -7,13 +7,18 @@ const routes = [
     path: '/',
     component: layOut,
     redirect: '/home',
+    meta: {
+      title: '首页',
+      icon: 'home',
+      // breadcrumb: true
+    },
     children: [{
 			path: 'home',
 			name: 'home',
 			component: () => import('/@/views/home/index.vue'),
 			meta: {
 				title: '首页',
-				icon: 'home'
+        icon: 'home',
 			}
 		}]
   },
@@ -35,10 +40,10 @@ const routes = [
 	  name: 'about',
     redirect: '/about/abouts',
     component: layOut,
-    // meta: {
-		// 	title: '关于我们',
-		// 	icon: 'ums-admin'
-		// },
+    meta: {
+			title: '关于我们',
+			icon: ''
+		},
     children: [{
 			path: 'abouts',
 			name: 'abouts',
@@ -107,11 +112,11 @@ export const addRouter = [{
  {
     path: '/oms',
     component: layOut,
-    redirect: '/oms/user',
+    redirect: '/oms/order',
     name: 'oms',
     meta: {
       title: '订单管理',
-      icon: 'user'
+      icon: 'order'
     },
     children: [{
       path: 'order',
