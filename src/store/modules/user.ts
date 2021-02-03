@@ -1,6 +1,6 @@
 import TYPE from "../type/userType"
 
-import Cookies from '/@modules/js-cookie'
+import Cookies from 'js-cookie'
 
 import { getUser,login } from '/@/api/logins';
 import router,{addRouter as asyncRouter}  from '/@/router/index';

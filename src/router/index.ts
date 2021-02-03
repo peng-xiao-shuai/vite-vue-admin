@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 // console.log(router)
-import layOut from '/@/views/layout/index.vue'
+import layOut from '../views/layout/index.vue'
 const routes = [
   {
     path: '/',
