@@ -38,7 +38,7 @@
       </el-form>
 
       <div class="btn">
-        <el-button :style="{width: '100%',backgroundColor: background}" :loading="loading" @click.native.prevent="handleLogin('login_form')">
+        <el-button :style="{width: '100%',backgroundColor: themeColor.background}" :loading="loading" @click.native.prevent="handleLogin('login_form')">
             登录
         </el-button>      
       </div>
@@ -46,13 +46,14 @@
       <div style="color:#ccc">账号：admin 密码：123456</div>
       <div style="color:#ccc">账号：ordinary 密码：123456</div>
     </div>
-    <el-image src="@/assets/bgImg.png" fit="cover" class='bgImage'></el-image>
+    <el-image :src="bgImage" fit="cover" class='bgImage'></el-image>
   </div>
 </template>
 
 <script>
 //   import {isvalidUsername} from '@/utils/validate';
 //   import {setSupport,getSupport,setCookie,getCookie} from '@/utils/support';
+import bgImage from '/@/assets/bgImg.png';
 import { ref, reactive, onMounted, defineComponent, getCurrentInstance } from "vue";
 import store from '../../store';
 import { ElMessage } from 'element-plus'
@@ -105,6 +106,7 @@ export default defineComponent({
     }
 
     return {
+      bgImage,
       // 2.0 ref
       login_form,
       // 表单数据
@@ -115,8 +117,6 @@ export default defineComponent({
       loginRules,
       pwdType,
       loading,
-      
-      background: store.getters.getThemeColor.background
     };
   }
 });

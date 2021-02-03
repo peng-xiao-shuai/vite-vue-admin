@@ -14,7 +14,7 @@ import SvgIcon from './components/SvgIcon/index.vue'// svg component
 import defalutData from './config/defalut-data';
 
 // css
-import 'element-plus/lib/theme-chalk/index.css'
+import 'element-plus/lib/theme-chalk/index.css';
 import './assets/css/iconfont.css';
 
 import {mockXHR} from '../mock/index';
@@ -24,6 +24,15 @@ if(process.env.NODE_ENV === 'development'){
 }
 
 let app = createApp(App)
+
+app.mixin({
+    computed:{
+        // 全局颜色
+        themeColor(){
+            return store.getters.getThemeColor
+        }
+    }
+})
 
 app.use(store).use(router).use(ElementPlus).mount('#app')
 

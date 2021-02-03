@@ -6,7 +6,7 @@ const menusSettin = {
     textColor: '#fff',
     activeTextColor:'#fff',
     // 折叠动画
-    collapseTransition: false
+    collapseTransition: true
 }
 
 export {
