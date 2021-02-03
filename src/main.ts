@@ -1,14 +1,20 @@
 import { createApp } from 'vue'
-import App from '/@/App.vue'
+import App from './App.vue'
 import router from './router/index'
 import store from './store'
 import ElementPlus from 'element-plus'
 
 import './permission'
+import './icons'
+
+// 全局组件
+import SvgIcon from './components/SvgIcon/index.vue'// svg component
+
+// 全局静态配置
 import defalutData from './config/defalut-data';
 
 // css
-import '/@modules/element-plus/lib/theme-chalk/index.css'
+import 'element-plus/lib/theme-chalk/index.css'
 import './assets/css/iconfont.css';
 
 import {mockXHR} from '../mock/index';
@@ -20,5 +26,8 @@ if(process.env.NODE_ENV === 'development'){
 let app = createApp(App)
 
 app.use(store).use(router).use(ElementPlus).mount('#app')
+
+app.component('svg-icon',SvgIcon)
+// 全局挂载
 
 app.config.globalProperties.defalutData=defalutData;
