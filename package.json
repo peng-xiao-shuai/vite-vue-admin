@@ -13,7 +13,7 @@
     "normalize-wheel": "^1.0.1",
     "resize-observer-polyfill": "^1.5.1",
     "vite": "^2.0.0-beta.60",
-    "vue": "^3.0.4",
+    "vue": "^3.0.5",
     "vue-router": "^4.0.3",
     "vue-svgicon": "^3.2.9",
     "vuex": "^4.0.0-rc.2"
@@ -22,6 +22,6 @@
     "@vitejs/plugin-vue": "^1.1.4",
     "svg-sprite-loader": "^5.2.1",
     "sass": "^1.32.5",
-    "@vue/compiler-sfc": "^3.0.4"
+    "@vue/compiler-sfc": "^3.0.5"
   }
 }
