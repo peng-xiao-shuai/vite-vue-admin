@@ -15,7 +15,7 @@
     </div>
 
     <el-menu
-      :collapse='collapse'
+      :collapse='!collapse'
       :mode='menusSettin.mode'
       :background-color='menusSettin.backgroundColor'
       :text-color='menusSettin.textColor'
@@ -26,7 +26,7 @@
       <template v-for="(item, _index) in menus" :key="item.name">
         <el-submenu :index="String(_index)" v-if="!item.hidden" :show-timeout='100' :hide-timeout='100'>
           <template #title>
-            <i class="el-icon-location metaTitle"></i>
+            <i :class="[item.meta.icon,'viteIcon'] "></i>
             <span class="metaTitle">
               {{
                 (item.meta && item.meta.title) ||
@@ -41,7 +41,9 @@
                class="children"
               @click='navTo(each.path)'
             >
-              <el-menu-item :index="_index + '-' + idx">{{each.meta && each.meta.title}}</el-menu-item>
+              <el-menu-item :index="_index + '-' + idx">
+                <i :class="[each.meta.icon,'viteIcon'] "></i>
+                {{each.meta && each.meta.title}}</el-menu-item>
             </el-menu-item-group>
           </template>
         </el-submenu>
@@ -71,7 +73,7 @@ export default {
     }
 
     // watch(collapse,(val)=>{
-      console.log(props.collapse);
+      console.log(menusSettin.children);
     // })
 
     function outlogin() {
@@ -86,13 +88,13 @@ export default {
       outlogin,
 
       menus,
-      menusSettin,
+      menusSettin
     };
   },
 };
 </script>
 
-<style lang="scss">
+<style>
 .menus-logo{
   box-sizing: border-box;
   padding: 10px;
@@ -106,9 +108,41 @@ export default {
   min-height: 100vh;
   background: #20335D;
 }
+
+.menus .viteIcon{
+  font-size: 16px;
+  /* border: 1px solid #fff; */
+  color: #ccc;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.el-menu{
+  border: none;
+}
+
+.el-submenu .el-menu-item{
+  background: #1a294a !important;
+  color: #ccc !important;
+  /* background: v-bind(children); */
+}
+
+.el-submenu__title:hover,.el-menu-item:hover,.el-submenu__title:hover .viteIcon,.el-menu-item:hover .viteIcon{
+  background: #182646 !important;
+  color: #5874ae !important;
+  transition: all .2s;
+}
+.el-menu-item:hover{
+  background: #101a33 !important;
+
+}
+.el-submenu__title:hover .viteIcon,.el-menu-item:hover .viteIcon{
+  background: #202e50 !important;
+}
+
 .el-submenu .el-menu-item{
   padding: 0 !important;
-  padding-left: 60px !important;
+  padding-left: 40px !important;
 }
 .el-menu-item-group__title{
   padding: 0 !important;

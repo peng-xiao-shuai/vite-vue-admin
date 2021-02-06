@@ -9,7 +9,7 @@ const routes = [
     redirect: '/home',
     meta: {
       title: '首页',
-      icon: 'home',
+      icon: 'viteshouye',
       // breadcrumb: true
     },
     children: [{
@@ -18,9 +18,15 @@ const routes = [
 			component: () => import('/@/views/home/index.vue'),
 			meta: {
 				title: '首页',
-        icon: 'home',
+        icon: 'viteshouye',
 			}
 		}]
+  },
+  {
+    path: '/redirect',
+    name: 'redirect',
+    hidden: true,
+    component: () => import('/@/views/redirect.vue')
   },
   {
     path: '/login',
@@ -42,7 +48,7 @@ const routes = [
     component: layOut,
     meta: {
 			title: '关于我们',
-			icon: ''
+			icon: 'viteguanyuwomen'
 		},
     children: [{
 			path: 'abouts',
@@ -50,7 +56,7 @@ const routes = [
 			component: () => import('/@/views/about/abouts/index.vue'),
 			meta: {
 				title: '关于我们',
-				icon: 'about'
+				icon: 'viteguanyuwomen'
 			}
 		}]
   },
@@ -62,8 +68,8 @@ export const addRouter = [{
     redirect: '/c-user/user',
     name: 'c-user',
     meta: {
-      title: '用户信息',
-      icon: 'user'
+      title: '用户管理',
+      icon: 'viteyonghuguanli'
     },
     children: [{
       path: 'user',
@@ -71,7 +77,7 @@ export const addRouter = [{
       component: () => import('/@/views/c-user/user/index.vue'),
       meta: {
         title: '用户列表',
-        icon: 'product-list'
+        icon: 'viteliebiao'
       }
     },{
       path: 'updateUser',
@@ -116,7 +122,7 @@ export const addRouter = [{
     name: 'oms',
     meta: {
       title: '订单管理',
-      icon: 'order'
+      icon: 'vitedingdan'
     },
     children: [{
       path: 'order',
@@ -124,7 +130,7 @@ export const addRouter = [{
       component: () => import('/@/views/oms/order/index.vue'),
       meta: {
         title: '订单列表',
-        icon: 'product-list'
+        icon: 'viteliebiao'
       }
     }]
   }, 

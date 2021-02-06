@@ -6,6 +6,7 @@
         <div class="right">
             <div class="top">
                 <navs @isCollapse='isCollapse'></navs>
+                <tags-view></tags-view>
             </div>
             <div class="view">
                 <router-view></router-view>
@@ -18,11 +19,14 @@
 import { ref } from 'vue';
 import menus from './components/menus.vue';
 import navs from './components/navs.vue';
+import TagsView from './components/TagsView.vue';
+
 
 export default {
     components:{
         menus,
-        navs
+        navs,
+        TagsView
     },
     setup(){
         let collapse = ref(true)
@@ -57,7 +61,8 @@ export default {
 
             .view{
                 background: #f3f3f3;
-                min-height: calc(100% - 50px);
+                min-height: calc(100% - 90px - 26px);
+                max-height: calc(100% - 90px - 26px);
                 padding: 20px;
             }
         }

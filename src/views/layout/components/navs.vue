@@ -1,7 +1,7 @@
 <template>
   <div style="padding:10px" class="navs">
     <div class="left">
-        <i class="viteIcon el-icon-s-operation" @click="$emit('isCollapse',collapse = !collapse)">
+        <i :class="['el-icon-s-unfold',collapse ? 'collapse' :'']" @click="$emit('isCollapse',collapse = !collapse)">
         </i>
         <el-breadcrumb separator="/">
             <transition-group name="list">
@@ -23,6 +23,9 @@ import { computed, reactive, ref, watch,watchEffect } from 'vue';
 import { useRoute,onBeforeRouteUpdate } from 'vue-router';
 
 export default {
+	emits:{
+		"isCollapse":null
+	},
     setup(){
         let route = useRoute()
 		let matched = []
@@ -74,15 +77,22 @@ export default {
     .navs{
         height: 50px;
         box-sizing: border-box;
+        display: flex;
+        align-items: center;
         .left{
             display: flex;
             align-items: center;
             > div{
                 margin-right: 10px;
             }
-            .viteIcon{
-                font-size: 22px;
-            }
+            i{
+				font-size: 22px;
+				margin-right: 5px;
+				transition: all 0.4s;
+			}
+			.collapse{
+				transform: rotate(-180deg);
+			}
         }
     }
     .list-item {

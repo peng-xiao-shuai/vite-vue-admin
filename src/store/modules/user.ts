@@ -84,7 +84,11 @@ function addRouterFun(router:[],each:any){
 const state = {
 	token:Cookies.get('token'),
 	userInfo:{},
-	menus:[]
+	menus:[],
+	tags:[{
+		name:'home',
+		remove:true
+	}]
 }
 
 const actions = {
@@ -105,7 +109,8 @@ const actions = {
 	},
 
 	// 获取用户信息
-	userInfo({commit}){
+	userInfo({commit},to:any){
+		
 		return new Promise((resovle) =>{
 			getUser({token: state.token})
 			.then(async (res:any) => {
@@ -133,6 +138,19 @@ const mutations = {
 	[TYPE.LOGIN_THEN](state:{userInfo: object,menus: []},val: any){
 		// console.log('接受数据',val);
 		state.userInfo = val
+	},
+	tagsCommit(state: any,val: any){
+
+		if(val.removeIndex !== undefined){
+			console.log('删除');
+			
+			state.tags.splice(val.removeIndex,1)
+		}else{
+			state.tags.push(val.to)
+		}
+
+		console.log(state.tags);
+
 	}
 }
 

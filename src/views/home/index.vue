@@ -1,7 +1,7 @@
 <template>
   <div class="home">
+    <svg-icon icon-class="user"/>
     <span>{{count}}</span>
-    <img alt="Vue logo" src="@/assets/logo.png" @click="add">
     <HelloWorld msg="Welcome to Your Vue.js App" @hook:mounted = 'worldMounted'/>
   </div>
 </template>
