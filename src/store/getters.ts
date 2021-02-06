@@ -5,8 +5,8 @@ const getters = {
 	getMenus:(state:{user: {menus: []}}) => {
 		return state.user.menus
 	},
-	getThemeColor:(state:{assets: {themeColor: object}}) => {
-		return state.assets.themeColor
+	getThemeColor:(state:{settings: {themeColor: object}}) => {
+		return state.settings.themeColor
 	}
 }
 

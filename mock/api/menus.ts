@@ -1,7 +1,7 @@
 const roles = {
     'admin':[{
         hidden: 0,
-        icon: "order",
+        icon: "vitedingdan",
         id: 1,
         level: 0,
         name: "oms",
@@ -10,7 +10,7 @@ const roles = {
         title: "订单"
     },{
         hidden: 0,
-        icon: "product-list",
+        icon: "viteliebiao",
         id: 8,
         level: 1,
         name: "order",
@@ -19,16 +19,16 @@ const roles = {
         title: "订单列表"
     },{
         hidden: 0,
-        icon: "user",
+        icon: "viteyonghuguanli",
         id: 4,
         level: 0,
         name: "c-user",
         parentId: 0,
         sort: 997,
-        title: "用户信息",
+        title: "用户管理",
     },{
         hidden: 0,
-        icon: "product-list",
+        icon: "viteliebiao",
         id: 2,
         level: 1,
         name: "user",
@@ -37,7 +37,7 @@ const roles = {
         title: "用户列表"
     },{
         hidden: 0,
-        icon: "product-list",
+        icon: "viteliebiao",
         id: 3,
         level: 1,
         name: "notificationType",
@@ -47,7 +47,7 @@ const roles = {
     }],
     'ordinary':[{
         hidden: 0,
-        icon: "order",
+        icon: "vitedingdan",
         id: 1,
         level: 0,
         name: "oms",

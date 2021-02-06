@@ -1,0 +1,10 @@
+/* 改变主题色变量 */
+$--color-primary: #75126d;
+$--color-success: #13ce66;
+$--color-warning: #ffba00;
+$--color-danger: #ff4949;
+// @import "element-plus/packages/theme-chalk/src/index.scss";
+
+:export {
+  theme: $--color-primary;
+}

@@ -14,8 +14,10 @@ import SvgIcon from './components/SvgIcon/index.vue'// svg component
 import defalutData from './config/defalut-data';
 
 // css
-import 'element-plus/lib/theme-chalk/index.css';
-import './assets/css/iconfont.css';
+// vite 暂不支持scss :export
+// import './style/index.scss';
+import './style/iconfont.css';
+import "element-plus/packages/theme-chalk/src/index.scss";
 
 import {mockXHR} from '../mock/index';
 
