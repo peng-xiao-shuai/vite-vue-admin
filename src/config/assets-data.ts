@@ -9,7 +9,7 @@ const menusSettin = {
     children: '#16233f',
 
     // 折叠动画
-    collapseTransition: true
+    collapseTransition: false
 }
 
 export {

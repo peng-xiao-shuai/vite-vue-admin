@@ -1,9 +1,16 @@
 /* 改变主题色变量 */
-$--color-primary: #75126d;
+$--color-primary: #17ccb7;
 $--color-success: #13ce66;
 $--color-warning: #ffba00;
 $--color-danger: #ff4949;
-// @import "element-plus/packages/theme-chalk/src/index.scss";
+$--font-path: '/node_modules/element-plus/lib/theme-chalk/fonts';
+
+@import "element-plus/packages/theme-chalk/src/index.scss";
+
+// 抽屉样式
+.el-drawer__header{
+  margin-bottom: 20px;
+}
 
 :export {
   theme: $--color-primary;
