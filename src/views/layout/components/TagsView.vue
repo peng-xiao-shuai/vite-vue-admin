@@ -29,7 +29,7 @@ export default {
             let isExist = tags.filter(item => item.name == currentName.value).length > 0 ? true : false
             let to = JSON.parse(JSON.stringify(val))
             console.log(to);
-            if(!isExist &&val.name !== "redirect"){
+            if(!isExist && val.name !== "redirect"  && val.name !== "404"){
                 store.commit('tagsCommit',{to})
             }
         },{
@@ -84,8 +84,8 @@ export default {
 
 <style lang='scss'>
 .tags{
-    padding: 0 10px;
-    border-bottom: 2px solid #1CC9B5;
+    padding: 7px 10px;
+    border-top: 1px solid #eee;
     display: flex;
 
 
@@ -94,8 +94,13 @@ export default {
 
         .tag{
             padding: 4px 8px;
+            height: 25px;
+            line-height: 25px;
+            box-sizing: border-box;
             background: #fff;
             border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 5px;
             display: flex;
             align-items: center;
             font-size: 12px;
@@ -122,7 +127,7 @@ export default {
             content: "";
             display: block;
             height: 50%;
-            border-right: 1px solid #ccc;
+            // border-right: 1px solid #ccc;
             position: absolute;
             right: 0;
         }
@@ -131,7 +136,7 @@ export default {
             color: #fff;
             position: relative;
             transition: all .2s;
-            border-radius: 5px 5px 0 0;
+            border-radius: 5px;
             border: none;
 
             i{
@@ -165,8 +170,10 @@ export default {
 }
 .tags-enter-to{
     transform: translateX(0px);
+    opacity: 1;
+
 }
-.tags-enter, .tags-leave-to {
+.tags-enter-from, .tags-leave-to {
     opacity: 0;
     transform: translateX(30px);
 }

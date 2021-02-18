@@ -1,5 +1,5 @@
 <template>
-  <div style="padding:10px" class="navs">
+  <div style="padding:5px 10px" class="navs">
     <div class="left">
         <i :class="['el-icon-s-unfold',collapse ? 'collapse' :'']" @click="$emit('isCollapse',collapse = !collapse)">
         </i>
@@ -102,7 +102,7 @@ export default {
     .list-enter-active, .list-leave-active {
 		transition: all .3s;
     }
-    .list-enter, .list-leave-to {
+    .list-enter-from, .list-leave-to {
         opacity: 0;
         transform: translateX(30px);
     }

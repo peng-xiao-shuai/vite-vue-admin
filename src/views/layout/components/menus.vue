@@ -1,20 +1,10 @@
 <template>
-  <div class="menus">
-    <!-- @open="handleOpen" -->
-      <!-- @close="handleClose" -->
+  <div class="menus" :style="!collapse ? {width: '65px'} : {width: '200px'}">
 
-    <!-- <el-image
-      :style="{width: '100%'}"
-      :src="menusSettin.url"
-      :fit="'cover'"
-      :preview-src-list="[menusSettin.url]">
-    </el-image> -->
+    <menus-logo :collapse='collapse'></menus-logo>
 
-    <div class="menus-logo">
-      VITE
-    </div>
-
-    <el-menu
+    <el-scrollbar style="height:calc(100bh - 50px)">
+      <el-menu
       :collapse='!collapse'
       :mode='menusSettin.mode'
       :background-color='menusSettin.backgroundColor'
@@ -24,7 +14,7 @@
       class="el-menu-vertical-demo"
     >
       <template v-for="(item, _index) in menus" :key="item.name">
-        <el-submenu :index="String(_index)" v-if="!item.hidden" :show-timeout='100' :hide-timeout='100'>
+        <el-submenu :index="String(_index)" v-if="!item.hidden">
           <template #title>
             <i :class="[item.meta.icon,'viteIcon'] "></i>
             <span class="metaTitle">
@@ -49,7 +39,9 @@
         </el-submenu>
       </template>
     </el-menu>
+    </el-scrollbar>
   </div>
+
 </template>
 
 <script>
@@ -57,8 +49,15 @@ import router from "/@/router/index";
 import store from "/@/store/index";
 
 import { menusSettin } from '/@/config/assets-data';
+
+// 组件
+import menusLogo from './menus-logo.vue';
+
 export default {
   name: "menus",
+  components:{
+    menusLogo
+  },
   props:{
     collapse:{
       type: Boolean,
@@ -95,18 +94,20 @@ export default {
 </script>
 
 <style>
-.menus-logo{
-  box-sizing: border-box;
-  padding: 10px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width:100%;background:#1CC9B5;height: 50px;color:#fff;text-align:center;line-height: 30px
-}
+
 .menus{
-  min-width: 60px;
+  min-width: 65px;
   overflow: hidden;
   min-height: 100vh;
   background: #20335D;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: width .4s;
+}
+.clear{
+  min-width: 65px;
+  height: 100vh;
 }
 
 .menus .viteIcon{
@@ -118,7 +119,11 @@ export default {
 }
 
 .el-menu{
-  border: none;
+  border: none !important;
+  box-sizing: border-box;
+}
+.el-menu > div{
+  border: none !important;
 }
 
 .el-submenu .el-menu-item{
@@ -141,6 +146,7 @@ export default {
 }
 
 .el-submenu .el-menu-item{
+  border: none !important;
   padding: 0 !important;
   padding-left: 40px !important;
 }
