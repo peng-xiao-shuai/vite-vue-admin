@@ -9,29 +9,37 @@
                 <tags-view></tags-view>
             </div>
             <div class="view">
-                <transition name="fadeRouter"  mode="out-in">
-                    <router-view :key="key"/>
-                </transition>
+                <router-view v-slot="{ Component }">
+                    <transition name="fadeRouter"  mode="out-in">
+                        <keep-alive :include="caches">
+                            <component :is="Component" />
+                        </keep-alive>
+                    </transition>
+                </router-view>
+                
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { computed, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import TagsView from './components/TagsView.vue';
 import menus from './components/menus.vue';
 import navs from './components/navs.vue';
-import TagsView from './components/TagsView.vue';
+
+import { computed, defineComponent, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 
 
-export default {
+export default({
     components:{
         menus,
         navs,
         TagsView
     },
     setup(){
+        let Store = useStore()
         let collapse = ref(true)
 
         function isCollapse(e){
@@ -39,6 +47,7 @@ export default {
         }
 
         let route = useRoute()
+        let caches = computed(()=> Store.state.user.tags.map(item => item.name))
         let key = computed(()=>{
             return route.path
         })
@@ -46,10 +55,11 @@ export default {
         return{
             collapse,
             isCollapse,
-            key
+            key,
+            caches
         }
     }
-}
+})
 </script>
 
 <style lang="scss" scoped>
