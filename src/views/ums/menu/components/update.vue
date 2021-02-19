@@ -1,6 +1,6 @@
 <template>
   <el-drawer
-    title="编辑"
+    :title="currentFrom.id ? '修改' : '添加'"
     v-model="dialog"
     direction="rtl"
     ref="drawer"
@@ -44,7 +44,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('menuFrom')">提交</el-button>
-        <el-button v-if="!isEdit" @click="resetForm('menuFrom')">重置</el-button>
+        <el-button v-if="!currentFrom.id" @click="resetForm('menuFrom')">重置</el-button>
       </el-form-item>
     </el-form>
   </el-drawer>
@@ -71,13 +71,14 @@
       currentFrom:{
         type: Object,
         default:()=>{}
-      }
+      },
+      selectMenuList:{
+        type: Array,
+        default:()=>[]
+      },
     },
     data() {
       return {
-        isEdit:false,
-        menu: Object.assign({}, defaultMenu),
-        selectMenuList: [],
         rules: {
           title: [
             {required: true, message: '请输入菜单名称', trigger: 'blur'},
@@ -94,15 +95,10 @@
         }
       }
     },
+    emits:['update:currentFrom','update:dialog','refresh'],
     methods: {
       close(){
         this.$emit('update:dialog', false)
-      },
-      getSelectMenuList() {
-        fetchList(0, {pageSize: 100, pageNum: 1}).then(response => {
-          this.selectMenuList = response.data.list;
-          this.selectMenuList.unshift({id: 0, title: '无上级菜单'});
-        });
       },
       onSubmit(formName) {
         this.$refs[formName].validate((valid) => {
@@ -112,17 +108,18 @@
               cancelButtonText: '取消',
               type: 'warning'
             }).then(() => {
-              if (this.isEdit) {
-                updateMenu(this.$route.query.id, this.menu).then(response => {
+              if (this.currentFrom.id) {
+                updateMenu(this.currentFrom.id, this.currentFrom).then(response => {
                   this.$message({
                     message: '修改成功',
                     type: 'success',
                     duration: 1000
                   });
-                  this.$router.back();
+                  this.$emit('update:dialog', false)
+
                 });
               } else {
-                createMenu(this.menu).then(response => {
+                createMenu(this.currentFrom).then(response => {
                   this.$refs[formName].resetFields();
                   this.resetForm(formName);
                   this.$message({
@@ -130,9 +127,12 @@
                     type: 'success',
                     duration: 1000
                   });
-                  this.$router.back();
+                  this.$emit('update:dialog', false)
                 });
               }
+
+              // 刷新父组件
+              this.$emit('refresh')
             });
 
           } else {
@@ -147,8 +147,7 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        this.menu = Object.assign({}, defaultMenu);
-        this.getSelectMenuList();
+        this.$emit('update:currentFrom', {parentId: 0,hidden: 0})
       },
     }
   }
