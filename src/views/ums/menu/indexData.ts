@@ -25,7 +25,12 @@ const header:any[] = [{
 }, {
 	label: '前端图标', //显示的名称
 	poprs: [{
+		type: 'iconfont',
 		popr: 'icon',
+		data:{
+			style: {fontSize: '20px'},
+			class: ['el-icon-delete-solid']
+		}
 	}],
 },{
 	label: '是否显示', //显示的名称
@@ -35,7 +40,7 @@ const header:any[] = [{
         data:{
 			activeValue: 0,
 			inactiveValue: 1,
-			activeColor: '#1CC9B5',
+			activeColor: '#11b19e',
             inactiveText: '隐',
             activeText:"显"
         }
