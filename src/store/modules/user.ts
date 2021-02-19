@@ -88,7 +88,8 @@ const state = {
 	tags:[{
 		name:'home',
 		remove:true
-	}]
+	}],
+	pageNums:[]
 }
 
 const actions = {
@@ -131,6 +132,11 @@ const actions = {
 }
 
 const mutations = {
+	pageNumPush(state: any,val: any){
+		state.pageNums.push(val)
+		console.log(state.pageNums);
+		
+	},
 	outLogin(state: any,val: any){
 		state.token = val
 		router.push('/login')
@@ -145,6 +151,8 @@ const mutations = {
 			console.log('删除');
 			
 			state.tags.splice(val.removeIndex,1)
+
+			state.pageNums.splice(val.removeIndex,1)
 		}else{
 			state.tags.push(val.to)
 		}

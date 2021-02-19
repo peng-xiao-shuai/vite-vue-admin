@@ -32,7 +32,7 @@
 						<!-- 开关 -->
 						<div v-else-if="each.type == 'switch'">
 							<el-switch :inactive-text="each.data.inactiveText || ''" :active-text="each.data.activeText || ''" v-model="scope.row[each.popr]" :disabled="each.data.disabled || false" :active-color="each.data.activeColor || '#409EFF'" :inactive-color="each.data.inactiveColor || '#C0CCDA'"
-							 :active-value="(each.data.activeValue || each.data.activeValue === 0) ? each.data.activeValue : 1 " :inactive-value="each.data.inactiveValue || 0" @change="switchChange(scope.row,each.popr,each.data.activeValue,each.data.inactiveValue)">
+							 :active-value="(each.data.activeValue || each.data.activeValue === 0) ? each.data.activeValue : 1 " :inactive-value="each.data.inactiveValue || 0" @click="switchChange(scope.row,each.popr,each.data.activeValue,each.data.inactiveValue)">
 							</el-switch>
 						</div>
 						<!-- 输入框 -->
@@ -40,6 +40,9 @@
 							<el-input :style="each.data.style || {}" :size="each.data.size || 'small'" :placeholder="each.data.placeholder || ''" v-model="scope.row[each.popr]" :disabled="each.data.disabled || false">
 							    <template style="padding: 0 10px" v-if="each.data.slot" v-slot:[each.data.slot]>{{each.data.symbol}}</template>
 							</el-input>
+						</div>
+						<div v-else-if="each.type == 'iconfont'">
+							<i :class="[scope.row[each.popr],...each.data.class] || ['']" :style="each.data.style || {}"></i>
 						</div>
 						<div v-else-if="each.type == 'video'" style="border-radius: 10px;overflow: hidden;width: 100%;height: 100%;margin: 0 auto;">
 						  <video
@@ -91,6 +94,7 @@
 
 <script>
 	import { ElMessage } from 'element-plus'
+	import store from '/@/store';
 
 	export default {
 		name: "powerful-table",
@@ -127,7 +131,7 @@
 			},
 			pageSizes: {
 				type: Array,
-				default: () => [10, 20, 30]
+				default: () => [5, 20, 30]
 			},
 
 			// 批量操作
@@ -137,13 +141,24 @@
 					// null
 				}
 			},
+			// 表格名
+			tableName:{
+				type: String,
+				default: '_num'
+			},
+			// 是否开启表格pageNum缓存
+			isCachePageNum:{
+				type: Boolean,
+				default: false
+			},
+
 			//  毕传
 			total: {
 				type: Number,
 				default: 0
 			},
 		},
-		emits:['sortCustom','batchOperate','switchChange','sizeChange','look','update','remove'],
+		emits:['update:currentPage','sortCustom','batchOperate','switchChange','sizeChange','look','update','remove'],
 		data() {
 			return {
 				listLoading: true,
@@ -157,6 +172,23 @@
 				otherSelect: [],
 				
 				pageSize: this.pageSizes[0],
+			}
+		},
+		computed:{
+			// 筛选是否存在pageNum
+			page(){
+				if(this.isCachePageNum){
+					return store.state.pageNum.pageNums.filter((item) =>{
+						return item && item.name == this.$route.name
+					})
+				}else{
+					return []
+				}
+			}
+		},
+		mounted(){
+			if(this.isCachePageNum){
+				this.currentPage = this.page.length > 0 && this.page[0].pages[this.tableName] || 1
 			}
 		},
 		methods: {
@@ -179,8 +211,10 @@
 			},
 			// 排序方法
 			sortChange(obj){
-				if(obj.column.sortable == 'custom'){
-					this.$emit('sortCustom',obj)
+				if(obj.column){
+					if(obj.column.sortable == 'custom'){
+						this.$emit('sortCustom',obj)
+					}
 				}
 			},
 
@@ -204,54 +238,53 @@
 					});
 					return;
 				}
-				// this.$confirm(`是否要进行批量${this.operateData.operates[this.operateData.value].label}操作?`, '提示', {
-				// 	confirmButtonText: '确定',
-				// 	cancelButtonText: '取消',
-				// 	type: 'warning'
-				// }).then(() => {
+				this.$confirm(`是否要进行批量${this.operateData.operates[this.operateData.value].label}操作?`, '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
 					let ids = this.otherSelect.concat(this.currentSelect).map(item => item.id)
 					let items = this.otherSelect.concat(this.currentSelect).map(item => item)
 					
 					this.$emit('batchOperate',ids,this.operateData.operates[this.operateData.value],items)
-				// })
-				// .catch(err =>{
-				// 	console.log('取消批量操作');
-				// })
+				})
+				.catch(err =>{
+					console.log('取消批量操作');
+				})
 
 			},
 			// 按钮回调
 			btnChange(emit, row, index, type) {
-				// if (type == 'danger') {
-				// 	this.$confirm('是否要进行删除操作, 是否继续?', '提示', {
-				//			confirmButtonText: '确定',
-				// 			cancelButtonText: '取消',
-				// 			type: 'warning'
-				// 		})
-				// 		.then(res => {
-							// this.$emit(emit, row, index)
-						// })
-						// .catch(err => {
-						// 	console.log('取消删除');
-						// })
-				// } else {
+				if (type == 'danger') {
+					this.$confirm('是否要进行删除操作, 是否继续?', '提示', {
+							confirmButtonText: '确定',
+							cancelButtonText: '取消',
+							type: 'warning'
+						})
+						.then(res => {
+							this.$emit(emit, row, index)
+						})
+						.catch(err => {
+							console.log('取消删除');
+						})
+				} else {
 					this.$emit(emit, row, index)
-				// }
+				}
 			},
 			// 开关回调
 			switchChange(row, popr, val = 1, val2 = 0) {
-				let value = row[popr] == 1 ? val2 : val
-
-				// this.$confirm('是否要进行修改操作, 是否继续?', '提示', {
-				// 		confirmButtonText: '确定',
-				// 		cancelButtonText: '取消',
-				// 		type: 'warning'
-				// 	})
-				// 	.then(res => {
-						this.$emit('switchChange', row)
-					// })
-					// .catch(err => {
-					// 	row[popr] = value
-					// })
+				let value = row[popr] == val ? val2 : val
+				this.$confirm('是否要进行修改操作, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				})
+				.then(res => {
+					this.$emit('switchChange', row)
+				})
+				.catch(err => {
+					row[popr] = value
+				})
 			},
 			// 获取选中
 			getSelect(arr) {
@@ -326,6 +359,16 @@
 			},
 
 			get() {
+				// 存储pageNum
+				if(this.isCachePageNum){
+
+					if(this.page.length <= 0){
+						store.commit('pageNumPush',{name: this.$route.name,pages:{[this.tableName]: this.currentPage}})
+					}else{
+						this.page[0].pages[this.tableName] = this.currentPage
+					}
+				}
+
 				let data = {
 					pageNum: this.currentPage,
 					pageSize: this.pageSize
@@ -333,7 +376,7 @@
 
 				try {
 					// 如果父组件是getList方法 无需自定义事假
-					this.$parent.getList(data, this.otherSelect.concat(this.currentSelect))
+					this.$parent._getList(data, this.otherSelect.concat(this.currentSelect))
 				} catch (error) {
 					this.$emit('sizeChange', data, this.otherSelect.concat(this.currentSelect))
 				}
