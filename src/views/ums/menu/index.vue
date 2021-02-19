@@ -7,9 +7,16 @@
 			<span>数据列表</span>
 		</div>
 
-		<el-button type="primary" class="btn-add" @click="handleAddMenu()" size="mini">
-			添加
-		</el-button>
+		<div>
+			<transition name="fadeOpticy">
+				<el-button type="primary" class="btn-add" @click="backUp()" size="mini" v-show="upParentId >= 0">
+					<i class="el-icon-back"></i>返回上级
+				</el-button>
+			</transition>
+			<el-button type="primary" class="btn-add" @click="handleAddMenu()" size="mini">
+				添加
+			</el-button>
+		</div>
 	  </div>
     </el-card>
 
@@ -73,50 +80,52 @@ export default defineComponent({
 		})
 
       	let parentId = ref(0)
+      	let upParentId = ref(-1)
 
 		// 编辑区显隐
 		let isDialog = ref(false)
 		// 编辑区当前数据
 		let currentFrom =  reactive({value:{parentId: 0,hidden: 0}})
 
-		watch(route,()=>{
-			resetParentId()
-		},{
-			immediate:true
-		})
 		getList();
 
-		function resetParentId() {
-			listQuery.pageNum = 1;
-			if (route.query.parentId != null) {
-				parentId = route.query.parentId;
-			} else {
-				parentId = 0;
-			}
-		}
 		function handleAddMenu() {
 			isDialog.value = true
 		}
 		function getList(e) {
+			if(parentId.value == 0){
+				upParentId.value = -1
+			}
+
 			Object.assign(listQuery,e ? e : {pageNum: 1,pageSize: 10})
-			fetchList(parentId, listQuery).then((response) => {
+			fetchList(parentId.value, listQuery).then((response) => {
 
 				list.value = reactive(response.data.list);
 
 				total.value = response.data.total;
 			});
 		}
-		function handleHiddenChange(index, row) {
-		//   updateHidden(row.id, { hidden: row.hidden }).then((response) => {
-		//     this.$message({
-		//       message: "修改成功",
-		//       type: "success",
-		//       duration: 1000,
-		//     });
-		//   });
+		function handleHiddenChange(row, index) {
+		  updateHidden(row.id, { hidden: row.hidden }).then((response) => {
+		    _this.$message({
+		      message: "修改成功",
+		      type: "success",
+		      duration: 1000,
+		    });
+		  });
 		}
-		function handleShowNextLevel(index, row) {
-			router.push({ path: "/ums/menu", query: { parentId: row.id } });
+		function handleShowNextLevel(row, index) {
+			upParentId.value = parentId.value
+
+			parentId.value = row.id
+			
+			getList();
+		}
+		function backUp(){
+			listQuery.pageNum = 1
+			parentId.value = upParentId.value
+
+			getList();
 		}
 		function handleUpdate(row, index) {
 			isDialog.value = true
@@ -136,10 +145,10 @@ export default defineComponent({
 			});
 		}
 		// 获取所有的菜单
-		fetchList(parentId, {pageSize:0,pageNum:0}).then((response) => {
+		fetchList(parentId.value, {pageSize:0,pageNum:0}).then((response) => {
 			allList.value = allList.value.concat(response.data.list)
 
-			console.log(allList.value);
+			getList();
 		});
 
 		return {
@@ -149,6 +158,7 @@ export default defineComponent({
 			config,
 			listQuery,
 			parentId,
+			upParentId,
 			isDialog,
 			currentFrom,
 			allList,
@@ -156,10 +166,11 @@ export default defineComponent({
 			// 方法
 			handleAddMenu,
 			getList,
+			backUp,
 			handleHiddenChange,
 			handleShowNextLevel,
 			handleUpdate,
-			handleDelete
+			handleDelete,
 		}
 	}
 });

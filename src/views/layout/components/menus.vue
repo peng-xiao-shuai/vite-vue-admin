@@ -103,7 +103,7 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
-  transition: width .4s;
+  transition: width .3s;
 }
 .clear{
   min-width: 65px;

@@ -73,7 +73,7 @@ export default({
         transform: translateX(-30px);
     }
     .fadeRouter-enter-to,
-    .fadeRouter-leave{
+    .fadeRouter-leave-from{
         opacity: 1;
         transform: translateX(0);
     }
@@ -98,7 +98,7 @@ export default({
             // flex: 1;
             width: 100%;
             overflow: hidden;
-            transition: margin-left .35s;
+            transition: margin-left .3s;
 
             .top{
                 position: sticky;

@@ -12,6 +12,17 @@ $--font-path: '/node_modules/element-plus/lib/theme-chalk/fonts';
   margin-bottom: 20px;
 }
 
+// 淡入淡出
+.fadeOpticy-leave-active,
+.fadeOpticy-enter-active {
+    transition: all 1s;
+}
+.fadeOpticy-enter-from,
+.fadeOpticy-leave-to {
+  opacity: 0;
+}
+
+
 :export {
   theme: $--color-primary;
 }
