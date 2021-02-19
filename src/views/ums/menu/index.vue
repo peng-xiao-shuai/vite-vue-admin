@@ -21,7 +21,6 @@
 			:header="config"
 			:isSelect="false"
 			:total="total"
-			:isCachePageNum='true'
 			:tableName="'menuTable'"
 			@sizeChange="getList"
 			@switchChange="handleHiddenChange"
@@ -54,6 +53,7 @@ import store from '/@/store';
 import update from './components/update.vue';
 
 export default defineComponent({
+	name:'menu',
 	components:{
 		update
 	},
@@ -81,10 +81,10 @@ export default defineComponent({
 
 		watch(route,()=>{
 			resetParentId()
-			getList()
 		},{
 			immediate:true
 		})
+		getList();
 
 		function resetParentId() {
 			listQuery.pageNum = 1;
@@ -141,6 +141,7 @@ export default defineComponent({
 
 			console.log(allList.value);
 		});
+
 		return {
 			// 变量
 			list,

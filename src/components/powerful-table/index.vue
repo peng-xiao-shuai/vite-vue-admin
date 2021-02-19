@@ -131,7 +131,7 @@
 			},
 			pageSizes: {
 				type: Array,
-				default: () => [5, 20, 30]
+				default: () => [10, 20, 30]
 			},
 
 			// 批量操作
