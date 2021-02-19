@@ -47,5 +47,4 @@ app.component('svg-icon',SvgIcon)
 app.component('powerful-table',powerfulTable)
 
 // 全局挂载
-
 app.config.globalProperties.defalutData=defalutData;

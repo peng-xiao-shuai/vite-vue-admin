@@ -8,7 +8,7 @@
             to="/"
             v-if="collapse"
             >
-                <img style="width: 40px; height: 40px;margin-right:5px" src="/src/assets/vite.png" />
+                <img style="width: 35px; height: 35px;margin-right:5px" src="/src/assets/vite.png" />
                 <span class="logo-title">{{ systemName }}</span>
             </router-link>
             <router-link
@@ -18,7 +18,7 @@
             to="/"
             v-else
             >
-                <img style="width: 40px; height: 40px" src="/src/assets/vite.png" />
+                <img style="width: 35px; height: 35px" src="/src/assets/vite.png" />
             </router-link>
         </transition>
     </div>
@@ -73,7 +73,7 @@ export default {
 .logo-title{
   margin: 0;
   color: #20335D;
-  font-size: 20px;
+  font-size: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
