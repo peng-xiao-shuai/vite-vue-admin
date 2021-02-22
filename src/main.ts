@@ -26,7 +26,7 @@ import './style/index.scss';
 
 import {mockXHR} from '../mock/index';
 
-if(process.env.NODE_ENV === 'development' && import.meta.env.VITE_MOCK == true){
+if(process.env.NODE_ENV === 'development' && import.meta.env.VITE_MOCK === "true"){
     mockXHR()
 }
 

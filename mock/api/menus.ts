@@ -4,6 +4,24 @@ const roles = {
         icon: "vitedingdan",
         id: 1,
         level: 0,
+        name: "ccc",
+        parentId: 0,
+        sort: 0,
+        title: "ccc"
+    },{
+        hidden: 0,
+        icon: "viteliebiao",
+        id: 8,
+        level: 1,
+        name: "corder",
+        parentId: 1,
+        sort: 0,
+        title: "corder"
+    },{
+        hidden: 0,
+        icon: "vitedingdan",
+        id: 1,
+        level: 0,
         name: "oms",
         parentId: 0,
         sort: 0,
@@ -35,7 +53,28 @@ const roles = {
         parentId: 4,
         sort: 9,
         title: "用户列表"
-    },{
+    }
+    // ,{
+    //     hidden: 0,
+    //     icon: "viteliebiao",
+    //     id: 999,
+    //     level: 2,
+    //     name: "userThree",
+    //     parentId: 2,
+    //     sort: 9,
+    //     title: "用户三级"
+    // }
+    // ,{
+    //     hidden: 0,
+    //     icon: "viteliebiao",
+    //     id: 998,
+    //     level: 2,
+    //     name: "userThreeTow",
+    //     parentId: 2,
+    //     sort: 9,
+    //     title: "用户三级(2)"
+    // }
+    ,{
         hidden: 0,
         icon: "viteliebiao",
         id: 3,

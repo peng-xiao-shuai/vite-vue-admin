@@ -35,8 +35,13 @@ function menusFilter(menus: []){
 				})
 
 				_sort(each.children);
+				
+				console.log(each.meta.title,each.children);
 
 			}
+			
+			if(!each)return
+
 			router.addRoute(each)
 
 			return each
@@ -58,6 +63,7 @@ function _sort(arr:[]){
 // 格式数据
 function addRouterFun(router:[],each:any){
 	let item:any
+
 	for(item of router){
 		if(item.name == each.name){
 
@@ -69,12 +75,14 @@ function addRouterFun(router:[],each:any){
 			}
 
 			each.sort = item.sort
-			
+
 			return each
 
 		}else{
 			each.sort = 0
+
 			if(each.hidden){
+
 				return each
 			}
 		}

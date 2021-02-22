@@ -78,7 +78,26 @@ export const addRouter = [{
       meta: {
         title: '用户列表',
         icon: 'viteliebiao'
-      }
+      },
+      children: [
+      //   {
+      //   path: 'userThree',
+      //   name: 'userThree',
+      //   component: () => import('/@/views/c-user/user/index.vue'),
+      //   meta: {
+      //     title: '用户三级',
+      //     icon: 'viteliebiao'
+      //   }
+      // },
+      {
+        path: 'userThreeTow',
+        name: 'userThreeTow',
+        component: () => import('/@/views/c-user/user/index.vue'),
+        meta: {
+          title: '用户三级（2）',
+          icon: 'viteliebiao'
+        }
+      }]
     },{
       path: 'updateUser',
       name: 'updateUser',
@@ -190,24 +209,6 @@ export const addRouter = [{
         }
       },
       // {
-      //   path: 'addMenu',
-      //   name: 'addMenu',
-      //   component: () => import('/@/views/ums/menu/add'),
-      //   meta: {
-      //     title: '添加菜单'
-      //   },
-      //   hidden: true
-      // },
-      // {
-      //   path: 'updateMenu',
-      //   name: 'updateMenu',
-      //   component: () => import('/@/views/ums/menu/update'),
-      //   meta: {
-      //     title: '修改菜单'
-      //   },
-      //   hidden: true
-      // },
-      // {
       //   path: 'resource',
       //   name: 'resource',
       //   component: () => import('/@/views/ums/resource/index'),
@@ -227,6 +228,25 @@ export const addRouter = [{
       // }
     ]
   },
+  {
+    path: '/ccc',
+    component: layOut,
+    redirect: '/ccc/corder',
+    name: 'ccc',
+    meta: {
+      title: '订单管理',
+      icon: 'vitedingdan'
+    },
+    children: [{
+      path: 'corder',
+      name: 'corder',
+      component: () => import('/@/views/ccc/order/index.vue'),
+      meta: {
+        title: '订单列表',
+        icon: 'viteliebiao'
+      }
+    }]
+  }, 
   {
     path: '/:pathMatch(.*)',
     name: '404',

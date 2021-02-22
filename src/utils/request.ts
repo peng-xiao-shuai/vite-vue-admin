@@ -66,7 +66,9 @@ service.interceptors.response.use(response =>{
         case 200:
         
             if(ENV.VITE_MOCK){ 
+                console.log(response.data);
                 return response.data
+                
             }
 
             if(response.headers['content-type'] && response.headers['content-type'].indexOf('application/json') != -1){

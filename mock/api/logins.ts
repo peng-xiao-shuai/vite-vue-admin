@@ -34,7 +34,7 @@ interface config {
 
 export default [
     {
-      url: 'login',
+      url: 'admin/login',
       type: 'post',
       response: (config:config) => {
 
@@ -64,7 +64,7 @@ export default [
       }
     },
     {
-      url: 'info\*',
+      url: 'admin/info\*',
       response: (config:config)=> {
           console.log(tokens[config.query.token]);
           return {
