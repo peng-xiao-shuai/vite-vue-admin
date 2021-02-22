@@ -15,6 +15,8 @@
             </transition-group>
         </el-breadcrumb>
     </div>
+
+    <navs-right></navs-right>
   </div>
 </template>
 
@@ -22,7 +24,12 @@
 import { computed, reactive, ref, watch,watchEffect } from 'vue';
 import { useRoute,onBeforeRouteUpdate } from 'vue-router';
 
+import navsRight from './navs-right.vue';
+
 export default {
+    components:{
+        navsRight
+    },
 	emits:{
 		"isCollapse":null
 	},
@@ -78,6 +85,7 @@ export default {
         height: 50px;
         box-sizing: border-box;
         display: flex;
+        justify-content: space-between;
         align-items: center;
         .left{
             display: flex;

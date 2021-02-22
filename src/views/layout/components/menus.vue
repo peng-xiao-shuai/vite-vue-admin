@@ -3,41 +3,17 @@
 
     <menus-logo :collapse='collapse'></menus-logo>
 
-    <el-scrollbar style="height:calc(100bh - 50px)">
+    <el-scrollbar style="height:calc(100vh - 50px)">
       <el-menu
-      :collapse='!collapse'
-      :mode='menusSettin.mode'
-      :background-color='menusSettin.backgroundColor'
-      :text-color='menusSettin.textColor'
-      :active-text-color='menusSettin.activeTextColor'
-      :collapse-transition='menusSettin.collapseTransition'
-      class="el-menu-vertical-demo"
-    >
-      <template v-for="(item, _index) in menus" :key="item.name">
-        <el-submenu :index="String(_index)" v-if="!item.hidden">
-          <template #title>
-            <i :class="[item.meta.icon,'viteIcon'] "></i>
-            <span class="metaTitle">
-              {{
-                (item.meta && item.meta.title) ||
-                (item.children && item.children[0].meta.title) ||
-                ""
-              }}
-            </span>
-          </template>
-          <template v-for="(each,idx) in item.children" :key='idx'>
-            <el-menu-item-group
-              v-if="!each.hidden"
-               class="children"
-              @click='navTo(each.path)'
-            >
-              <el-menu-item :index="_index + '-' + idx">
-                <i :class="[each.meta.icon,'viteIcon'] "></i>
-                {{each.meta && each.meta.title}}</el-menu-item>
-            </el-menu-item-group>
-          </template>
-        </el-submenu>
-      </template>
+        :collapse='!collapse'
+        :mode='menusSettin.mode'
+        :background-color='menusSettin.backgroundColor'
+        :text-color='menusSettin.textColor'
+        :active-text-color='menusSettin.activeTextColor'
+        :collapse-transition='menusSettin.collapseTransition'
+        class="el-menu-vertical-demo"
+      >
+        <menus-item v-for="(item,index) in menus" :key="item.name" :item='item' :index='index' :count='1'></menus-item>
     </el-menu>
     </el-scrollbar>
   </div>
@@ -52,11 +28,14 @@ import { menusSettin } from '/@/config/assets-data';
 
 // 组件
 import menusLogo from './menus-logo.vue';
+import menusItem from './menus-item.vue';
+
 
 export default {
   name: "menus",
   components:{
-    menusLogo
+    menusLogo,
+    menusItem
   },
   props:{
     collapse:{
@@ -94,7 +73,7 @@ export default {
 </script>
 
 <style>
-
+.element::-webkit-scrollbar { width: 0 !important }
 .menus{
   min-width: 65px;
   overflow: hidden;
@@ -127,15 +106,24 @@ export default {
 }
 
 .el-submenu .el-menu-item{
+  border: none !important;
+  box-sizing: border-box;
   background: #1a294a !important;
-  color: #ccc !important;
+  color: #ccc;
+  overflow: hidden;
   /* background: v-bind(children); */
+  /* padding-left: 40px !important; */
 }
-
+.el-submenu__title{
+  color: #ccc !important;
+}
 .el-submenu__title:hover,.el-menu-item:hover,.el-submenu__title:hover .viteIcon,.el-menu-item:hover .viteIcon{
   background: #182646 !important;
   color: #5874ae !important;
   transition: all .2s;
+}
+.el-menu-item:hover a{
+  color: #5874ae !important;
 }
 .el-menu-item:hover{
   background: #101a33 !important;
@@ -145,11 +133,6 @@ export default {
   background: #202e50 !important;
 }
 
-.el-submenu .el-menu-item{
-  border: none !important;
-  padding: 0 !important;
-  padding-left: 40px !important;
-}
 .el-menu-item-group__title{
   padding: 0 !important;
 }
@@ -157,5 +140,16 @@ export default {
   width: 200px;
   background: #20335D;
   min-height: 100%;
+}
+.el-menu-item{
+  overflow: hidden;
+}
+.el-menu-item a{
+  display: inline-block;
+  width: 100%;
+  color: #ccc;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  text-decoration: none;
 }
 </style>
