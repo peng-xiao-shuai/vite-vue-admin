@@ -7,6 +7,14 @@ $--font-path: '/node_modules/element-plus/lib/theme-chalk/fonts';
 
 @import "element-plus/packages/theme-chalk/src/index.scss";
 
+// 数据列表card样式
+.operate-container{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 // 抽屉样式
 .el-drawer__header{
   margin-bottom: 20px;
