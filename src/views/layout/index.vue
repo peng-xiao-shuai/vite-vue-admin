@@ -12,7 +12,7 @@
                 <router-view v-slot="{ Component }">
                     <transition name="fadeRouter"  mode="out-in">
                         <keep-alive :include="caches">
-                            <component :is="Component" />
+                            <component :is="Component"/>
                         </keep-alive>
                     </transition>
                 </router-view>
