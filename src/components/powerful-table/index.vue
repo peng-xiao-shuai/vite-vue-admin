@@ -21,8 +21,8 @@
 							 :fit="each.data.fit || 'cover'"></el-image>
 						</div>
 						<!-- 按钮 -->
-						<div v-else-if="each.type == 'btn'">
-							<el-tooltip class="each" effect="dark" :content="apiece.tip" placement="top" v-for="(apiece,idx) in each.data" :key='idx'>
+						<div v-else-if="each.type == 'btn'" class="btnType">
+							<el-tooltip class="btnEach" effect="dark" :content="apiece.tip" placement="top" v-for="(apiece,idx) in each.data" :key='idx'>
 								<el-button v-if='apiece.condi ? scope.row[apiece.condi.popr] == apiece.condi.value : true'
 								:style="apiece.style || {}" :icon="apiece.icon || ''" :disabled="apiece.disabled || false" :type="apiece.type || 'primary'"
 								 :size="apiece.size || 'small'" @click='btnChange(apiece.emit,scope.row,scope.$index,apiece.type)'></el-button>
@@ -83,7 +83,7 @@
 				</el-button>
 			</div>
 
-			<div class="pagination">
+			<div class="pagination" v-if="isPagination">
 				<el-pagination @size-change="handleChange($event,'pageSize')" @current-change="handleChange($event,'currentPage')"
 				 :current-page="currentPage" :page-sizes="pageSizes" :page-size="pageSize" :layout="layout" :total="total">
 				</el-pagination>
@@ -152,13 +152,16 @@
 				default: false
 			},
 
-			//  毕传
+			isPagination:{
+				type: Boolean,
+				default: true
+			},
 			total: {
 				type: Number,
 				default: 0
 			},
 		},
-		emits:['update:currentPage','sortCustom','batchOperate','switchChange','sizeChange','look','update','remove'],
+		emits:['update:currentPage','sortCustom','batchOperate','switchChange','sizeChange','look','update','remove','occupyOne','occupyTwo'],
 		data() {
 			return {
 				listLoading: true,
@@ -400,6 +403,21 @@
 		}
 	}
 </script>
+
+<style lang="scss" scoped>
+.btnType{
+	.btnEach{
+		margin-bottom: 10px;
+	}
+	// .btnEach:nth-child(odd){
+	// 	margin-left: 0;
+	// }
+
+	.btnEach:nth-last-child(2){
+		margin-bottom: 0;
+	}
+}
+</style>
 
 <style lang='scss'>
 	.pagination {
