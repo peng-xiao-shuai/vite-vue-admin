@@ -65,8 +65,8 @@ service.interceptors.response.use(response =>{
             break;
         case 200:
         
-            if(ENV.VITE_MOCK){ 
-                console.log(response.data);
+            if(ENV.VITE_MOCK === 'true'){ 
+                // console.log(response.data);
                 return response.data
                 
             }

@@ -12,7 +12,7 @@
 					<div v-for="(each,idx) in item.poprs" :key='idx' :style="each.style || {}">
 						<!-- 筛选 -->
 						<div v-if="each.filter">
-							{{filterFun(scope.row[each.popr],each.filter)}}
+							{{each.text || ''}}{{filterFun(scope.row[each.popr],each.filter)}}
 						</div>
 						<!-- 图片 -->
 						<div v-else-if="each.type == 'image'">
@@ -41,6 +41,7 @@
 							    <template style="padding: 0 10px" v-if="each.data.slot" v-slot:[each.data.slot]>{{each.data.symbol}}</template>
 							</el-input>
 						</div>
+						<!-- iconfont -->
 						<div v-else-if="each.type == 'iconfont'">
 							<i :class="[scope.row[each.popr],...each.data.class] || ['']" :style="each.data.style || {}"></i>
 						</div>
@@ -62,7 +63,7 @@
 						<!-- 正常 -->
 						<div v-else>
 							<div>
-								{{each.child ? scope.row[each.popr][each.child] : scope.row[each.popr]}}
+								{{each.text || ''}}{{each.child ? scope.row[each.popr][each.child] : scope.row[each.popr]}}
 							</div>
 						</div>
 										
@@ -72,12 +73,12 @@
 		</el-table>
 
 		<div style="display: flex;justify-content: space-between;">
-			<div class="pagination left" v-if="operateData && operateData.operates.length > 0">
+			<div class="pagination left" v-if="operateData && isSelect && operateData.operates.length > 0">
 				<el-select v-model="operateData.value" clearable placeholder="批量操作" :size="operateData.size || 'small'">
 					<el-option v-for="(item,index) in operateData.operates" :key="index" :label="item.label" :value="item.value">
 					</el-option>
 				</el-select>
-				<el-button :style="operateData.style || {marginLeft: '20px'}" :icon="operateData.icon || ''" :type="operateData.type || 'primary'" :size="operateData.size || 'small '"
+				<el-button :style="operateData.style || {marginLeft: '20px'}" :icon="operateData.icon || ''" :type="operateData.type || 'primary'" :size="operateData.size || 'small'"
 				class="search-button" @click="batchOperate">
 					确定
 				</el-button>
@@ -138,6 +139,7 @@
 			operateData: {
 				type: Object,
 				default: ()=>{
+					size: 'small'
 					// null
 				}
 			},
@@ -417,6 +419,9 @@
 		margin-bottom: 0;
 	}
 }
+</style>
+
+<style lang="scss" scoped>
 </style>
 
 <style lang='scss'>

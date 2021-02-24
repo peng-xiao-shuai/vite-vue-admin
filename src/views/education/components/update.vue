@@ -9,39 +9,35 @@
     <el-form :model="currentFrom"
              :rules="rules"
              ref="menuFrom"
-             label-width="100px"
+             label-width="140px"
              style="padding:0 20px">
-      <el-form-item label="菜单名称：" prop="title">
-        <el-input v-model="currentFrom.title"></el-input>
-      </el-form-item>
-      <el-form-item label="上级菜单：">
-        <el-select v-model="currentFrom.parentId"
-                   style="width:100%"
-                   placeholder="请选择菜单">
+      <el-form-item label="资料类型：" prop="type">
+			  <el-select v-model="currentFrom.type" style="width:80%" placeholder="请选择类型">
           <el-option
             v-for="item in selectMenuList"
-            :key="item.id"
-            :label="item.title"
-            :value="item.id">
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="前端名称：" prop="name">
-        <el-input v-model="currentFrom.name"></el-input>
-      </el-form-item>
-      <el-form-item label="前端图标：" prop="icon">
-        <el-input v-model="currentFrom.icon" style="width:80%"></el-input>
-        <i :class="[currentFrom.icon,defalutData.iconfont]" style="margin-left: 10px;font-size: 24px"></i>
+      <el-form-item label="预览图片：" prop="previewImage">
+        <el-input v-model="currentFrom.previewImage" style="width:80%"></el-input>
         <!-- <svg-icon style="margin-left: 8px" :icon-class="currentFrom.icon"></svg-icon> -->
       </el-form-item>
-      <el-form-item label="是否显示：">
-        <el-radio-group v-model="currentFrom.hidden" v-if="dialog">
-          <el-radio :label="0">是</el-radio>
-          <el-radio :label="1">否</el-radio>
-        </el-radio-group>
+
+      <el-form-item label="内容：" prop="contentIntroduction">
+        <el-input type="textarea" v-model="currentFrom.contentIntroduction" style="width:80%"></el-input>
       </el-form-item>
-      <el-form-item label="排序：">
-        <el-input v-model="currentFrom.sort"></el-input>
+
+      <el-form-item label="星级评分：" prop="starRating">
+        <div style="display:flex;align-items:center;">
+          <el-rate v-model="currentFrom.starRating" :colors="[themeColor,themeColor,themeColor]"></el-rate>
+        </div>
+      </el-form-item>
+
+      <el-form-item label="资料文件地址：" prop="url">
+        <el-input v-model="currentFrom.url" style="width:80%"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('menuFrom')">提交</el-button>
@@ -52,16 +48,18 @@
 </template>
 
 <script>
-  import {fetchList, createMenu, updateMenu, getMenu} from '/@/api/ums/menu';
-  import defalutData from '/@/config/defalut-data';
+import {
+    addMaterial,
+    modifyMaterial
+} from "/@/api/education/education";
 
   const defaultMenu = {
-    title: '',
-    parentId: 0,
-    name: '',
-    icon: '',
-    hidden: 0,
-    sort: 0
+    // title: '',
+    // parentId: 0,
+    // name: '',
+    // icon: '',
+    // hidden: 0,
+    // sort: 0
   };
   export default {
     name: "MenuDetail",
@@ -82,18 +80,9 @@
     data() {
       return {
         rules: {
-          title: [
-            {required: true, message: '请输入菜单名称', trigger: 'blur'},
-            {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
+          type: [
+            {required: true, message: '请选择类型', trigger: 'blur'},
           ],
-          name: [
-            {required: true, message: '请输入前端名称', trigger: 'blur'},
-            {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
-          ],
-          icon: [
-            {required: true, message: '请输入前端图标', trigger: 'blur'},
-            {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
-          ]
         }
       }
     },
@@ -101,7 +90,7 @@
     methods: {
       close(){
         this.$emit('update:dialog', false)
-        this.$emit('update:currentFrom', {parentId: 0,hidden: 0,sort:0})
+        this.$emit('update:currentFrom', {forkliftCertificate: 'true',passengerElevatorCertificate:'true'})
       },
       onSubmit(formName) {
         this.$refs[formName].validate((valid) => {
@@ -112,7 +101,7 @@
               type: 'warning'
             }).then(() => {
               if (this.currentFrom.id) {
-                updateMenu(this.currentFrom.id, this.currentFrom).then(response => {
+                modifyMaterial(this.currentFrom).then(response => {
                   this.$message({
                     message: '修改成功',
                     type: 'success',
@@ -122,7 +111,7 @@
 
                 });
               } else {
-                createMenu(this.currentFrom).then(response => {
+                addMaterial(this.currentFrom).then(response => {
                   this.$refs[formName].resetFields();
                   this.resetForm(formName);
                   this.$message({
@@ -135,7 +124,9 @@
               }
 
               // 刷新父组件
-              this.$emit('refresh')
+              setTimeout(()=>{
+                this.$emit('refresh')
+              },200)
             });
 
           } else {
@@ -150,12 +141,21 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        this.$emit('update:currentFrom', {parentId: 0,hidden: 0,sort:0})
+        this.$emit('update:currentFrom', {forkliftCertificate: 'true',passengerElevatorCertificate:'true'})
       },
     }
   }
 </script>
 
-<style scoped>
+<style>
+/*1.显示滚动条：当内容超出容器的时候，可以拖动：*/
+.el-drawer__body {
+    overflow: auto;
+    /* overflow-x: auto; */
+}
 
+/*2.隐藏滚动条，太丑了*/
+.el-drawer__container ::-webkit-scrollbar{
+    display: none;
+}
 </style>

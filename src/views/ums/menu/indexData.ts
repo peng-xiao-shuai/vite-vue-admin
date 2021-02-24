@@ -28,8 +28,8 @@ const header:any[] = [{
 		type: 'iconfont',
 		popr: 'icon',
 		data:{
-			style: {fontSize: '20px'},
-			class: ['el-icon-delete-solid']
+			style: {fontSize: '24px'},
+			class: ['viteIcon']
 		}
 	}],
 },{

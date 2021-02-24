@@ -8,11 +8,6 @@
 		</div>
 
 		<div>
-			<transition name="fadeOpticy">
-				<el-button type="primary" class="btn-add" @click="backUp()" size="mini" v-show="upParentId >= 0">
-					<i class="el-icon-back"></i>返回上级
-				</el-button>
-			</transition>
 			<el-button type="primary" class="btn-add" @click="handleAddMenu()" size="mini">
 				添加
 			</el-button>
@@ -26,11 +21,13 @@
 			ref="menuTable"
 			:list="list.value"
 			:header="config"
-			:isSelect="false"
+			:isSelect="true"
 			:total="total"
 			:tableName="'menuTable'"
+            :operateData='operateData'
+			@batchOperate='handleBatchChange'
 			@sizeChange="getList"
-			@switchChange="handleHiddenChange"
+			@switchChange="handleSwitchChange"
 			@look="handleShowNextLevel"
 			@update="handleUpdate"
 			@remove="handleDelete"
@@ -39,28 +36,26 @@
 		</div>
     </el-card>
 	<!-- 编辑区 -->
-	<update v-model:dialog="isDialog" v-model:currentFrom='currentFrom.value' :selectMenuList='allList.value'
+	<update v-model:dialog="isDialog" v-model:currentFrom='currentFrom.value'
 	@refresh='getList'></update>
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import {
-  fetchList,
-  deleteMenu,
-  updateMenu,
-  updateHidden,
-} from "/@/api/ums/menu";
+    listEnterprise,
+    modifyEnterprise,
+    removeEnterprise
+} from "/@/api/eps/enterprise";
 import { header } from "./indexData.ts";
-import { ref,reactive,defineComponent, watch,getCurrentInstance, computed } from 'vue';
+import { ref,reactive,defineComponent, watch,getCurrentInstance } from 'vue';
 import { useRouter,useRoute } from 'vue-router';
-import store from '/@/store';
 
 // 组件
 import update from './components/update.vue';
 
 export default defineComponent({
-	name:'menu',
+	name:'eps',
 	components:{
 		update
 	},
@@ -71,6 +66,15 @@ export default defineComponent({
 
 		let list = reactive({value: []})
 		let allList = reactive({value: [{id: 0, title: '无上级菜单'}]})
+
+        // 批量操作
+        let operateData = {
+            value: 0,
+            operates:[{
+                label: '删除',
+                value: 0
+            }]
+        }
 
       	let total = ref(0)
       	let config = reactive(header)
@@ -85,28 +89,24 @@ export default defineComponent({
 		// 编辑区显隐
 		let isDialog = ref(false)
 		// 编辑区当前数据
-		let currentFrom =  reactive({value:{parentId: 0,hidden: 0,sort: 0}})
+		let currentFrom =  reactive({value:{parentId: 0,hidden: 0}})
 
 		getList();
 
 		function handleAddMenu() {
 			isDialog.value = true
 		}
-		function getList(e) {
-			if(parentId.value == 0){
-				upParentId.value = -1
-			}
-
-			Object.assign(listQuery,e ? e : listQuery)
-			fetchList(parentId.value, listQuery).then((response) => {
+		function getList(e?:{pageSize:number,pageNum:number}) {
+			Object.assign(listQuery,e ? e : {})
+			listEnterprise(listQuery).then((response:any) => {
 
 				list.value = reactive(response.data.list);
 
 				total.value = response.data.total;
 			});
 		}
-		function handleHiddenChange(row, index) {
-		  updateHidden(row.id, { hidden: row.hidden }).then((response) => {
+		function handleSwitchChange(row:any, index:number) {
+		  modifyEnterprise(row.id, { hidden: row.hidden }).then((response:any) => {
 		    _this.$message({
 		      message: "修改成功",
 		      type: "success",
@@ -114,48 +114,44 @@ export default defineComponent({
 		    });
 		  });
 		}
-		function handleShowNextLevel(row, index) {
+		function handleShowNextLevel(row:any, index:number) {
 			upParentId.value = parentId.value
 
 			parentId.value = row.id
 			
 			getList();
 		}
-		function backUp(){
-			listQuery.pageNum = 1
-			parentId.value = upParentId.value
-
-			getList();
-		}
-		function handleUpdate(row, index) {
+		function handleUpdate(row:any, index:number) {
 			isDialog.value = true
 			
 			currentFrom.value = reactive(JSON.parse(JSON.stringify(row)))
-
-			console.log(currentFrom);
 		}
-		function handleDelete(row, index) {
-			deleteMenu(row.id).then((response) => {
-			_this.$message({
-				message: "删除成功",
-				type: "success",
-				duration: 1000,
-			});
+
+		function handleBatchChange(ids:any,item:object,index:number){
+			delect(ids)
+		}
+
+		function handleDelete(row:any, index:number) {
+			delect([row.id])
+		}
+
+		function delect(ids:any){
+			removeEnterprise(ids).then((response:any) => {
+                _this.$message({
+                    message: "删除成功",
+                    type: "success",
+                    duration: 1000,
+                });
 				getList();
 			});
 		}
-		// 获取所有的菜单
-		fetchList(parentId.value, {pageSize:0,pageNum:0}).then((response) => {
-			allList.value = allList.value.concat(response.data.list)
-
-			getList();
-		});
 
 		return {
 			// 变量
 			list,
 			total,
 			config,
+            operateData,
 			listQuery,
 			parentId,
 			upParentId,
@@ -166,8 +162,8 @@ export default defineComponent({
 			// 方法
 			handleAddMenu,
 			getList,
-			backUp,
-			handleHiddenChange,
+			handleSwitchChange,
+			handleBatchChange,
 			handleShowNextLevel,
 			handleUpdate,
 			handleDelete,

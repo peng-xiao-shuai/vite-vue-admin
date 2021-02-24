@@ -3,6 +3,8 @@ export default{
     themeColor:{
         background: '#11b19e'
     },
+    // icon图标类型
+    iconfont: 'viteIcon',
     // 卡片阴影
     cardShadow: "hover"
 }

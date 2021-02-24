@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'viteIcon';  /* project id 2351447 */
-  src: url('//at.alicdn.com/t/font_2351447_a2xxzsudg1.eot');
-  src: url('//at.alicdn.com/t/font_2351447_a2xxzsudg1.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_2351447_a2xxzsudg1.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_2351447_a2xxzsudg1.woff') format('woff'),
-  url('//at.alicdn.com/t/font_2351447_a2xxzsudg1.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_2351447_a2xxzsudg1.svg#viteIcon') format('svg');
+  src: url('//at.alicdn.com/t/font_2351447_fczcf1rg0k4.eot');
+  src: url('//at.alicdn.com/t/font_2351447_fczcf1rg0k4.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_2351447_fczcf1rg0k4.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_2351447_fczcf1rg0k4.woff') format('woff'),
+  url('//at.alicdn.com/t/font_2351447_fczcf1rg0k4.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_2351447_fczcf1rg0k4.svg#viteIcon') format('svg');
 }
 
 .viteIcon {
@@ -14,6 +14,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.vitejiaoyu:before {
+  content: "\e603";
+}
+
+.viteyinhuanguanli:before {
+  content: "\e60a";
+}
+
+.viteicon_xinyong_xianxing_jijin-:before {
+  content: "\e63c";
 }
 
 .vitesousuo-:before {

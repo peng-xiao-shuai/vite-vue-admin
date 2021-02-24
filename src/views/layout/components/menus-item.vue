@@ -22,7 +22,7 @@
     </el-submenu>
 
     <el-menu-item :index="String(index)" :style="{paddingLeft: count * 20 + 'px'}" v-else>
-      <i :class="[item.children && item.children[0].meta.icon || item.meta.icon, 'viteIcon']"></i>
+      <i :class="[item.children && item.children[0].meta.icon || (item.meta && item.meta.icon || ''), 'viteIcon']"></i>
       <router-link :to="{ name: item.children && item.children[0].name || item.name }">{{
         item.children && item.children[0].meta.title || item.meta.title
       }}</router-link>
