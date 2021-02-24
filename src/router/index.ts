@@ -139,10 +139,10 @@ export const addRouter = [
     ],
   },
   {
-    path: "/c-user",
+    path: "/users",
     component: layOut,
-    redirect: "/c-user/user",
-    name: "c-user",
+    redirect: "/users/user",
+    name: "users",
     meta: {
       title: "用户管理",
       icon: "viteyonghuguanli",
@@ -151,71 +151,12 @@ export const addRouter = [
       {
         path: "user",
         name: "user",
-        component: () => import("/@/views/c-user/user/index.vue"),
+        component: () => import("/@/views/users/index.vue"),
         meta: {
           title: "用户列表",
           icon: "viteliebiao",
         },
-        children: [
-          //   {
-          //   path: 'userThree',
-          //   name: 'userThree',
-          //   component: () => import('/@/views/c-user/user/index.vue'),
-          //   meta: {
-          //     title: '用户三级',
-          //     icon: 'viteliebiao'
-          //   }
-          // },
-          {
-            path: "userThreeTow",
-            name: "userThreeTow",
-            component: () => import("/@/views/c-user/user/index.vue"),
-            meta: {
-              title: "用户三级（2）",
-              icon: "viteliebiao",
-            },
-          },
-        ],
-      },
-      {
-        path: "updateUser",
-        name: "updateUser",
-        component: () => import("/@/views/c-user/updateUser/index.vue"),
-        meta: {
-          title: "修改用户",
-          icon: "product-list",
-        },
-        hidden: true,
-      },
-      {
-        path: "userRecord",
-        name: "userRecord",
-        component: () => import("/@/views/c-user/userRecord/index.vue"),
-        meta: {
-          title: "查看记录",
-          icon: "product-list",
-        },
-        hidden: true,
-      },
-      {
-        path: "notification",
-        name: "notification",
-        component: () => import("/@/views/c-user/notification/index.vue"),
-        meta: {
-          title: "消息通知",
-          icon: "product-list",
-        },
-      },
-      {
-        path: "notificationType",
-        name: "notificationType",
-        component: () => import("/@/views/c-user/notificationType/index.vue"),
-        meta: {
-          title: "消息通知类型",
-          icon: "product-list",
-        },
-      },
-    ],
+   }],
   },
   {
     path: "/oms",

@@ -45,6 +45,15 @@
 						<div v-else-if="each.type == 'iconfont'">
 							<i :class="[scope.row[each.popr],...each.data.class] || ['']" :style="each.data.style || {}"></i>
 						</div>
+						<!-- 评分 -->
+						<div v-else-if="each.type == 'rate'">
+							<el-rate v-model="scope.row[each.popr]" :colors="each.data.colors || ['#F7BA2A', '#F7BA2A', '#F7BA2A']"
+							:max="each.data.max || 5" :disabled="true" :allow-half="each.data.allowHalf || false"
+							:icon-classes="each.data.iconClass || ['el-icon-star-on', 'el-icon-star-on','el-icon-star-on']"
+							:show-text="each.data.showText || false" :show-score="each.data.showScore || false"
+							:texts="each.data.texts" 
+							></el-rate>
+						</div>
 						<div v-else-if="each.type == 'video'" style="border-radius: 10px;overflow: hidden;width: 100%;height: 100%;margin: 0 auto;">
 						  <video
 							v-if="scope.row[each.popr]"

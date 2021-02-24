@@ -26,7 +26,11 @@ const header:any[] = [{
 },{
 	label: '星级评分', //显示的名称
 	poprs: [{
+		type: 'rate',
 		popr: 'starRating',
+		data:{
+			colors: [store.getters.getThemeColor,store.getters.getThemeColor,store.getters.getThemeColor],
+		}
 	}],
 },{
 	label: '资料文件地址', //显示的名称
