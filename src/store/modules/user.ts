@@ -12,79 +12,103 @@ function menusFilter(menus: []){
 		// 所有一级
 		let levelOne:[] = []
 		// 所有子集
-		let childOne:[] = []
+		let childs:[] = []
 
 		menus.forEach((item: any) =>{
 
 			if(item.level === 0){
 				levelOne.push(item)
 			}else{
-				childOne.push(item)
+				childs.push(item)
 			}
 		})
-
-		_sort(levelOne)
-
+		
 		let asyncrouter = asyncRouter.filter((item:any)=>{
+
 			let each = addRouterFun(levelOne,item)
-
-			if(each && each.children && each.children.length>0){
-				// 获取当前导航所有子集
-				each.children = each.children.filter((i:any)=>{
-					return addRouterFun(childOne,i)
-				})
-
-				_sort(each.children);
-				
-				console.log(each.meta.title,each.children);
-
-			}
 			
-			if(!each)return
+			// 拦截接口数据隐藏的菜单
+			if(!each)return false
 
-			router.addRoute(each)
+			// console.log('一级菜单',each);
+			
+			// 所有子集
+			let ids:any = []
+			
+			if(each.meta && each.meta.id){
+				ids = childs.filter((i:any) =>each.meta.id == i.parentId )
+
+				// console.log('接口返回的一级菜单子集',ids);
+			}
+
+			if(ids.length > 0){
+
+				let children:any[] = []
+				
+				for(let childrenItem of each.children){
+
+					let arr = addRouterFun(ids,childrenItem)
+
+					arr ? children.push(arr) : ''
+
+				}
+				each.children = children
+
+				// console.log('将添加到一级路由下的子集',children);
+			}else{
+				each.children = []
+			}
+
+			// console.log('%c 完整一级路由','color:blue;',each);
+			// console.log('%c --------------------------------------','color:blue;font-seze:26px');
 
 			return each
 		})
+
+		_sort(asyncrouter)
+
+		asyncrouter.map((item:any) => router.addRoute(item))
+
+		console.log('排序好的一级',asyncrouter);
+		
+
 		state.menus = router.options.routes.concat(asyncrouter)
 
 		// resovle(state.menus)
 	// })
 	
 }
-
 // 排序
-function _sort(arr:[]){
+function _sort(arr:any){
 	arr.sort((a:any,b:any)=>{
 		return b.sort - a.sort
 	})
 }
-
 // 格式数据
-function addRouterFun(router:[],each:any){
-	let item:any
+function addRouterFun(router:any[],item:any){
+	let each:any
 
-	for(item of router){
-		if(item.name == each.name){
+	for(each of router){
 
-			if(item.title){
-				each.meta.title = item.title
+		if(item.hidden){
+			item.sort = 0
+			return item
+		}
+		
+		if(item.name == each.name && each.hidden != 1){
+
+			item.meta.id = each.id
+			if(each.title){
+				item.meta.title = each.title
 			}
-			if(item.icon){
-				each.meta.icon = item.icon
+			if(each.icon){
+				item.meta.icon = each.icon
 			}
+			
+			item.sort = each.sort
+			
+			return item
 
-			each.sort = item.sort
-
-			return each
-
-		}else{
-			each.sort = 0
-
-			if(each.hidden){
-
-				return each
-			}
 		}
 	}
 }
