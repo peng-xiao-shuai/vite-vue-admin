@@ -1,5 +1,9 @@
 /* 改变主题色变量 */
 $--color-primary: #11b19e;
+
+// 背景主题颜色
+$--bgcolor-primary: #eafffd;
+
 $--color-success: #13ce66;
 $--color-warning: #ffba00;
 $--color-danger: #ff4949;
@@ -13,6 +17,20 @@ $--font-path: '/node_modules/element-plus/lib/theme-chalk/fonts';
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+// 提示语
+.tip{
+  padding: 0px 16px;
+  background-color: $--bgcolor-primary;
+  border-radius: 4px;
+  border-left: 5px solid $--color-primary;
+  margin: 20px 0;
+  width: 100%;
+  margin-top: 50px;
+  height: 40px;
+  line-height: 40px;
+  box-sizing: border-box;
 }
 
 // 抽屉样式
