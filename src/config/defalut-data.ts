@@ -1,7 +1,7 @@
 export default{
-    name: '商城管理系统',
+    name: 'vite-vue',
     themeColor:{
-        background: '#11b19e'
+        background: 'rgb(100,108,255)'
     },
     // icon图标类型
     iconfont: 'viteIcon',

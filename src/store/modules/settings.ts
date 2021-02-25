@@ -1,4 +1,3 @@
-// import configScss from '/@/style/index.scss';
 import config from '/@/config/defalut-data';
 const themeColor:string = window.localStorage.getItem('themeColor')
 

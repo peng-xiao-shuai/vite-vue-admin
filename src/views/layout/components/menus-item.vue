@@ -2,6 +2,8 @@
   <div v-if="!item.hidden" :class="{_submenu: collapse}">
     <el-submenu :index="String(index)" v-if="item.children && item.children.length > 1">
       <template #title>
+      {{index}}
+
         <i :class="[item.meta.icon, 'viteIcon']"></i>
         <span class="metaTitle" v-show="!collapse">
           {{ (item.meta && item.meta.title) || "" }}
@@ -12,7 +14,7 @@
           v-if="!each.hidden"
           class="children"
         > -->
-            <menusItem  v-for="(each,idx) in item.children" :key="each.name" :item='each' :index='String(index + idx)' :count='count + 1'></menusItem>
+            <menusItem  v-for="(each,idx) in item.children" :key="each.name" :item='each' :index="index + '-' + idx" :count='count + 1'></menusItem>
           <!-- <el-menu-item :index="_index + '-' + idx">
             <i :class="[each.meta.icon, 'viteIcon']"></i>
             {{ each.meta && each.meta.title }}</el-menu-item
@@ -22,6 +24,7 @@
     </el-submenu>
 
     <el-menu-item :index="String(index)" :style="{paddingLeft: count * 20 + 'px'}" v-else>
+      {{index}}
       <router-link :to="{ name: item.children && item.children[0].name || item.name }" :style="{overflowX: !collapse && count == 1 ? 'hidden' : 'visible'}">
         <i :class="[item.children && item.children[0].meta.icon || (item.meta && item.meta.icon || ''), 'viteIcon']"></i>
         <span class="metaTitle" v-show="!collapse || count > 1">{{ item.children && item.children[0].meta.title || item.meta.title }}</span>
@@ -31,8 +34,10 @@
 </template>
 
 <script>
-export default {
-    name:'menusItem',
+import { defineComponent } from "vue"
+
+export default defineComponent({
+  name:'menusItem',
   props: {
     item: {
       type: Object,
@@ -51,8 +56,10 @@ export default {
       type:Boolean,
       default: true
     }
+  },
+  setup(){
   }
-};
+});
 </script>
 
 <style scoped>

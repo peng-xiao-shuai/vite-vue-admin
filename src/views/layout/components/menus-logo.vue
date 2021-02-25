@@ -1,5 +1,5 @@
 <template>
-    <div class="menus-logo">
+    <div class="menus-logo" :style="{background: themeColor}">
         <transition name="logo">
             <router-link
             key="collapse"
@@ -58,7 +58,7 @@ export default {
   /* padding: 10px; */
   min-height: 50px;
   width: 100%;
-  background:#1CC9B5;height: 50px;color:#fff;
+  height: 50px;color:#fff;
   overflow: hidden;
 }
 .logo-link{
@@ -72,7 +72,7 @@ export default {
 }
 .logo-title{
   margin: 0;
-  color: #20335D;
+  color: #fff;
   font-size: 18px;
   overflow: hidden;
   text-overflow: ellipsis;

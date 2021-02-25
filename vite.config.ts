@@ -12,7 +12,7 @@ export default defineConfig({
   },
   server: {
     host: "localhost",
-    port: 8088,
+    port: 8087,
     // 是否自动在浏览器打开
     open: false,
     // 是否开启 https

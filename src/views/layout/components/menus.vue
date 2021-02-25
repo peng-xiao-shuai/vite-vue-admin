@@ -1,5 +1,5 @@
 <template>
-  <div class="menus" :style="!collapse ? {width: '65px'} : {width: '200px'}">
+  <div class="menus" :style="{width:!collapse ? '65px' : '200px',background:menusSettin.backgroundColor}">
 
     <menus-logo :collapse='collapse'></menus-logo>
 
@@ -12,7 +12,10 @@
         :active-text-color='menusSettin.activeTextColor'
         :collapse-transition='menusSettin.collapseTransition'
         class="el-menu-vertical-demo"
+        @select='select'
       >
+        <!-- :default-active='' -->
+
         <menus-item :collapse='!collapse' v-for="(item,index) in menus" :key="item.name" :item='item' :index='index' :count='1'></menus-item>
     </el-menu>
     </el-scrollbar>
@@ -58,12 +61,17 @@ export default {
       store.dispatch("outLoing");
     }
 
+    function select(e){
+      console.log(e);
+    }
+
     let menus = store.state.user.menus;
     console.log(menus);
 
     return {
       navTo,
       outlogin,
+      select,
 
       menus,
       menusSettin
@@ -72,13 +80,16 @@ export default {
 };
 </script>
 
-<style>
+<style lang='scss'>
+
+@import '../../../style/menus.scss';
+
 .element::-webkit-scrollbar { width: 0 !important }
 .menus{
   min-width: 65px;
   overflow: hidden;
   min-height: 100vh;
-  background: #20335D;
+  /* background: #20335D; */
   position: fixed;
   left: 0;
   top: 0;
@@ -108,16 +119,41 @@ export default {
 .el-submenu .el-menu-item{
   border: none !important;
   box-sizing: border-box;
-  background: #1a294a !important;
+  background: $--menus-children-background !important;
   color: #ccc;
   overflow: hidden;
   /* background: v-bind(children); */
   /* padding-left: 40px !important; */
 }
+.el-menu-item{
+  overflow: hidden;
+}
+.el-menu-item a{
+  display: inline-block;
+  width: 100%;
+  color: #ccc;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  text-decoration: none;
+}
+.el-submenu .el-menu-item:hover{
+  background: $--menus-children-hover-background !important;
+}
 .el-submenu__title{
   color: #ccc !important;
 }
-.el-submenu__title:hover,.el-menu-item:hover,.el-submenu__title:hover .viteIcon,.el-menu-item:hover .viteIcon{
+
+.el-submenu__title:hover .viteIcon,
+.el-menu-item:hover .viteIcon,
+// 不可以展开下级菜单悬浮时
+.el-menu-item:hover a,
+// 可以展开下级菜单悬浮时
+.el-submenu__title:hover span{
+  // background: $--menus-children-hover-background !important;
+  color: $--menus-item-hover-color !important;
+  transition: all .2s;
+}
+/* .el-submenu__title:hover,.el-menu-item:hover,.el-submenu__title:hover .viteIcon,.el-menu-item:hover .viteIcon{
   background: #182646 !important;
   color: #5874ae !important;
   transition: all .2s;
@@ -131,25 +167,5 @@ export default {
 }
 .el-submenu__title:hover .viteIcon,.el-menu-item:hover .viteIcon{
   background: #202e50 !important;
-}
-
-.el-menu-item-group__title{
-  padding: 0 !important;
-}
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  background: #20335D;
-  min-height: 100%;
-}
-.el-menu-item{
-  overflow: hidden;
-}
-.el-menu-item a{
-  display: inline-block;
-  width: 100%;
-  color: #ccc;
-  text-overflow: ellipsis;
-  overflow-x: hidden;
-  text-decoration: none;
-}
+} */
 </style>

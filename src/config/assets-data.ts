@@ -5,8 +5,6 @@ const menusSettin = {
     backgroundColor: '#20335D',
     textColor: '#fff',
     activeTextColor:'#fff',
-    // 子菜单背景颜色
-    children: '#16233f',
 
     // 折叠动画
     collapseTransition: false
