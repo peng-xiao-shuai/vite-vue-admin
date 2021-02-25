@@ -13,7 +13,8 @@ import './icons'
 
 // 全局组件
 import SvgIcon from './components/SvgIcon/index.vue'// svg component
-import powerfulTable from './components/powerful-table/index.vue'// svg component
+import powerfulTable from './components/powerful-table/index.vue'
+import uploadFile from './components/upload-file/index.vue'
 
 // 全局静态配置
 import defalutData from './config/defalut-data';
@@ -25,7 +26,6 @@ import './style/iconfont.css';
 import './style/index.scss';
 
 import {mockXHR} from '../mock/index';
-
 if(process.env.NODE_ENV === 'development' && import.meta.env.VITE_MOCK === "true"){
     mockXHR()
 }
@@ -45,6 +45,7 @@ app.use(store).use(router).use(ElementPlus, { locale }).mount('#app')
 
 app.component('svg-icon',SvgIcon)
 app.component('powerful-table',powerfulTable)
+app.component('upload-file',uploadFile)
 
 // 全局挂载
 app.config.globalProperties.defalutData=defalutData;

@@ -43,27 +43,6 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import("/@/views/login/index.vue"),
   },
-  {
-    path: "/about",
-    name: "about",
-    redirect: "/about/abouts",
-    component: layOut,
-    meta: {
-      title: "关于我们",
-      icon: "viteguanyuwomen",
-    },
-    children: [
-      {
-        path: "abouts",
-        name: "abouts",
-        component: () => import("/@/views/about/abouts/index.vue"),
-        meta: {
-          title: "关于我们",
-          icon: "viteguanyuwomen",
-        },
-      },
-    ],
-  },
 ];
 
 export const addRouter = [
@@ -159,21 +138,21 @@ export const addRouter = [
    }],
   },
   {
-    path: "/oms",
+    path: "/system",
     component: layOut,
-    redirect: "/oms/order",
-    name: "oms",
+    redirect: "/system/config",
+    name: "system",
     meta: {
-      title: "订单管理",
-      icon: "vitedingdan",
+      title: "系统",
+      icon: "vitejiaoyu",
     },
     children: [
       {
-        path: "order",
-        name: "order",
-        component: () => import("/@/views/oms/order/index.vue"),
+        path: "config",
+        name: "config",
+        component: () => import("/@/views/system/index.vue"),
         meta: {
-          title: "订单列表",
+          title: "系统配置",
           icon: "viteliebiao",
         },
       },
@@ -186,7 +165,7 @@ export const addRouter = [
     name: "ums",
     meta: {
       title: "权限",
-      icon: "ums",
+      icon: "vitequanxianguanli-02",
     },
     children: [
       {
@@ -195,7 +174,7 @@ export const addRouter = [
         component: () => import("/@/views/ums/admin/index.vue"),
         meta: {
           title: "用户列表",
-          icon: "ums-admin",
+          icon: "viteyonghuliebiao",
         },
       },
       {
@@ -204,7 +183,7 @@ export const addRouter = [
         component: () => import("/@/views/ums/role/index.vue"),
         meta: {
           title: "角色列表",
-          icon: "ums-role",
+          icon: "vitejiaose",
         },
       },
       {
@@ -231,7 +210,7 @@ export const addRouter = [
         component: () => import("/@/views/ums/menu/index.vue"),
         meta: {
           title: "菜单列表",
-          icon: "ums-menu",
+          icon: "vitecaidanliebiao",
         },
       },
       {
@@ -240,7 +219,7 @@ export const addRouter = [
         component: () => import("/@/views/ums/resource/index.vue"),
         meta: {
           title: "资源列表",
-          icon: "ums-resource",
+          icon: "viteziyuanliebiao",
         },
       },
       {
