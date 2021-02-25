@@ -4,7 +4,7 @@
       :model="systemSetting"
       ref="orderSettingForm"
       :rules="rules"
-      label-width="150px"
+      label-width="200px"
     >
       <div class="tip" style="margin-top: 10px">系统设置栏</div>
       <el-form-item label="系统名字：" prop="systemName">
@@ -13,7 +13,7 @@
           class="input-width"
         ></el-input>
       </el-form-item>
-      <div class="tip" style="margin-top: 10px">微信商户设置栏</div>
+      <!-- <div class="tip" style="margin-top: 10px">微信商户设置栏</div>
       <el-form-item label="微信商户号：" prop="weChatMchId">
         <el-input
           v-model="systemSetting.weChatMchId"
@@ -33,15 +33,56 @@
         <el-button @click="updateStatus('3')" type="primary" size="small"
           >修改</el-button
         >
+      </el-form-item> -->
+      <div class="tip" style="margin-top: 10px">阿里云短信设置栏</div>
+      <el-form-item label="阿里云短信签名：" prop="weChatMchId">
+        <el-input
+          v-model="systemSetting.smSignName"
+          class="input-width"
+          :disabled="isDisabled1"
+        ></el-input>
+        <el-button style="margin-left: 20px" @click="updateStatus('1')" type="primary" size="small"
+          >修改</el-button
+        >
+      </el-form-item>
+      <el-form-item label="阿里云短信模板id：" prop="weChatMchKey">
+        <el-input
+          v-model="systemSetting.smTemplateId"
+          class="input-width"
+          :disabled="isDisabled2"
+        ></el-input>
+        <el-button style="margin-left: 20px" @click="updateStatus('2')" type="primary" size="small"
+          >修改</el-button
+        >
+      </el-form-item>
+      <el-form-item label="阿里云accessKeyId：" prop="weChatMchId">
+        <el-input
+          v-model="systemSetting.accessKeyId"
+          class="input-width"
+          :disabled="isDisabled3"
+        ></el-input>
+        <el-button style="margin-left: 20px" @click="updateStatus('3')" type="primary" size="small"
+          >修改</el-button
+        >
+      </el-form-item>
+      <el-form-item label="阿里云accessKeySecret：" prop="weChatMchKey">
+        <el-input
+          v-model="systemSetting.accessKeySecret"
+          class="input-width"
+          :disabled="isDisabled4"
+        ></el-input>
+        <el-button style="margin-left: 20px" @click="updateStatus('4')" type="primary" size="small"
+          >修改</el-button
+        >
       </el-form-item>
       <div class="tip" style="margin-top: 10px">微信小程序设置栏</div>
       <el-form-item label="微信AppId：" prop="weChatAppId">
         <el-input
           v-model="systemSetting.weChatAppId"
           class="input-width"
-          :disabled="isDisabled1"
+          :disabled="isDisabled5"
         ></el-input>
-        <el-button @click="updateStatus('1')" type="primary" size="small"
+        <el-button style="margin-left: 20px" @click="updateStatus('5')" type="primary" size="small"
           >修改</el-button
         >
       </el-form-item>
@@ -49,29 +90,11 @@
         <el-input
           v-model="systemSetting.weChatSecret"
           class="input-width"
-          :disabled="isDisabled4"
+          :disabled="isDisabled6"
         ></el-input>
-        <el-button @click="updateStatus('4')" type="primary" size="small"
+        <el-button style="margin-left: 20px" @click="updateStatus('6')" type="primary" size="small"
           >修改</el-button
         >
-      </el-form-item>
-      <div class="tip" style="margin-top: 10px">在线测评设置栏</div>
-      <el-form-item label="在线测评答题数量：">
-        <el-input
-          v-model="systemSetting.answerTotalCount"
-          class="input-width"
-        ></el-input>
-      </el-form-item>
-      <div class="tip" style="margin-top: 10px">加急数据设置栏</div>
-      <el-form-item label="加急价格：">
-        <el-input v-model="systemSetting.expeditedPrice" class="input-width">
-          <template #append>元</template>
-        </el-input>
-      </el-form-item>
-      <el-form-item label="加急等待时间：">
-        <el-input v-model="systemSetting.expeditedTime" class="input-width">
-          <template#append>分钟</template#append>
-        </el-input>
       </el-form-item>
       <div class="tip" style="margin-top: 10px">公司信息设置栏</div>
       <el-form-item label="公司地址：">
@@ -165,6 +188,8 @@ export default {
       isDisabled2: true,
       isDisabled3: true,
       isDisabled4: true,
+      isDisabled5: true,
+      isDisabled6: true,
       systemSetting: Object.assign({}, defaultOrderSetting),
       rules: {
         answerTotalCount: { validator: checkTime, trigger: "blur" },
@@ -225,6 +250,12 @@ export default {
           break;
         case "4":
           this.isDisabled4 = !this.isDisabled4;
+          break;
+         case "5":
+          this.isDisabled5 = !this.isDisabled5;
+          break;
+         case "6":
+          this.isDisabled6 = !this.isDisabled6;
           break;
         default:
           break;

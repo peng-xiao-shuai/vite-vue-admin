@@ -48,6 +48,7 @@
 		
 		memberCount,
 		hiddenCount,
+		rectificationCount,
 		
 		userCurve,
 	} from "/@/api/home"
@@ -117,6 +118,13 @@
 					this.count.todayHiddenNumber = res.data.todayHiddenNumber;
 					this.count.monthHiddenNumber = res.data.monthHiddenNumber;
 					this.count.totalHiddenNumber = res.data.totalHiddenNumber;
+				})
+
+				rectificationCount()
+				.then(res => {
+					this.count.todayRectificationNumber = res.data.todayRectificationNumber;
+					this.count.monthRectificationNumber = res.data.monthRectificationNumber;
+					this.count.totalRectificationNumber = res.data.totalRectificationNumber;
 				})
 
 				memberCount()

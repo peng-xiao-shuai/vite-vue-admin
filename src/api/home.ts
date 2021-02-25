@@ -43,3 +43,10 @@ export function hiddenCount() {
     url: 'home/hidden/count',
   })
 }
+
+// 排查统计
+export function rectificationCount() {
+  return request({
+    url: 'home/rectification/count',
+  })
+}

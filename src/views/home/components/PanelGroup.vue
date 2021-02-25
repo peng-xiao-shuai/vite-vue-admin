@@ -1,7 +1,7 @@
 <template>
 	<div style="margin-bottom: 20px">
 		<el-row type="flex" justify="space-between" class="panel-group">
-			<el-col :span="11" class="card-panel-col">
+			<el-col :span="7" class="card-panel-col">
 				<el-popover placement="bottom" trigger="hover">
 					<span>今日新增：{{count.todayMemberNumber}}人 <br></span>
 					<span>本月新增：{{count.monthMemberNumber}}人 <br></span>
@@ -20,7 +20,28 @@
 					</template>
 				</el-popover>
 			</el-col>
-			<el-col :span="11" class="card-panel-col">
+
+			<el-col :span="7" class="card-panel-col">
+				<el-popover placement="bottom" trigger="hover">
+					<span>今日整改：{{count.todayRectificationNumber}}人 <br></span>
+					<span>本月整改：{{count.monthRectificationNumber}}人 <br></span>
+					总整改数：{{count.totalRectificationNumber}}人
+					<template #reference>
+					<div class="card-panel">
+						<div class="card-panel-icon-wrapper icon-message">
+							<el-image style="width: 60px; height: 60px" :src="order" fit="fit"></el-image>
+						</div>
+						<div class="card-panel-description">
+							<div class="card-panel-text">整改总数</div>
+							<div class="card-panel-num">{{count.totalRectificationNumber || 0}}</div>
+							<!-- <count-to :start-val="0" :end-val="count.questionNumber || 0" :duration="1000" class="card-panel-num" /> -->
+						</div>
+					</div>
+					</template>
+				</el-popover>
+			</el-col>
+
+			<el-col :span="7" class="card-panel-col">
 				<el-popover placement="bottom" trigger="hover">
 					<span>今日排查：{{count.todayHiddenNumber}}人 <br></span>
 					<span>本月排查：{{count.monthHiddenNumber}}人 <br></span>
@@ -28,7 +49,7 @@
 					<template #reference>
 					<div class="card-panel">
 						<div class="card-panel-icon-wrapper icon-message">
-							<el-image style="width: 60px; height: 60px" :src="order" fit="fit"></el-image>
+							<el-image style="width: 60px; height: 60px" :src="tiku" fit="fit"></el-image>
 						</div>
 						<div class="card-panel-description">
 							<div class="card-panel-text">排查总数</div>
@@ -46,6 +67,8 @@
 <script>
 	import user from '/@/assets/user.png';
 	import order from '/@/assets/order.png';
+	import tiku from '/@/assets/tiku.png';
+
 	// import CountTo from 'vue-count-to';
 
 	export default {
@@ -62,6 +85,7 @@
 			return {
 				user,
 				order,
+				tiku
 			};
 		},
 		methods: {
