@@ -54,6 +54,10 @@
 							:texts="each.data.texts" 
 							></el-rate>
 						</div>
+						<!-- 超链接 -->
+						<div v-else-if="each.type == 'href'">
+							<el-link :target="each.data && each.data.target || '_blank'" :type="each.data && each.data.type || 'primary'" :underline="each.data && each.data.underline || false" :href="scope.row[each.popr]">{{scope.row[each.popr] ? each.text : '空'}}</el-link>
+						</div>
 						<div v-else-if="each.type == 'video'" style="border-radius: 10px;overflow: hidden;width: 100%;height: 100%;margin: 0 auto;">
 						  <video
 							v-if="scope.row[each.popr]"
