@@ -13,10 +13,21 @@ const header:any[] = [{
 		popr: 'type',
 		filter:[{key: 0,value: '培训视频'},{key: 1,value: '培训PPT'},{key: 2,value: '培训教育记录'},{key: 3,value: '安全智库'}]
 	}],
+}, {
+	label: '标题', //显示的名称
+	poprs: [{
+		popr: 'title',
+	}],
 },{
 	label: '预览图片', //显示的名称
 	poprs: [{
+		type:'image',
 		popr: 'previewImage',
+		data:{
+			lazy:true,
+			preview:true,
+			style: {width: '50px',height: '50px',borderRadius: '5px'}
+		}
 	}],
 },{
 	label: '内容介绍', //显示的名称
@@ -35,7 +46,9 @@ const header:any[] = [{
 },{
 	label: '资料文件地址', //显示的名称
 	poprs: [{
+		type:'href',
 		popr: 'url',
+		text: '查看文件'
 	}],
 },{
 	label: '操作', //显示的标题

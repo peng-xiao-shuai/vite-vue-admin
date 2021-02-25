@@ -107,7 +107,7 @@ export default({
             }
 
             .view{
-                background: #f3f3f3;
+                background: #EFF1F4;
                 min-height: calc(100% - 90px);
                 padding: 20px;
             }

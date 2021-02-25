@@ -21,8 +21,13 @@
           </el-option>
         </el-select>
       </el-form-item>
+      
+      <el-form-item label="标题：" prop="title">
+        <el-input v-model="currentFrom.title" style="width:80%"></el-input>
+      </el-form-item>
+
       <el-form-item label="预览图片：" prop="previewImage">
-        <el-input v-model="currentFrom.previewImage" style="width:80%"></el-input>
+        <upload-file v-model:value='currentFrom.previewImage'></upload-file>
         <!-- <svg-icon style="margin-left: 8px" :icon-class="currentFrom.icon"></svg-icon> -->
       </el-form-item>
 
@@ -36,8 +41,8 @@
         </div>
       </el-form-item>
 
-      <el-form-item label="资料文件地址：" prop="url">
-        <el-input v-model="currentFrom.url" style="width:80%"></el-input>
+      <el-form-item label="资料文件地址：" prop="url" >
+        <upload-file v-model:value='currentFrom.url' :fileType='fileTypeFun(currentFrom.type)' :tipLabel='tipLabelFun(currentFrom.type)'></upload-file>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('menuFrom')">提交</el-button>
@@ -90,9 +95,26 @@ import {
     methods: {
       close(){
         this.$emit('update:dialog', false)
-        this.$emit('update:currentFrom', {forkliftCertificate: 'true',passengerElevatorCertificate:'true'})
+        this.$emit('update:currentFrom', {})
+      },
+      fileTypeFun(e){
+        switch(e){
+          case 0:
+            return 1
+          default:
+            return 2
+        }
+      },
+      tipLabelFun(e){
+        switch(e){
+          case 0:
+            return '支持：mp4、ogg、flv、avi、wmv、rmvb、mov'
+          default:
+            return '支持：pdf、txt、doc、docx、excel、ppt'
+        }
       },
       onSubmit(formName) {
+        console.log(this.currentFrom);
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$confirm('是否提交数据', '提示', {
@@ -141,7 +163,7 @@ import {
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        this.$emit('update:currentFrom', {forkliftCertificate: 'true',passengerElevatorCertificate:'true'})
+        this.$emit('update:currentFrom', {})
       },
     }
   }

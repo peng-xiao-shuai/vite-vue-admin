@@ -9,7 +9,7 @@
             v-if="collapse"
             >
                 <img style="width: 35px; height: 35px;margin-right:5px" src="/src/assets/vite.png" />
-                <span class="logo-title">{{ systemName }}</span>
+                <span class="logo-title" v-show="collapse">{{ systemName }}</span>
             </router-link>
             <router-link
             key="not"

@@ -44,31 +44,6 @@ export default {
 
 			return arr.filter(item => item.meta && item.meta.title && !item.meta.breadcrumb)
 		})
-		// let matched = reactive({
-		// 	value:[]
-		// })
-		// watch(route,()=>{
-		// 	console.log(route);
-		// 	let arr = route.matched
-		// 	if (arr[0].path !== '/') {
-		// 		arr = [{ path: '/', meta: { title: '首页' }}].concat(route.matched)
-		// 	}
-
-		// 	matched = arr
-
-		// 	console.log(matched);
-		// },{
-		// 	immediate:true,
-		// 	deep:true
-		// })
-
-		// watchEffect(() => {
-		// 	let arr = route.matched
-		// 	if (arr[0].path !== '/') {
-		// 		arr = [{ path: '/', meta: { title: '首页' }}].concat(route.matched)
-		// 	}
-		// 	matched.value = arr	
-		// })
         let collapse = ref(true)
 		console.log(matched);
 

@@ -13,7 +13,7 @@
         :collapse-transition='menusSettin.collapseTransition'
         class="el-menu-vertical-demo"
       >
-        <menus-item v-for="(item,index) in menus" :key="item.name" :item='item' :index='index' :count='1'></menus-item>
+        <menus-item :collapse='!collapse' v-for="(item,index) in menus" :key="item.name" :item='item' :index='index' :count='1'></menus-item>
     </el-menu>
     </el-scrollbar>
   </div>

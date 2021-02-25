@@ -85,7 +85,7 @@ export default {
 <style lang='scss'>
 .tags{
     padding: 7px 10px;
-    border-top: 1px solid #ddd;
+    border-top: 2px solid #F7F8F8;
     display: flex;
 
 
