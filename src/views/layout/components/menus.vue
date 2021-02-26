@@ -1,22 +1,16 @@
 <template>
-  <div class="menus" :style="{width:!collapse ? '65px' : '200px',background:menusSettin.backgroundColor}">
+  <div class="menus" :style="{width:!collapse ? '65px' : '200px'}">
 
     <menus-logo :collapse='collapse'></menus-logo>
 
     <el-scrollbar style="height:calc(100vh - 50px)">
       <el-menu
         :collapse='!collapse'
-        :mode='menusSettin.mode'
-        :background-color='menusSettin.backgroundColor'
-        :text-color='menusSettin.textColor'
-        :active-text-color='menusSettin.activeTextColor'
-        :collapse-transition='menusSettin.collapseTransition'
+        mode='vertical'
         class="el-menu-vertical-demo"
-        @select='select'
       >
         <!-- :default-active='' -->
-
-        <menus-item :collapse='!collapse' v-for="(item,index) in menus" :key="item.name" :item='item' :index='index' :count='1'></menus-item>
+        <menus-item :parentIndex='index +1' v-model:activeIndex='activeIndex' :index='index +1' :collapse='!collapse' v-for="(item,index) in menus" :key="item.name" :item='item' :count='1'></menus-item>
     </el-menu>
     </el-scrollbar>
   </div>
@@ -27,11 +21,10 @@
 import router from "/@/router/index";
 import store from "/@/store/index";
 
-import { menusSettin } from '/@/config/assets-data';
-
 // 组件
 import menusLogo from './menus-logo.vue';
 import menusItem from './menus-item.vue';
+import { ref } from 'vue';
 
 
 export default {
@@ -47,22 +40,23 @@ export default {
     }
   },
   setup(props) {
+
+    let parentIndex = ref('')
+
+    let activeIndex = ref(-2)
+
     function navTo(e) {
       router.push({
         name: e
       });
     }
 
-    // watch(collapse,(val)=>{
-      console.log(menusSettin.children);
-    // })
-
     function outlogin() {
       store.dispatch("outLoing");
     }
 
-    function select(e){
-      console.log(e);
+    function open(e){
+      parentIndex.value = e
     }
 
     let menus = store.state.user.menus;
@@ -71,10 +65,11 @@ export default {
     return {
       navTo,
       outlogin,
-      select,
+      open,
+      parentIndex,
+      activeIndex,
 
       menus,
-      menusSettin
     };
   },
 };
@@ -89,12 +84,17 @@ export default {
   min-width: 65px;
   overflow: hidden;
   min-height: 100vh;
-  /* background: #20335D; */
   position: fixed;
   left: 0;
   top: 0;
   transition: width .3s;
 }
+
+.menus-logo{
+  color: $--menus-logo-color;
+  background: $--menus-logo-background;
+}
+
 .clear{
   min-width: 65px;
   height: 100vh;
@@ -103,7 +103,7 @@ export default {
 .menus .viteIcon{
   font-size: 16px;
   /* border: 1px solid #fff; */
-  color: #ccc;
+  color: $--menus-submenu-title-color;
   border-radius: 50%;
   padding: 5px;
 }
@@ -125,23 +125,37 @@ export default {
   /* background: v-bind(children); */
   /* padding-left: 40px !important; */
 }
-.el-menu-item{
+// 菜单背景色
+.el-menu-item,.el-submenu__title,.menus{
   overflow: hidden;
+  background: $--menus-background !important;
 }
+
 .el-menu-item a{
   display: inline-block;
   width: 100%;
-  color: #ccc;
+  color: $--menus-submenu-title-color;
   text-overflow: ellipsis;
   overflow-x: hidden;
   text-decoration: none;
 }
+
 .el-submenu .el-menu-item:hover{
   background: $--menus-children-hover-background !important;
 }
 .el-submenu__title{
-  color: #ccc !important;
+  color: $--menus-submenu-title-color !important;
 }
+
+// 菜单元素点击时
+._submenu .is-active a,.is-active[data-count="1"] a{
+  color: $--menus-item-hover-color !important;
+}
+// 菜单展开时
+.active .el-submenu__title > i,.active .el-submenu__title > span{
+  color: $--menus-item-open-color !important;
+}
+
 
 .el-submenu__title:hover .viteIcon,
 .el-menu-item:hover .viteIcon,
@@ -152,6 +166,11 @@ export default {
   // background: $--menus-children-hover-background !important;
   color: $--menus-item-hover-color !important;
   transition: all .2s;
+}
+
+// 一级菜单悬浮
+.el-menu-item[data-count="1"]:hover,.el-submenu__title:hover{
+    background: $--menus-item-hover-background !important;
 }
 /* .el-submenu__title:hover,.el-menu-item:hover,.el-submenu__title:hover .viteIcon,.el-menu-item:hover .viteIcon{
   background: #182646 !important;

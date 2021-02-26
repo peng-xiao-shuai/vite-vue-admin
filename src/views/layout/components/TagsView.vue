@@ -1,8 +1,8 @@
 <template>
   <div class="tags">
     <transition-group name="tags">
-        <span @click="navTo(item)" :class="['tag',{active:currentName == item.name}]" :style="currentName == item.name ? {background: themeColor} : {}" v-for="(item,index) in tags" :key='index'>
-            {{item.name}}
+        <span @click="navTo(item)" :class="['tag',{active:currentName == item.name}]" :style="currentName == item.name ? {background: themeColor} : {}" v-for="(item,index) in tags" :key='item.name'>
+            {{defalutData.tabsName == 'name' ? item.name : item.meta && item.meta.title}}
             <i v-if="!item.remove" class="el-icon-close" @click.stop="remove(index)"></i>
         </span>
     </transition-group>
@@ -19,7 +19,6 @@ export default {
         let tags = store.state.user.tags
         let route = useRoute()
         let router = useRouter()
-
         // 当前路由name
         let currentName = ref()
 

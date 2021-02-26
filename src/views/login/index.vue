@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="login-form-layout">
-      <span class="login-title color-main">商城管理系统</span>
+      <span class="login-title color-main">{{defalutData.name}}</span>
       <!-- :rules="loginRules" -->
       <el-form autoComplete="on"
                :model="loginForm"

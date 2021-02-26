@@ -119,6 +119,9 @@ const state = {
 	menus:[],
 	tags:[{
 		name:'home',
+		meta:{
+			title: '首页',
+		},
 		remove:true
 	}],
 	pageNums:[]

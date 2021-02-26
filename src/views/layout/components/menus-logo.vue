@@ -1,5 +1,5 @@
 <template>
-    <div class="menus-logo" :style="{background: themeColor}">
+    <div class="menus-logo">
         <transition name="logo">
             <router-link
             key="collapse"
@@ -8,7 +8,7 @@
             to="/"
             v-if="collapse"
             >
-                <img style="width: 35px; height: 35px;margin-right:5px" src="/src/assets/vite.png" />
+                <img style="width: 35px; height: 35px;margin-right:5px" src="/src/assets/logo.svg" />
                 <span class="logo-title" v-show="collapse">{{ systemName }}</span>
             </router-link>
             <router-link
@@ -18,7 +18,7 @@
             to="/"
             v-else
             >
-                <img style="width: 35px; height: 35px" src="/src/assets/vite.png" />
+                <img style="width: 35px; height: 35px" src="/src/assets/logo.svg" />
             </router-link>
         </transition>
     </div>
@@ -58,13 +58,13 @@ export default {
   /* padding: 10px; */
   min-height: 50px;
   width: 100%;
-  height: 50px;color:#fff;
+  height: 50px;
   overflow: hidden;
 }
 .logo-link{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
   text-decoration: none;
   margin: auto;
@@ -72,7 +72,6 @@ export default {
 }
 .logo-title{
   margin: 0;
-  color: #fff;
   font-size: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
