@@ -22,7 +22,7 @@
       <!-- </template> -->
     </el-submenu>
 
-    <el-menu-item :data-count='count' @click="getIndex()" :index="String(index)" :style="{paddingLeft: count * 20 + 'px'}" v-else>
+    <el-menu-item :data-count='count' :index="String(index)" :style="{paddingLeft: count * 20 + 'px'}" v-else>
       <router-link :to="{ name: item.children && item.children[0].name || item.name }" :style="{overflowX: !collapse && count == 1 ? 'hidden' : 'visible'}">
         <i :class="[item.children && item.children[0].meta.icon || (item.meta && item.meta.icon || ''), 'viteIcon']"></i>
         <span class="metaTitle" v-show="!collapse || count > 1">{{ item.children && item.children[0].meta.title || item.meta.title }}</span>

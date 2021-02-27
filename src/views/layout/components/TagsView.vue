@@ -1,39 +1,49 @@
 <template>
   <div class="tags">
-    <transition-group name="tags">
-        <span @click="navTo(item)" :class="['tag',{active:currentName == item.name}]" :style="currentName == item.name ? {background: themeColor} : {}" v-for="(item,index) in tags" :key='item.name'>
-            {{defalutData.tabsName == 'name' ? item.name : item.meta && item.meta.title}}
-            <i v-if="!item.remove" class="el-icon-close" @click.stop="remove(index)"></i>
-        </span>
-    </transition-group>
+    <el-scrollbar :style="{width: collapse ? 'calc(100vw - 200px)' : 'calc(100vw - 65px)'}">
+        <transition-group name="tags">
+            <div @click="navTo(item)" :class="['tag',{active:currentName == item.name}]" :style="currentName == item.name ? {background: themeColor} : {}" v-for="(item,index) in tags" :key='index'>
+                <div>
+                    {{defalutData.tabsName == 'name' ? item.name : item.meta && item.meta.title}}
+                </div>
+                <i v-if="!item.remove" class="el-icon-close" @click.stop="remove(index)"></i>
+            </div>
+        </transition-group>
+    </el-scrollbar>
   </div>
 </template>
 
 <script>
 import store from "/@/store/index";
-import { computed, reactive, ref, watch,toRaw } from 'vue';
+import { computed, reactive, ref, watch,toRaw, defineComponent } from 'vue';
 import { useRoute,useRouter } from 'vue-router';
 
-export default {
+export default defineComponent({
+    props:{
+        collapse:{
+            type: Boolean,
+            default: true
+        }
+    },
     setup(){
         let tags = store.state.user.tags
         let route = useRoute()
         let router = useRouter()
         // 当前路由name
-        let currentName = ref()
+        let currentName = computed(()=>{
+            let isExist = tags.filter(item => item.name == route.name).length > 0 ? true : false
+            addTag(route,isExist)
+            return route.name
+        })
 
-        watch(route,(val)=>{
-            currentName.value = val.name
-            // 获取tags
-            let isExist = tags.filter(item => item.name == currentName.value).length > 0 ? true : false
-            let to = JSON.parse(JSON.stringify(val))
+        function addTag(val,isExist){
+            let to = JSON.parse(JSON.stringify(val.matched[val.matched.length - 1]))
             console.log(to);
+
             if(!isExist && val.name !== "redirect"  && val.name !== "404"){
                 store.commit('tagsCommit',{to})
             }
-        },{
-            immediate:true
-        })
+        }
 
         function remove(i){
             if(tags[i].name === currentName.value){
@@ -78,14 +88,16 @@ export default {
             navTo
         }
     }
-}
+})
 </script>
 
 <style lang='scss'>
 .tags{
     padding: 7px 10px;
     border-top: 2px solid #F7F8F8;
-    display: flex;
+    .el-scrollbar__view{
+        display: flex;
+    }
 
 
     // .animation{
@@ -93,9 +105,8 @@ export default {
 
         .tag{
             padding: 4px 8px;
-            height: 25px;
-            line-height: 25px;
             box-sizing: border-box;
+            height: 25px;
             background: #fff;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -105,6 +116,14 @@ export default {
             font-size: 12px;
             position: relative;
 
+            div{
+                line-height: 25px;
+                height: 25px;
+                // min-width: 60px;
+                overflow: hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
+            }
             i{
                 color: #ccc;
                 font-size: 8px;
@@ -167,7 +186,7 @@ export default {
 .tags-enter-active, .tags-leave-active {
     transition: all .3s;
 }
-.tags-enter-to{
+.tags-enter-to,.tags-leave-from{
     transform: translateX(0px);
     opacity: 1;
 

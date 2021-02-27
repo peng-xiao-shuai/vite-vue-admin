@@ -6,7 +6,7 @@
         <div class="right" :style="!collapse ? {marginLeft: '65px'} : {marginLeft: '200px'}">
             <div class="top">
                 <navs @isCollapse='isCollapse'></navs>
-                <tags-view></tags-view>
+                <tags-view :collapse='collapse'></tags-view>
             </div>
             <div class="view">
                 <router-view v-slot="{ Component }">

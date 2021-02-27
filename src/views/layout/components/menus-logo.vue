@@ -54,12 +54,14 @@ export default {
 } */
 
 .menus-logo{
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   /* padding: 10px; */
   min-height: 50px;
   width: 100%;
   height: 50px;
   overflow: hidden;
+  border-bottom: 2px solid #F7F8F8;
+
 }
 .logo-link{
   display: flex;

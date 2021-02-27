@@ -1,7 +1,7 @@
 <template>
   <div style="padding:5px 10px" class="navs">
     <div class="left">
-        <i :class="['el-icon-s-unfold',collapse ? 'collapse' :'']" @click="$emit('isCollapse',collapse = !collapse)">
+        <i :class="['vitecaidan','viteIcon',collapse ? 'collapse' :'']" :style="{color: themeColor}" @click="$emit('isCollapse',collapse = !collapse)">
         </i>
         <el-breadcrumb separator="/">
             <transition-group name="list">
@@ -69,7 +69,7 @@ export default {
                 margin-right: 10px;
             }
             i{
-				font-size: 22px;
+				font-size: 16px;
 				margin-right: 5px;
 				transition: all 0.4s;
 			}
