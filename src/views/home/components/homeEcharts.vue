@@ -45,11 +45,12 @@ import * as echarts from 'echarts';
 		},
 		methods: {
 			drawChart() {
+				console.log('themeColor',);
 				// 基于准备好的dom，初始化echarts实例
 				let myChart = echarts.init(document.getElementById(this.echartsId));
 				// 指定图表的配置项和数据
 				let option = {
-					color: ['#40c9c6', '#36a3f7', '#f4649e','#f4d45f','#cf91e7','#96f4b9'],
+					color: [this.themeColor, '#36a3f7', '#f4649e','#f4d45f','#cf91e7','#96f4b9'],
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: {
@@ -106,7 +107,7 @@ import * as echarts from 'echarts';
 				
 				// 指定图表的配置项和数据
 				let option = {
-					color: ['#40c9c6', '#36a3f7', '#f4516c'],
+					color: [this.themeColor, '#36a3f7', '#f4516c'],
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -156,7 +157,7 @@ import * as echarts from 'echarts';
 
 				// 指定图表的配置项和数据
 				let option = {
-					color: ['#40c9c6', '#18b1f7', '#f4516c', '#f2a2f4', '#f48864', '#f48c14', '#4bc2f4'],
+					color: [this.themeColor, '#18b1f7', '#f4516c', '#f2a2f4', '#f48864', '#f48c14', '#4bc2f4'],
 					tooltip: {
 						trigger: 'item',
 						formatter: '{b}<br/>数量 {c} ({d}%)'

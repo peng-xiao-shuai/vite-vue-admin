@@ -90,8 +90,8 @@ export default {
   transition: width .3s;
 }
 
-.menus-logo{
-  color: $--menus-logo-color;
+.menus-logo,.menus-logo a{
+  color: $--menus-logo-color !important;
   background: $--menus-logo-background;
 }
 

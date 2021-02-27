@@ -52,6 +52,9 @@ function menusFilter(menus: []){
 					arr ? children.push(arr) : ''
 
 				}
+
+				_sort(children)
+
 				each.children = children
 
 				// console.log('将添加到一级路由下的子集',children);

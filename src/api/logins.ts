@@ -15,6 +15,13 @@ export function getUser(params:Object){
     })
 }
 
+export function updatePassword(data:Object){
+  return request({
+      url:'admin/updatePassword',
+      method: 'post',
+      data
+  })
+}
 
 export function logout() {
     return request({

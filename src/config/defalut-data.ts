@@ -1,5 +1,5 @@
 export default{
-    name: 'vite-vue',
+    name: 'vite-admin',
     themeColor:{
         background: 'rgb(100,108,255)'
     },

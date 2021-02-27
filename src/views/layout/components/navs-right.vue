@@ -38,11 +38,10 @@
             </template>
         </el-dropdown>
     </div>
-
-    <el-dialog title="修改我的密码" v-model:visible="dialogVisible" width="40%" @close="close">
-      <el-form :model="admin" ref="adminForm" label-width="150px" size="small" :rules="loginRules">
+    <el-dialog title="修改我的密码" v-model="dialogVisible" width="40%" @close="close">
+      <el-form :model="admin" ref="adminForm" label-width="100px" size="small" :rules="loginRules">
         <el-form-item label="用户名：" prop="username">
-          <el-input v-model="admin.username" style="width: 250px"></el-input>
+          <el-input v-model="admin.username" style="width: 100%"></el-input>
         </el-form-item>
         <el-form-item label="旧密码：" prop="oldPassword">
           <el-input
@@ -51,11 +50,14 @@
             v-model="admin.oldPassword"
             autoComplete="on"
             placeholder="请输入旧密码"
-            style="width: 250px"
+            style="width: 100%"
           >
-            <span slot="suffix" @click="showPwd">
+            <template #suffix>
+                <i :class="[pwdType == 'password' ? 'vitebiyan' : 'viteyanjing','viteIcon']" @click="pwdType = pwdType == 'password' ? 'text' : 'password'"> </i>
+            </template>
+            <!-- <span slot="suffix" @click="showPwd">
               <svg-icon icon-class="eye" class="color-main"></svg-icon>
-            </span>
+            </span> -->
           </el-input>
         </el-form-item>
         <el-form-item label="新密码：" prop="newPassword">
@@ -65,50 +67,67 @@
             v-model="admin.newPassword"
             autoComplete="on"
             placeholder="请输入新密码："
-            style="width: 250px"
+            style="width: 100%"
           >
-            <span slot="suffix" @click="showPwd">
+            <template #suffix>
+                <i :class="[pwdType == 'password' ? 'vitebiyan' : 'viteyanjing','viteIcon']" @click="pwdType = pwdType == 'password' ? 'text' : 'password'"> </i>
+            </template>
+            <!-- <span slot="suffix" @click="showPwd">
               <svg-icon icon-class="eye" class="color-main"></svg-icon>
-            </span>
+            </span> -->
           </el-input>
         </el-form-item>
-        <el-form-item label="确认密码：" prop="isPassword">
+        <!-- <el-form-item label="确认密码：" prop="isPassword">
           <el-input
             name="password"
             :type="pwdType"
             v-model="isPassword"
             autoComplete="on"
             placeholder="请输入确认密码"
-            style="width: 250px"
+            style="width: 100%"
           >
-            <span slot="suffix" @click="showPwd">
-              <svg-icon icon-class="eye" class="color-main"></svg-icon>
-            </span>
           </el-input>
+        </el-form-item> -->
+
+        <el-form-item>
+            <el-button @click="dialogVisible = false" size="small">取 消</el-button>
+            <el-button type="primary" @click="handleDialogConfirm('adminForm')" size="small">确 定</el-button>
         </el-form-item>
+
       </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleDialogConfirm('adminForm')" size="small">确 定</el-button>
-      </span>
     </el-dialog>
     
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { getCurrentInstance, reactive, ref } from 'vue';
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router';
+import { updatePassword } from '/@/api/logins';
 
 export default {
     setup(){
         let Store = useStore()
-
+        let _this = getCurrentInstance().ctx
         let menus = Store.state.user.menus.filter(item => !item.hidden)
         let icon = Store.state.user.userInfo.icon
 
         let search = ref('')
+        let dialogVisible = ref(false)
+        let pwdType = ref('password')
+        let adminForm = ref(null)
+
+        let loginRules = ref({
+            username: [{required: true, trigger: 'blur', message: '请输入用户名'}],
+            oldPassword: [{required: true, trigger: 'blur', message: '请输入旧密码'}],
+            newPassword: [{required: true, trigger: 'blur', message: '请输入新密码'}]
+        })
+        let admin = reactive({value:{
+            username: '',
+            oldPassword: '',
+            newPassword: ''
+        }})
 
         let router = useRouter()
         function change(e){
@@ -121,14 +140,66 @@ export default {
             Store.dispatch('outLoing')
         }
 
+        function close(e){
+            dialogVisible.value = false
+        }
+        console.log();
+        function  handleDialogConfirm(formName) {
+            adminForm.value.validate(valid => {
+                if (valid) {
+                _this.$confirm('是否确认修改密码?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    // if (_this.admin.newPassword != _this.isPassword) {
+                    // _this.$message({
+                    //     message: '新密码与确认密码不一致',
+                    //     type: 'warning'
+                    // });
+                    // }
+                    updatePassword(_this.admin).then(res => {
+                    if (res.code == '502') {
+                        _this.$message({
+                        message: res.message,
+                        type: 'warning'
+                        });
+                    } else if (res.code == '200') {
+                        _this.dialogVisible = false;
+                        _this.$message({
+                        message: '修改成功！',
+                            type: 'success'
+                        });
+
+                        _this.logout();
+                    }
+                    });
+                });
+                } else {
+                _this.$message({
+                    message: '请完善信息',
+                    type: 'warning'
+                });
+                return false;
+                }
+            });
+        }
+
         return{
             menus,
             search,
-            isSearch:ref(false),
             icon,
+            dialogVisible,
+            admin,
+            pwdType,
+            loginRules,
+            adminForm,
+            isSearch:ref(false),
 
             change,
-            logout
+            close,
+            logout,
+            handleDialogConfirm
         }
     }
 }
@@ -184,12 +255,12 @@ export default {
 </style>
 
 <style scoped>
-.item /deep/ .el-input__inner{
+.item ::v-deep() .el-input__inner{
     border: none !important;
     padding-left: 0 !important;
 
 }
-.item /deep/ .el-select{
+.item ::v-deep() .el-select{
     border-bottom: 1px solid #ccc !important;
 }
 </style>
