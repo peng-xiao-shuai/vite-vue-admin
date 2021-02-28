@@ -114,6 +114,26 @@ export const addRouter = [
           title: "排查订单列表",
           icon: "viteliebiao",
         },
+        redirect: "/gist/gistOrderList/aaaa",
+        children: [
+          {
+            path: "aaaa",
+            name: "aaaa",
+            component: () => import("/@/views/gist/index.vue"),
+            meta: {
+              title: "排查依据三级",
+              icon: "viteliebiao",
+            },
+          },{
+            path: "bbbb",
+            name: "bbbb",
+            component: () => import("/@/views/gist/order.vue"),
+            meta: {
+              title: "排查依据三级（2）",
+              icon: "viteliebiao",
+            },
+          }
+        ],
       }
     ],
   },

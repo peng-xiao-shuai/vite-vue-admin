@@ -60,7 +60,7 @@ export default {
     }
 
     let menus = store.state.user.menus;
-    console.log(menus);
+    // console.log(menus);
 
     return {
       navTo,

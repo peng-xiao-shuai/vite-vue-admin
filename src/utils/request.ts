@@ -6,7 +6,7 @@ import { ElMessage } from 'element-plus';
 
 const ENV = import.meta.env
 
-console.log(ENV);
+// console.log(ENV);
 
 const service = axios.create({
     baseURL: ENV.VITE_BASE_URL,
@@ -33,7 +33,7 @@ service.interceptors.response.use(response =>{
     // 对响应数据做点什么
     let code
     if(ENV.VITE_MOCK){ 
-        console.log(response);
+        // console.log(response);
         
         code = JSON.parse(response.request.response).code
     }else{

@@ -45,7 +45,7 @@ export default {
 			return arr.filter(item => item.meta && item.meta.title && !item.meta.breadcrumb)
 		})
         let collapse = ref(true)
-		console.log(matched);
+		// console.log(matched);
 
         return{
             matched,

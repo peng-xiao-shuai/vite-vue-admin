@@ -19,6 +19,19 @@ $--font-path: '/node_modules/element-plus/lib/theme-chalk/fonts';
 	align-items: center;
 }
 
+.screenForm{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom: 15px;
+}
+.screenForm:last-child{
+  margin: 0;
+}
+// 筛选下的表单item
+.screenForm .el-form-item{
+  margin: 0;
+}
+
 // 提示语
 .tip{
   padding: 0px 16px;

@@ -37,7 +37,7 @@ const header:any[] = [{
         popr: 'status',
         type:'switch',
         data:{
-			activeColor: '#11b19e',
+			activeColor: 'store.getter.themeColo',
             inactiveText: '隐',
             activeText:"显"
         }

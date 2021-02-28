@@ -135,7 +135,9 @@
               }
 
               // 刷新父组件
-              this.$emit('refresh')
+              setTimeout(()=>{
+                this.$emit('refresh')
+              },300)
             });
 
           } else {

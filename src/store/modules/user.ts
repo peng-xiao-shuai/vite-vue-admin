@@ -24,47 +24,16 @@ function menusFilter(menus: []){
 		})
 		
 		let asyncrouter = asyncRouter.filter((item:any)=>{
-
 			let each = addRouterFun(levelOne,item)
-			
 			// 拦截接口数据隐藏的菜单
-			if(!each)return false
-
+			if(!each){
+				// console.log('被拦截了',each);
+				return false
+			}
 			// console.log('一级菜单',each);
-			
-			// 所有子集
-			let ids:any = []
-			
-			if(each.meta && each.meta.id){
-				ids = childs.filter((i:any) =>each.meta.id == i.parentId )
-
-				// console.log('接口返回的一级菜单子集',ids);
-			}
-
-			if(ids.length > 0){
-
-				let children:any[] = []
-				
-				for(let childrenItem of each.children){
-
-					let arr = addRouterFun(ids,childrenItem)
-
-					arr ? children.push(arr) : ''
-
-				}
-
-				_sort(children)
-
-				each.children = children
-
-				// console.log('将添加到一级路由下的子集',children);
-			}else{
-				each.children = []
-			}
-
+			recursion(each,childs)
 			// console.log('%c 完整一级路由','color:blue;',each);
 			// console.log('%c --------------------------------------','color:blue;font-seze:26px');
-
 			return each
 		})
 
@@ -72,7 +41,7 @@ function menusFilter(menus: []){
 
 		asyncrouter.map((item:any) => router.addRoute(item))
 
-		console.log('排序好的一级',asyncrouter);
+		// console.log('排序好的一级',asyncrouter);
 		
 
 		state.menus = router.options.routes.concat(asyncrouter)
@@ -112,6 +81,40 @@ function addRouterFun(router:any[],item:any){
 			
 			return item
 
+		}
+	}
+}
+
+// 递归菜单 查询子集
+function recursion(each:any,childs:any){
+	// 所有子集
+	let ids:any = []
+	
+	if(!each.children){
+		// console.log('不进入递归',each);
+	}else{
+		// console.log('进入递归',each);
+		if(each.meta && each.meta.id){
+			ids = childs.filter((i:any) =>each.meta.id == i.parentId )
+			// console.log('接口返回的一级菜单子集',ids);
+		}
+		if(ids.length > 0){
+			let children:any[] = []
+			for(let childrenItem of each.children){
+				let arr = addRouterFun(ids,childrenItem)
+
+				if(arr){
+					children.push(arr)
+					recursion(arr,childs)
+				}
+
+			}
+			_sort(children)
+			// console.log('将添加到一级路由下的子集',children);
+			each.children = children
+		}else{
+			// 没有则删除
+			delete each.children
 		}
 	}
 }

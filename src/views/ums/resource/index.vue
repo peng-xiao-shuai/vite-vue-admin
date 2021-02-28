@@ -1,13 +1,16 @@
 <template>
   <div class="app-container">
     <el-card :style="{marginBottom: '20px'}" class="filter-container" :shadow="defalutData.cardShadow">
-      <div>
-        <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
-        <el-button
+      <div class="operate-container">
+        <div>
+            <i class="el-icon-search"></i>
+            <span>筛选搜索</span>
+        </div>
+        <div>
+          <el-button
           style="float:right"
           type="primary"
-          @click="handleSearchList()"
+          @click="getList()"
           size="small">
           查询搜索
         </el-button>
@@ -17,10 +20,12 @@
           size="small">
           重置
         </el-button>
+        </div>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
-          <el-form-item label="资源名称：">
+        <el-form :inline="true" :model="listQuery" size="small">
+          <div class="screenForm">
+            <el-form-item label="资源名称：">
             <el-input v-model="listQuery.nameKeyword" class="input-width" placeholder="资源名称" clearable></el-input>
           </el-form-item>
           <el-form-item label="资源路径：">
@@ -35,6 +40,7 @@
               </el-option>
             </el-select>
           </el-form-item>
+          </div>
         </el-form>
       </div>
     </el-card>

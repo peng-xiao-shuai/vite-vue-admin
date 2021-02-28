@@ -9,7 +9,7 @@
 
 		<div>
 			<transition name="fadeOpticy">
-				<el-button type="primary" class="btn-add" @click="backUp()" size="mini" v-show="upParentId >= 0">
+				<el-button type="primary" class="btn-add" @click="backUp()" size="mini" v-show="upParent.value.length > 1">
 					<i class="el-icon-back"></i>返回上级
 				</el-button>
 			</transition>
@@ -59,6 +59,8 @@ import store from '/@/store';
 // 组件
 import update from './components/update.vue';
 
+const menusArr = [{id: 0, title: '无上级菜单'}]
+
 export default defineComponent({
 	name:'menu',
 	components:{
@@ -70,7 +72,10 @@ export default defineComponent({
 		const route = useRoute()
 
 		let list = reactive({value: []})
-		let allList = reactive({value: [{id: 0, title: '无上级菜单'}]})
+		// 渲染的菜单
+		let allList = reactive({value:[]})
+
+		console.log(allList.value);
 
       	let total = ref(0)
       	let config = reactive(header)
@@ -80,21 +85,26 @@ export default defineComponent({
 		})
 
       	let parentId = ref(0)
-      	let upParentId = ref(-1)
+		// 存储上级信息
+      	let upParent = reactive({value:[]})
 
 		// 编辑区显隐
 		let isDialog = ref(false)
 		// 编辑区当前数据
-		let currentFrom =  reactive({value:{parentId: 0,hidden: 0,sort: 0}})
+		let currentFrom =  reactive({value:{}})
 
 		getList();
 
 		function handleAddMenu() {
 			isDialog.value = true
+			currentFrom.value = {parentId: parentId.value,hidden: 0,sort: 0}
+			console.log('添加',currentFrom);
 		}
 		function getList(e) {
 			if(parentId.value == 0){
-				upParentId.value = -1
+				upParent.value = [menusArr]
+				allList.value = menusArr
+				console.log(123,upParent);
 			}
 
 			Object.assign(listQuery,e ? e : listQuery)
@@ -115,7 +125,10 @@ export default defineComponent({
 		  });
 		}
 		function handleShowNextLevel(row, index) {
-			upParentId.value = parentId.value
+			console.log(upParent.value);
+			upParent.value.push([row])
+
+			allList.value = upParent.value[upParent.value.length -1]
 
 			parentId.value = row.id
 			
@@ -123,7 +136,9 @@ export default defineComponent({
 		}
 		function backUp(){
 			listQuery.pageNum = 1
-			parentId.value = upParentId.value
+			parentId.value = upParent.value[upParent.value.length -1][0].parentId
+			allList.value = upParent.value[upParent.value.length -1]
+			upParent.value.splice(upParent.value.length -1,1)
 
 			getList();
 		}
@@ -131,8 +146,7 @@ export default defineComponent({
 			isDialog.value = true
 			
 			currentFrom.value = reactive(JSON.parse(JSON.stringify(row)))
-
-			console.log(currentFrom);
+			// console.log(currentFrom);
 		}
 		function handleDelete(row, index) {
 			deleteMenu(row.id).then((response) => {
@@ -144,13 +158,6 @@ export default defineComponent({
 				getList();
 			});
 		}
-		// 获取所有的菜单
-		fetchList(parentId.value, {pageSize:0,pageNum:0}).then((response) => {
-			allList.value = allList.value.concat(response.data.list)
-
-			getList();
-		});
-
 		return {
 			// 变量
 			list,
@@ -158,7 +165,7 @@ export default defineComponent({
 			config,
 			listQuery,
 			parentId,
-			upParentId,
+			upParent,
 			isDialog,
 			currentFrom,
 			allList,

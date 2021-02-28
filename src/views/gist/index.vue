@@ -2,10 +2,13 @@
   <div class="app-container">
 
 	<el-card class="filter-container" :style="{marginBottom: '20px'}" :shadow="defalutData.cardShadow">
-      <div>
-        <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
-        <el-button
+      <div class="operate-container">
+        <div>
+            <i class="el-icon-search"></i>
+            <span>筛选搜索</span>
+        </div>
+        <div>
+          <el-button
           style="float:right"
           type="primary"
           @click="getList()"
@@ -18,12 +21,15 @@
           size="small">
           重置
         </el-button>
+        </div>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
-          <el-form-item label="标题：">
-       		<el-input v-model="currentFrom.title" style="width:80%" clearable ></el-input>
-          </el-form-item>
+        <el-form :inline="true" :model="listQuery" size="small">
+          <div class="screenForm">
+             <el-form-item label="标题：">
+				<el-input v-model="listQuery.title" placeholder="请输入标题" style="width:80%" clearable ></el-input>
+			</el-form-item>
+          </div>
         </el-form>
       </div>
     </el-card>

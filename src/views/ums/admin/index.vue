@@ -1,13 +1,16 @@
 <template>
   <div class="app-container">
     <el-card class="filter-container" :style="{marginBottom: '20px'}" :shadow="defalutData.cardShadow">
-      <div>
-        <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
-        <el-button
+      <div class="operate-container">
+        <div>
+            <i class="el-icon-search"></i>
+            <span>筛选搜索</span>
+        </div>
+        <div>
+          <el-button
           style="float:right"
           type="primary"
-          @click="handleSearchList()"
+          @click="getList()"
           size="small">
           查询搜索
         </el-button>
@@ -17,12 +20,15 @@
           size="small">
           重置
         </el-button>
+        </div>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
-          <el-form-item label="输入搜索：">
-            <el-input v-model="listQuery.keyword" class="input-width" placeholder="帐号/姓名" clearable></el-input>
-          </el-form-item>
+        <el-form :inline="true" :model="listQuery" size="small">
+          <div class="screenForm">
+             <el-form-item label="输入搜索：">
+                <el-input v-model="listQuery.keyword" class="input-width" placeholder="帐号/姓名" clearable></el-input>
+              </el-form-item>
+          </div>
         </el-form>
       </div>
     </el-card>
@@ -92,11 +98,12 @@
             <el-radio :label="0">否</el-radio>
           </el-radio-group>
         </el-form-item>
+        <el-form-ite>
+          <el-button @click="dialogVisible = false" size="small">取 消</el-button>
+          <el-button type="primary" @click="handleDialogConfirm()" size="small">确 定</el-button>
+
+        </el-form-ite>
       </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleDialogConfirm()" size="small">确 定</el-button>
-      </span>
     </el-dialog>
     <el-dialog
       title="分配角色"
@@ -110,10 +117,10 @@
           :value="item.id">
         </el-option>
       </el-select>
-      <span slot="footer" class="dialog-footer">
+      <template #footer class="dialog-footer">
         <el-button @click="allocDialogVisible = false" size="small">取 消</el-button>
         <el-button type="primary" @click="handleAllocDialogConfirm()" size="small">确 定</el-button>
-      </span>
+      </template>
     </el-dialog>
   </div>
 </template>

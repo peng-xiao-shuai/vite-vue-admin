@@ -40,7 +40,7 @@ const header:any[] = [{
         data:{
 			activeValue: 0,
 			inactiveValue: 1,
-			activeColor: '#11b19e',
+			activeColor: 'store.getter.themeColo',
             inactiveText: '隐',
             activeText:"显"
         }

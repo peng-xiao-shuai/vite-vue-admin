@@ -4,12 +4,13 @@ import vue from '@vitejs/plugin-vue';
 
 import path from 'path';
 
-
 export default defineConfig({
   plugins:[vue()],
   alias: {
     "/@": path.resolve(__dirname, "./src"),
   },
+  // 控制台打印
+  logLevel: 'silent',
   server: {
     host: "localhost",
     port: 3000,
