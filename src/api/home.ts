@@ -1,4 +1,4 @@
-import request from '/@/utils/request'
+import request from '../../utils/request'
 
 // 18个月新增付费用户曲线图
 export function addedPayment() {

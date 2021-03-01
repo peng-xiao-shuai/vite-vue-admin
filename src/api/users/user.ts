@@ -1,4 +1,4 @@
-import request from '/@/utils/request';
+import request from '../../utils/request';
 
 // 分页获取所有用户信息
 export function userlist(params:any) {

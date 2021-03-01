@@ -1,6 +1,4 @@
-import store from '/@/store';
-
-const header:any[] = [{
+export let header:any = [{
 	label: '编号', //显示的标题
 	minWidth: '50', //对应列的最小宽度
 	sortable: true, //排序
@@ -46,7 +44,7 @@ const header:any[] = [{
 	}]
 }]
 
-const orderHeader:any[] = [{
+export const orderHeader:any[] = [{
 	label: '编号', //显示的标题
 	minWidth: '50', //对应列的最小宽度
 	sortable: true, //排序
@@ -84,8 +82,3 @@ const orderHeader:any[] = [{
 		popr: 'rectificationTime',
 	}],
 }]
-
-export {
-	header,
-	orderHeader
-}

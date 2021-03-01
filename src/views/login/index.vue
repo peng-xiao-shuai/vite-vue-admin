@@ -38,7 +38,7 @@
       </el-form>
 
       <div class="btn">
-        <el-button :style="{width: '100%',backgroundColor: themeColor}" :loading="loading" @click.native.prevent="handleLogin('login_form')">
+        <el-button :style="{width: '100%',backgroundColor: themeColor}" :loading="loading" @click.prevent="handleLogin('login_form')">
             登录
         </el-button>      
       </div>

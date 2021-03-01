@@ -80,7 +80,7 @@ import {
     modifyEnterprise,
     removeEnterprise
 } from "/@/api/eps/enterprise";
-import { header } from "./indexData.ts";
+import { header } from "./indexData";
 import { ref,reactive,defineComponent, watch,getCurrentInstance } from 'vue';
 import { useRouter,useRoute } from 'vue-router';
 

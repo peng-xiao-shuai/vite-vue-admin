@@ -1,4 +1,4 @@
-import request from '/@/utils/request';
+import request from '../../utils/request';
 
 // 添加教育资料信息
 export function addMaterial(data:object){

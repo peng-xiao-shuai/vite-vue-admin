@@ -1,7 +1,7 @@
-import request from '/@/utils/request';
+import request from '../../utils/request';
 
 // 添加排查依据信息
-export function addInvestigationBasis(data:object){
+function addInvestigationBasis(data:object): any{
     return request({
         url:'investigation/basis/addInvestigationBasis',
         method: 'post',
@@ -10,7 +10,7 @@ export function addInvestigationBasis(data:object){
 }
 
 // 获取指定排查依据信息
-export function getInvestigationBasis(params:object){
+function getInvestigationBasis(params:object): any{
     return request({
         url:'investigation/basis/getInvestigationBasis',
         params
@@ -18,7 +18,7 @@ export function getInvestigationBasis(params:object){
 }
 
 // 获取所有排查依据信息
-export function listInvestigationBasis(params:object){
+function listInvestigationBasis(params:object): any{
     return request({
         url:'investigation/basis/listInvestigationBasis',
         params
@@ -26,7 +26,7 @@ export function listInvestigationBasis(params:object){
 }
 
 // 修改排查依据信息
-export function modifyInvestigationBasis(data:object){
+function modifyInvestigationBasis(data:object): any{
     return request({
         url:'investigation/basis/modifyInvestigationBasis',
         method: 'post',
@@ -35,7 +35,7 @@ export function modifyInvestigationBasis(data:object){
 }
 
 // 删除排查依据信息
-export function removeInvestigationBasis(data:object){
+function removeInvestigationBasis(data:object): any{
     return request({
         url:'investigation/basis/removeInvestigationBasis',
         method: 'post',
@@ -44,9 +44,18 @@ export function removeInvestigationBasis(data:object){
 }
 
 // 排查订单
-export function listInvestigationOrder(params:object){
+function listInvestigationOrder(params:object): any{
     return request({
         url:'investigation/order/listInvestigationOrder',
         params
     })
+}
+
+export {
+    addInvestigationBasis,
+    getInvestigationBasis,
+    listInvestigationBasis,
+    modifyInvestigationBasis,
+    removeInvestigationBasis,
+    listInvestigationOrder
 }

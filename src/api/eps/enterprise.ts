@@ -1,4 +1,4 @@
-import request from '/@/utils/request';
+import request from '../../utils/request';
 
 // 添加企业信息
 export function addEnterprise(data:object){

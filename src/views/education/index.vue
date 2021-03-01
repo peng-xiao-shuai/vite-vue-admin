@@ -70,7 +70,6 @@
             :operateData='operateData'
 			@batchOperate='handleBatchChange'
 			@sizeChange="getList"
-			@switchChange="handleSwitchChange"
 			@look="handleShowNextLevel"
 			@update="handleUpdate"
 			@remove="handleDelete"
@@ -90,7 +89,7 @@ import {
 	modifyMaterial,
     listMaterial
 } from "/@/api/education/education";
-import { header } from "./indexData.ts";
+import { header } from "./indexData";
 import { ref,reactive,defineComponent,getCurrentInstance } from 'vue';
 import { useRouter,useRoute } from 'vue-router';
 
@@ -167,15 +166,6 @@ export default defineComponent({
 				total.value = response.data.total;
 			});
 		}
-		function handleSwitchChange(row:any, index:number) {
-		  modifyMaterial(row.id, { hidden: row.hidden }).then((response:any) => {
-		    _this.$message({
-		      message: "修改成功",
-		      type: "success",
-		      duration: 1000,
-		    });
-		  });
-		}
 		function handleShowNextLevel(row:any, index:number) {
 			upParentId.value = parentId.value
 
@@ -226,7 +216,6 @@ export default defineComponent({
 			handleAddMenu,
 			handleResetSearch,
 			getList,
-			handleSwitchChange,
 			handleBatchChange,
 			handleShowNextLevel,
 			handleUpdate,
