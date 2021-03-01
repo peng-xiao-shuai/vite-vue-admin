@@ -11,8 +11,7 @@
           <el-button
           style="float:right"
           type="primary"
-          @click="getList()"
-          size="small">
+          @click="getList()">
           查询搜索
         </el-button>
         <!-- <el-button
@@ -24,7 +23,7 @@
         </div>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small">
+        <el-form :inline="true" :model="listQuery">
           <div class="screenForm">
              <el-form-item label="资料类型">
 			  <el-select v-model="listQuery.type"

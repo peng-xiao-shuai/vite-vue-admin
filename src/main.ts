@@ -41,7 +41,7 @@ app.mixin({
     }
 })
 
-app.use(store).use(router).use(ElementPlus, { locale }).mount('#app')
+app.use(store).use(router).use(ElementPlus, { size: 'small', zIndex: 3000,locale}).mount('#app')
 
 app.component('svg-icon',SvgIcon)
 app.component('powerful-table',powerfulTable)
