@@ -9,6 +9,7 @@
         :show-file-list="fileType == 2 ? true : false"
         :on-success="handleSuccess"
         :on-exceed="onExceed"
+        :on-error='onError'
         :limit="limit"
         :multiple="limit > 1"
         :action="minioUploadUrl"
@@ -196,6 +197,18 @@ export default {
     }
   },
   methods: {
+    onError(err,file){
+      console.log(err,file);
+      this.$message({
+        message: '上传失败',
+        type: 'danger'
+      });
+
+      this.percentFlag = false
+
+      this.icon = ''
+
+    },
     // 上传时
     onProgress(event, file) {
       this.icon = 'el-icon-loading';
