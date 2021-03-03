@@ -1,4 +1,4 @@
-import Mock from 'mockjs'
+import * as Mock from 'mockjs'
 
 import apis from './apis';
 

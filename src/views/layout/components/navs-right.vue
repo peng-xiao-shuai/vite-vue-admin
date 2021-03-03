@@ -15,8 +15,8 @@
           <el-option
             v-for="item in menus"
             :key="item.path"
-            :label="item.meta.title"
-            :value="item.path"
+            :label="item.path"
+            :value="item.name"
           >
           </el-option>
         </el-select>
@@ -150,8 +150,7 @@
     </el-dialog>
   </div>
 </template>
-
-<script>
+<script lang='ts'>
 import { defineComponent, getCurrentInstance, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -163,7 +162,10 @@ export default defineComponent({
   setup() {
     let Store = useStore();
     let _this = getCurrentInstance().ctx;
-    let menus = Store.state.user.menus.filter((item) => !item.hidden);
+
+    let menu:[] = []
+    let menus:any = searchMenusFun(Store.state.user.menus,menu)
+    console.log(Store.state.user);
     let isRfs = ref(false);
     // 账号头像
     let icon = Store.state.user.userInfo.icon;
@@ -171,7 +173,7 @@ export default defineComponent({
     let search = ref("");
     let dialogVisible = ref(false);
     let pwdType = ref("password");
-    let adminForm = ref(null);
+    let adminForm = ref<any | null>(null);
 
     let loginRules = ref({
       username: [{ required: true, trigger: "blur", message: "请输入用户名" }],
@@ -191,10 +193,28 @@ export default defineComponent({
     });
 
     let router = useRouter();
-    function change(e) {
+    function change(e:string) {
       router.push({
-        path: e,
+        name: e,
       });
+    }
+
+    function searchMenusFun(arr:any[],menu:any[],superior?:any){
+      arr.forEach((each:any) =>{
+        let item:any = JSON.parse(JSON.stringify(each))
+        if(!item.hidden && item.name){
+          if(item.children){
+            item.path = superior ? superior.path + ' /' +  item.path : item.path
+            menu.push(item)
+            menu.concat(searchMenusFun(item.children,menu,item))
+          }else{
+              item.path = superior.path + ' /' +  item.path
+              menu.push(item)
+          }
+        }
+
+      })
+      return menu
     }
     //全屏
     function click() {
@@ -226,11 +246,11 @@ export default defineComponent({
       Store.dispatch("outLoing");
     }
 
-    function close(e) {
+    function close() {
       dialogVisible.value = false;
     }
-    function handleDialogConfirm(formName) {
-      adminForm.value.validate((valid) => {
+    function handleDialogConfirm() {
+      adminForm.value.validate((valid:any) => {
         if (valid) {
           _this
             .$confirm("是否确认修改密码?", "提示", {
@@ -245,7 +265,7 @@ export default defineComponent({
               //     type: 'warning'
               // });
               // }
-              updatePassword(_this.admin).then((res) => {
+              updatePassword(_this.admin).then((res:any) => {
                 if (res.code == "502") {
                   _this.$message({
                     message: res.message,

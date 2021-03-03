@@ -42,7 +42,6 @@ function menusFilter(menus: []){
 		asyncrouter.map((item:any) => router.addRoute(item))
 
 		// console.log('排序好的一级',asyncrouter);
-		
 
 		state.menus = router.options.routes.concat(asyncrouter)
 

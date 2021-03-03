@@ -9,9 +9,9 @@ export function addedPayment() {
 }
 
 // 18个月新增用户曲线图
-export function userCurve() {
+export function chartFun() {
   return request({
-    url: 'home/userCurve/count',
+    url: 'home/chart',
     method: 'get'
   })
 }
@@ -31,22 +31,8 @@ export function hiddenCurve() {
 }
 
 // 用户统计
-export function memberCount() {
+export function countFun() {
   return request({
-    url: 'home/member/count',
-  })
-}
-
-// 排查统计
-export function hiddenCount() {
-  return request({
-    url: 'home/hidden/count',
-  })
-}
-
-// 排查统计
-export function rectificationCount() {
-  return request({
-    url: 'home/rectification/count',
+    url: 'home/count',
   })
 }

@@ -3,7 +3,7 @@
         <div :class="['left']">
             <menus :collapse='collapse'></menus>
         </div>
-        <div class="right" :style="!collapse ? {marginLeft: '65px'} : {marginLeft: '200px'}">
+        <div class="right" :style="!collapse ? {marginLeft: '65px'} : {marginLeft: '240px'}">
             <div class="top">
                 <navs @isCollapse='isCollapse'></navs>
                 <tags-view :collapse='collapse'></tags-view>

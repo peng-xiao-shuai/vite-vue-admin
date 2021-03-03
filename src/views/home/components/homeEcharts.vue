@@ -9,6 +9,7 @@ import * as echarts from 'echarts';
 	export default {
 		props: {
 			echartsId: String,
+			colors: Array,
 			information: Object,
 			title: String,
 			types: {
@@ -50,7 +51,7 @@ import * as echarts from 'echarts';
 				let myChart = echarts.init(document.getElementById(this.echartsId));
 				// 指定图表的配置项和数据
 				let option = {
-					color: [this.themeColor, '#36a3f7', '#f4649e','#f4d45f','#cf91e7','#96f4b9'],
+					color: this.colors,
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: {
@@ -61,28 +62,28 @@ import * as echarts from 'echarts';
 						}
 					},
 					legend: {
-						top: 30,
-						right: 0,
 						data: this.information.homeDateInfoResult.map(item => item.name)
 					},
 					grid: {
 						left: '0%',
 						right: '0%',
 						bottom: '3%',
-						// top: '0…',
 						containLabel: true
 					},
 					title: {
 						text: this.title,
-						left: 'center'
+						left: 'left'
 					},
 					xAxis: {
 						type: 'category',
+						boundaryGap: false,
 						data: this.information.horizontalList
 					},
-					yAxis: {
-						type: 'value'
-					},
+					yAxis: [
+						{
+							type: 'value'
+						}
+					],
 					series: this.information.homeDateInfoResult
 				};
 

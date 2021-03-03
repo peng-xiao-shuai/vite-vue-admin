@@ -38,33 +38,13 @@ const roles = {
     },{
         hidden: 0,
         icon: "viteliebiao",
-        id: 2,
+        id: 222,
         level: 1,
         name: "user",
         parentId: 1,
         sort: 9,
         title: "用户列表"
     }
-    ,{
-        hidden: 0,
-        icon: "viteliebiao",
-        id: 999,
-        level: 1,
-        name: "userThree",
-        parentId: 1,
-        sort: 9,
-        title: "用户三级"
-    }
-    // ,{
-    //     hidden: 1,
-    //     icon: "viteliebiao",
-    //     id: 998,
-    //     level: 2,
-    //     name: "userThreeTow",
-    //     parentId: 2,
-    //     sort: 9,
-    //     title: "用户三级(2)"
-    // }
     ,{
         hidden: 1,
         icon: "viteliebiao",
@@ -103,14 +83,35 @@ const roles = {
         title: "gistList"
     },{
         hidden: 0,
-        icon: "viteliebiao",
+        icon: "viteyonghuguanli",
         id: 11,
         level: 1,
         name: "gistOrderList",
         parentId: 4,
+        sort: 997,
+        title: "测试长度长度长度",
+    }
+    ,{
+        hidden: 0,
+        icon: "viteliebiao",
+        id: 333,
+        level: 2,
+        name: "aaaa",
+        parentId: 11,
         sort: 9,
-        title: "gistOrderList"
-    },{
+        title: "用户三级（1）"
+    }
+    ,{
+        hidden: 0,
+        icon: "viteliebiao",
+        id: 444,
+        level: 2,
+        name: "bbbb",
+        parentId: 11,
+        sort: 9,
+        title: "用户三级（2）"
+    },
+    {
         hidden: 0,
         icon: "viteliebiao",
         id: 5,

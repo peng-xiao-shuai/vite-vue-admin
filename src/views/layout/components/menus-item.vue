@@ -2,18 +2,19 @@
   <div v-if="!item.hidden" :class="{_submenu: collapse}">
     <el-submenu :index="String(index)" v-if="item.children && item.children.length > 1">
       <template #title>
-
-        <i :class="[item.meta.icon, 'viteIcon']"></i>
-        <span class="metaTitle" v-show="!collapse">
-          {{ (item.meta && item.meta.title) || "" }}
-        </span>
+        <div :style="{overflowX: collapse ? 'visible' : 'hidden',width: '100%',textOverflow: 'ellipsis'}">
+          <i :class="[item.meta.icon, 'viteIcon']"></i>
+          <span class="metaTitle" v-show="!collapse">
+            {{ (item.meta && item.meta.title) || "" }}
+          </span>
+        </div>
       </template>
       <!-- <template v-for="(each) in item.children" :key="each.name"> -->
         <!-- <el-menu-item-group
           v-if="!each.hidden"
           class="children"
         > -->
-            <menusItem :parentIndex='parentIndex' v-for="(each,idx) in item.children" :key="each.name" :item='each' :index="index + '-' + idx" :count='count + 1'></menusItem>
+            <menusItem :collapse='collapse' :parentIndex='parentIndex' v-for="(each,idx) in item.children" :key="each.name" :item='each' :index="index + '-' + idx" :count='count + 1'></menusItem>
           <!-- <el-menu-item :index="_index + '-' + idx">
             <i :class="[each.meta.icon, 'viteIcon']"></i>
             {{ each.meta && each.meta.title }}</el-menu-item
@@ -23,9 +24,9 @@
     </el-submenu>
 
     <el-menu-item :data-count='count' :index="String(index)" :style="{paddingLeft: count * 20 + 'px'}" v-else>
-      <router-link :to="{ name: item.children && item.children[0].name || item.name }" :style="{overflowX: !collapse && count == 1 ? 'hidden' : 'visible'}">
+      <router-link :to="{ name: item.children && item.children[0].name || item.name }" :style="{overflowX: collapse ? 'visible' : 'hidden'}">
         <i :class="[item.children && item.children[0].meta.icon || (item.meta && item.meta.icon || ''), 'viteIcon']"></i>
-        <span class="metaTitle" v-show="!collapse || count > 1">{{ item.children && item.children[0].meta.title || item.meta.title }}</span>
+        <span class="metaTitle" v-show="!collapse">{{ item.children && item.children[0].meta.title || item.meta.title }}</span>
       </router-link>
     </el-menu-item>
   </div>

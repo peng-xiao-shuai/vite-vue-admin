@@ -1,142 +1,229 @@
 <template>
 	<div>
-	<panel-group :count='count' />
 
-    <el-card :shadow="defalutData.cardShadow" style="margin-bottom: 20px">
-		<div class="echartsBox">
-			<el-row :gutter="32">
-				<el-col :xs="24" :sm="24" :lg="24">
-					<div class="un-handle-layout">
-						<div class="layout-title">18个月新增用户用户曲线图</div>
-						<div style="padding: 0 3%;">
-							<homeEcharts echartsId='vipuser' :information='user' types='line'></homeEcharts>
+		<div class="grid">
+			<div class="eachDiv">
+				<panel-group :count='count' />
+				<el-card :shadow="defalutData.cardShadow">
+					<div class="echartsBox">
+						<el-row :gutter="32">
+							<el-col :xs="24" :sm="24" :lg="24">
+								<div class="un-handle-layout">
+									<div>
+										<homeEcharts echartsId='chart' :colors='colors' :information='chart.value' title='12个月用户登录曲线图' types='line'></homeEcharts>
+									</div>
+								</div>
+							</el-col>
+						</el-row>
+					</div>
+				</el-card>
+			</div>
+
+			<div class="eachDiv">
+				<div class="moneyGrid">
+					<div class="eachDiv">
+						2
+					</div>
+
+					<div class="eachDiv">
+						2
+					</div>
+
+					<div class="eachDiv eachDiv-3">
+						2
+					</div>
+				</div>
+			</div>
+			<div class="eachDiv">
+				<el-card :shadow="defalutData.cardShadow">
+					<div class="echartsBox">
+						<div class="un-handle-layout">
+							<!-- <homeEcharts echartsId='mian1' :information='reform' types='line' title='30天整改统计'></homeEcharts> -->
 						</div>
 					</div>
-				</el-col>
-			</el-row>
-		</div>
-    </el-card>
-
-    <el-card :shadow="defalutData.cardShadow" style="margin-bottom: 20px">
-		<div class="echartsBox">
-			<el-row :gutter="32">
-				<el-col :xs="24" :sm="24" :lg="12">
+				</el-card>
+			</div>
+			<div class="eachDiv">
+				<el-card :shadow="defalutData.cardShadow">
 					<div class="un-handle-layout">
-						<homeEcharts echartsId='mian1' :information='reform' types='line' title='30天整改统计'></homeEcharts>
+						<!-- <homeEcharts echartsId='mian2' :information='investigation' types='line' title='30天排查统计'></homeEcharts> -->
 					</div>
-				</el-col>
-				<el-col :xs="24" :sm="24" :lg="12">
-					<div class="un-handle-layout">
-						<homeEcharts echartsId='mian2' :information='investigation' types='line' title='30天排查统计'></homeEcharts>
-					</div>
-				</el-col>
-			</el-row>
+				</el-card>
+			</div>
 		</div>
-    </el-card>
 
 	</div>
 </template>
 
-<script>
-	import homeEcharts from "./components/homeEcharts.vue"
-	import PanelGroup from './components/PanelGroup.vue'
-	import lineBarEcharts from './components/lineBarEcharts.vue'
+<script lang='ts'>
+import homeEcharts from "./components/homeEcharts.vue"
+import PanelGroup from './components/PanelGroup.vue'
+import lineBarEcharts from './components/lineBarEcharts.vue'
 
-	import {
-		rectification,
-		hiddenCurve,
-		
-		memberCount,
-		hiddenCount,
-		rectificationCount,
-		
-		userCurve,
-	} from "/@/api/home"
+import { useStore } from 'vuex';
+import * as echarts from 'echarts';
 
-	const DATA_FROM_BACKEND = {};
-	export default {
+import {
+	rectification,
+	hiddenCurve,
+	
+	countFun,
+	chartFun,
+} from "/@/api/home"
+import { defineComponent, reactive, ref } from "vue";
+
+const countsArr:any[] = [{
+	icon: 'vitehome-user',
+	title: '用户',
+	value: '',
+	key: 'users',
+	color: '#646cff ',
+},{
+	icon: 'vitehome-shoppings',
+	title: '购物车',
+	value: '',
+	key: 'shoppings',
+	color: '#9d5aff  ',
+},{
+	icon: 'vitehome-pageview',
+	title: '浏览量',
+	value: '',
+	key: 'pageview',
+	color: '#55bcff ',
+},{
+	icon: 'vitehome-done',
+	title: '已完成',
+	value: '',
+	key: 'done',
+	color: '#ffd34a ',
+}]
+
+console.log(useStore());
+
+export default defineComponent({
 		name: 'home',
 		components: {
 			homeEcharts,
 			PanelGroup,
 			lineBarEcharts
 		},
-		data() {
-			return {
-				count: {
-					orderTotal: 0,
-					paperTotal: 0
-				},
+		setup(){
+			// 曲线图颜色
+			const chartColor:any[] = [{
+				opacity: 0.2,
+				color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+					offset: 0,
+					color: 'rgb(157, 90, 255)'
+				}, {
+					offset: 1,
+					color: 'rgb(157, 90, 255)'
+				}])
+			},{
+				opacity: 0.2,
+				color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+					offset: 0,
+					color: useStore().state.settings.themeColor
+				}, {
+					offset: 1,
+					color: useStore().state.settings.themeColor
+				}])
+			}]
 
-				paper: {},
-				test: {},
-				pillar: {},
+			// 曲线图线段颜色
+			const colors:any[] = ['rgb(157, 90, 255)',useStore().state.settings.themeColor]
+			
+			let count= reactive(countsArr)
+			let chart= reactive<any | null>({value: {}})
 
-				// 用户数据
-				user: {},
+			// 18个月数据
+			let user = reactive<any | null>(null)
+			// 30天资料,试题数据
+			let reform= reactive<any | null>(null)
+			let investigation= reactive<any | null>(null)
 
-				// 30天资料,试题数据
-				reform: {},
-				investigation: {},
+			// 30天数据
+			// getThreeDay()
 
-				orderData: {
-					xAxisData: [], // 横坐标数值
-					series: []
-				}
+			function getThreeDay() {
+				Promise.all([rectification(), hiddenCurve()])
+				.then(res => {
+					reform = res[0].data;
+					investigation = res[1].data;
+				})
 			}
-		},
-		created() {
+
+			function getChart() {
+				chartFun()
+				.then(res => {
+					res.data.homeDateInfoResult.forEach((item:any,index:number) =>{
+						item.areaStyle = chartColor[index]
+					})
+
+					chart.value = res.data;
+					console.log(chart);
+				})
+			}
+
+			function getCount() {
+				countFun()
+				.then(res => {
+					let i: any
+
+					count.forEach((i) => {
+						i.value = res.data[i.key]
+					});
+				})
+			}
+
 			// 统计
-			this.getCount();
+			getCount();
 
 			// 18用户数据
-			this.getAddedPayment()
-			
-			// 30天数据
-			this.getThreeDay()
-		},
-		methods: {
+			getChart()
 
-			getThreeDay() {
-				Promise.all([rectification(), hiddenCurve()])
-					.then(res => {
-						this.reform = res[0].data;
-						this.investigation = res[1].data;
-					})
-			},
+			return{
+				count,
+				chart,
+				colors,
 
-			getAddedPayment() {
-				Promise.all([userCurve()])
-					.then(res => {
-						this.user = res[0].data;
-					})
-			},
-
-			getCount() {
-				hiddenCount()
-				.then(res => {
-					this.count.todayHiddenNumber = res.data.todayHiddenNumber;
-					this.count.monthHiddenNumber = res.data.monthHiddenNumber;
-					this.count.totalHiddenNumber = res.data.totalHiddenNumber;
-				})
-
-				rectificationCount()
-				.then(res => {
-					this.count.todayRectificationNumber = res.data.todayRectificationNumber;
-					this.count.monthRectificationNumber = res.data.monthRectificationNumber;
-					this.count.totalRectificationNumber = res.data.totalRectificationNumber;
-				})
-
-				memberCount()
-				.then(res => {
-					this.count.todayMemberNumber = res.data.todayMemberNumber;
-					this.count.monthMemberNumber = res.data.monthMemberNumber;
-					this.count.totalNumber = res.data.totalNumber;
-				})
-			},
-		},
-	}
+				user,
+				reform,
+				investigation
+			}
+		}
+	})
 </script>
+
+<style lang="scss" scoped>
+	.grid{
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		grid-column-gap: 20px;
+		grid-row-gap: 20px;
+
+		.eachDiv{
+			width: 100%;
+
+			.moneyGrid{
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-column-gap: 20px;
+				grid-row-gap: 20px;
+
+				.eachDiv-3{
+					grid-row-start: 2;
+					grid-column-start: 1;
+  					grid-column-end: 3;
+				}
+
+				.eachDiv{
+					width: 100%;
+					border: 1px solid red;
+				}
+			}
+		}
+	}
+</style>
 
 <style scoped>
 	.app-container {
@@ -144,8 +231,6 @@
 		margin-left: 20px;
 		margin-right: 20px;
 	}
-
-	.address-layout {}
 
 	.total-layout {
 		margin-top: 20px;

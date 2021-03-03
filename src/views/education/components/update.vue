@@ -42,7 +42,7 @@
       </el-form-item>
 
       <el-form-item label="资料文件地址：" prop="url" >
-        <upload-file v-model:value='currentFrom.url' :fileType='fileTypeFun(currentFrom.type)' :tipLabel='tipLabelFun(currentFrom.type)'></upload-file>
+        <upload-file v-model:value='currentFrom.url' :fileType='fileTypeFun(currentFrom.type)' :fileSize="['',600,'']" :tipLabel='tipLabelFun(currentFrom.type)'></upload-file>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('menuFrom')">提交</el-button>

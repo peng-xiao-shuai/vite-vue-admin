@@ -31,6 +31,7 @@ const header:any[] = [{
 	}],
 },{
 	label: '内容介绍', //显示的名称
+	overflowTooltip: true,
 	poprs: [{
 		popr: 'contentIntroduction',
 	}],

@@ -8,7 +8,7 @@ export function login(data: Object){
     })
 }
 
-export function getUser(params:Object){
+export function getUser(params?:Object){
     return request({
         url:'admin/info',
         params

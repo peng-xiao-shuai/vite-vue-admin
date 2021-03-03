@@ -1,5 +1,5 @@
 <template>
-  <div class="menus" :style="{width:!collapse ? '65px' : '200px'}">
+  <div class="menus" :style="{width:!collapse ? '65px' : '240px'}">
 
     <menus-logo :collapse='collapse'></menus-logo>
 
@@ -122,6 +122,7 @@ export default {
   background: $--menus-children-background !important;
   color: #ccc;
   overflow: hidden;
+  padding-right: 20px !important;
   /* background: v-bind(children); */
   /* padding-left: 40px !important; */
 }
