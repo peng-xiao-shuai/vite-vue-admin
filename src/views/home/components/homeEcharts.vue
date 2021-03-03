@@ -32,7 +32,7 @@ import * as echarts from 'echarts';
 							case 'line':
 								this.drawChart();
 								break;
-							case 'cake':
+							case 'pie':
 								this.cakeChart();
 								break;
 							default:
@@ -46,7 +46,6 @@ import * as echarts from 'echarts';
 		},
 		methods: {
 			drawChart() {
-				console.log('themeColor',);
 				// 基于准备好的dom，初始化echarts实例
 				let myChart = echarts.init(document.getElementById(this.echartsId));
 				// 指定图表的配置项和数据
@@ -142,35 +141,63 @@ import * as echarts from 'echarts';
 				// 基于准备好的dom，初始化echarts实例
 				let myChart = echarts.init(document.getElementById(this.echartsId));
 
-				let series = {}
+				let series = {
+					center: ['30%', '60%'],
+					type: 'pie',
+					radius: ['45%', '80%'],
+					avoidLabelOverlap: false,
+					itemStyle: {
+						borderRadius: 10,
+						borderColor: '#fff',
+						borderWidth: 10
+					},
+					label: {
+						show: false,
+						position: 'center'
+					},
+					emphasis: {
+						label: {
+							show: true,
+							fontSize: '15',
+							fontWeight: 'bold',
+							formatter: '{b} \n\n {d}%'
+						}
+					},
+					labelLine: {
+						show: false
+					}
+				}
 
-				series.data = this.information.homeDateInfoResult[0].data.map((item, index) => {
+				series.data = this.information.horizontalList.map((item, index) => {
 					let each = {
-						value: item,
-						name: this.information.horizontalList[index]
+						value: item.value,
+						name: item.name
 					}
 
 					return each
 				})
-				series.top = 40
-				series.type = 'pie'
-				series.radius = [20, 110]
 
 				// 指定图表的配置项和数据
 				let option = {
-					color: [this.themeColor, '#18b1f7', '#f4516c', '#f2a2f4', '#f48864', '#f48c14', '#4bc2f4'],
+					color: this.colors,
 					tooltip: {
-						trigger: 'item',
-						formatter: '{b}<br/>数量 {c} ({d}%)'
+						trigger: 'item'
+					},
+					legend: {
+						y: 'center',  //图例上下居中
+						right: '5%',
+						orient: 'vertical',
+						backgroundColor: 'rgb(228, 230, 255)',
+						borderRadius: 5,
+						padding:[30,20,30,20],
+						icon: "pin"
 					},
 					title: {
 						text: this.title,
-						left: 'center'
+						left: 'left'
 					},
 					series: series
 				};
-
-				console.log(option);
 
 				// 使用刚指定的配置项和数据显示图表。
 				myChart.setOption(option);

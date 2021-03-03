@@ -34,16 +34,16 @@
 					</div>
 				</div>
 			</div>
-			<div class="eachDiv">
+			<div class="eachDiv eachDiv3">
 				<el-card :shadow="defalutData.cardShadow">
 					<div class="echartsBox">
 						<div class="un-handle-layout">
-							<!-- <homeEcharts echartsId='mian1' :information='reform' types='line' title='30天整改统计'></homeEcharts> -->
+							<homeEcharts echartsId='pageviewData' :colors='colors' :information='pageviewData.value' types='pie' title='浏览量饼状图'></homeEcharts>
 						</div>
 					</div>
 				</el-card>
 			</div>
-			<div class="eachDiv">
+			<div class="eachDiv eachDiv4">
 				<el-card :shadow="defalutData.cardShadow">
 					<div class="un-handle-layout">
 						<!-- <homeEcharts echartsId='mian2' :information='investigation' types='line' title='30天排查统计'></homeEcharts> -->
@@ -64,9 +64,7 @@ import { useStore } from 'vuex';
 import * as echarts from 'echarts';
 
 import {
-	rectification,
-	hiddenCurve,
-	
+	pageviewChart,
 	countFun,
 	chartFun,
 } from "/@/api/home"
@@ -95,7 +93,7 @@ const countsArr:any[] = [{
 	title: '已完成',
 	value: '',
 	key: 'done',
-	color: '#ffd34a ',
+	color: '#F6C22A ',
 }]
 
 console.log(useStore());
@@ -130,10 +128,11 @@ export default defineComponent({
 			}]
 
 			// 曲线图线段颜色
-			const colors:any[] = ['rgb(157, 90, 255)',useStore().state.settings.themeColor]
+			const colors:any[] = ['rgb(157, 90, 255)',useStore().state.settings.themeColor,'#F6C22A','rgb(85, 188, 255)']
 			
 			let count= reactive(countsArr)
-			let chart= reactive<any | null>({value: {}})
+			let chart= reactive({value: {}})
+			let pageviewData = reactive({value:{}})
 
 			// 18个月数据
 			let user = reactive<any | null>(null)
@@ -141,30 +140,26 @@ export default defineComponent({
 			let reform= reactive<any | null>(null)
 			let investigation= reactive<any | null>(null)
 
-			// 30天数据
-			// getThreeDay()
-
-			function getThreeDay() {
-				Promise.all([rectification(), hiddenCurve()])
-				.then(res => {
-					reform = res[0].data;
-					investigation = res[1].data;
+			// 浏览量
+			function handlePageview() {
+				pageviewChart()
+				.then((res:any) => {
+					pageviewData.value = res.data;
 				})
 			}
 
-			function getChart() {
+			function handleChart() {
 				chartFun()
 				.then(res => {
 					res.data.homeDateInfoResult.forEach((item:any,index:number) =>{
 						item.areaStyle = chartColor[index]
 					})
-
 					chart.value = res.data;
 					console.log(chart);
 				})
 			}
 
-			function getCount() {
+			function handleCount() {
 				countFun()
 				.then(res => {
 					let i: any
@@ -176,14 +171,17 @@ export default defineComponent({
 			}
 
 			// 统计
-			getCount();
+			handleCount();
 
 			// 18用户数据
-			getChart()
+			handleChart()
+
+			handlePageview()
 
 			return{
 				count,
 				chart,
+				pageviewData,
 				colors,
 
 				user,
@@ -200,6 +198,10 @@ export default defineComponent({
 		grid-template-columns: 2fr 1fr;
 		grid-column-gap: 20px;
 		grid-row-gap: 20px;
+		.eachDiv4{
+			grid-row-start: 2;
+			grid-column-start: 1;
+		}
 
 		.eachDiv{
 			width: 100%;

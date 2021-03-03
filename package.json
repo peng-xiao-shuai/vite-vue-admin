@@ -12,6 +12,7 @@
     "js-cookie": "^2.2.1",
     "mockjs": "^1.1.0",
     "normalize-wheel": "^1.0.1",
+    "nprogress": "^0.2.0",
     "resize-observer-polyfill": "^1.5.1",
     "vite": "^2.0.0-beta.60",
     "vue": "^3.0.5",

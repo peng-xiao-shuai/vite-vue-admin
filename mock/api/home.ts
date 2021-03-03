@@ -34,6 +34,17 @@ function homeDateInfoResult(){
 
   return each
 }
+function pageviewFun(){
+  let item:any = []
+  let names:string[] = ['总浏览','本月浏览','昨日浏览','今日浏览']
+  for(let i = 0;i<4;i++){
+    item.push({
+      value: i == 0 ? 1234 : Mock.mock('@integer(300,600)'),
+      name: names[i]
+    })
+  }
+  return item
+}
 
 export default [
   {
@@ -77,11 +88,14 @@ export default [
     },
   },
   {
-    url: "home/member/count",
+    url: "home/pageviewChart",
+    type: "get",
     response: (config: config) => {
       return {
         code: 200,
-        data: {},
+        data: {
+          horizontalList: pageviewFun()
+        },
       };
     },
   },
