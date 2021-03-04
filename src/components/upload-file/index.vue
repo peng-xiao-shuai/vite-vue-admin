@@ -236,9 +236,9 @@ export default {
         return false;
       }
 
-      let last = this.fileType != 2 ? file.type.lastIndexOf('/') : file.type.lastIndexOf('.');
-      let suffix = this.fileType != 2 ? file.type.substr(last + 1, file.type.length) : file.name.substr(last + 1, file.type.length)
-      // console.log(suffix);
+      let last = this.fileType != 2 ? file.type.lastIndexOf('/') : file.name.lastIndexOf('.');
+      let suffix = this.fileType != 2 ? file.type.substr(last + 1, file.type.length) : file.name.substr(last + 1, file.name.length)
+      console.log(suffix);
 
       let suffixStr = this.suffixStr[this.fileType];
 
