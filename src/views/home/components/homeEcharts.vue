@@ -1,26 +1,38 @@
 <template>
-	<div class="">
-		<div :id="echartsId" style="width: 100%;height:250px;"></div>
+	<div style="position:relative">
+		<div class="echartTitle">{{title}}</div>
+		<slot v-if="types == 'line'"></slot>
+		<div :id="echartsId" :style="{width: '100%',height:height - 30+'px'}">
+		</div>
 	</div>
 </template>
 
 <script>
 import * as echarts from 'echarts';
+import { number } from 'echarts';
 	export default {
 		props: {
 			echartsId: String,
 			colors: Array,
 			information: Object,
 			title: String,
+			height:{
+				type: [Number,String],
+				default: 250
+			},
 			types: {
 				type: String,
 				default: ''
 			}
 		},
 		data() {
-			return {}
+			return {
+				current:0
+			}
 		},
-		mounted() {},
+		mounted() {
+			
+		},
 		watch: {
 			information: {
 				deep: true,
@@ -45,9 +57,13 @@ import * as echarts from 'echarts';
 			}
 		},
 		methods: {
+			typeSwipt(e){
+				this.current=e
+			},
 			drawChart() {
+				console.log(this.title);
 				// 基于准备好的dom，初始化echarts实例
-				let myChart = echarts.init(document.getElementById(this.echartsId));
+				let myChart = echarts.init(document.getElementById(this.echartsId),);
 				// 指定图表的配置项和数据
 				let option = {
 					color: this.colors,
@@ -60,9 +76,9 @@ import * as echarts from 'echarts';
 							}
 						}
 					},
-					legend: {
-						data: this.information.homeDateInfoResult.map(item => item.name)
-					},
+					// legend: {
+					// 	data: this.information.homeDateInfoResult.map(item => item.name || '')
+					// },
 					grid: {
 						left: '0%',
 						right: '0%',
@@ -70,8 +86,8 @@ import * as echarts from 'echarts';
 						containLabel: true
 					},
 					title: {
-						text: this.title,
-						left: 'left'
+						// text: this.title,
+						// left: 'left'
 					},
 					xAxis: {
 						type: 'category',
@@ -88,6 +104,7 @@ import * as echarts from 'echarts';
 
 				// 使用刚指定的配置项和数据显示图表。
 				myChart.setOption(option);
+				window.addEventListener("resize", () => { myChart.resize()});
 			},
 
 			pillarChart() {
@@ -120,8 +137,8 @@ import * as echarts from 'echarts';
 						data: this.information.homeDateInfoResult.map(item => item.name)
 					},
 					title: {
-						text: this.title,
-						left: 'center'
+						// text: this.title,
+						// left: 'center'
 					},
 					xAxis: {
 						type: 'category',
@@ -135,6 +152,9 @@ import * as echarts from 'echarts';
 
 				// 使用刚指定的配置项和数据显示图表。
 				myChart.setOption(option);
+
+				window.addEventListener("resize", () => { myChart.resize()});
+
 			},
 
 			cakeChart() {
@@ -142,9 +162,9 @@ import * as echarts from 'echarts';
 				let myChart = echarts.init(document.getElementById(this.echartsId));
 
 				let series = {
-					center: ['30%', '60%'],
+					center: ['30%', '50%'],
 					type: 'pie',
-					radius: ['45%', '80%'],
+					radius: ['45%', '70%'],
 					avoidLabelOverlap: false,
 					itemStyle: {
 						borderRadius: 10,
@@ -189,22 +209,30 @@ import * as echarts from 'echarts';
 						orient: 'vertical',
 						backgroundColor: 'rgb(228, 230, 255)',
 						borderRadius: 5,
-						padding:[30,20,30,20],
+						padding:[25,15,25,15],
 						icon: "pin"
 					},
 					title: {
-						text: this.title,
-						left: 'left'
+						// text: this.title,
+						// left: 'left'
 					},
 					series: series
 				};
 
 				// 使用刚指定的配置项和数据显示图表。
 				myChart.setOption(option);
+				window.addEventListener("resize", () => { myChart.resize()});
 			}
 		},
 	}
 </script>
 
-<style>
+<style scoped>
+.echartTitle{
+	height: 30px;
+	line-height: 30px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+}
 </style>
