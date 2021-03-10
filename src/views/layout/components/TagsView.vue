@@ -2,10 +2,13 @@
   <div class="tags">
     <el-scrollbar :style="{width: collapse ? 'calc(100vw - 200px)' : 'calc(100vw - 65px)'}">
         <transition-group name="tags">
-            <div @click="navTo(item)" :class="['tag',{active:currentName == item.name}]" :style="currentName == item.name ? {background: themeColor} : {}" v-for="(item,index) in tags" :key='index'>
-                <div>
+            <div v-for="(item,index) in tags" :key='index' :class="['tag',{active:currentName == item.name}]"
+                :style="currentName == item.name ? {background: themeColor} : {}">
+                <router-link @click="navTo(item)" 
+                :to="{ name: item.name, query: item.query, params: item.params }"
+                >
                     {{defalutData.tabsName == 'name' ? item.name : item.meta && item.meta.title}}
-                </div>
+                </router-link>
                 <i v-if="!item.remove" class="el-icon-close" @click.stop="remove(index)"></i>
             </div>
         </transition-group>
@@ -14,7 +17,7 @@
 </template>
 
 <script>
-import store from "/@/store/index";
+import { useStore } from "vuex";
 import { computed, reactive, ref, watch,toRaw, defineComponent } from 'vue';
 import { useRoute,useRouter } from 'vue-router';
 
@@ -26,9 +29,10 @@ export default defineComponent({
         }
     },
     setup(){
-        let tags = store.state.user.tags
+        let store = useStore()
         let route = useRoute()
         let router = useRouter()
+        let tags = store.state.user.tags
         // 当前路由name
         let currentName = computed(()=>{
             let isExist = tags.filter(item => item.name == route.name).length > 0 ? true : false
@@ -52,33 +56,29 @@ export default defineComponent({
                     params:tags[i-1].params,
                     query:tags[i-1].query
                 })
+                setTimeout(()=>{
+                    store.dispatch('tagsActions',{removeIndex: i})
+                },50)
+            }else{
+                store.dispatch('tagsActions',{removeIndex: i})
             }
-
-            store.commit('tagsCommit',{removeIndex: i})
-
         }
 
         function navTo(item){
             if(item.name === currentName.value){
                 // 手动重定向页面到 '/redirect' 页面
-                console.log(route);
-                router.replace({
-                    name: 'redirect',
-                    params:{
-                        ...item.params,
-                        __name:item.name
-                    },
-                    query:item.query
-                })
+                // console.log(route);
+                // router.replace({
+                //     name: 'redirect',
+                //     params:{
+                //         ...item.params,
+                //         __name:item.name
+                //     },
+                //     query:item.query
+                // })
 
                 return
             }
-
-            router.push({
-                name:item.name,
-                params:item.params,
-                query:item.query
-            })
         }
 
         return {
@@ -124,9 +124,12 @@ export default defineComponent({
                 text-overflow:ellipsis;
                 white-space: nowrap;
             }
+            a{
+                text-decoration: none;
+                color: #333;
+            }
             i{
                 color: #ccc;
-                font-size: 8px;
                 transition: all .3s;
                 margin-left: 5px;
                 padding: 1px;
@@ -134,7 +137,6 @@ export default defineComponent({
                 transform : scale(0.7) ;
                 *font-size:10px;
             }
-
             .el-icon-close:hover{
                 background: #acacac;
                 color: #fff;
@@ -161,9 +163,9 @@ export default defineComponent({
                 color: #fff;
             }
 
-            .el-icon-close:hover{
-                background: #fff;
-                color: #1CC9B5;
+            a{
+                text-decoration: none;
+                color: #fff;
             }
         }
 

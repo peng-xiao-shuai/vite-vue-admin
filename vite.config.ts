@@ -6,8 +6,10 @@ import path from 'path';
 
 export default defineConfig({
   plugins:[vue()],
-  alias: {
-    "/@": path.resolve(__dirname, "./src"),
+  resolve:{
+    alias: {
+      "/@": path.resolve(__dirname, "./src"),
+    }
   },
   // 控制台打印
   logLevel: 'silent',

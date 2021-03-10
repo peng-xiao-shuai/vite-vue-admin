@@ -119,7 +119,7 @@ function recursion(each:any,childs:any){
 }
 
 const state = {
-	token:Cookies.get('token'),
+	vToken:Cookies.get('vToken'),
 	userInfo:{},
 	menus:[],
 	tags:[{
@@ -139,8 +139,8 @@ const actions = {
 			login(user)
 			.then((res: {data:{tokenHead: string , token: string}}) => {
 				if(res){
-					state.token = res.data.tokenHead + res.data.token
-					Cookies.set('token',res.data.tokenHead + res.data.token)
+					state.vToken = res.data.tokenHead + res.data.token
+					Cookies.set('vToken',res.data.tokenHead + res.data.token)
 					router.push({path:'/'})
 				
 				}
@@ -153,7 +153,7 @@ const actions = {
 	userInfo({commit},to:any){
 		
 		return new Promise((resovle) =>{
-			getUser({token: state.token})
+			getUser({token: state.vToken})
 			.then(async (res:any) => {
 				commit(TYPE.LOGIN_THEN,res.data)
 				
@@ -167,8 +167,14 @@ const actions = {
 	// 登出
 	outLoing({commit}){
 		commit('outLogin','')
-		Cookies.remove('token')
+		Cookies.remove('vToken')
 	},
+
+	tagsActions({commit},val:any){
+		console.log(val);
+		
+		commit('tagsCommit',val)
+	}
 }
 
 const mutations = {
@@ -178,7 +184,7 @@ const mutations = {
 		
 	},
 	outLogin(state: any,val: any){
-		state.token = val
+		state.vToken = val
 		router.push('/login')
 	},
 	[TYPE.LOGIN_THEN](state:{userInfo: object,menus: []},val: any){
@@ -186,11 +192,12 @@ const mutations = {
 		state.userInfo = val
 	},
 	tagsCommit(state: any,val: any){
-
 		if(val.removeIndex !== undefined){
 			console.log('删除');
 			
 			state.tags.splice(val.removeIndex,1)
+
+			console.log(state.tags);
 
 			state.pageNums.splice(val.removeIndex,1)
 		}else{
