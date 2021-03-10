@@ -143,11 +143,11 @@ export default defineComponent({
 
 .login-input{
 }
-.login-input /deep/ .el-input__prefix{
+.login-input :deep() .el-input__prefix{
   /* display: flex; */
   /* align-items: center; */
 }
-.login-input /deep/ input{
+.login-input :deep() input{
   background: rgba(0, 0, 0, 0);
   border:none;
   border-radius: 0;
@@ -186,7 +186,7 @@ export default defineComponent({
   justify-content: center;
   margin: 20px 0;
 }
-.btn /deep/ .el-button{
+.btn :deep() .el-button{
   height: 35px;
   border-radius: 3px;
   background: #409eff;

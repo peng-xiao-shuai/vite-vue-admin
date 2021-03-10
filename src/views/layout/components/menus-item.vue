@@ -86,7 +86,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-._submenu /deep/ .el-submenu__icon-arrow{
+._submenu :deep() .el-submenu__icon-arrow{
   display: none;
 }
 
