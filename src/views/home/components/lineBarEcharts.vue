@@ -1,39 +1,41 @@
 <template>
-  <div class=""><div :id="echartsId" ref="chart" style="width: 100%;height:250px;"></div></div>
+  <div class="">
+    <div :id="echartsId" ref="chart" style="width: 100%; height: 250px"></div>
+  </div>
 </template>
 
 <script>
-import * as echarts from 'echarts';
+import * as echarts from 'echarts'
 export default {
   props: {
     echartsId: String,
     dataECharts: Object,
     title: String
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
-  mounted() {},
+  mounted () { },
   watch: {
     dataECharts: {
       deep: true,
       immediate: true,
-      handler(val) {
-        console.log(val);
+      handler (val) {
+        console.log(val)
         // if(val.horizontalList){
         // 	console.log(1);
-        this.drawChart(this.dataECharts);
+        this.drawChart(this.dataECharts)
         // }
       }
     }
   },
-  mounted() {
+  mounted () {
     // this.drawChart(this.dataECharts);
   },
   methods: {
-    drawChart(dataECharts) {
+    drawChart (dataECharts) {
       // 基于准备好的dom，初始化echarts实例
-      var bar_dv = this.$refs.chart;
+      var bar_dv = this.$refs.chart
       if (bar_dv) {
         // let myChart = echarts.init(document.getElementById(this.echartsId));
         let myChart = echarts.init(bar_dv)
@@ -276,10 +278,10 @@ export default {
               }
             }
           ]
-        };
+        }
         // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-      }else{
+        myChart.setOption(option)
+      } else {
         // console.log('bar-dv为空')
       }
     }
