@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { updateResource, createResource } from "/@/api/ums/resource";
+import { updateResource, createResource } from "/@/api/ums/resource"
 
 export default {
   props: {
@@ -64,22 +64,22 @@ export default {
     },
     currentFrom: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
     selectMenuList: {
       type: Array,
       default: () => [],
     },
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
   emits: ["update:currentFrom", "update:dialog", "refresh"],
   methods: {
-    close() {
-      this.$emit("update:dialog", false);
+    close () {
+      this.$emit("update:dialog", false)
     },
-    onSubmit(formName) {
+    onSubmit (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$confirm("是否提交数据", "提示", {
@@ -87,7 +87,7 @@ export default {
             cancelButtonText: "取消",
             type: "warning",
           }).then(() => {
-            let isUpdate = this.currentFrom.id ? true : false 
+            let isUpdate = this.currentFrom.id ? true : false
 
             if (isUpdate) {
               updateResource(this.currentFrom.id, this.currentFrom).then(
@@ -96,42 +96,42 @@ export default {
                     message: "修改成功",
                     type: "success",
                     duration: 1000,
-                  });
-                  this.$emit("update:dialog", false);
+                  })
+                  this.$emit("update:dialog", false)
                 }
-              );
+              )
             } else {
               createResource(this.currentFrom).then((response) => {
-                this.$refs[formName].resetFields();
-                this.resetForm(formName);
+                this.$refs[formName].resetFields()
+                this.resetForm(formName)
                 this.$message({
                   message: "提交成功",
                   type: "success",
                   duration: 1000,
-                });
-                this.$emit("update:dialog", false);
-              });
+                })
+                this.$emit("update:dialog", false)
+              })
             }
 
             // 刷新父组件
             // 防止父组件返回过快没有刷新
-            setTimeout(()=>{
-              this.$emit("refresh");
-            },200)
-          });
+            setTimeout(() => {
+              this.$emit("refresh")
+            }, 200)
+          })
         } else {
           this.$message({
             message: "验证失败",
             type: "error",
             duration: 1000,
-          });
-          return false;
+          })
+          return false
         }
-      });
+      })
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-      this.$emit("update:currentFrom",{id:null});
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
+      this.$emit("update:currentFrom", { id: null })
     },
   },
 };
