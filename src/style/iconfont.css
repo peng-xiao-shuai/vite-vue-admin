@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'viteIcon';  /* project id 2351447 */
-  src: url('//at.alicdn.com/t/font_2351447_js2pdwk64ym.eot');
-  src: url('//at.alicdn.com/t/font_2351447_js2pdwk64ym.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_2351447_js2pdwk64ym.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_2351447_js2pdwk64ym.woff') format('woff'),
-  url('//at.alicdn.com/t/font_2351447_js2pdwk64ym.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_2351447_js2pdwk64ym.svg#viteIcon') format('svg');
+  src: url('//at.alicdn.com/t/font_2351447_habztzonboa.eot');
+  src: url('//at.alicdn.com/t/font_2351447_habztzonboa.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_2351447_habztzonboa.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_2351447_habztzonboa.woff') format('woff'),
+  url('//at.alicdn.com/t/font_2351447_habztzonboa.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_2351447_habztzonboa.svg#viteIcon') format('svg');
 }
 
 .viteIcon {
@@ -16,11 +16,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.vitehome-shoppings:before {
-  content: "\e628";
+.vitehome-liulanliang:before {
+  content: "\e600";
 }
 
-.vitehome-pageview:before {
+.vitehome-zongshouyi:before {
+  content: "\e64d";
+}
+.vitehome-daymoney:before {
+  content: "\e657";
+}
+
+.vitehome-wengzhang:before {
   content: "\e618";
 }
 

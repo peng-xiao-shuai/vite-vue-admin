@@ -47,21 +47,21 @@ const routes = [
 
 export const addRouter = [
   {
-    path: "/eps",
+    path: "/submits",
     component: layOut,
-    redirect: "/eps/enterprise",
-    name: "eps",
+    redirect: "/submits/submitList",
+    name: "submits",
     meta: {
-      title: "企业信息管理",
-      icon: "viteicon_xinyong_xianxing_jijin-",
+      title: "提交管理",
+      icon: "vitejiaoyu",
     },
     children: [
       {
-        path: "enterprise",
-        name: "enterprise",
-        component: () => import("/@/views/eps/index.vue"),
+        path: "submitList",
+        name: "submitList",
+        component: () => import("/@/views/submits/submitList/index.vue"),
         meta: {
-          title: "企业列表",
+          title: "提交列表",
           icon: "viteliebiao",
         },
       },
@@ -106,7 +106,8 @@ export const addRouter = [
           title: "排查依据列表",
           icon: "viteliebiao",
         },
-      },{
+      },
+      {
         path: "gistOrderList",
         name: "gistOrderList",
         component: () => import("/@/views/gist/order.vue"),
@@ -114,7 +115,7 @@ export const addRouter = [
           title: "排查订单列表",
           icon: "viteliebiao",
         },
-      }
+      },
     ],
   },
   {
@@ -135,7 +136,8 @@ export const addRouter = [
           title: "用户列表",
           icon: "viteliebiao",
         },
-   }],
+      },
+    ],
   },
   {
     path: "/system",
