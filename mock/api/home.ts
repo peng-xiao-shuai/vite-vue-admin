@@ -212,7 +212,6 @@ export default [
   {
     url: "home/table",
     response: (config: config) => {
-      console.log("config", config.query);
       let size = Number(config.query.pageSize);
       let num = Number(config.query.pageNum);
 

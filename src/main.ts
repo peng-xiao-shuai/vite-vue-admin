@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router/index";
 import store from "./store";
 import ElementPlus from "element-plus";
+import { ElMessage } from "element-plus";
 // import DigitRoll from "digit-roll";
 
 // 国际化
@@ -44,6 +45,7 @@ app.mixin({
     },
   },
 });
+app.provide("$message", ElMessage);
 
 app
   .use(store)

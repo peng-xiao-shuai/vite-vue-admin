@@ -23,7 +23,6 @@
                   :style="{
                     background: current == index ? themeColor : '',
                     transition: 'all .2s',
-                    color: fontColor,
                   }"
                   :class="{ 's-active': current == index }"
                   @click="typeSwitch(index)"
@@ -47,8 +46,9 @@
               <!-- 时间段切换 -->
               <div class="timeDropdown">
                 <el-dropdown @command="command">
-                  <span class="el-dropdown-link" :style="{ color: fontColor }">
-                    Month<i
+                  <span class="el-dropdown-link">
+                    {{ findTime
+                    }}<i
                       class="el-icon-arrow-down el-icon--right"
                       :style="{ color: fontColor }"
                     ></i>
@@ -146,7 +146,7 @@
           >
             <span>提交列表</span>
 
-            <router-link
+            <!-- <router-link
               :to="{ name: 'submitList' }"
               :style="{
                 color: themeColor,
@@ -154,7 +154,7 @@
                 textDecoration: 'none',
               }"
               >查看全部</router-link
-            >
+            > -->
           </h3>
           <div class="un-handle-layout">
             <powerful-table
@@ -187,7 +187,6 @@ import {
 } from "/@/api/home";
 import { defineComponent, reactive, ref } from "vue";
 import { header } from "./indexData";
-import { color } from "echarts";
 
 const countsArr: any[] = [
   {
@@ -289,6 +288,8 @@ export default defineComponent({
     let tbConfig = reactive(header);
     // end
 
+    let findTime = ref("Month");
+
     function typeSwitch(i: number) {
       current.value = i;
 
@@ -305,7 +306,9 @@ export default defineComponent({
         pageviewData.value = res.data;
       });
     }
-    function handleChart(status: number | string, period: string = "month") {
+    function handleChart(status: number | string, period: string = "Month") {
+      findTime.value = period;
+
       userLineColor.value = [];
       chartFun({ status, period }).then((res) => {
         res.data.homeDateInfoResult.forEach((item: any, index: number) => {
@@ -344,6 +347,7 @@ export default defineComponent({
       });
     }
 
+    // 提交信息
     function handleGetTable(e?: {
       pageNum: number | string;
       pageSize: number | string;
@@ -376,6 +380,7 @@ export default defineComponent({
       current,
       user,
       userLineColor,
+      findTime,
 
       reform,
       handleGetTable,

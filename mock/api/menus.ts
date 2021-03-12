@@ -8,7 +8,7 @@ const roles = {
       name: "submits",
       parentId: 0,
       sort: 997,
-      title: "submits",
+      title: "提交管理",
     },
     {
       hidden: 0,
@@ -18,7 +18,7 @@ const roles = {
       name: "submitList",
       parentId: 21,
       sort: 997,
-      title: "submitList",
+      title: "提交列表",
     },
     {
       hidden: 0,

@@ -119,7 +119,7 @@ const state = {
     {
       name: "home",
       meta: {
-        title: "home",
+        title: "首页",
       },
       remove: true,
     },
