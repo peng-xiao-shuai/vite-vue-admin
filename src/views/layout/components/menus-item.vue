@@ -1,7 +1,7 @@
 <template>
   <div v-if="!item.hidden" :class="{ _submenu: collapse }">
     <el-submenu
-      :index="String(index)"
+      :index="item.name"
       v-if="item.children && item.children.length > 1"
     >
       <template #title>
@@ -25,11 +25,9 @@
         > -->
       <menusItem
         :collapse="collapse"
-        :parentIndex="parentIndex"
-        v-for="(each, idx) in item.children"
+        v-for="each in item.children"
         :key="each.name"
         :item="each"
-        :index="index + '-' + idx"
         :count="count + 1"
       ></menusItem>
       <!-- <el-menu-item :index="_index + '-' + idx">
@@ -42,7 +40,7 @@
 
     <el-menu-item
       :data-count="count"
-      :index="String(index)"
+      :index="(item.children && item.children[0].name) || item.name"
       :style="{ paddingLeft: count * 20 + 'px' }"
       v-else
     >
@@ -80,10 +78,6 @@ export default defineComponent({
       type: [Number, String],
       default: 0
     },
-    parentIndex: {
-      type: [Number, String],
-      default: -1
-    },
     // 组件层次
     count: {
       type: Number,
@@ -93,10 +87,6 @@ export default defineComponent({
       type: Boolean,
       default: true
     },
-    // activeIndex:{
-    //   type: Number,
-    //   default: -2
-    // }
   },
   emits: ['update:activeIndex'],
   setup (props, context) {

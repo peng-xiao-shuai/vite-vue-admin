@@ -6,8 +6,7 @@
       <el-menu
         :collapse="!collapse"
         mode="vertical"
-        @select="menuSelect"
-        :default-active="menuActive"
+        :default-active="menuActive()"
         class="el-menu-vertical-demo"
       >
         <!-- :default-active='' -->
@@ -31,6 +30,7 @@ import { useStore } from "vuex";
 // 组件
 import menusLogo from "./menus-logo.vue";
 import menusItem from "./menus-item.vue";
+import { useRoute } from "vue-router";
 
 export default {
   name: "menus",
@@ -45,9 +45,12 @@ export default {
     },
   },
   setup(props) {
-    let menuActive = localStorage.getItem("menuActive");
-
+    const route: any = useRoute();
     const store = useStore();
+
+    function menuActive() {
+      return route.name;
+    }
 
     function navTo(e: any) {
       router.push({
