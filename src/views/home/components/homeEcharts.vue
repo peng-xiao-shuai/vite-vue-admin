@@ -52,7 +52,7 @@ export default {
       deep: true,
       immediate: true,
       handler (val, old) {
-        console.log(val, this.echartsId, this.title)
+        // console.log(val, this.echartsId, this.title)
 
         if (val.horizontalList) {
           // 图表是否合并渲染
@@ -78,7 +78,7 @@ export default {
       this.current = e
     },
     drawChart (merge) {
-      console.log(this.title)
+      // console.log(this.title)
       // 基于准备好的dom，初始化echarts实例
       let myChart = echarts.init(document.getElementById(this.echartsId),)
       // 指定图表的配置项和数据

@@ -6,7 +6,7 @@
         <el-card :shadow="defalutData.cardShadow">
           <!-- eachDiv 原有高度 - panel-group高度 - panel-group(margin) - card(padding) -->
           <homeEcharts
-            isSlot="true"
+            :isSlot="true"
             echartsId="chart"
             :height="550 - 90 - 20 - 40"
             :colors="colors"
@@ -48,10 +48,7 @@
                 <el-dropdown @command="command">
                   <span class="el-dropdown-link">
                     {{ findTime
-                    }}<i
-                      class="el-icon-arrow-down el-icon--right"
-                      :style="{ color: fontColor }"
-                    ></i>
+                    }}<i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
                   <template #dropdown>
                     <el-dropdown-menu>
@@ -343,7 +340,7 @@ export default defineComponent({
           }
         );
         earnings.chart = res.data.chart;
-        console.log(earnings);
+        // console.log(earnings);
       });
     }
 
@@ -355,7 +352,7 @@ export default defineComponent({
       Object.assign(listQuery, e ? e : {});
       tableFun(listQuery).then((res) => {
         list.value = res.data.list;
-        console.log(list);
+        // console.log(list);
       });
     }
     handleGetTable();

@@ -1,15 +1,5 @@
 export let header: any = [
   {
-    label: "编号", //显示的标题
-    minWidth: "50", //对应列的最小宽度
-    sortable: true, //排序
-    poprs: [
-      {
-        popr: "id",
-      },
-    ],
-  },
-  {
     label: "姓名", //显示的名称
     poprs: [
       {
@@ -59,6 +49,18 @@ export let header: any = [
     poprs: [
       {
         popr: "email",
+      },
+    ],
+  },
+  {
+    label: "状态", //显示的名称
+    poprs: [
+      {
+        popr: "status",
+        filter: [
+          { key: true, value: "提交成功" },
+          { key: false, value: "提交失败" },
+        ],
       },
     ],
   },
