@@ -1,31 +1,35 @@
-### 修改主题颜色(修改scss变量颜色)
+### 修改主题颜色(修改 scss 变量颜色)
+
 </br>
 
->index.scss
-``` css
+> index.scss
+
+```css
 $themeColor: 'red'
 
 :export {
-    theme: $themeColor
+  theme: $themeColor;
 }
 ```
 
->index.js
+> index.js
+
 ```js
-import color from 'index.scss'
+import color from "index.scss";
 
-let themeColor = color.theme
+let themeColor = color.theme;
 
-export {
-    themeColor
-}
+export { themeColor };
 ```
 
 ### 不刷新浏览器刷新路由（replace）
+
 </br>
 
-新建路由replace.vue
->router.js
+新建路由 replace.vue
+
+> router.js
+
 ```js
 ...
 {
@@ -37,7 +41,8 @@ export {
 ...
 ```
 
->redirect.vue
+> redirect.vue
+
 ```js
 <script>
 import { useRoute, useRouter } from 'vue-router'
@@ -58,13 +63,39 @@ export default {
 ```
 
 在需要方法里面写入
+
 ```js
- router.replace({
-    name: 'redirect',
-    params:{
-        ...params,
-        __name:name
-    },
-    query
-})
+router.replace({
+  name: "redirect",
+  params: {
+    ...params,
+    __name: name,
+  },
+  query,
+});
+```
+
+### element-plus $message 的使用
+
+1.在每个页面引入
+
+```js
+// 引入
+import { ElMessage } from "element-plus";
+
+// 使用
+ElMessage.success("ok");
+```
+
+2.provide/inject
+
+```js
+// main.ts
+import { ElMessage } from "element-plus";
+
+const app = createApp(App);
+app.provide("$message", ElMessage);
+
+// index.vue
+(inject('$message') as any).success("inject");
 ```
