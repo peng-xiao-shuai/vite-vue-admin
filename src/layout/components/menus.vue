@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style lang='scss'>
-@import "../../../style/menus.scss";
+@import "../../style/menus.scss";
 
 .element::-webkit-scrollbar {
   width: 0 !important;
