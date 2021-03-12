@@ -1,53 +1,57 @@
 <template>
-  <div class="menus" :style="{width:!collapse ? '65px' : '240px'}">
+  <div class="menus" :style="{ width: !collapse ? '65px' : '240px' }">
+    <menus-logo :collapse="collapse"></menus-logo>
 
-    <menus-logo :collapse='collapse'></menus-logo>
-
-    <el-scrollbar style="height:calc(100vh - 50px)">
+    <el-scrollbar style="height: calc(100vh - 50px)">
       <el-menu
-        :collapse='!collapse'
-        mode='vertical'
+        :collapse="!collapse"
+        mode="vertical"
+        @select="menuSelect"
+        :default-active="menuActive"
         class="el-menu-vertical-demo"
       >
         <!-- :default-active='' -->
-        <menus-item :parentIndex='index +1' v-model:activeIndex='activeIndex' :index='index +1' :collapse='!collapse' v-for="(item,index) in menus" :key="item.name" :item='item' :count='1'></menus-item>
-    </el-menu>
+        <menus-item
+          :index="index + 1"
+          :collapse="!collapse"
+          v-for="(item, index) in menus"
+          :key="item.name"
+          :item="item"
+          :count="1"
+        ></menus-item>
+      </el-menu>
     </el-scrollbar>
   </div>
-
 </template>
 
-<script>
+<script lang='ts'>
 import router from "/@/router/index";
-import store from "/@/store/index";
+import { useStore } from "vuex";
 
 // 组件
-import menusLogo from './menus-logo.vue';
-import menusItem from './menus-item.vue';
-import { ref } from 'vue';
-
+import menusLogo from "./menus-logo.vue";
+import menusItem from "./menus-item.vue";
 
 export default {
   name: "menus",
-  components:{
+  components: {
     menusLogo,
-    menusItem
+    menusItem,
   },
-  props:{
-    collapse:{
+  props: {
+    collapse: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   setup(props) {
+    let menuActive = localStorage.getItem("menuActive");
 
-    let parentIndex = ref('')
+    const store = useStore();
 
-    let activeIndex = ref(-2)
-
-    function navTo(e) {
+    function navTo(e: any) {
       router.push({
-        name: e
+        name: e,
       });
     }
 
@@ -55,8 +59,9 @@ export default {
       store.dispatch("outLoing");
     }
 
-    function open(e){
-      parentIndex.value = e
+    function menuSelect(e: any) {
+      console.log(e);
+      localStorage.setItem("menuActive", e);
     }
 
     let menus = store.state.user.menus;
@@ -65,42 +70,43 @@ export default {
     return {
       navTo,
       outlogin,
-      open,
-      parentIndex,
-      activeIndex,
+      menuSelect,
 
       menus,
+      menuActive,
     };
   },
 };
 </script>
 
 <style lang='scss'>
+@import "../../../style/menus.scss";
 
-@import '../../../style/menus.scss';
-
-.element::-webkit-scrollbar { width: 0 !important }
-.menus{
+.element::-webkit-scrollbar {
+  width: 0 !important;
+}
+.menus {
   min-width: 65px;
   overflow: hidden;
   min-height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
-  transition: width .3s;
+  transition: width 0.3s;
 }
 
-.menus-logo,.menus-logo a{
+.menus-logo,
+.menus-logo a {
   color: $--menus-logo-color !important;
   background: $--menus-logo-background;
 }
 
-.clear{
+.clear {
   min-width: 65px;
   height: 100vh;
 }
 
-.menus .viteIcon{
+.menus .viteIcon {
   font-size: 16px;
   /* border: 1px solid #fff; */
   color: $--menus-submenu-title-color;
@@ -108,15 +114,15 @@ export default {
   padding: 5px;
 }
 
-.el-menu{
+.el-menu {
   border: none !important;
   box-sizing: border-box;
 }
-.el-menu > div{
+.el-menu > div {
   border: none !important;
 }
 
-.el-submenu .el-menu-item{
+.el-submenu .el-menu-item {
   border: none !important;
   box-sizing: border-box;
   background: $--menus-children-background !important;
@@ -127,12 +133,14 @@ export default {
   /* padding-left: 40px !important; */
 }
 // 菜单背景色
-.el-menu-item,.el-submenu__title,.menus{
+.el-menu-item,
+.el-submenu__title,
+.menus {
   overflow: hidden;
   background: $--menus-background !important;
 }
 
-.el-menu-item a{
+.el-menu-item a {
   display: inline-block;
   width: 100%;
   color: $--menus-submenu-title-color;
@@ -141,37 +149,39 @@ export default {
   text-decoration: none;
 }
 
-.el-submenu .el-menu-item:hover{
+.el-submenu .el-menu-item:hover {
   background: $--menus-children-hover-background !important;
 }
-.el-submenu__title{
+.el-submenu__title {
   color: $--menus-submenu-title-color !important;
 }
 
 // 菜单元素点击时
-._submenu .is-active a,.is-active[data-count="1"] a{
+.is-active > a,
+.is-active .el-submenu__title > div > * {
   color: $--menus-item-hover-color !important;
 }
 // 菜单展开时
-.active .el-submenu__title > i,.active .el-submenu__title > span{
+.active .el-submenu__title > i,
+.active .el-submenu__title > span {
   color: $--menus-item-open-color !important;
 }
-
 
 .el-submenu__title:hover .viteIcon,
 .el-menu-item:hover .viteIcon,
 // 不可以展开下级菜单悬浮时
 .el-menu-item:hover a,
 // 可以展开下级菜单悬浮时
-.el-submenu__title:hover span{
+.el-submenu__title:hover span {
   // background: $--menus-children-hover-background !important;
   color: $--menus-item-hover-color !important;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 // 一级菜单悬浮
-.el-menu-item[data-count="1"]:hover,.el-submenu__title:hover{
-    background: $--menus-item-hover-background !important;
+.el-menu-item[data-count="1"]:hover,
+.el-submenu__title:hover {
+  background: $--menus-item-hover-background !important;
 }
 /* .el-submenu__title:hover,.el-menu-item:hover,.el-submenu__title:hover .viteIcon,.el-menu-item:hover .viteIcon{
   background: #182646 !important;
