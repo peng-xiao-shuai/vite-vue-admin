@@ -7,7 +7,7 @@ vue3.0+vuex@4+vue-router@4+vite+typescript+mock
 1. upload-file (文件上传，支持指定文件格式，文件大小)
 2. powerful-table (多功能表格组件)[文档说明](https://gitee.com/abc1612565136/powerful-table/blob/master/README.md)
 
-![项目图片](https://images.gitee.com/uploads/images/2021/0301/111902_b9c90de0_7980619.png "$SAMXK1GH$JFGHT9Y@)P~N5.png")
+![首页图片](https://images.gitee.com/uploads/images/2021/0312/154040_07d2d986_7980619.png "localhost_3000_.png")
 
 #### 软件架构
 软件架构说明
