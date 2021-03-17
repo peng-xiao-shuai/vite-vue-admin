@@ -1,4 +1,4 @@
-import { createApp } from "vue";
+import { createApp, inject } from "vue";
 import App from "./App.vue";
 import router from "./router/index";
 import store from "./store";
@@ -36,6 +36,7 @@ if (
 }
 
 let app = createApp(App);
+app.provide("$message", ElMessage);
 
 app.mixin({
   computed: {
@@ -43,9 +44,11 @@ app.mixin({
     themeColor() {
       return store.getters.getThemeColor;
     },
+    message() {
+      return inject<any>("$message");
+    },
   },
 });
-app.provide("$message", ElMessage);
 
 app
   .use(store)

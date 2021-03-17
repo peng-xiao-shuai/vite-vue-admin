@@ -6,26 +6,10 @@ interface config {
 
 import * as Mock from "mockjs";
 
-const count = Mock.mock("@range(20)");
 var Random = Mock.Random;
 // 所有数据
 let list: any[] = [];
 let _x: any = dataArr("x");
-
-for (let i in count) {
-  list.push(
-    Mock.mock({
-      id: Number(i) + 1,
-      name: "@name()",
-      head: Random.image("100x100", Random.color(), Random.first()),
-      "gender|1": ["男", "女"],
-      content: "@ctitle()",
-      date: "@datetime()",
-      email: "1612565136@qq.com",
-      "status|1": true,
-    })
-  );
-}
 
 function dataArr(type: string = "mock") {
   let item: any = [];
@@ -217,14 +201,22 @@ export default [
 
       return {
         code: 200,
-        data: {
-          list: list.filter((item, index) => {
-            return index >= (num - 1) * size && index < num * size;
-          }),
-          pageNum: num,
-          pageSize: size,
-          total: count.length,
-        },
+        data: Mock.mock({
+          // list: list.filter((item, index) => {
+          //   return index >= (num - 1) * size && index < num * size;
+          // }),
+          "list|3": [
+            {
+              name: "@name()",
+              head: Random.image("100x100", Random.color(), Random.first()),
+              "gender|1": ["男", "女"],
+              content: "@ctitle()",
+              date: "@datetime()",
+              email: "1612565136@qq.com",
+              "status|1": true,
+            },
+          ],
+        }),
       };
     },
   },

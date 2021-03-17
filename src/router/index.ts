@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 // console.log(router)
-import layOut from "../views/layout/index.vue";
+import layOut from "/@/layout/index.vue";
 const routes = [
   {
     path: "/",
@@ -47,94 +47,40 @@ const routes = [
 
 export const addRouter = [
   {
-    path: "/submits",
+    path: "/modules",
     component: layOut,
-    redirect: "/submits/submitList",
-    name: "submits",
+    redirect: "/modules/table",
+    name: "modules",
     meta: {
-      title: "提交管理",
-      icon: "vitejiaoyu",
+      title: "组件列表",
+      icon: "vitezujian",
     },
     children: [
       {
-        path: "submitList",
-        name: "submitList",
-        component: () => import("/@/views/submits/submitList/index.vue"),
+        path: "table",
+        name: "table",
+        component: () => import("/@/views/modules/table/index.vue"),
         meta: {
-          title: "提交列表",
-          icon: "viteliebiao",
-        },
-      },
-    ],
-  },
-  {
-    path: "/education",
-    component: layOut,
-    redirect: "/education/educationList",
-    name: "education",
-    meta: {
-      title: "教育信息管理",
-      icon: "vitejiaoyu",
-    },
-    children: [
-      {
-        path: "educationList",
-        name: "educationList",
-        component: () => import("/@/views/education/index.vue"),
-        meta: {
-          title: "教育信息列表",
-          icon: "viteliebiao",
-        },
-      },
-    ],
-  },
-  {
-    path: "/gist",
-    component: layOut,
-    redirect: "/gist/gistList",
-    name: "gist",
-    meta: {
-      title: "排查依据管理",
-      icon: "viteyinhuanguanli",
-    },
-    children: [
-      {
-        path: "gistList",
-        name: "gistList",
-        component: () => import("/@/views/gist/index.vue"),
-        meta: {
-          title: "排查依据列表",
-          icon: "viteliebiao",
+          title: "表格",
+          icon: "viteZJ-biaoge",
         },
       },
       {
-        path: "gistOrderList",
-        name: "gistOrderList",
-        component: () => import("/@/views/gist/order.vue"),
+        path: "upload",
+        name: "upload",
+        component: () => import("/@/views/modules/upload/index.vue"),
         meta: {
-          title: "排查订单列表",
-          icon: "viteliebiao",
+          title: "上传文件",
+          icon: "viteZJ-shangchaun",
         },
       },
-    ],
-  },
-  {
-    path: "/users",
-    component: layOut,
-    redirect: "/users/user",
-    name: "users",
-    meta: {
-      title: "用户管理",
-      icon: "viteyonghuguanli",
-    },
-    children: [
       {
-        path: "user",
-        name: "user",
-        component: () => import("/@/views/users/index.vue"),
+        path: "richText",
+        name: "richText",
+        component: () => import("/@/views/modules/rich-text/index.vue"),
         meta: {
-          title: "用户列表",
-          icon: "viteliebiao",
+          title: "富文本",
+          icon: "viteZJ-fuwenben",
         },
       },
     ],
