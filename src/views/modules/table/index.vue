@@ -31,10 +31,10 @@
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" size="small">
           <div class="screenForm">
-            <el-form-item label="企业名称：">
+            <el-form-item label="用户名：">
               <el-input
                 v-model="listQuery.name"
-                placeholder="请输入企业名称"
+                placeholder="请输入用户名"
                 style="width: 80%"
                 clearable
               ></el-input>
@@ -67,19 +67,20 @@
     <el-card :shadow="defalutData.cardShadow">
       <div>
         <powerful-table
-          ref="menuTable"
+          ref="Table"
           :list="list.value"
           :header="config"
           :isSelect="true"
           :total="total"
-          :tableName="'menuTable'"
+          :tableName="'Table'"
           :operateData="operateData"
+          :selectData="selectData.value"
           @batchOperate="handleBatchChange"
           @sizeChange="getList"
           @switchChange="handleSwitchChange"
-          @look="handleShowNextLevel"
           @update="handleUpdate"
           @remove="handleDelete"
+          @sortCustom="handleSortCustom"
         >
         </powerful-table>
       </div>
@@ -94,51 +95,55 @@
 </template>
 
 <script lang='ts'>
-import {
-  listEnterprise,
-  modifyEnterprise,
-  removeEnterprise,
-} from "/@/api/eps/enterprise";
+import { tableFun } from "/@/api/modules/table";
 import { header } from "./indexData";
-import { ref, reactive, defineComponent, watch, getCurrentInstance } from "vue";
+import { ref, reactive, defineComponent, inject, shallowReactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // 组件
 import update from "./components/update.vue";
 
 export default defineComponent({
-  name: "eps",
+  name: "modulesTable",
   components: {
     update,
   },
   setup() {
-    const _this = getCurrentInstance().ctx;
-    const router = useRouter();
-    const route = useRoute();
+    // const router = useRouter();
+    // const route = useRoute();
+    let $message = inject<any>("$message");
 
-    let list = reactive({ value: [] });
-    let allList = reactive({ value: [{ id: 0, title: "无上级菜单" }] });
+    let list = reactive<any>({ value: [] });
+
+    let selectData = shallowReactive<any>({ value: [] });
 
     // 批量操作
     let operateData = {
       value: 0,
       operates: [
         {
-          label: "删除",
+          label: "推荐",
           value: 0,
+        },
+        {
+          label: "取消推荐",
+          value: 1,
+        },
+        {
+          label: "删除",
+          value: 2,
         },
       ],
     };
 
+    // console.log(themeColor);
+
     let total = ref(0);
     let config = reactive(header);
-    let listQuery = reactive({
+    let listQuery = reactive<any>({
       pageNum: 1,
       pageSize: 10,
     });
-
-    let parentId = ref(0);
-    let upParentId = ref(-1);
 
     // 编辑区显隐
     let isDialog = ref(false);
@@ -150,38 +155,63 @@ export default defineComponent({
     function handleAddMenu() {
       isDialog.value = true;
     }
-    function getList(e?: { pageSize: number; pageNum: number }) {
-      Object.assign(listQuery, e ? e : {});
-      listEnterprise(listQuery).then((response: any) => {
-        list.value = reactive(response.data.list);
+    function getList(
+      e?: {
+        pageNum: number | string;
+        pageSize: number | string;
+      },
+      selectArr?: any
+    ) {
+      // 获取选中
+      selectData.value = selectArr ? selectArr : [];
 
+      Object.assign(listQuery, e ? e : {});
+      tableFun(listQuery).then((response: any) => {
+        list.value = response.data.list;
         total.value = response.data.total;
       });
     }
-    function handleSwitchChange(row: any, index: number) {
-      modifyEnterprise(row.id, { hidden: row.hidden }).then((response: any) => {
-        _this.$message({
-          message: "修改成功",
-          type: "success",
-          duration: 1000,
-        });
-      });
-    }
-    function handleShowNextLevel(row: any, index: number) {
-      upParentId.value = parentId.value;
-
-      parentId.value = row.id;
-
+    function handleSortCustom(e: any) {
+      console.log("远程搜索", e);
+      listQuery[e.prop] = e.order;
       getList();
+    }
+    function handleSwitchChange(row: any, index: number) {
+      list.value[index] = row;
+      $message.success("修改成功");
     }
     function handleUpdate(row: any, index: number) {
       isDialog.value = true;
 
       currentFrom.value = reactive(JSON.parse(JSON.stringify(row)));
+      console.log(row);
     }
 
-    function handleBatchChange(ids: any, item: object, index: number) {
-      delect(ids);
+    function handleBatchChange(
+      ids: any,
+      item: { label: string; value: number },
+      items: any
+    ) {
+      console.log(ids, item, items);
+      switch (item.value) {
+        case 0:
+        case 1:
+          list.value.forEach((each: any, index: number) => {
+            if (ids.indexOf(each.id) !== -1) {
+              if (item.value === 0) {
+                each.recommend = 1;
+              } else {
+                each.recommend = 0;
+              }
+            }
+          });
+          $message.success("修改成功");
+
+          break;
+        case 2:
+          delect(ids);
+          break;
+      }
     }
 
     function handleDelete(row: any, index: number) {
@@ -189,14 +219,8 @@ export default defineComponent({
     }
 
     function delect(ids: any) {
-      removeEnterprise(ids).then((response: any) => {
-        _this.$message({
-          message: "删除成功",
-          type: "success",
-          duration: 1000,
-        });
-        getList();
-      });
+      list.value = list.value.filter((item: any) => ids.indexOf(item.id) == -1);
+      $message.success("删除成功");
     }
 
     return {
@@ -206,20 +230,18 @@ export default defineComponent({
       config,
       operateData,
       listQuery,
-      parentId,
-      upParentId,
       isDialog,
       currentFrom,
-      allList,
+      selectData,
 
       // 方法
       handleAddMenu,
       getList,
       handleSwitchChange,
       handleBatchChange,
-      handleShowNextLevel,
       handleUpdate,
       handleDelete,
+      handleSortCustom,
     };
   },
 });
