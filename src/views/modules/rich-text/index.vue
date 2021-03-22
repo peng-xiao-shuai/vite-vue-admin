@@ -1,158 +1,69 @@
 <template>
   <div class="app-container">
-    <el-card
-      class="filter-container"
-      :style="{ marginBottom: '20px' }"
-      :shadow="defalutData.cardShadow"
-    >
-      <div class="operate-container">
-        <div>
-          <i class="el-icon-search"></i>
-          <span>筛选搜索</span>
-        </div>
-        <div>
-          <el-button
-            style="float: right"
-            type="primary"
-            @click="getList()"
-            size="small"
-          >
-            查询搜索
-          </el-button>
-          <el-button
-            style="float: right; margin-right: 15px"
-            @click="handleResetSearch()"
-            size="small"
-          >
-            重置
-          </el-button>
-        </div>
-      </div>
-      <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small">
-          <div class="screenForm">
-            <el-form-item label="用户名：">
-              <el-input
-                v-model="listQuery.name"
-                placeholder="请输入用户名"
-                style="width: 80%"
-                clearable
-              ></el-input>
-            </el-form-item>
-          </div>
-        </el-form>
-      </div>
-    </el-card>
-
     <el-card :style="{ marginBottom: '20px' }" :shadow="defalutData.cardShadow">
       <div class="operate-container">
         <div>
-          <i class="el-icon-tickets"></i>
-          <span>数据列表</span>
-        </div>
-
-        <div>
-          <el-button
-            type="primary"
-            class="btn-add"
-            @click="handleAddMenu()"
-            size="mini"
-          >
-            添加
-          </el-button>
+          <i class="viteIcon viteZJ-fuwenben" style="margin-right: 5px"></i>
+          <span>富文本编辑器</span>
         </div>
       </div>
     </el-card>
 
     <el-card :shadow="defalutData.cardShadow">
-      <div>
-        <powerful-table
-          ref="menuTable"
-          :list="list.value"
-          :header="config"
-          :isSelect="true"
-          :total="total"
-          :tableName="'menuTable'"
-          :operateData="operateData"
-          @batchOperate="handleBatchChange"
-          @sizeChange="getList"
-          @switchChange="handleSwitchChange"
-          @look="handleShowNextLevel"
-          @update="handleUpdate"
-          @remove="handleDelete"
-        >
-        </powerful-table>
+      <div class="lineTinyBox">
+        <tiny-mce
+          :width="'100%'"
+          :height="700"
+          :myValue="myValue"
+          ref="tinymce"
+        ></tiny-mce>
+
+        <div class="phoneBox">
+          <el-scrollbar style="height: 667px" class="vHtml">
+            <div v-html="myValue"></div>
+          </el-scrollbar>
+        </div>
       </div>
     </el-card>
     <!-- 编辑区 -->
-    <update
+    <!-- <update
       v-model:dialog="isDialog"
       v-model:currentFrom="currentFrom.value"
       @refresh="getList"
-    ></update>
+    ></update> -->
   </div>
 </template>
 
 <script lang='ts'>
-import { tableFun } from "/@/api/home";
-import { header } from "./indexData";
+import { richTextFun } from "/@/api/modules/richText";
 import { ref, reactive, defineComponent, inject } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // 组件
-import update from "./components/update.vue";
+// import update from "./components/update.vue";
+import tinyMce from "/@/components/tiny-mce/index.vue";
 
 export default defineComponent({
-  name: "eps",
+  name: "rich-text",
   components: {
-    update,
+    tinyMce,
+    // update,
   },
   setup() {
     const router = useRouter();
     const route = useRoute();
 
-    let list = reactive({ value: [] });
-    let allList = reactive({ value: [{ id: 0, title: "无上级菜单" }] });
-
-    // 批量操作
-    let operateData = {
-      value: 0,
-      operates: [
-        {
-          label: "删除",
-          value: 0,
-        },
-      ],
-    };
-
-    let total = ref(0);
-    let config = reactive(header);
-    let listQuery = reactive({
-      pageNum: 1,
-      pageSize: 10,
-    });
-
-    let parentId = ref(0);
-    let upParentId = ref(-1);
-
+    let myValue = ref<any>("");
     // 编辑区显隐
     let isDialog = ref(false);
     // 编辑区当前数据
     let currentFrom = reactive({ value: { parentId: 0, hidden: 0 } });
 
-    getList();
+    getData();
 
-    function handleAddMenu() {
-      isDialog.value = true;
-    }
-    function getList(e?: {
-      pageNum: number | string;
-      pageSize: number | string;
-    }) {
-      Object.assign(listQuery, e ? e : {});
-      tableFun(listQuery).then((response: any) => {
-        list.value = response.data.list;
-        total.value = response.data.total;
+    function getData() {
+      richTextFun().then((response: any) => {
+        myValue.value = response.data;
       });
     }
     function handleSwitchChange(row: any, index: number) {
@@ -164,69 +75,62 @@ export default defineComponent({
       //   });
       // });
     }
-    function handleShowNextLevel(row: any, index: number) {
-      upParentId.value = parentId.value;
-
-      parentId.value = row.id;
-
-      getList();
-    }
-    function handleUpdate(row: any, index: number) {
-      isDialog.value = true;
-
-      currentFrom.value = reactive(JSON.parse(JSON.stringify(row)));
-    }
-
-    function handleBatchChange(ids: any, item: object, index: number) {
-      delect(ids);
-    }
-
-    function handleDelete(row: any, index: number) {
-      delect([row.id]);
-    }
-
-    function delect(ids: any) {
-      // removeEnterprise(ids).then((response: any) => {
-      // _this.$message({
-      //   message: "删除成功",
-      //   type: "success",
-      //   duration: 1000,
-      // });
-      getList();
-      // });
-    }
 
     return {
       // 变量
-      list,
-      total,
-      config,
-      operateData,
-      listQuery,
-      parentId,
-      upParentId,
-      isDialog,
       currentFrom,
-      allList,
+      myValue,
 
       // 方法
-      handleAddMenu,
-      getList,
-      handleSwitchChange,
-      handleBatchChange,
-      handleShowNextLevel,
-      handleUpdate,
-      handleDelete,
     };
   },
 });
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .operate-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.lineTinyBox {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 20px;
+
+  .phoneBox {
+    display: flex;
+    width: 375px;
+    border: 4px solid #000;
+    border-radius: 30px;
+    padding: 38px 0 0;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+
+    &::before {
+      position: absolute;
+      left: calc(50% - 25%);
+      top: -25px;
+      content: " ";
+      display: block;
+      background: #000;
+      width: 50%;
+      height: 50px;
+      border-radius: 25px;
+    }
+
+    .vHtml {
+      background: #fff;
+      width: 375px;
+      padding: 0 10px;
+      box-sizing: border-box;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+    }
+  }
 }
 </style>

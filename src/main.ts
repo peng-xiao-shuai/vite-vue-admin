@@ -4,6 +4,8 @@ import router from "./router/index";
 import store from "./store";
 import ElementPlus from "element-plus";
 import { ElMessage } from "element-plus";
+import powerfulTable from "el-plus-powerful-table";
+
 // import DigitRoll from "digit-roll";
 
 // 国际化
@@ -15,7 +17,7 @@ import "./icons";
 
 // 全局组件
 import SvgIcon from "./components/SvgIcon/index.vue"; // svg component
-import powerfulTable from "./components/powerful-table/index.vue";
+// import powerfulTable from "./components/powerful-table/index.vue";
 import uploadFile from "./components/upload-file/index.vue";
 
 // 全局静态配置
@@ -53,11 +55,12 @@ app.mixin({
 app
   .use(store)
   .use(router)
+  .use(powerfulTable)
   .use(ElementPlus, { size: "small", zIndex: 3000, locale })
   .mount("#app");
 
 app.component("svg-icon", SvgIcon);
-app.component("powerful-table", powerfulTable);
+// app.component("powerful-table", powerfulTable);
 app.component("upload-file", uploadFile);
 
 // 全局挂载

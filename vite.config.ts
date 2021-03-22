@@ -1,19 +1,22 @@
 import { defineConfig } from "vite";
 
-import vue from '@vitejs/plugin-vue';
+import vue from "@vitejs/plugin-vue";
 
-import path from 'path';
+import path from "path";
 
 export default defineConfig({
-  plugins:[vue()],
-  resolve:{
+  plugins: [vue()],
+  resolve: {
     alias: {
       "/@": path.resolve(__dirname, "./src"),
-    }
+    },
   },
   // 控制台打印
-  logLevel: 'silent',
+  logLevel: "silent",
   server: {
+    hmr: {
+      overlay: false,
+    },
     host: "localhost",
     port: 3000,
     // 是否自动在浏览器打开
