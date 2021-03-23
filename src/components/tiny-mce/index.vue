@@ -1,6 +1,9 @@
 <template>
   <div class="tinymce-editor">
     <textarea class="tinymce-textarea" :id="tinymceId"></textarea>
+    <div @click="getContentFun" :style="slotStyle">
+      <slot :vhtml="content"></slot>
+    </div>
   </div>
 </template>
 
@@ -15,6 +18,11 @@ export default defineComponent({
     myValue: {
       type: String,
       default: ''
+    },
+    // 插槽外层div样式
+    slotStyle: {
+      type: Object,
+      default: () => { }
     },
     height: {
       type: [String, Number],
@@ -36,10 +44,7 @@ export default defineComponent({
       default: 'bold italic underline strikethrough restoredraft image fullscreen emoticons | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify|bullist numlist |outdent indent blockquote | undo redo | removeformat'
     },
   },
-  watch: {
-
-  },
-  setup (props) {
+  setup (props, context) {
     onMounted(() => {
       init(props.height)
     })
@@ -54,8 +59,14 @@ export default defineComponent({
         nextTick(() => {
           window.tinymce.get(tinymceId).setContent(props.myValue)
         })
+        // context.emit("update:myValue", window.tinymce.get(tinymceId).getContent())
       }
     })
+
+    let content = ref("")
+    function getContentFun () {
+      content.value = window.tinymce.get(tinymceId).getContent()
+    }
 
     function init () {
       window.tinymce.init({
@@ -96,7 +107,10 @@ export default defineComponent({
     }
     return {
       tinymceId,
-      hasInit
+      hasInit,
+      getContentFun,
+
+      content
     }
   },
 

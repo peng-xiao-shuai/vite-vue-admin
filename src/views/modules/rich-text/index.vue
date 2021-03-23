@@ -13,13 +13,24 @@
       <div class="lineTinyBox">
         <tiny-mce
           :width="'100%'"
-          :height="700"
-          :myValue="myValue"
+          v-model:myValue="myValue"
+          :height="667"
           ref="tinymce"
-        ></tiny-mce>
+          :slotStyle="{
+            display: 'flex',
+            justifyContent: 'center',
+            padding: '10px 0',
+          }"
+        >
+          <template v-slot:default="vhtml">
+            <el-button type="primary">
+              {{ vHtmlFun(vhtml.vhtml) }}
+            </el-button>
+          </template>
+        </tiny-mce>
 
         <div class="phoneBox">
-          <el-scrollbar style="height: 667px" class="vHtml">
+          <el-scrollbar style="height: 667px" class="vHtml" ref="scroll">
             <div v-html="myValue"></div>
           </el-scrollbar>
         </div>
@@ -59,6 +70,20 @@ export default defineComponent({
     // 编辑区当前数据
     let currentFrom = reactive({ value: { parentId: 0, hidden: 0 } });
 
+    let scroll = ref<any>(null);
+    function vHtmlFun(e: any) {
+      if (scroll.value) {
+        console.log(scroll.value.wrap.scrollTop);
+        scroll.value.wrap.scrollTop = scroll.value.wrap.scrollTop + 1;
+      }
+
+      if (e) {
+        myValue.value = e;
+      }
+
+      return "获取富文本数据";
+    }
+
     getData();
 
     function getData() {
@@ -82,12 +107,17 @@ export default defineComponent({
       myValue,
 
       // 方法
+      vHtmlFun,
+      scroll,
     };
   },
 });
 </script>
 
 <style scoped lang='scss'>
+.getTinyContent {
+}
+
 .operate-container {
   width: 100%;
   display: flex;
