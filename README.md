@@ -1,43 +1,90 @@
-# vue3.0-test
+# Vite-Vue-Admin
 
-#### 介绍
-vue3.0+vuex@4+vue-router@4+vite+typescript+mock
+## 介绍
 
-内置element-plus二开封装
-1. upload-file (文件上传，支持指定文件格式，文件大小)
-2. powerful-table (多功能表格组件)[文档说明](https://gitee.com/abc1612565136/powerful-table/blob/master/README.md)
+**Cli 配置**
 
-![首页图片](https://images.gitee.com/uploads/images/2021/0312/154040_07d2d986_7980619.png "localhost_3000_.png")
+- vue3.X
+- vuex@4
+- vue-router@4
+- vite@2
+- typescript
+- mock
 
-#### 软件架构
-软件架构说明
+**内置 element-plus 二开封装**
 
+- `upload-file` (文件上传，支持指定文件格式，文件大小)
+- `powerful-table` (多功能表格组件)[文档说明](https://gitee.com/abc1612565136/powerful-table/blob/master/README.md)
 
-#### 安装教程
+## 自定义配置
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+**由于 `vite` 不支持 `scss` `export` 的导出，无法在运行中修改全局颜色，但可以在代码中修改<br>**
 
-#### 使用说明
+- **菜单栏颜色配置** `style > menus.scss`
+- **全局主题颜色** `style > index.scss`
+  **启用 mock**
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+- **只需在对应运行环境下的 `.env.XX `修改 `VITE_MOCK` 为 `true`**
 
-#### 参与贡献
+## 项目设置
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+### 一、Install dependencies,
 
+```bash
+$ yarn
+```
 
-#### 特技
+or
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+```
+$ npm install
+```
+
+> 推荐使用 yarn , **[yarn 安装与常用命令](http://liqingsong.cc/article/detail/9)** 。
+
+### 二、Compiles and hot-reloads for development
+
+```bash
+$ yarn dev
+```
+
+or
+
+```
+$ npm run dev
+```
+
+### 三、Compiles and minifies for production
+
+```bash
+$ yarn build
+```
+
+or
+
+```
+$ npm run build
+```
+
+### 四、本地预览生产构建产物
+
+```bash
+$ yarn preview
+```
+
+or
+
+```
+$ npm run preview
+```
+
+## 捐赠
+
+如果你觉得这个项目帮助到了你，请帮助点击 Star
+
+## 计划 （2021-3-30）
+
+- [ ] 组件菜单 > 文件上传
+- [ ] 国际化多语言
+
+**其他功能可以在 `issues` 提出**

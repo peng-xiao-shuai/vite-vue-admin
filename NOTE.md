@@ -99,3 +99,30 @@ app.provide("$message", ElMessage);
 // index.vue
 (inject('$message') as any).success("inject");
 ```
+
+### element-plus $msgbox, $alert, $confirm 和 $prompt 的使用
+
+1.在每个页面引入
+
+```js
+// 引入
+import { ElMessageBox  } from "element-plus";
+
+// 使用
+ElMessageBox.confirm(...);
+```
+
+对应于上述四个全局方法的调用方法依次为：ElMessageBox, ElMessageBox.alert, ElMessageBox.confirm 和 ElMessageBox.prompt，调用参数与全局方法相同。
+
+2.provide/inject
+
+```js
+// main.ts
+import { ElMessageBox } from "element-plus";
+
+const app = createApp(App);
+app.provide("messageBox", ElMessageBox);
+
+// index.vue
+(inject('messageBox') as any).confirm(...);
+```

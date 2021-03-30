@@ -26,6 +26,11 @@
   resolved "https://registry.npm.taobao.org/@popperjs/core/download/@popperjs/core-2.9.0.tgz#32e63212293dd3efbb521cd35a5020ab66eaa546"
   integrity sha1-MuYyEik90++7UhzTWlAgq2bqpUY=
 
+"@tinymce/tinymce-vue@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.npm.taobao.org/@tinymce/tinymce-vue/download/@tinymce/tinymce-vue-4.0.0.tgz#694e214f071370dfad1ac199056373048578e6ee"
+  integrity sha1-aU4hTwcTcN+tGsGZBWNzBIV45u4=
+
 "@types/q@^1.5.1":
   version "1.5.4"
   resolved "https://registry.npm.taobao.org/@types/q/download/@types/q-1.5.4.tgz?cache=0&sync_timestamp=1613379575883&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fq%2Fdownload%2F%40types%2Fq-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
@@ -596,10 +601,31 @@ echarts@^5.0.2:
     tslib "2.0.3"
     zrender "5.0.4"
 
+el-plus-powerful-table@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.npm.taobao.org/el-plus-powerful-table/download/el-plus-powerful-table-1.2.5.tgz#3a00b25098d0d33feddce9964d0a78978bb8c187"
+  integrity sha1-OgCyUJjQ0z/t3OmWTQp4l4u4wYc=
+  dependencies:
+    element-plus "^1.0.2-beta.31"
+    vue "^3.0.4"
+
 element-plus@^1.0.2-beta.28:
   version "1.0.2-beta.33"
   resolved "https://registry.npm.taobao.org/element-plus/download/element-plus-1.0.2-beta.33.tgz#0e924c8872dbc14e916ed5d6452d9799b04d4c60"
   integrity sha1-DpJMiHLbwU6RbtXWRS2XmbBNTGA=
+  dependencies:
+    "@popperjs/core" "^2.4.4"
+    async-validator "^3.4.0"
+    dayjs "1.x"
+    lodash "^4.17.20"
+    mitt "^2.1.0"
+    normalize-wheel "^1.0.1"
+    resize-observer-polyfill "^1.5.1"
+
+element-plus@^1.0.2-beta.31:
+  version "1.0.2-beta.35"
+  resolved "https://registry.npm.taobao.org/element-plus/download/element-plus-1.0.2-beta.35.tgz?cache=0&sync_timestamp=1615780099712&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felement-plus%2Fdownload%2Felement-plus-1.0.2-beta.35.tgz#158890bddf28f8495f261d02789bf394c5c97123"
+  integrity sha1-FYiQvd8o+ElfJh0CeJvzlMXJcSM=
   dependencies:
     "@popperjs/core" "^2.4.4"
     async-validator "^3.4.0"
@@ -2164,6 +2190,11 @@ svgo@^1.0.5:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+tinymce@^5.7.1:
+  version "5.7.1"
+  resolved "https://registry.npm.taobao.org/tinymce/download/tinymce-5.7.1.tgz#658a6fb4c7d53a8496cc00f8da33f4b8290da06d"
+  integrity sha1-ZYpvtMfVOoSWzAD42jP0uCkNoG0=
+
 to-fast-properties@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/to-fast-properties/download/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
@@ -2333,9 +2364,9 @@ vue-svgicon@^3.2.9:
     tslib "^1.9.3"
     yargs "^12.0.1"
 
-vue@^3.0.5:
+vue@^3.0.4, vue@^3.0.5:
   version "3.0.7"
-  resolved "https://registry.npm.taobao.org/vue/download/vue-3.0.7.tgz?cache=0&sync_timestamp=1614616238681&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue%2Fdownload%2Fvue-3.0.7.tgz#8bcff51f8be570f9e4ce8cc5f52e2ab0fe3c74a1"
+  resolved "https://registry.npm.taobao.org/vue/download/vue-3.0.7.tgz?cache=0&sync_timestamp=1614614707443&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue%2Fdownload%2Fvue-3.0.7.tgz#8bcff51f8be570f9e4ce8cc5f52e2ab0fe3c74a1"
   integrity sha1-i8/1H4vlcPnkzozF9S4qsP48dKE=
   dependencies:
     "@vue/compiler-dom" "3.0.7"

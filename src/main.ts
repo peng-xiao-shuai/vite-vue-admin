@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router/index";
 import store from "./store";
 import ElementPlus from "element-plus";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import powerfulTable from "el-plus-powerful-table";
 
 // import DigitRoll from "digit-roll";
@@ -39,15 +39,13 @@ if (
 
 let app = createApp(App);
 app.provide("$message", ElMessage);
+app.provide("messageBox", ElMessageBox);
 
 app.mixin({
   computed: {
     // 全局颜色
     themeColor() {
       return store.getters.getThemeColor;
-    },
-    message() {
-      return inject<any>("$message");
     },
   },
 });
