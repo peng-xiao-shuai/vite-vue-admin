@@ -31,20 +31,31 @@
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" size="small">
           <div class="screenForm">
-            <el-form-item label="用户名：">
+            <el-form-item label="书名：">
               <el-input
                 v-model="listQuery.name"
-                placeholder="请输入用户名"
+                placeholder="请输入书名"
                 style="width: 80%"
                 clearable
               ></el-input>
+            </el-form-item>
+            <el-form-item label="书类型：" prop="types">
+              <el-select v-model="listQuery.types" placeholder="请选择">
+                <el-option
+                  v-for="item in selectMenuList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
             </el-form-item>
           </div>
         </el-form>
       </div>
     </el-card>
 
-    <el-card :style="{ marginBottom: '20px' }" :shadow="defalutData.cardShadow">
+    <el-card :shadow="defalutData.cardShadow">
       <div class="operate-container">
         <div>
           <i class="el-icon-tickets"></i>
@@ -62,9 +73,6 @@
           </el-button>
         </div>
       </div>
-    </el-card>
-
-    <el-card :shadow="defalutData.cardShadow">
       <div>
         <powerful-table
           ref="Table"
@@ -89,7 +97,8 @@
     <update
       v-model:dialog="isDialog"
       v-model:currentFrom="currentFrom.value"
-      @refresh="getList"
+      :selectMenuList="selectMenuList"
+      @refresh="refresh"
     ></update>
   </div>
 </template>
@@ -117,6 +126,11 @@ export default defineComponent({
 
     let selectData = shallowReactive<any>({ value: [] });
 
+    let selectMenuList = shallowReactive<any>([
+      { value: 0, label: "玄幻" },
+      { value: 1, label: "都市" },
+      { value: 2, label: "真实" },
+    ]);
     // 批量操作
     let operateData = {
       value: 0,
@@ -143,12 +157,14 @@ export default defineComponent({
     let listQuery = reactive<any>({
       pageNum: 1,
       pageSize: 10,
+      types: "",
+      name: "",
     });
 
     // 编辑区显隐
     let isDialog = ref(false);
     // 编辑区当前数据
-    let currentFrom = reactive({ value: { parentId: 0, hidden: 0 } });
+    let currentFrom = reactive({ value: {} });
 
     getList();
 
@@ -192,7 +208,6 @@ export default defineComponent({
       item: { label: string; value: number },
       items: any
     ) {
-      console.log(ids, item, items);
       switch (item.value) {
         case 0:
         case 1:
@@ -223,6 +238,32 @@ export default defineComponent({
       $message.success("删除成功");
     }
 
+    function handleResetSearch() {
+      Object.keys(listQuery).forEach((item: any, index: number) => {
+        let arr = ["pageNum", "pageSize"];
+        if (arr.indexOf(item) == -1) {
+          listQuery[item] = "";
+        }
+      });
+    }
+
+    function refresh(from: any) {
+      console.log(from, "refresh");
+
+      if (from.id) {
+        let index = list.value.map((item: any) => item.id).indexOf(from.id);
+        list.value[index] = from;
+      } else {
+        list.value.push({
+          ...from,
+          id: list.value[list.value.length - 1].id + 1,
+          iconfont: "vitehome-liulanliang",
+          href: "https://gitee.com/abc1612565136/vite-admin",
+        });
+        console.log(list.value);
+      }
+    }
+
     return {
       // 变量
       list,
@@ -233,9 +274,12 @@ export default defineComponent({
       isDialog,
       currentFrom,
       selectData,
+      selectMenuList,
 
       // 方法
+      handleResetSearch,
       handleAddMenu,
+      refresh,
       getList,
       handleSwitchChange,
       handleBatchChange,

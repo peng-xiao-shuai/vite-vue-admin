@@ -27,7 +27,7 @@ function tableFun() {
         text: "@cparagraph()",
         price: "",
         oldPrice: "@natural(30,100)",
-        data: "@date()",
+        date: "@date()",
       })
     );
   }
@@ -42,29 +42,41 @@ export default [
       let size = Number(config.query.pageSize);
       let num = Number(config.query.pageNum);
 
-      let data = config.query.data || "";
-      if (data != "") {
+      let date = config.query.date || "";
+      let types = config.query.types || "";
+      let name = config.query.name || "";
+      console.log(config.query);
+
+      if (date != "") {
         list.sort(function (a: any, b: any) {
-          if (data == "descending") {
-            return b.data.split("-").join("") - a.data.split("-").join("");
+          if (date == "descending") {
+            return b.date.split("-").join("") - a.date.split("-").join("");
           } else {
-            return a.data.split("-").join("") - b.data.split("-").join("");
+            return a.date.split("-").join("") - b.date.split("-").join("");
           }
         });
       }
-
-      console.log(config);
+      let listCopy: any = list;
+      if (types != "") {
+        listCopy = listCopy.filter((item: any) => item.types == types);
+      }
+      if (name != "") {
+        listCopy = listCopy.filter(
+          (item: any) => item.name.indexOf(name) != -1
+        );
+        console.log(name, listCopy);
+      }
 
       return {
         code: 200,
         data: {
-          list: list.filter((item: any, index: number) => {
+          list: listCopy.filter((item: any, index: number) => {
             return index >= (num - 1) * size && index < num * size;
           }),
           pageNum: num,
           pageSize: size,
-          totalpageNum: Math.ceil(count.length / size),
-          total: count.length,
+          totalpageNum: Math.ceil(listCopy.length / size),
+          total: listCopy.length,
         },
       };
     },

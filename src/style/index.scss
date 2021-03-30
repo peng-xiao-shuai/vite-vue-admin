@@ -1,5 +1,5 @@
 /* 改变主题色变量 */
-$--color-primary: rgb(100,108,255);
+$--color-primary: rgb(100, 108, 255);
 
 // 背景主题颜色
 $--bgcolor-primary: rgb(228, 230, 255);
@@ -7,33 +7,51 @@ $--bgcolor-primary: rgb(228, 230, 255);
 $--color-success: #13ce66;
 $--color-warning: #ffba00;
 $--color-danger: #ff4949;
-$--font-path: '/node_modules/element-plus/lib/theme-chalk/fonts';
+$--font-path: "/node_modules/element-plus/lib/theme-chalk/fonts";
 
 @import "element-plus/packages/theme-chalk/src/index.scss";
 
-// 数据列表card样式
-.operate-container{
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+// 富文本插入图片层级
+.tox-tinymce-aux {
+  z-index: 6666 !important;
 }
 
-.screenForm{
-  display:flex;
-  justify-content:space-between;
+.grid {
+  display: grid;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+@for $i from 2 through 5 {
+  .grid-c-#{$i} {
+    grid-template-columns: repeat($i, 1fr);
+  }
+}
+
+// 数据列表card样式
+.operate-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.screenForm {
+  display: flex;
+  // justify-content:space-between;
   margin-bottom: 15px;
 }
-.screenForm:last-child{
+.screenForm:last-child {
   margin: 0;
 }
 // 筛选下的表单item
-.screenForm .el-form-item{
+.screenForm .el-form-item {
   margin: 0;
 }
 
 // 提示语
-.tip{
+.tip {
   padding: 0px 16px;
   background-color: $--bgcolor-primary;
   border-radius: 4px;
@@ -47,20 +65,19 @@ $--font-path: '/node_modules/element-plus/lib/theme-chalk/fonts';
 }
 
 // 抽屉样式
-.el-drawer__header{
+.el-drawer__header {
   margin-bottom: 20px;
 }
 
 // 淡入淡出
 .fadeOpticy-leave-active,
 .fadeOpticy-enter-active {
-    transition: all 1s;
+  transition: all 1s;
 }
 .fadeOpticy-enter-from,
 .fadeOpticy-leave-to {
   opacity: 0;
 }
-
 
 :export {
   theme: $--color-primary;

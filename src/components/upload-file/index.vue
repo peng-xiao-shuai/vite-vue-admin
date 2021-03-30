@@ -12,9 +12,9 @@
         :on-error="onError"
         :limit="limit"
         :multiple="limit > 1"
-        :action="minioUploadUrl"
+        :action="uploadUrl"
         :before-upload="beforeUpload"
-        :disabled="icon != ''"
+        :disabled="icon != '' || disabled"
       >
         <el-button
           :icon="icon"
@@ -122,26 +122,14 @@ export default {
       default: 0,
       type: [Number, String]
     },
-    imgWidth: {
-      type: Number,
-      default: 0
-    },
-    imgHigh: {
-      type: Number,
-      default: 0
-    },
-    sharpenRate: {
-      type: Number,
-      default: 0
-    },
-    outPutQuality: {
-      type: Number,
-      default: 0
-    },
     // 大小
     fileSize: {
       type: Array,
       default: () => ['', 50, '']
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     // 格式
     suffixStr: {
@@ -161,38 +149,11 @@ export default {
 
       percentFlag: false,
 
-      multiple: false
+      multiple: false,
+      uploadUrl: ENV.VITE_BASE_URL + media
     }
   },
   emits: ['update:value'],
-  computed: {
-    minioUploadUrl: {
-      get: function () {
-        if (this.type == 0) {
-          return ENV.VITE_BASE_URL + media + '?type=0'
-        } else if (this.type == 1) {
-          return (
-            ENV.VITE_BASE_URL + media +
-            '?type=1&imgWidth=' +
-            this.imgWidth +
-            '&imgHigh=' +
-            this.imgHigh
-          )
-        } else if (this.type == 2) {
-          return (
-            ENV.VITE_BASE_URL + media +
-            '?type=2&sharpenRate=' +
-            this.sharpenRate +
-            '&outPutQuality=' +
-            this.outPutQuality
-          )
-        }
-      },
-      set: function (newValue) {
-        return newValue
-      }
-    }
-  },
   methods: {
     onError (err, file) {
       console.log(err, file)

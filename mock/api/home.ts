@@ -211,7 +211,7 @@ export default [
               head: Random.image("100x100", Random.color(), Random.first()),
               "gender|1": ["男", "女"],
               content: "@ctitle()",
-              date: "@datetime()",
+              date: "@date()",
               email: "1612565136@qq.com",
               "status|1": true,
             },

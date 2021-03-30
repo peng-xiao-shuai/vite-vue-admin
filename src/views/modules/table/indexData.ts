@@ -124,7 +124,7 @@ const header: any[] = [
     sortable: "custom",
     poprs: [
       {
-        popr: "data",
+        popr: "date",
       },
     ],
   },
