@@ -36,7 +36,11 @@
     <div class="item">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="icon">
-          <img :src="icon" alt="" style="width: 100%; height: 100%" />
+          <img
+            :src="icon"
+            alt=""
+            style="width: 100%; height: 100%; border-radius: 10px"
+          />
           <i class="el-icon-caret-bottom"></i>
         </div>
         <template #dropdown>
@@ -163,8 +167,8 @@ export default defineComponent({
     let Store = useStore();
     let _this = getCurrentInstance().ctx;
 
-    let menu:[] = []
-    let menus:any = searchMenusFun(Store.state.user.menus,menu)
+    let menu: [] = [];
+    let menus: any = searchMenusFun(Store.state.user.menus, menu);
     console.log(Store.state.user);
     let isRfs = ref(false);
     // 账号头像
@@ -193,28 +197,27 @@ export default defineComponent({
     });
 
     let router = useRouter();
-    function change(e:string) {
+    function change(e: string) {
       router.push({
         name: e,
       });
     }
 
-    function searchMenusFun(arr:any[],menu:any[],superior?:any){
-      arr.forEach((each:any) =>{
-        let item:any = JSON.parse(JSON.stringify(each))
-        if(!item.hidden && item.name){
-          if(item.children){
-            item.path = superior ? superior.path + ' /' +  item.path : item.path
-            menu.push(item)
-            menu.concat(searchMenusFun(item.children,menu,item))
-          }else{
-              item.path = superior.path + ' /' +  item.path
-              menu.push(item)
+    function searchMenusFun(arr: any[], menu: any[], superior?: any) {
+      arr.forEach((each: any) => {
+        let item: any = JSON.parse(JSON.stringify(each));
+        if (!item.hidden && item.name) {
+          if (item.children) {
+            item.path = superior ? superior.path + " /" + item.path : item.path;
+            menu.push(item);
+            menu.concat(searchMenusFun(item.children, menu, item));
+          } else {
+            item.path = superior.path + " /" + item.path;
+            menu.push(item);
           }
         }
-
-      })
-      return menu
+      });
+      return menu;
     }
     //全屏
     function click() {
@@ -250,7 +253,7 @@ export default defineComponent({
       dialogVisible.value = false;
     }
     function handleDialogConfirm() {
-      adminForm.value.validate((valid:any) => {
+      adminForm.value.validate((valid: any) => {
         if (valid) {
           _this
             .$confirm("是否确认修改密码?", "提示", {
@@ -265,7 +268,7 @@ export default defineComponent({
               //     type: 'warning'
               // });
               // }
-              updatePassword(_this.admin).then((res:any) => {
+              updatePassword(_this.admin).then((res: any) => {
                 if (res.code == "502") {
                   _this.$message({
                     message: res.message,
@@ -292,7 +295,7 @@ export default defineComponent({
       });
     }
 
-    init()
+    init();
 
     return {
       menus,

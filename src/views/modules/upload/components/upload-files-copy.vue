@@ -1,5 +1,7 @@
 <template>
-  <!-- 封装单图 -->
+  <!-- 此组件功能同 src > components > upload-file 组件 -->
+  <!-- 此组件只用于上传组件页面 -->
+
   <div>
     <div style="display: flex">
       <el-upload
@@ -28,11 +30,8 @@
           <div class="el-upload__tip">{{ tipLabel }}</div>
         </template>
       </el-upload>
-
-      <!-- <span class="jianyi">{{ tipLabel }}</span> -->
     </div>
 
-    <!-- 展示图片 -->
     <div class="imgArr">
       <template v-if="imgArr.length != 0 && fileType == 0">
         <div class="item" v-for="(item, index) in imgArr" :key="index">
@@ -61,23 +60,7 @@
         </div>
       </template>
 
-      <template v-if="imgArr.length != 0 && fileType == 2">
-        <!-- <div
-          class="item"
-          v-for="(item, index) in imgArr"
-          :key="index"
-        >
-          <i class="el-icon-circle-close position" @click="Remove(index)"></i>
-          <video
-            :src="item"
-            style="width: 100px;height: 100px;"
-            class="avatar video-avatar"
-            controls="controls"
-          >
-            您的浏览器不支持视频播放
-          </video>
-        </div> -->
-      </template>
+      <template v-if="imgArr.length != 0 && fileType == 2"> </template>
 
       <el-progress
         v-show="percentFlag"
@@ -92,16 +75,11 @@
 
 <script>
 import { reactive } from 'vue'
-// import {
-// 	fileDelete
-// } from '@/api/_type'
-
 import { media } from '/@/api/other'
-
+import { number } from 'echarts'
 const ENV = import.meta.env
 
 export default {
-  name: 'allUpload',
   props: {
     value: String,
     limit: {
@@ -124,14 +102,13 @@ export default {
     },
     // 大小
     fileSize: {
-      type: Number,
-      default: () => 50
+      type: [Number, String],
+      default: 1
     },
     disabled: {
       type: Boolean,
       default: false,
     },
-    // 格式
     suffixStr: {
       type: [Array, String],
       default: () => ['jpg、jpeg、png', 'mp4、ogg、flv、avi、wmv、rmvb、mov', 'pdf、txt、doc、docx、excel、ppt']
@@ -142,13 +119,9 @@ export default {
       icon: '',
       imgArr: [],
       nameArr: [],
-
       deleteUrl: ENV.VITE_BASE_URL + 'admin/file/delete',
-
       uploadPercent: 0,
-
       percentFlag: false,
-
       multiple: false,
       uploadUrl: ENV.VITE_BASE_URL + media
     }
@@ -172,7 +145,6 @@ export default {
       this.icon = 'el-icon-loading'
       this.uploadPercent = Number(file.percentage.toFixed(2))
       this.percentFlag = true
-      // console.log(this.uploadPercent, file.percentage);
     },
     // 上传前
     beforeUpload (file) {
@@ -181,11 +153,8 @@ export default {
 
         return false
       }
-
       let fileSize = this.fileSize
-
       console.log(file.size / 1024 / 1024)
-
       if (fileSize != '' && file.size / 1024 / 1024 >= fileSize) {
         this.$message({
           message: '文件大小不能超过' + this.fileSize + 'MB',
@@ -193,9 +162,9 @@ export default {
         })
         return false
       }
-
       let last = this.fileType != 2 ? file.type.lastIndexOf('/') : file.name.lastIndexOf('.')
       let suffix = this.fileType != 2 ? file.type.substr(last + 1, file.type.length) : file.name.substr(last + 1, file.name.length)
+      console.log(suffix)
 
       let suffixStr = typeof (this.suffixStr) == 'object' ? this.suffixStr[this.fileType] : this.suffixStr
 
@@ -205,7 +174,9 @@ export default {
         this.$message.warning('只能上传' + suffixStr + '的文件')
         return false
       } else {
-        // console.log('后缀名正确');
+        this.$message.success('上传成功，仅为测试')
+        console.log('上传成功，未调用接口')
+        return false
       }
     },
     // 上传成功

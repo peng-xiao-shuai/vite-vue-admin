@@ -1,232 +1,129 @@
 <template>
   <div class="app-container">
-    <el-card
-      class="filter-container"
-      :style="{ marginBottom: '20px' }"
-      :shadow="defalutData.cardShadow"
-    >
-      <div class="operate-container">
-        <div>
-          <i class="el-icon-search"></i>
-          <span>筛选搜索</span>
-        </div>
-        <div>
-          <el-button
-            style="float: right"
-            type="primary"
-            @click="getList()"
-            size="small"
-          >
-            查询搜索
-          </el-button>
-          <el-button
-            style="float: right; margin-right: 15px"
-            @click="handleResetSearch()"
-            size="small"
-          >
-            重置
-          </el-button>
-        </div>
-      </div>
-      <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small">
-          <div class="screenForm">
-            <el-form-item label="用户名：">
-              <el-input
-                v-model="listQuery.name"
-                placeholder="请输入用户名"
-                style="width: 80%"
-                clearable
-              ></el-input>
-            </el-form-item>
-          </div>
-        </el-form>
-      </div>
-    </el-card>
-
-    <el-card :style="{ marginBottom: '20px' }" :shadow="defalutData.cardShadow">
-      <div class="operate-container">
-        <div>
-          <i class="el-icon-tickets"></i>
-          <span>数据列表</span>
-        </div>
-
-        <div>
-          <el-button
-            type="primary"
-            class="btn-add"
-            @click="handleAddMenu()"
-            size="mini"
-          >
-            添加
-          </el-button>
-        </div>
-      </div>
-    </el-card>
-
     <el-card :shadow="defalutData.cardShadow">
+      <div class="operate-container">
+        <div>
+          <i class="viteIcon viteZJ-shangchuan" style="margin-right: 5px"></i>
+          <span>上传文件（图片、视频）</span>
+        </div>
+      </div>
       <div>
-        <powerful-table
-          ref="menuTable"
-          :list="list.value"
-          :header="config"
-          :isSelect="true"
-          :total="total"
-          :tableName="'menuTable'"
-          :operateData="operateData"
-          @batchOperate="handleBatchChange"
-          @sizeChange="getList"
-          @switchChange="handleSwitchChange"
-          @look="handleShowNextLevel"
-          @update="handleUpdate"
-          @remove="handleDelete"
-        >
-        </powerful-table>
+        <div>
+          <el-form :inline="true" :model="currentFrom" size="small">
+            <div class="screenForm">
+              <el-form-item label="最大上传数量：">
+                <el-input-number
+                  v-model="currentFrom.limit"
+                  placeholder="请输入最大上传数量"
+                  style="width: 80%"
+                  clearable
+                ></el-input-number>
+              </el-form-item>
+              <el-form-item label="上传类型：">
+                <el-select
+                  v-model="currentFrom.fileType"
+                  placeholder="请选择"
+                  style="width: 80%"
+                >
+                  <el-option
+                    v-for="item in currentFrom.suffixArr"
+                    :key="item.type"
+                    :label="item.label"
+                    :value="item.type"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="最大上传文件大小（MB）：">
+                <el-input
+                  v-model="currentFrom.fileSize"
+                  placeholder="请输入最大上传文件大小"
+                  style="width: 80%"
+                  clearable
+                ></el-input>
+              </el-form-item>
+              <el-form-item
+                :label="
+                  '上传' +
+                  currentFrom.suffixArr[currentFrom.fileType].label +
+                  '类型（、）隔开：'
+                "
+              >
+                <el-input
+                  v-model="currentFrom.suffixStr"
+                  :placeholder="
+                    '请输入上传' +
+                    currentFrom.suffixArr[currentFrom.fileType].label +
+                    '格式'
+                  "
+                  style="width: 80%"
+                  clearable
+                ></el-input>
+              </el-form-item>
+            </div>
+          </el-form>
+        </div>
+        <div style="display: flex; justify-content: center; margin-top: 20px">
+          <upload-files-copy
+            v-model:value="currentFrom.image"
+            :fileSize:="currentFrom.fileSize"
+            :limit="currentFrom.limit"
+            :fileType="currentFrom.fileType"
+            :fileSize="currentFrom.fileSize"
+            :suffixStr="currentFrom.suffixStr"
+            :tipLabel="
+              '最大上传数量为' +
+              currentFrom.limit +
+              '，只能上传' +
+              currentFrom.suffixStr +
+              '，且文件大小不超过' +
+              currentFrom.fileSize
+            "
+          ></upload-files-copy>
+        </div>
       </div>
     </el-card>
-    <!-- 编辑区 -->
-    <update
-      v-model:dialog="isDialog"
-      v-model:currentFrom="currentFrom.value"
-      @refresh="getList"
-    ></update>
   </div>
 </template>
 
 <script lang='ts'>
-import { tableFun } from "/@/api/home";
-import { header } from "./indexData";
 import { ref, reactive, defineComponent, inject } from "vue";
-import { useRouter, useRoute } from "vue-router";
-
-// 组件
-import update from "./components/update.vue";
+import uploadFilesCopy from "./components/upload-files-copy.vue";
 
 export default defineComponent({
-  name: "eps",
   components: {
-    update,
+    uploadFilesCopy,
   },
   setup() {
-    const router = useRouter();
-    const route = useRoute();
-
-    let list = reactive({ value: [] });
-    let allList = reactive({ value: [{ id: 0, title: "无上级菜单" }] });
-
-    // 批量操作
-    let operateData = {
-      value: 0,
-      operates: [
+    let currentFrom = reactive({
+      image: "http://www.aiiup.cn/uploads/20190821/1-1Z115223503326.jpg",
+      limit: 1,
+      fileType: 0,
+      fileSize: 1,
+      suffixStr: "jpg、jpeg、png",
+      suffixArr: [
         {
-          label: "删除",
-          value: 0,
+          label: "图片",
+          type: 0,
+        },
+        {
+          label: "视频",
+          type: 1,
+        },
+        {
+          label: "文件",
+          type: 2,
         },
       ],
-    };
-
-    let total = ref(0);
-    let config = reactive(header);
-    let listQuery = reactive({
-      pageNum: 1,
-      pageSize: 10,
     });
-
-    let parentId = ref(0);
-    let upParentId = ref(-1);
-
-    // 编辑区显隐
-    let isDialog = ref(false);
-    // 编辑区当前数据
-    let currentFrom = reactive({ value: { parentId: 0, hidden: 0 } });
-
-    getList();
-
-    function handleAddMenu() {
-      isDialog.value = true;
-    }
-    function getList(e?: {
-      pageNum: number | string;
-      pageSize: number | string;
-    }) {
-      Object.assign(listQuery, e ? e : {});
-      tableFun(listQuery).then((response: any) => {
-        list.value = response.data.list;
-        total.value = response.data.total;
-      });
-    }
-    function handleSwitchChange(row: any, index: number) {
-      // modifyEnterprise(row.id, { hidden: row.hidden }).then((response: any) => {
-      //   (inject("$message") as any)({
-      //     message: "修改成功",
-      //     type: "success",
-      //     duration: 1000,
-      //   });
-      // });
-    }
-    function handleShowNextLevel(row: any, index: number) {
-      upParentId.value = parentId.value;
-
-      parentId.value = row.id;
-
-      getList();
-    }
-    function handleUpdate(row: any, index: number) {
-      isDialog.value = true;
-
-      currentFrom.value = reactive(JSON.parse(JSON.stringify(row)));
-    }
-
-    function handleBatchChange(ids: any, item: object, index: number) {
-      delect(ids);
-    }
-
-    function handleDelete(row: any, index: number) {
-      delect([row.id]);
-    }
-
-    function delect(ids: any) {
-      // removeEnterprise(ids).then((response: any) => {
-      // _this.$message({
-      //   message: "删除成功",
-      //   type: "success",
-      //   duration: 1000,
-      // });
-      getList();
-      // });
-    }
-
     return {
       // 变量
-      list,
-      total,
-      config,
-      operateData,
-      listQuery,
-      parentId,
-      upParentId,
-      isDialog,
       currentFrom,
-      allList,
-
       // 方法
-      handleAddMenu,
-      getList,
-      handleSwitchChange,
-      handleBatchChange,
-      handleShowNextLevel,
-      handleUpdate,
-      handleDelete,
     };
   },
 });
 </script>
 
 <style scoped>
-.operate-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 </style>
