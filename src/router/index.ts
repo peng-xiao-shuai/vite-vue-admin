@@ -89,7 +89,7 @@ export const addRouter = [
         component: () => import("/@/views/modules/map/index.vue"),
         meta: {
           title: "地图",
-          icon: "viteZJ-fuwenben",
+          icon: "viteviteZJ-ditu",
         },
       },
     ],

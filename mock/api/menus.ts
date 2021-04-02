@@ -42,6 +42,16 @@ const roles = {
     },
     {
       hidden: 0,
+      icon: "viteviteZJ-ditu",
+      id: 14,
+      level: 1,
+      name: "map",
+      parentId: 1,
+      sort: 997,
+      title: "地图",
+    },
+    {
+      hidden: 0,
       icon: "viteliebiao",
       id: 7,
       level: 1,
