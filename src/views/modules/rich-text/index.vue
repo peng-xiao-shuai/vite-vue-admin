@@ -1,30 +1,28 @@
 <template>
   <div class="app-container">
-    <el-card :style="{ marginBottom: '20px' }" :shadow="defalutData.cardShadow">
+    <el-card :shadow="defalutData.cardShadow">
       <div class="operate-container">
         <div>
           <i class="viteIcon viteZJ-fuwenben" style="margin-right: 5px"></i>
           <span>富文本编辑器</span>
         </div>
       </div>
-    </el-card>
-
-    <el-card :shadow="defalutData.cardShadow">
       <div class="lineTinyBox">
         <tiny-mce
           :width="'100%'"
           v-model:myValue="myValue"
           :height="667"
+          :url="'图片路径'"
           ref="tinymce"
           :slotStyle="{
             display: 'flex',
             justifyContent: 'center',
-            padding: '10px 0',
+            padding: '10px 0 0',
           }"
         >
-          <template v-slot:default="vhtml">
-            <el-button type="primary">
-              {{ vHtmlFun(vhtml.vhtml) }}
+          <template #default>
+            <el-button type="primary" @click="getTinyMceFun(tintMceKey)">
+              确认
             </el-button>
           </template>
         </tiny-mce>
@@ -55,7 +53,7 @@ import { useRouter, useRoute } from "vue-router";
 import tinyMce from "/@/components/tiny-mce/index.vue";
 
 export default defineComponent({
-  name: "rich-text",
+  name: "richText",
   components: {
     tinyMce,
     // update,
@@ -71,18 +69,6 @@ export default defineComponent({
     let currentFrom = reactive({ value: { parentId: 0, hidden: 0 } });
 
     let scroll = ref<any>(null);
-    function vHtmlFun(e: any) {
-      if (scroll.value) {
-        console.log(scroll.value.wrap.scrollTop);
-        scroll.value.wrap.scrollTop = scroll.value.wrap.scrollTop + 1;
-      }
-
-      if (e) {
-        myValue.value = e;
-      }
-
-      return "获取富文本数据";
-    }
 
     getData();
 
@@ -91,14 +77,8 @@ export default defineComponent({
         myValue.value = response.data;
       });
     }
-    function handleSwitchChange(row: any, index: number) {
-      // modifyEnterprise(row.id, { hidden: row.hidden }).then((response: any) => {
-      //   (inject("$message") as any)({
-      //     message: "修改成功",
-      //     type: "success",
-      //     duration: 1000,
-      //   });
-      // });
+    function getTinyMceFun(e: any) {
+      console.log("获取富文本数据", myValue.value);
     }
 
     return {
@@ -107,7 +87,7 @@ export default defineComponent({
       myValue,
 
       // 方法
-      vHtmlFun,
+      getTinyMceFun,
       scroll,
     };
   },

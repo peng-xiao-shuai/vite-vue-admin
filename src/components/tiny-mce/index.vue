@@ -2,15 +2,14 @@
   <div class="tinymce-editor">
     <textarea class="tinymce-textarea" :id="tinymceId"></textarea>
     <div @click="getContentFun" :style="slotStyle">
-      <slot :vhtml="content"></slot>
+      <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
-import { number } from "echarts"
-import { defineComponent, ref, reactive, nextTick, watchEffect } from "vue"
-import { onMounted } from "vue"
+import { defineComponent, ref, onMounted, nextTick, watchEffect } from "vue"
+import axios from 'axios'
 export default defineComponent({
   emits: ['update:myValue'],
   props: {
@@ -43,6 +42,20 @@ export default defineComponent({
       //如果显示的内容和配置的不符，表明插件未引入。需要去引入插件；
       default: 'bold italic underline strikethrough restoredraft image fullscreen emoticons | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify|bullist numlist |outdent indent blockquote | undo redo | removeformat'
     },
+    url: {
+      required: true,
+      type: String,
+      default: '',
+    },
+    data: {
+      type: Array,
+      default: () => {
+        return [{
+          key: 'type',
+          value: 0
+        }]
+      },
+    }
   },
   setup (props, context) {
     onMounted(() => {
@@ -63,9 +76,8 @@ export default defineComponent({
       }
     })
 
-    let content = ref("")
     function getContentFun () {
-      content.value = window.tinymce.get(tinymceId).getContent()
+      context.emit('update:myValue', window.tinymce.get(tinymceId).getContent())
     }
 
     function init () {
@@ -86,16 +98,18 @@ export default defineComponent({
           // 自定义上传逻辑
           let formdata = new FormData()
           formdata.append("file", blobInfo.blob(), blobInfo.filename())
-
+          props.data.forEach((item) => {
+            formdata.append(item.key, item.value)
+          })
           // 改为自己接口路径
-          axios.post(url, formdata)
+          axios.post(props.url, formdata)
             .then(res => {
               // 我的接口返回数据格式
               //{code: 0,data: {url: ....},message: ""}
               if (res.data.code === 200) {
                 success(res.data.data.url)
               } else {
-                failure('上传失败！' + res.data.code)
+                failure('上传失败')
               }
             })
         },
@@ -109,8 +123,6 @@ export default defineComponent({
       tinymceId,
       hasInit,
       getContentFun,
-
-      content
     }
   },
 
