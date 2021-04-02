@@ -53,7 +53,7 @@ import { useRouter, useRoute } from "vue-router";
 import tinyMce from "/@/components/tiny-mce/index.vue";
 
 export default defineComponent({
-  name: "richText",
+  name: "modulesRichText",
   components: {
     tinyMce,
     // update,
@@ -63,11 +63,6 @@ export default defineComponent({
     const route = useRoute();
 
     let myValue = ref<any>("");
-    // 编辑区显隐
-    let isDialog = ref(false);
-    // 编辑区当前数据
-    let currentFrom = reactive({ value: { parentId: 0, hidden: 0 } });
-
     let scroll = ref<any>(null);
 
     getData();
@@ -83,7 +78,6 @@ export default defineComponent({
 
     return {
       // 变量
-      currentFrom,
       myValue,
 
       // 方法
@@ -95,9 +89,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang='scss'>
-.getTinyContent {
-}
-
 .operate-container {
   width: 100%;
   display: flex;

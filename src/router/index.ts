@@ -83,6 +83,15 @@ export const addRouter = [
           icon: "viteZJ-fuwenben",
         },
       },
+      {
+        path: "map",
+        name: "map",
+        component: () => import("/@/views/modules/map/index.vue"),
+        meta: {
+          title: "地图",
+          icon: "viteZJ-fuwenben",
+        },
+      },
     ],
   },
   {

@@ -45,7 +45,6 @@ export default [
       let date = config.query.date || "";
       let types = config.query.types || "";
       let name = config.query.name || "";
-      console.log(config.query);
 
       if (date != "") {
         list.sort(function (a: any, b: any) {

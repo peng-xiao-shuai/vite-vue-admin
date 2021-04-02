@@ -195,8 +195,6 @@ const mutations = {
     } else {
       state.tags.push(val.to);
     }
-
-    console.log(state.tags);
   },
 };
 

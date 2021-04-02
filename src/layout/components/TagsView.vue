@@ -1,200 +1,218 @@
 <template>
   <div class="tags">
-    <el-scrollbar :style="{width: collapse ? 'calc(100vw - 200px)' : 'calc(100vw - 65px)'}">
-        <transition-group name="tags">
-            <div v-for="(item,index) in tags" :key='index' :class="['tag',{active:currentName == item.name}]"
-                :style="currentName == item.name ? {background: themeColor} : {}">
-                <router-link @click="navTo(item)" 
-                :to="{ name: item.name, query: item.query, params: item.params }"
-                >
-                    {{defalutData.tabsName == 'name' ? item.name : item.meta && item.meta.title}}
-                </router-link>
-                <i v-if="!item.remove" class="el-icon-close" @click.stop="remove(index)"></i>
-            </div>
-        </transition-group>
+    <el-scrollbar
+      :style="{
+        width: collapse ? 'calc(100vw - 200px)' : 'calc(100vw - 65px)',
+      }"
+    >
+      <transition-group name="tags">
+        <div
+          v-for="(item, index) in tags"
+          :key="index"
+          :class="['tag', { active: currentName == item.name }]"
+          :style="currentName == item.name ? { background: themeColor } : {}"
+        >
+          <router-link
+            @click="navTo(item)"
+            :to="{ name: item.name, query: item.query, params: item.params }"
+          >
+            {{
+              defalutData.tabsName == "name"
+                ? item.name
+                : item.meta && item.meta.title
+            }}
+          </router-link>
+          <i
+            v-if="!item.remove"
+            class="el-icon-close"
+            @click.stop="remove(index)"
+          ></i>
+        </div>
+      </transition-group>
     </el-scrollbar>
   </div>
 </template>
 
 <script>
-import { useStore } from "vuex";
-import { computed, reactive, ref, watch,toRaw, defineComponent } from 'vue';
-import { useRoute,useRouter } from 'vue-router';
+import { useStore } from "vuex"
+import { computed, reactive, ref, watch, toRaw, defineComponent } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
-    props:{
-        collapse:{
-            type: Boolean,
-            default: true
-        }
-    },
-    setup(){
-        let store = useStore()
-        let route = useRoute()
-        let router = useRouter()
-        let tags = store.state.user.tags
-        // 当前路由name
-        let currentName = computed(()=>{
-            let isExist = tags.filter(item => item.name == route.name).length > 0 ? true : false
-            addTag(route,isExist)
-            return route.name
-        })
-
-        function addTag(val,isExist){
-            let to = JSON.parse(JSON.stringify(val.matched[val.matched.length - 1]))
-            console.log(to);
-
-            if(!isExist && val.name !== "redirect"  && val.name !== "404"){
-                store.commit('tagsCommit',{to})
-            }
-        }
-
-        function remove(i){
-            if(tags[i].name === currentName.value){
-                router.push({
-                    name:tags[i-1].name,
-                    params:tags[i-1].params,
-                    query:tags[i-1].query
-                })
-                setTimeout(()=>{
-                    store.dispatch('tagsActions',{removeIndex: i})
-                },50)
-            }else{
-                store.dispatch('tagsActions',{removeIndex: i})
-            }
-        }
-
-        function navTo(item){
-            if(item.name === currentName.value){
-                // 手动重定向页面到 '/redirect' 页面
-                // console.log(route);
-                // router.replace({
-                //     name: 'redirect',
-                //     params:{
-                //         ...item.params,
-                //         __name:item.name
-                //     },
-                //     query:item.query
-                // })
-
-                return
-            }
-        }
-
-        return {
-            tags,
-            remove,
-            currentName,
-            navTo
-        }
+  props: {
+    collapse: {
+      type: Boolean,
+      default: true
     }
+  },
+  setup () {
+    let store = useStore()
+    let route = useRoute()
+    let router = useRouter()
+    let tags = store.state.user.tags
+    // 当前路由name
+    let currentName = computed(() => {
+      let isExist = tags.filter(item => item.name == route.name).length > 0 ? true : false
+      addTag(route, isExist)
+      return route.name
+    })
+
+    function addTag (val, isExist) {
+      let to = JSON.parse(JSON.stringify(val.matched[val.matched.length - 1]))
+      // console.log(to);
+
+      if (!isExist && val.name !== "redirect" && val.name !== "404") {
+        store.commit('tagsCommit', { to })
+      }
+    }
+
+    function remove (i) {
+      if (tags[i].name === currentName.value) {
+        router.push({
+          name: tags[i - 1].name,
+          params: tags[i - 1].params,
+          query: tags[i - 1].query
+        })
+        setTimeout(() => {
+          store.dispatch('tagsActions', { removeIndex: i })
+        }, 50)
+      } else {
+        store.dispatch('tagsActions', { removeIndex: i })
+      }
+    }
+
+    function navTo (item) {
+      if (item.name === currentName.value) {
+        // 手动重定向页面到 '/redirect' 页面
+        // console.log(route);
+        // router.replace({
+        //     name: 'redirect',
+        //     params:{
+        //         ...item.params,
+        //         __name:item.name
+        //     },
+        //     query:item.query
+        // })
+
+        return
+      }
+    }
+
+    return {
+      tags,
+      remove,
+      currentName,
+      navTo
+    }
+  }
 })
 </script>
 
 <style lang='scss'>
-.tags{
-    padding: 7px 10px;
-    border-top: 2px solid #F7F8F8;
-    .el-scrollbar__view{
-        display: flex;
+.tags {
+  padding: 7px 10px;
+  border-top: 2px solid #f7f8f8;
+  .el-scrollbar__view {
+    display: flex;
+  }
+
+  // .animation{
+  display: flex;
+
+  .tag {
+    padding: 4px 8px;
+    box-sizing: border-box;
+    height: 25px;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    position: relative;
+
+    div {
+      line-height: 25px;
+      height: 25px;
+      // min-width: 60px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    a {
+      text-decoration: none;
+      color: #333;
+    }
+    i {
+      color: #ccc;
+      transition: all 0.3s;
+      margin-left: 5px;
+      padding: 1px;
+      border-radius: 50%;
+      transform: scale(0.7);
+      *font-size: 10px;
+    }
+    .el-icon-close:hover {
+      background: #acacac;
+      color: #fff;
+    }
+  }
+
+  .tag::after {
+    content: "";
+    display: block;
+    height: 50%;
+    // border-right: 1px solid #ccc;
+    position: absolute;
+    right: 0;
+  }
+
+  .active {
+    color: #fff;
+    position: relative;
+    transition: all 0.2s;
+    border-radius: 5px;
+    border: none;
+
+    i {
+      color: #fff;
     }
 
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+  }
 
-    // .animation{
-        display: flex;
+  // .active::after{
+  //     content: '';
+  //     width: 200%;
+  //     height: 50%;
+  //     display: block;
+  //     position: absolute;
+  //     right: -50%;
+  //     bottom: 0;
+  //     border: none;
+  //     background: #1CC9B5;
+  //     z-index: -1;
+  // }
 
-        .tag{
-            padding: 4px 8px;
-            box-sizing: border-box;
-            height: 25px;
-            background: #fff;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-right: 5px;
-            display: flex;
-            align-items: center;
-            font-size: 12px;
-            position: relative;
-
-            div{
-                line-height: 25px;
-                height: 25px;
-                // min-width: 60px;
-                overflow: hidden;
-                text-overflow:ellipsis;
-                white-space: nowrap;
-            }
-            a{
-                text-decoration: none;
-                color: #333;
-            }
-            i{
-                color: #ccc;
-                transition: all .3s;
-                margin-left: 5px;
-                padding: 1px;
-                border-radius: 50%;
-                transform : scale(0.7) ;
-                *font-size:10px;
-            }
-            .el-icon-close:hover{
-                background: #acacac;
-                color: #fff;
-            }
-        }
-
-        .tag::after{
-            content: "";
-            display: block;
-            height: 50%;
-            // border-right: 1px solid #ccc;
-            position: absolute;
-            right: 0;
-        }
-
-        .active{
-            color: #fff;
-            position: relative;
-            transition: all .2s;
-            border-radius: 5px;
-            border: none;
-
-            i{
-                color: #fff;
-            }
-
-            a{
-                text-decoration: none;
-                color: #fff;
-            }
-        }
-
-        // .active::after{
-        //     content: '';
-        //     width: 200%;
-        //     height: 50%;
-        //     display: block;
-        //     position: absolute;
-        //     right: -50%;
-        //     bottom: 0;
-        //     border: none;
-        //     background: #1CC9B5;
-        //     z-index: -1;
-        // }
-        
-    // }
+  // }
 }
 
-.tags-enter-active, .tags-leave-active {
-    transition: all .3s;
+.tags-enter-active,
+.tags-leave-active {
+  transition: all 0.3s;
 }
-.tags-enter-to,.tags-leave-from{
-    transform: translateX(0px);
-    opacity: 1;
-
+.tags-enter-to,
+.tags-leave-from {
+  transform: translateX(0px);
+  opacity: 1;
 }
-.tags-enter-from, .tags-leave-to {
-    opacity: 0;
-    transform: translateX(30px);
+.tags-enter-from,
+.tags-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
