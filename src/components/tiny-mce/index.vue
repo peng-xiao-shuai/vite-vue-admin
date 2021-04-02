@@ -68,7 +68,7 @@ export default defineComponent({
     let tinymceId = 'vue-tinymce-' + +new Date()
 
     watchEffect(() => {
-      if (hasInit.value) {
+      if (hasInit.value && props.myValue != '') {
         nextTick(() => {
           window.tinymce.get(tinymceId).setContent(props.myValue)
         })
