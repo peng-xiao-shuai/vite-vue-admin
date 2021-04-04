@@ -95,6 +95,27 @@ export const addRouter = [
     ],
   },
   {
+    path: "/icons",
+    component: layOut,
+    redirect: "/icons/icon",
+    name: "icons",
+    meta: {
+      title: "图标",
+      icon: "vitejiaoyu",
+    },
+    children: [
+      {
+        path: "icon",
+        name: "icon",
+        component: () => import("/@/views/icons/index.vue"),
+        meta: {
+          title: "图标",
+          icon: "viteliebiao",
+        },
+      },
+    ],
+  },
+  {
     path: "/system",
     component: layOut,
     redirect: "/system/config",
