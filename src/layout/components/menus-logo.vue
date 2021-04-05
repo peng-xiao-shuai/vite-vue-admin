@@ -1,44 +1,47 @@
 <template>
-    <div class="menus-logo">
-        <transition name="logo">
-            <router-link
-            key="collapse"
-            class="logo-link"
-            style="text-decoration: none"
-            to="/"
-            v-if="collapse"
-            >
-                <img style="width: 35px; height: 35px;margin-right:5px" src="/src/assets/logo.svg" />
-                <span class="logo-title" v-show="collapse">{{ systemName }}</span>
-            </router-link>
-            <router-link
-            key="not"
-            class="logo-link"
-            style="text-decoration: none"
-            to="/"
-            v-else
-            >
-                <img style="width: 35px; height: 35px" src="/src/assets/logo.svg" />
-            </router-link>
-        </transition>
-    </div>
+  <div class="menus-logo">
+    <transition name="logo">
+      <router-link
+        key="collapse"
+        class="logo-link"
+        style="text-decoration: none"
+        to="/"
+        v-if="collapse"
+      >
+        <img
+          style="width: 35px; height: 35px; margin-right: 5px"
+          src="/src/assets/logo.svg"
+        />
+        <span class="logo-title" v-show="collapse">{{ systemName }}</span>
+      </router-link>
+      <router-link
+        key="not"
+        class="logo-link"
+        style="text-decoration: none"
+        to="/"
+        v-else
+      >
+        <img style="width: 35px; height: 35px" src="/src/assets/logo.svg" />
+      </router-link>
+    </transition>
+  </div>
 </template>
 
 <script>
-import defalutData from '/@/config/defalut-data';
+import defalutData from '/@/config/defalut-data'
 export default {
-    name:'logo',
-    props:{
-        collapse:{
-            type: Boolean,
-            default: true
-        }
-    },
-    data(){
-        return{
-            systemName: defalutData.name
-        }
+  name: 'logo',
+  props: {
+    collapse: {
+      type: Boolean,
+      default: true
     }
+  },
+  data () {
+    return {
+      systemName: defalutData.name
+    }
+  }
 };
 </script>
 
@@ -53,17 +56,16 @@ export default {
   opacity: 1;
 } */
 
-.menus-logo{
+.menus-logo {
   /* box-sizing: border-box; */
   /* padding: 10px; */
   min-height: 50px;
   width: 100%;
   height: 50px;
   overflow: hidden;
-  border-bottom: 2px solid #F7F8F8;
-
+  border-bottom: 2px solid #f7f8f8;
 }
-.logo-link{
+.logo-link {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +74,7 @@ export default {
   margin: auto;
   width: 80%;
 }
-.logo-title{
+.logo-title {
   margin: 0;
   font-size: 18px;
   overflow: hidden;
