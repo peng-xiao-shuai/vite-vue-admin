@@ -101,7 +101,7 @@ export const addRouter = [
     name: "icons",
     meta: {
       title: "图标",
-      icon: "vitejiaoyu",
+      icon: "vitei",
     },
     children: [
       {
@@ -110,7 +110,7 @@ export const addRouter = [
         component: () => import("/@/views/icons/index.vue"),
         meta: {
           title: "图标",
-          icon: "viteliebiao",
+          icon: "vitei",
         },
       },
     ],
