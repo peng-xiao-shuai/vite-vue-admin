@@ -1,10 +1,10 @@
-import config from '/@/config/defalut-data';
-const themeColor:string = window.localStorage.getItem('themeColor')
+import config from "/@/config/defalut-data";
+const themeColor: string = window.localStorage.getItem("themeColor");
 
 let state = {
-    themeColor: JSON.parse(themeColor) || config.themeColor.background
-}
+  themeColor: JSON.parse(themeColor) || config.themeColor.background,
+};
 
-export default{
-    state
-}
+export default {
+  state,
+};
