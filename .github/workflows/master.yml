@@ -17,7 +17,7 @@ jobs:
           | #注意我这里是使用的yarn管理包，如果你使用的npm，请换成npm的命令：npm install和npm run build
           yarn
           yarn build
-          yarn build
+          yarn preview
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
