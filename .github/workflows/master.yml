@@ -12,14 +12,10 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
-        run: | #注意我这里是使用的yarn管理包，如果你使用的npm，请换成npm的命令：npm install和npm run build
-          yarn
-          yarn build
-          yarn preview
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@master
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} #secrets.ACCESS_TOKEN是项目配置的密钥
           BRANCH: master # The branch the action should deploy to.
           FOLDER: dist # The folder the action should deploy.
+          BUILD_SCRIPT: yarn install && yarn run build && yarn run preview
