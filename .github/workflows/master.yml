@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@master # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        uses: actions/checkout@@v2 # 如果您使用的是Actions/checkout@v2，那么在大多数情况下，您必须将Persistent-Credentials设置为false，这样部署才能正常工作。
         with:
           persist-credentials: false
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@master
-        with:
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} #secrets.ACCESS_TOKEN是项目配置的密钥
-          BRANCH: master # The branch the action should deploy to.
-          FOLDER: dist # The folder the action should deploy.
+          BRANCH: gh-pages # 操作应部署到的分支。
+          FOLDER: dist # 操作应部署的文件夹。
           BUILD_SCRIPT: yarn install && yarn run build && yarn run preview
