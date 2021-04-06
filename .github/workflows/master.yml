@@ -19,7 +19,7 @@ jobs:
           yarn preview
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@master
-        env:
+        with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} #secrets.ACCESS_TOKEN是项目配置的密钥
           BRANCH: master # The branch the action should deploy to.
           FOLDER: dist # The folder the action should deploy.
