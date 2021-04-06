@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@@v2 # 如果您使用的是Actions/checkout@v2，那么在大多数情况下，您必须将Persistent-Credentials设置为false，这样部署才能正常工作。
+        uses: actions/checkout@v2 # 如果您使用的是Actions/checkout@v2，那么在大多数情况下，您必须将Persistent-Credentials设置为false，这样部署才能正常工作。
         with:
           persist-credentials: false
 
