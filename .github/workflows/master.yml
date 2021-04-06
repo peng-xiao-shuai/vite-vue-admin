@@ -13,7 +13,7 @@ jobs:
           persist-credentials: false
        # 生成静态文件
       - name: Build
-        run: yarn install && yarn run build && yarn run preview
+        run: yarn install && yarn run build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
