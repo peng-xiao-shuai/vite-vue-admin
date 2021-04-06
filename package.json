@@ -6,6 +6,7 @@
     "build": "vite build",
     "preview": "vite preview --port 8088"
   },
+  "homepage":"https://peng-xiao-shuai-0902.github.io/vite-vue-admin/",
   "dependencies": {
     "axios": "^0.21.1",
     "digit-roll": "^1.1.8",
