@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 
-# 当发生错误时中止脚本
+# 发生任何错误时终止
 set -e
 
 # 构建
-npm run build:vue
+npm run build
 
-# cd 到构建输出的目录下 
+# 进入输出产物文件夹
 cd dist
 
-# 部署到自定义域域名
+# 如果你要部署到自定义域名
 # echo 'www.example.com' > CNAME
 
 git init

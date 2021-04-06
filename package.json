@@ -4,7 +4,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:vue":"vue-cli-service build",
     "preview": "vite preview --port 8088"
   },
   "homepage":"https://peng-xiao-shuai-0902.github.io/vite-vue-admin/",
