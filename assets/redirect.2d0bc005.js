@@ -1,0 +1,1 @@
+import{a as e,b as a}from"./index.2c2ac012.js";import"./vendor.3c20cdd8.js";const o={setup(){let o=e(),r=a();const{params:s,query:c}=r;console.log(r),o.replace({name:s.__name,params:s,query:c})}};export default o;
