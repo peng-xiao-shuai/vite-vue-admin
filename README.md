@@ -28,6 +28,23 @@
 
 ## 项目设置
 
+>**注意事项**
+
+1. 默认是开发版本和发行版本都是使用 `mock`
+发行版本如需禁用 `mock` 请将 `main.ts` 文件下的如下代码取消注释
+并且找到 `.env.production` 文件下的 `VITE_MOCK` 变量修改其 `false`
+2. 开发版本禁用 `mock` 请将`.env.development` 文件下的 `VITE_MOCK` 变量修改其 `false`
+
+``` js
+// main.ts
+
+// if (
+//   import.meta.env.VITE_MOCK === "true"
+// ) {
+  mockXHR();
+// }
+```
+
 ### 一、Install dependencies,
 
 ```bash

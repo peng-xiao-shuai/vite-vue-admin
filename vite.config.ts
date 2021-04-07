@@ -14,6 +14,13 @@ export default defineConfig({
   base:"/vite-vue-admin/",
   // 控制台打印
   logLevel: "silent",
+  build: {
+    brotliSize: false,
+    chunkSizeWarningLimit: 1024,
+    // rollupOptions: {
+    //   external: ["src/*"],
+    // },
+  },
   server: {
     hmr: {
       overlay: false,

@@ -30,12 +30,11 @@ import "./style/iconfont.css";
 import "./style/index.scss";
 
 import { mockXHR } from "../mock/index";
-if (
-  process.env.NODE_ENV === "development" &&
-  import.meta.env.VITE_MOCK === "true"
-) {
+// if (
+//   import.meta.env.VITE_MOCK === "true"
+// ) {
   mockXHR();
-}
+// }
 
 let app = createApp(App);
 app.provide("$message", ElMessage);
