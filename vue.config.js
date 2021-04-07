@@ -1,4 +1,6 @@
 module.exports = {
   // 选项...
-  publicPath: '/vite-vue-admin/'
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/vite-vue-admin/'
+    : '/'
 }
