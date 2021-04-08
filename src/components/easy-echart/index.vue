@@ -24,6 +24,7 @@
  *  value: '',
  *  name: ''
  * }]
+ * 默认南丁格尔玫瑰图
  */
 import { defineComponent } from 'vue'
 import * as echarts from 'echarts'
@@ -68,6 +69,9 @@ export default defineComponent({
               break
             case 'pie':
               this.cakeChart()
+              break
+            case 'homeCake':
+              this.homeCakeChart()
               break
             default:
               this.pillarChart()
@@ -168,8 +172,62 @@ export default defineComponent({
 
     },
 
-    // 饼图
+    // 饼图 
+    // 默认南丁格尔玫瑰图
     cakeChart () {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = echarts.init(document.getElementById(this.echartsId))
+      let series = {
+        type: 'pie',
+        radius: [50, 250],
+        center: ['50%', '50%'],
+        roseType: 'area',
+        label: {
+          show: false
+        },
+        itemStyle: {
+          borderRadius: 8
+        },
+      }
+
+      series.data = this.information.horizontalList.map((item, index) => {
+        let each = {
+          value: item.value,
+          name: item.name
+        }
+
+        return each
+      })
+
+      // 指定图表的配置项和数据
+      let option = {
+        color: this.colors,
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          y: 'center',  //图例上下居中
+          right: '5%',
+          orient: 'vertical',
+          backgroundColor: 'rgb(228, 230, 255)',
+          borderRadius: 5,
+          padding: [25, 15, 25, 15],
+          icon: "pin"
+        },
+        title: {
+          // text: this.title,
+          // left: 'left'
+        },
+        series: series
+      }
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option)
+      window.addEventListener("resize", () => { myChart.resize() })
+    },
+
+    // 首页单独饼图
+    homeCakeChart () {
       // 基于准备好的dom，初始化echarts实例
       let myChart = echarts.init(document.getElementById(this.echartsId))
       console.log('并数据', this.information)
