@@ -1,7 +1,7 @@
 export default {
   name: "vite-admin",
   themeColor: {
-    background: "rgb(100,108,255)",
+    background: "#AD49FF",
   },
   // icon图标类型
   iconfont: "viteIcon",

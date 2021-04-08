@@ -80,7 +80,9 @@
             </div>
             <!-- 上升 -->
             <div class="increase">
-              <i class="el-icon-top">{{ earnings.value.dayPercentage }}%</i>
+              <i class="el-icon-top" :style="{ color: themeColor }"
+                >{{ earnings.value.dayPercentage }}%</i
+              >
             </div>
           </el-card>
 
@@ -96,7 +98,9 @@
             </div>
             <!-- 上升 -->
             <div class="increase">
-              <i class="el-icon-top">{{ earnings.value.totalPercentage }}%</i>
+              <i class="el-icon-top" :style="{ color: themeColor }"
+                >{{ earnings.value.totalPercentage }}%</i
+              >
             </div>
           </el-card>
 
@@ -125,7 +129,7 @@
                 :height="310 - 40"
                 :colors="colors"
                 :information="pageviewData.value"
-                types="pie"
+                types="homeCake"
                 title="浏览量饼状图"
               ></homeEcharts>
             </div>
@@ -185,37 +189,6 @@ import {
 import { defineComponent, reactive, ref } from "vue";
 import { header } from "./indexData";
 
-const countsArr: any[] = [
-  {
-    icon: "vitehome-user",
-    title: "粉丝",
-    value: "",
-    key: "users",
-    color: "#646cff ",
-  },
-  {
-    icon: "vitehome-wengzhang",
-    title: "文章",
-    value: "",
-    key: "shoppings",
-    color: "#9d5aff  ",
-  },
-  {
-    icon: "vitehome-liulanliang",
-    title: "浏览量",
-    value: "",
-    key: "pageview",
-    color: "#55bcff ",
-  },
-  {
-    icon: "vitehome-done",
-    title: "已提交",
-    value: "",
-    key: "done",
-    color: "#F6A829 ",
-  },
-];
-
 export default defineComponent({
   name: "home",
   components: {
@@ -227,41 +200,70 @@ export default defineComponent({
     // 曲线图颜色
     const chartColor: any[] = [
       {
-        opacity: 0.2,
+        opacity: 0.4,
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
           {
             offset: 0,
-            color: "rgb(157, 90, 255)",
+            color: useStore().state.settings.themeColor,
           },
           {
             offset: 1,
-            color: "rgb(157, 90, 255)",
+            color: "rgba(255, 255, 255,0)",
           },
         ]),
       },
       {
-        opacity: 0.2,
+        opacity: 0.4,
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
           {
             offset: 0,
-            color: useStore().state.settings.themeColor,
+            color: "#55bcff",
           },
           {
             offset: 1,
-            color: useStore().state.settings.themeColor,
+            color: "rgba(255, 255, 255,0)",
           },
         ]),
       },
     ];
     // 曲线图线段颜色
     const colors: any[] = [
-      "rgb(157, 90, 255)",
       useStore().state.settings.themeColor,
+      "#55bcff",
       "#F6A829",
-      "rgb(85, 188, 255)",
+      "#646cff",
     ];
 
-    let count = reactive(countsArr);
+    let count = reactive([
+      {
+        icon: "vitehome-user",
+        title: "粉丝",
+        value: "",
+        key: "users",
+        color: useStore().state.settings.themeColor,
+      },
+      {
+        icon: "vitehome-wengzhang",
+        title: "文章",
+        value: "",
+        key: "shoppings",
+        color: "#55bcff",
+      },
+      {
+        icon: "vitehome-liulanliang",
+        title: "浏览量",
+        value: "",
+        key: "pageview",
+        color: "#646cff ",
+      },
+      {
+        icon: "vitehome-done",
+        title: "已提交",
+        value: "",
+        key: "done",
+        color: "#F6A829 ",
+      },
+    ]);
     let chart = reactive({ value: {} });
     let pageviewData = reactive({ value: {} });
 
@@ -284,7 +286,7 @@ export default defineComponent({
     let tbConfig = reactive(header);
     // end
 
-    let findTime = ref("Month");
+    let findTime = ref("Seven");
 
     function typeSwitch(i: number) {
       current.value = i;
@@ -302,7 +304,7 @@ export default defineComponent({
         pageviewData.value = res.data;
       });
     }
-    function handleChart(status: number | string, period: string = "Month") {
+    function handleChart(status: number | string, period: string = "Seven") {
       findTime.value = period;
 
       userLineColor.value = [];
@@ -523,7 +525,6 @@ export default defineComponent({
 
         .increase,
         .increase i {
-          color: rgba(100, 108, 255);
           font-weight: bold;
         }
 
