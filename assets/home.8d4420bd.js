@@ -1,1 +1,0 @@
-import{s as r}from"./index.bec8cf3b.js";function n(){return r({url:"home/pageviewChart"})}function e(){return r({url:"home/earnings"})}function t(n){return r({url:"home/chart",params:n})}function a(){return r({url:"home/count"})}function u(n){return r({url:"home/table",params:n})}export{a,t as c,e,n as p,u as t};
