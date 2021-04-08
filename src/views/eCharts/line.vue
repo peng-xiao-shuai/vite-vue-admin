@@ -16,7 +16,7 @@
 import { defineComponent, reactive } from "vue";
 import easyEchart from "/@/components/easy-echart/index.vue";
 import * as echarts from "echarts";
-import { chartFun } from "/@/api/home";
+import { lineFun } from "/@/api/echarts/index";
 
 export default defineComponent({
   name: "eChartsLine",
@@ -64,8 +64,7 @@ export default defineComponent({
     handleChart(0);
 
     function handleChart(status: number | string, period: string = "Seven") {
-      userLineColor.value = [];
-      chartFun({ status, period }).then((res: any) => {
+      lineFun().then((res: any) => {
         res.data.homeDateInfoResult.forEach((item: any, index: number) => {
           item.areaStyle = chartColor[index];
 

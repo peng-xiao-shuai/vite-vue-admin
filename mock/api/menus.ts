@@ -102,6 +102,16 @@ const roles = {
     },
     {
       hidden: 0,
+      icon: "vitebingzhuangtu",
+      id: 32,
+      level: 1,
+      name: "eChartCake",
+      parentId: 30,
+      sort: 997,
+      title: "饼状图",
+    },
+    {
+      hidden: 0,
       icon: "viteliebiao",
       id: 7,
       level: 1,

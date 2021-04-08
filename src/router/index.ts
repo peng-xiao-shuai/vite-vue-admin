@@ -143,6 +143,15 @@ export const addRouter = [
           icon: "vitezhuzhuangtu",
         },
       },
+      {
+        path: "eChartCake",
+        name: "eChartCake",
+        component: () => import("/@/views/eCharts/cake.vue"),
+        meta: {
+          title: "饼状图",
+          icon: "vitebingzhuangtu",
+        },
+      },
     ],
   },
   {

@@ -25,19 +25,43 @@ function dataArr(type: string = "mock") {
 // 浏览量饼图
 function pageviewFun() {
   let item: any = [];
-  let names: string[] = ["总浏览", "本月浏览", "昨日浏览", "今日浏览"];
-  for (let i = 0; i < 4; i++) {
+  let names: string[] = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+  for (let i = 0; i < names.length; i++) {
     item.push({
-      value: i == 0 ? 1234 : Mock.mock("@integer(300,600)"),
+      value: Mock.mock("@integer(300,600)"),
       name: names[i],
     });
   }
   return item;
 }
 
+let typeSwitch = ["昨日增长", "今日增长"]
+let homeEcharts = echartsFun();
+function echartsFun() {
+  let echarts: any = [];
+  typeSwitch.forEach((item: any, index: Number) => {
+    echarts.push({
+      areaStyle: {},
+      data: dataArr(),
+      name: item,
+      smooth: true,
+      // lineStyle: {
+      //   width: 0
+      // },
+      // stack: "总量",
+      emphasis: {
+        focus: "series",
+      },
+      type: "line",
+    });
+  });
+
+  return echarts;
+}
+
 export default [
   {
-    url: "home/pageviewChart",
+    url: "echart/cake",
     type: "get",
     response: (config: config) => {
       return {
@@ -45,6 +69,25 @@ export default [
         data: {
           horizontalList: pageviewFun(),
         },
+      };
+    },
+  },
+  {
+    url: "echart/line",
+    response: (config: config) => {
+      return {
+        code: 200,
+        data: Mock.mock({
+          homeDateInfoResult: homeEcharts,
+            horizontalList: [
+              "周一",
+              "周二",
+              "周三",
+              "周四",
+              "周五",
+              "周六",
+            ],
+          }),
       };
     },
   },

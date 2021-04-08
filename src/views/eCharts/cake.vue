@@ -2,12 +2,12 @@
   <el-card :shadow="defalutData.cardShadow">
     <easy-echart
       :isSlot="false"
-      echartsId="pillar-echart"
+      echartsId="pillar-cake"
       :height="600"
       :colors="colors"
       :information="chart.value"
-      title="柱状图"
-      types="pillar"
+      title="南丁格尔玫瑰图"
+      types="pie"
     ></easy-echart>
   </el-card>
 </template>
@@ -16,7 +16,7 @@
 import { defineComponent, reactive } from "vue";
 import easyEchart from "/@/components/easy-echart/index.vue";
 import * as echarts from "echarts";
-import { pillarFun } from "/@/api/echarts/index";
+import { cakeFun } from "/@/api/echarts/index";
 
 export default defineComponent({
   name: "eChartsLine",
@@ -54,17 +54,21 @@ export default defineComponent({
     ];
     // 曲线图线段颜色
     const colors: any[] = [
-      "#5BB1FF",
+      "rgb(61,94,216)",
       "#AD49FF",
-      "#F6A829",
-      "rgb(85, 188, 255)",
+      "#FFCB4D",
+      "#FF534F",
+      "#5BB1FF",
+      "#27B276",
+      "#FF8149",
     ];
     // 自定义线段颜色
     let userLineColor: any = reactive({ value: [] });
 
-    handlePillar();
-    function handlePillar() {
-      pillarFun().then((res: any) => {
+    handlePageview();
+    // 浏览量
+    function handlePageview() {
+      cakeFun().then((res: any) => {
         chart.value = res.data;
       });
     }
