@@ -185,15 +185,6 @@ export default [
     },
   },
   {
-    url: "home/rectification/count",
-    response: (config: config) => {
-      return {
-        code: 200,
-        data: {},
-      };
-    },
-  },
-  {
     url: "home/table",
     response: (config: config) => {
       let size = Number(config.query.pageSize);

@@ -116,6 +116,36 @@ export const addRouter = [
     ],
   },
   {
+    path: "/eCharts",
+    component: layOut,
+    redirect: "/eCharts/line",
+    name: "eCharts",
+    meta: {
+      title: "图表",
+      icon: "vitetubiao",
+    },
+    children: [
+      {
+        path: "eChartLine",
+        name: "eChartLine",
+        component: () => import("/@/views/eCharts/line.vue"),
+        meta: {
+          title: "折线图",
+          icon: "vitezhexiantu",
+        },
+      },
+      {
+        path: "eChartPillar",
+        name: "eChartPillar",
+        component: () => import("/@/views/eCharts/pillar.vue"),
+        meta: {
+          title: "柱状图",
+          icon: "vitezhuzhuangtu",
+        },
+      },
+    ],
+  },
+  {
     path: "/system",
     component: layOut,
     redirect: "/system/config",

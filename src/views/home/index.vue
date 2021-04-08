@@ -168,7 +168,7 @@
 </template>
 
 <script lang='ts'>
-import homeEcharts from "./components/homeEcharts.vue";
+import homeEcharts from "/@/components/easy-echart/index.vue";
 import PanelGroup from "./components/PanelGroup.vue";
 import lineBarEcharts from "./components/lineBarEcharts.vue";
 
@@ -271,7 +271,6 @@ export default defineComponent({
     let userLineColor: any = reactive({ value: [] });
 
     let current = ref(0);
-    // 30天资料,试题数据
     let reform = reactive<any | null>(null);
     let investigation = reactive<any | null>(null);
     let earnings = reactive({ value: {}, chart: {} });

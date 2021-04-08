@@ -17,13 +17,25 @@
 </template>
 
 <script>
+/**
+ * 简单封装图表
+ * 注意：线性图和柱形图 是通过 homeDateInfoResult 数据直接赋值到 series
+ * 饼图则只要 horizontalList 数组即可 模板:[{
+ *  value: '',
+ *  name: ''
+ * }]
+ */
+import { defineComponent } from 'vue'
 import * as echarts from 'echarts'
-import { number } from 'echarts'
-export default {
+
+export default defineComponent({
   props: {
+    // 图表id
     echartsId: String,
     colors: Array,
+    // 数据集
     information: Object,
+    // 标题
     title: String,
     //isSlot && 图表减去插槽高度
     isSlot: {
@@ -34,18 +46,11 @@ export default {
       type: [Number, String],
       default: 250
     },
+    // 图表类型
     types: {
       type: String,
       default: ''
     }
-  },
-  data () {
-    return {
-      current: 0
-    }
-  },
-  mounted () {
-
   },
   watch: {
     information: {
@@ -59,7 +64,7 @@ export default {
           let merge = old.homeDateInfoResult && val.homeDateInfoResult.length == old.homeDateInfoResult.length ? false : true
           switch (this.types) {
             case 'line':
-              this.drawChart(merge)
+              this.lineEchart(merge)
               break
             case 'pie':
               this.cakeChart()
@@ -74,11 +79,8 @@ export default {
     }
   },
   methods: {
-    typeSwipt (e) {
-      this.current = e
-    },
-    drawChart (merge) {
-      // console.log(this.title)
+    // 线
+    lineEchart (merge) {
       // 基于准备好的dom，初始化echarts实例
       let myChart = echarts.init(document.getElementById(this.echartsId),)
       // 指定图表的配置项和数据
@@ -124,39 +126,30 @@ export default {
       myChart.setOption(option, merge)
       window.addEventListener("resize", () => { myChart.resize() })
     },
-
+    // 柱状
     pillarChart () {
       // 基于准备好的dom，初始化echarts实例
       let myChart = echarts.init(document.getElementById(this.echartsId))
 
-      let series = this.information.homeDateInfoResult.map((item, index) => {
-        let each = {
-          type: 'bar',
-          data: item.data,
-          name: item.name,
-        }
-        return each
-      })
-
-
-
       // 指定图表的配置项和数据
       let option = {
-        color: [this.themeColor, '#36a3f7', '#f4516c'],
+        color: this.colors,
         tooltip: {
           trigger: 'axis',
           axisPointer: { // 坐标轴指示器，坐标轴触发有效
             type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
           }
         },
-        legend: {
-          top: 30,
-          right: 0,
-          data: this.information.homeDateInfoResult.map(item => item.name)
-        },
         title: {
           // text: this.title,
           // left: 'center'
+        },
+        grid: {
+          left: '0%',
+          right: '0%',
+          bottom: '3%',
+          top: '5%',
+          containLabel: true
         },
         xAxis: {
           type: 'category',
@@ -165,7 +158,7 @@ export default {
         yAxis: [{
           type: 'value'
         }],
-        series: series
+        series: this.information.homeDateInfoResult
       }
 
       // 使用刚指定的配置项和数据显示图表。
@@ -175,10 +168,11 @@ export default {
 
     },
 
+    // 饼图
     cakeChart () {
       // 基于准备好的dom，初始化echarts实例
       let myChart = echarts.init(document.getElementById(this.echartsId))
-
+      console.log('并数据', this.information)
       let series = {
         center: ['30%', '50%'],
         type: 'pie',
@@ -242,7 +236,7 @@ export default {
       window.addEventListener("resize", () => { myChart.resize() })
     }
   },
-}
+})
 </script>
 
 <style scoped>
