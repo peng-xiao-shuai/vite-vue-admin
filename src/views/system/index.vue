@@ -20,7 +20,7 @@
           class="input-width"
           :disabled="isDisabled2"
         ></el-input>
-        <el-button @click="updateStatus('2')" type="primary" size="small"
+        <el-button @click="updateStatus('2')" type="primary"  
           >修改</el-button
         >
       </el-form-item>
@@ -30,7 +30,7 @@
           class="input-width"
           :disabled="isDisabled3"
         ></el-input>
-        <el-button @click="updateStatus('3')" type="primary" size="small"
+        <el-button @click="updateStatus('3')" type="primary"  
           >修改</el-button
         >
       </el-form-item> -->
@@ -41,7 +41,10 @@
           class="input-width"
           :disabled="isDisabled1"
         ></el-input>
-        <el-button style="margin-left: 20px" @click="updateStatus('1')" type="primary" size="small"
+        <el-button
+          style="margin-left: 20px"
+          @click="updateStatus('1')"
+          type="primary"
           >修改</el-button
         >
       </el-form-item>
@@ -51,7 +54,10 @@
           class="input-width"
           :disabled="isDisabled2"
         ></el-input>
-        <el-button style="margin-left: 20px" @click="updateStatus('2')" type="primary" size="small"
+        <el-button
+          style="margin-left: 20px"
+          @click="updateStatus('2')"
+          type="primary"
           >修改</el-button
         >
       </el-form-item>
@@ -61,7 +67,10 @@
           class="input-width"
           :disabled="isDisabled3"
         ></el-input>
-        <el-button style="margin-left: 20px" @click="updateStatus('3')" type="primary" size="small"
+        <el-button
+          style="margin-left: 20px"
+          @click="updateStatus('3')"
+          type="primary"
           >修改</el-button
         >
       </el-form-item>
@@ -71,7 +80,10 @@
           class="input-width"
           :disabled="isDisabled4"
         ></el-input>
-        <el-button style="margin-left: 20px" @click="updateStatus('4')" type="primary" size="small"
+        <el-button
+          style="margin-left: 20px"
+          @click="updateStatus('4')"
+          type="primary"
           >修改</el-button
         >
       </el-form-item>
@@ -82,7 +94,10 @@
           class="input-width"
           :disabled="isDisabled5"
         ></el-input>
-        <el-button style="margin-left: 20px" @click="updateStatus('5')" type="primary" size="small"
+        <el-button
+          style="margin-left: 20px"
+          @click="updateStatus('5')"
+          type="primary"
           >修改</el-button
         >
       </el-form-item>
@@ -92,7 +107,10 @@
           class="input-width"
           :disabled="isDisabled6"
         ></el-input>
-        <el-button style="margin-left: 20px" @click="updateStatus('6')" type="primary" size="small"
+        <el-button
+          style="margin-left: 20px"
+          @click="updateStatus('6')"
+          type="primary"
           >修改</el-button
         >
       </el-form-item>
@@ -144,7 +162,7 @@
   </el-card>
 </template>
 <script>
-import { getSettings, setSetting } from "/@/api/system/config";
+import { getSettings, setSetting } from "/@/api/system/config"
 const defaultOrderSetting = {
   courierType: "",
   systemName: "",
@@ -160,26 +178,26 @@ const defaultOrderSetting = {
   answerTotalCount: 0,
   id: 0,
   companyAddress: "",
-};
+}
 const checkTime = (rule, value, callback) => {
   if (!value) {
-    return callback(new Error("时间不能为空"));
+    return callback(new Error("时间不能为空"))
   }
-  let intValue = parseInt(value);
+  let intValue = parseInt(value)
   if (!Number.isInteger(intValue)) {
-    return callback(new Error("请输入数字值"));
+    return callback(new Error("请输入数字值"))
   }
-  callback();
-};
+  callback()
+}
 const isEmpty = (str) => {
   if (str === "" || str === undefined || str === null) {
-    return true;
+    return true
   }
-  return false;
-};
+  return false
+}
 export default {
   name: "config",
-  data() {
+  data () {
     return {
       textAreaVal: 0,
       row: 10,
@@ -212,56 +230,56 @@ export default {
           trigger: "blur",
         },
       },
-    };
+    }
   },
   computed: {
     // 计算当前文本框中内容的字数
-    valueLength() {
-      console.log();
+    valueLength () {
+      console.log()
       if (isEmpty(this.textAreaVal)) {
-        return 0;
+        return 0
       }
-      return this.textAreaVal.length;
+      return this.textAreaVal.length
     },
   },
-  created() {
-    this.getDetail();
+  created () {
+    this.getDetail()
   },
   methods: {
     // 计算textAreaVal值，超过最大值则直接截断
-    handleInputChange() {
-      this.textAreaVal = this.systemSetting.introduction.length;
+    handleInputChange () {
+      this.textAreaVal = this.systemSetting.introduction.length
       this.systemSetting.introduction = this.systemSetting.introduction.substring(
         0,
         this.maxLength
-      );
-      this.$emit("change", this.systemSetting.introduction);
+      )
+      this.$emit("change", this.systemSetting.introduction)
     },
-    updateStatus(type) {
+    updateStatus (type) {
       switch (type) {
         case "1":
-          this.isDisabled1 = !this.isDisabled1;
-          break;
+          this.isDisabled1 = !this.isDisabled1
+          break
         case "2":
-          this.isDisabled2 = !this.isDisabled2;
-          break;
+          this.isDisabled2 = !this.isDisabled2
+          break
         case "3":
-          this.isDisabled3 = !this.isDisabled3;
-          break;
+          this.isDisabled3 = !this.isDisabled3
+          break
         case "4":
-          this.isDisabled4 = !this.isDisabled4;
-          break;
-         case "5":
-          this.isDisabled5 = !this.isDisabled5;
-          break;
-         case "6":
-          this.isDisabled6 = !this.isDisabled6;
-          break;
+          this.isDisabled4 = !this.isDisabled4
+          break
+        case "5":
+          this.isDisabled5 = !this.isDisabled5
+          break
+        case "6":
+          this.isDisabled6 = !this.isDisabled6
+          break
         default:
-          break;
+          break
       }
     },
-    confirm(formName) {
+    confirm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$confirm("是否要提交修改?", "提示", {
@@ -274,22 +292,22 @@ export default {
                 type: "success",
                 message: "提交成功!",
                 duration: 1000,
-              });
-            });
-          });
+              })
+            })
+          })
         } else {
           this.$message({
             message: "请完善系统数据信息",
             type: "warning",
-          });
-          return false;
+          })
+          return false
         }
-      });
+      })
     },
-    getDetail() {
+    getDetail () {
       getSettings().then((response) => {
-        this.systemSetting = response.data;
-      });
+        this.systemSetting = response.data
+      })
     },
   },
 };

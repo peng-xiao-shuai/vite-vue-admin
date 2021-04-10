@@ -47,7 +47,6 @@
         v-model="resourceCategory"
         ref="resourceCategoryForm"
         label-width="150px"
-        size="small"
       >
         <el-form-item label="名称：">
           <el-input

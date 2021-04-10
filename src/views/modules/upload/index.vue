@@ -9,7 +9,7 @@
       </div>
       <div>
         <div>
-          <el-form :inline="true" :model="currentFrom" size="small">
+          <el-form :inline="true" :model="currentFrom">
             <div class="screenForm">
               <el-form-item label="最大上传数量：">
                 <el-input-number

@@ -11,25 +11,19 @@
           <span>筛选搜索</span>
         </div>
         <div>
-          <el-button
-            style="float: right"
-            type="primary"
-            @click="getList()"
-            size="small"
-          >
+          <el-button style="float: right" type="primary" @click="getList()">
             查询搜索
           </el-button>
           <el-button
             style="float: right; margin-right: 15px"
             @click="handleResetSearch()"
-            size="small"
           >
             重置
           </el-button>
         </div>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small">
+        <el-form :inline="true" :model="listQuery">
           <div class="screenForm">
             <el-form-item label="书名：">
               <el-input

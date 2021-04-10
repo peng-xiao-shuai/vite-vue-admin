@@ -8,7 +8,7 @@
         </div>
       </div>
       <div>
-        <el-form :inline="true" size="small" style="margin-bottom: 20px">
+        <el-form :inline="true" style="margin-bottom: 20px">
           <div class="screenForm">
             <el-form-item label="地址：" style="width: 380px">
               <el-input

@@ -11,25 +11,19 @@
           <span>筛选搜索</span>
         </div>
         <div>
-          <el-button
-            style="float: right"
-            type="primary"
-            @click="getList()"
-            size="small"
-          >
+          <el-button style="float: right" type="primary" @click="getList()">
             查询搜索
           </el-button>
           <el-button
             style="float: right; margin-right: 15px"
             @click="handleResetSearch()"
-            size="small"
           >
             重置
           </el-button>
         </div>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small">
+        <el-form :inline="true" :model="listQuery">
           <div class="screenForm">
             <el-form-item label="输入搜索：">
               <el-input
@@ -88,7 +82,7 @@
       v-model="dialogVisible"
       width="40%"
     >
-      <el-form :model="admin" ref="adminForm" label-width="150px" size="small">
+      <el-form :model="admin" ref="adminForm" label-width="150px">
         <el-form-item label="帐号：">
           <el-input v-model="admin.username" style="width: 250px"></el-input>
         </el-form-item>
@@ -120,10 +114,8 @@
           </el-radio-group>
         </el-form-item>
         <el-form-ite>
-          <el-button @click="dialogVisible = false" size="small"
-            >取 消</el-button
-          >
-          <el-button type="primary" @click="handleDialogConfirm()" size="small"
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="handleDialogConfirm()"
             >确 定</el-button
           >
         </el-form-ite>
@@ -134,7 +126,6 @@
         v-model="allocRoleIds"
         multiple
         placeholder="请选择"
-        size="small"
         style="width: 80%"
       >
         <el-option
@@ -146,13 +137,8 @@
         </el-option>
       </el-select>
       <template #footer class="dialog-footer">
-        <el-button @click="allocDialogVisible = false" size="small"
-          >取 消</el-button
-        >
-        <el-button
-          type="primary"
-          @click="handleAllocDialogConfirm()"
-          size="small"
+        <el-button @click="allocDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleAllocDialogConfirm()"
           >确 定</el-button
         >
       </template>

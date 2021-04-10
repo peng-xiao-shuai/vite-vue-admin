@@ -11,25 +11,19 @@
           <span>筛选搜索</span>
         </div>
         <div>
-          <el-button
-            style="float: right"
-            type="primary"
-            @click="getList()"
-            size="small"
-          >
+          <el-button style="float: right" type="primary" @click="getList()">
             查询搜索
           </el-button>
           <el-button
             style="float: right; margin-right: 15px"
             @click="handleResetSearch()"
-            size="small"
           >
             重置
           </el-button>
         </div>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small">
+        <el-form :inline="true" :model="listQuery">
           <div class="screenForm">
             <el-form-item label="角色名：">
               <el-input
@@ -90,7 +84,7 @@
       direction="rtl"
       ref="drawer"
     >
-      <el-form :model="role" ref="roleForm" label-width="150px" size="small">
+      <el-form :model="role" ref="roleForm" label-width="150px">
         <el-form-item label="角色名称：">
           <el-input v-model="role.name" style="width: 250px"></el-input>
         </el-form-item>
@@ -110,13 +104,8 @@
         </el-form-item>
         <el-form-item>
           <el-radio-group v-model="role.status">
-            <el-button @click="dialogVisible = false" size="small"
-              >取 消</el-button
-            >
-            <el-button
-              type="primary"
-              @click="handleDialogConfirm()"
-              size="small"
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="handleDialogConfirm()"
               >确 定</el-button
             >
           </el-radio-group>

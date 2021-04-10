@@ -16,11 +16,7 @@
         :before-upload="beforeUpload"
         :disabled="icon != '' || disabled"
       >
-        <el-button
-          :icon="icon"
-          type="primary"
-          size="small"
-          :disabled="icon != ''"
+        <el-button :icon="icon" type="primary" :disabled="icon != ''"
           >上传</el-button
         >
 
