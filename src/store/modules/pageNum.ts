@@ -1,3 +1,5 @@
+// 表格组件内用于缓存页面的page状态
+// 表格暂未启用
 const state = {
 	pageNums:[]
 }

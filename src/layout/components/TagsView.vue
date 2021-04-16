@@ -12,7 +12,6 @@
           :class="['tag', { active: currentName == item.name }]"
           :style="currentName == item.name ? { background: themeColor } : {}"
         >
-          <!-- :to="{ name: item.name, query: item.query, params: item.params }" -->
           <div @click="navTo(item)">
             {{
               defalutData.tabsName == "name"
@@ -56,8 +55,14 @@ export default defineComponent({
     })
 
     function addTag (val, isExist) {
-      let to = val.matched[val.matched.length - 1]
-      // console.log(to);
+      let matched = val.matched[val.matched.length - 1]
+      let to = {
+        path: matched.path,
+        name: matched.name,
+        meta: matched.meta,
+        query: val.query,
+        params: val.params
+      }
 
       if (!isExist && val.name !== "redirect" && val.name !== "404") {
         store.commit('tagsCommit', { to })
@@ -98,7 +103,6 @@ export default defineComponent({
           name: item.name,
           params: {
             ...item.params,
-            __name: item.name
           },
           query: item.query
         })

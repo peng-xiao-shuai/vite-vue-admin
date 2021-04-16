@@ -117,6 +117,7 @@ const state = {
   menus: [],
   tags: [
     {
+      path: '/',
       name: "home",
       meta: {
         title: "首页",
@@ -185,11 +186,10 @@ const mutations = {
   },
   tagsCommit(state: any, val: any) {
     if (val.removeIndex !== undefined) {
-      console.log("删除");
+      // console.log("删除");
 
       state.tags.splice(val.removeIndex, 1);
-
-      console.log(state.tags);
+      // console.log(state.tags);
 
       state.pageNums.splice(val.removeIndex, 1);
     } else {

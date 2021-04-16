@@ -73,7 +73,6 @@
         :model="admin"
         ref="adminForm"
         label-width="100px"
-        size="small"
         :rules="loginRules"
       >
         <el-form-item label="用户名：" prop="username">
@@ -140,13 +139,8 @@
         </el-form-item> -->
 
         <el-form-item>
-          <el-button @click="dialogVisible = false" size="small"
-            >取 消</el-button
-          >
-          <el-button
-            type="primary"
-            @click="handleDialogConfirm('adminForm')"
-            size="small"
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="handleDialogConfirm('adminForm')"
             >确 定</el-button
           >
         </el-form-item>

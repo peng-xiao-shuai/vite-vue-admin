@@ -26,11 +26,6 @@
   resolved "https://registry.npm.taobao.org/@popperjs/core/download/@popperjs/core-2.9.0.tgz#32e63212293dd3efbb521cd35a5020ab66eaa546"
   integrity sha1-MuYyEik90++7UhzTWlAgq2bqpUY=
 
-"@tinymce/tinymce-vue@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.npm.taobao.org/@tinymce/tinymce-vue/download/@tinymce/tinymce-vue-4.0.0.tgz#694e214f071370dfad1ac199056373048578e6ee"
-  integrity sha1-aU4hTwcTcN+tGsGZBWNzBIV45u4=
-
 "@types/q@^1.5.1":
   version "1.5.4"
   resolved "https://registry.npm.taobao.org/@types/q/download/@types/q-1.5.4.tgz?cache=0&sync_timestamp=1613379575883&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fq%2Fdownload%2F%40types%2Fq-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
@@ -2189,11 +2184,6 @@ svgo@^1.0.5:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
-
-tinymce@^5.7.1:
-  version "5.7.1"
-  resolved "https://registry.npm.taobao.org/tinymce/download/tinymce-5.7.1.tgz#658a6fb4c7d53a8496cc00f8da33f4b8290da06d"
-  integrity sha1-ZYpvtMfVOoSWzAD42jP0uCkNoG0=
 
 to-fast-properties@^2.0.0:
   version "2.0.0"
