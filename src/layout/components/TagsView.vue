@@ -12,16 +12,14 @@
           :class="['tag', { active: currentName == item.name }]"
           :style="currentName == item.name ? { background: themeColor } : {}"
         >
-          <router-link
-            @click="navTo(item)"
-            :to="{ name: item.name, query: item.query, params: item.params }"
-          >
+          <!-- :to="{ name: item.name, query: item.query, params: item.params }" -->
+          <div @click="navTo(item)">
             {{
               defalutData.tabsName == "name"
                 ? item.name
                 : item.meta && item.meta.title
             }}
-          </router-link>
+          </div>
           <i
             v-if="!item.remove"
             class="el-icon-close"
@@ -58,7 +56,7 @@ export default defineComponent({
     })
 
     function addTag (val, isExist) {
-      let to = JSON.parse(JSON.stringify(val.matched[val.matched.length - 1]))
+      let to = val.matched[val.matched.length - 1]
       // console.log(to);
 
       if (!isExist && val.name !== "redirect" && val.name !== "404") {
@@ -84,17 +82,26 @@ export default defineComponent({
     function navTo (item) {
       if (item.name === currentName.value) {
         // 手动重定向页面到 '/redirect' 页面
-        // console.log(route);
-        // router.replace({
-        //     name: 'redirect',
-        //     params:{
-        //         ...item.params,
-        //         __name:item.name
-        //     },
-        //     query:item.query
-        // })
+        console.log(route)
+        router.replace({
+          name: 'redirect',
+          params: {
+            ...item.params,
+            __name: item.name
+          },
+          query: item.query
+        })
 
         return
+      } else {
+        router.push({
+          name: item.name,
+          params: {
+            ...item.params,
+            __name: item.name
+          },
+          query: item.query
+        })
       }
     }
 
