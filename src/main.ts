@@ -1,5 +1,6 @@
 import { createApp, inject } from "vue";
 import App from "./App.vue";
+import Cookies from "js-cookie";
 import router from "./router/index";
 import store from "./store";
 import ElementPlus from "element-plus";
@@ -30,6 +31,7 @@ import "./style/iconfont.css";
 import "./style/index.scss";
 
 import { mockXHR } from "../mock/index";
+import { CommonPicker } from "element-plus/lib/el-time-picker";
 // if (
 //   import.meta.env.VITE_MOCK === "true"
 // ) {
@@ -48,12 +50,13 @@ app.mixin({
     },
   },
 });
+console.log( store.getters.getElementSize);
 
 app
   .use(store)
   .use(router)
   .use(powerfulTable)
-  .use(ElementPlus, { size: "small", zIndex: 3000, locale })
+  .use(ElementPlus, { size: Cookies.get('size') || 'medium', zIndex: 3000, locale })
   .mount("#app");
 
 app.component("svg-icon", SvgIcon);

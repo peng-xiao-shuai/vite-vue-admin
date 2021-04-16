@@ -107,6 +107,6 @@ $ npm run preview
 - [x] 图表菜单
 - [x] 图标菜单
 - [ ] 权限测试菜单
-- [ ] 全局 `el-button(el-**)` 大小
+- [x] 全局 `el-button(el-**)` 大小
 
 **其他功能可以在 `issues` 提出**

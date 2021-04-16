@@ -1,13 +1,13 @@
 const getters = {
-	getToken:(state:{user: {vToken: string}}) => {
+	getToken:(state:any) => {
 		return state.user.vToken
 	},
-	getMenus:(state:{user: {menus: []}}) => {
+	getMenus:(state:any) => {
 		return state.user.menus
 	},
-	getThemeColor:(state:{settings: {themeColor: object}}) => {
+	getThemeColor:(state:any) => {
 		return state.settings.themeColor
-	}
+	},
 }
 
 export default getters

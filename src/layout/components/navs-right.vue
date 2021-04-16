@@ -2,7 +2,10 @@
   <div class="right">
     <!-- 搜索 -->
     <div class="item">
-      <i class="viteIcon vitesousuo-" @click="isSearch = !isSearch"></i>
+      <el-tooltip content="搜索" placement="bottom">
+        <i class="viteIcon vitesousuo-" @click="isSearch = !isSearch"></i>
+      </el-tooltip>
+
       <transition name="navSearch">
         <el-select
           v-show="isSearch"
@@ -22,26 +25,59 @@
         </el-select>
       </transition>
     </div>
-    <!-- 全屏 -->
+    <!-- 组件大小 -->
     <div class="item">
-      <i
-        :class="[
-          'viteIcon',
-          !isRfs ? 'vitefullScreen' : 'vitecancel-full-screen',
-        ]"
-        @click="click"
-      ></i>
+      <el-dropdown class="avatar-container" trigger="hover">
+        <div class="viteIcon vitefont-size"></div>
+        <template #dropdown>
+          <el-dropdown-menu class="user-dropdown">
+            <el-dropdown-item
+              @click="setSize(item.value)"
+              v-for="(item, index) in sizeSelect"
+              :key="index"
+            >
+              <div :style="{ color: size == item.value ? themeColor : '#666' }">
+                <i
+                  class="r"
+                  :style="
+                    size == item.value
+                      ? {
+                          borderColor: themeColor,
+                          background: themeColor,
+                        }
+                      : {}
+                  "
+                ></i>
+                {{ item.label }}
+              </div>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
+
+    <!-- 全屏 -->
+    <el-tooltip content="全屏" placement="bottom">
+      <div class="item">
+        <i
+          :class="[
+            'viteIcon',
+            !isRfs ? 'vitefullScreen' : 'vitecancel-full-screen',
+          ]"
+          @click="click"
+        ></i>
+      </div>
+    </el-tooltip>
     <!-- 用户 -->
     <div class="item">
-      <el-dropdown class="avatar-container" trigger="click">
+      <el-dropdown class="avatar-container" trigger="hover">
         <div class="icon">
           <img
             :src="icon"
             alt=""
-            style="width: 100%; height: 100%; border-radius: 10px"
+            style="width: 100%; height: 100%; border-radius: 5px"
           />
-          <i class="el-icon-caret-bottom"></i>
+          <!-- <i class="el-icon-caret-bottom"></i> -->
         </div>
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
@@ -149,18 +185,23 @@
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent, getCurrentInstance, reactive, ref } from "vue";
+const w = window;
+import Cookies from "js-cookie";
+
+import { defineComponent, inject, reactive, ref } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { updatePassword } from "/@/api/logins";
 
 import screenfull from "screenfull";
 
 export default defineComponent({
   setup() {
+    const message = inject<any>("$message");
+    const messageBox = inject<any>("messageBox");
     let Store = useStore();
-    let _this = getCurrentInstance().ctx;
 
+    console.log(Store);
     let menu: [] = [];
     let menus: any = searchMenusFun(Store.state.user.menus, menu);
     console.log(Store.state.user);
@@ -191,6 +232,7 @@ export default defineComponent({
     });
 
     let router = useRouter();
+    let route = useRoute();
     function change(e: string) {
       router.push({
         name: e,
@@ -216,7 +258,7 @@ export default defineComponent({
     //全屏
     function click() {
       if (!screenfull.isEnabled) {
-        _this.$message({
+        message({
           message: "您的浏览器不支持！",
           type: "warning",
         });
@@ -249,8 +291,8 @@ export default defineComponent({
     function handleDialogConfirm() {
       adminForm.value.validate((valid: any) => {
         if (valid) {
-          _this
-            .$confirm("是否确认修改密码?", "提示", {
+          messageBox
+            .confirm("是否确认修改密码?", "提示", {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
               type: "warning",
@@ -262,31 +304,70 @@ export default defineComponent({
               //     type: 'warning'
               // });
               // }
-              updatePassword(_this.admin).then((res: any) => {
+              updatePassword(admin).then((res: any) => {
                 if (res.code == "502") {
-                  _this.$message({
+                  message({
                     message: res.message,
                     type: "warning",
                   });
                 } else if (res.code == "200") {
-                  _this.dialogVisible = false;
-                  _this.$message({
+                  dialogVisible.value = false;
+                  message({
                     message: "修改成功！",
                     type: "success",
                   });
 
-                  _this.logout();
+                  logout();
                 }
               });
             });
         } else {
-          _this.$message({
+          message({
             message: "请完善信息",
             type: "warning",
           });
           return false;
         }
       });
+    }
+
+    let size = ref(Cookies.get("size") || "small");
+    let sizeSelect = [
+      {
+        value: "default",
+        label: "默认",
+      },
+      {
+        value: "medium",
+        label: "中等",
+      },
+      {
+        value: "small",
+        label: "小号",
+      },
+      {
+        value: "mini",
+        label: "迷你",
+      },
+    ];
+    // 修改组件大小
+    function setSize(e: string) {
+      Cookies.set("size", e);
+      size.value = e;
+
+      // let params: any = route.params;
+      // router.replace({
+      //   name: "redirect",
+      //   params: {
+      //     ...params,
+      //     __name: route.name,
+      //   },
+      //   query: route.query,
+      // });
+      message.success("修改成功！即将刷新网页");
+      setTimeout(() => {
+        w.location.reload();
+      }, 800);
     }
 
     init();
@@ -302,8 +383,11 @@ export default defineComponent({
       adminForm,
       isSearch: ref(false),
       isRfs,
+      sizeSelect,
+      size,
 
       change,
+      setSize,
       click,
       rfsChange,
       init,
@@ -317,6 +401,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../style/menus.scss";
+
 .navSearch-enter-active,
 .navSearch-leave-active {
   transition: width 0.3s;
@@ -338,11 +424,19 @@ export default defineComponent({
   .item {
     display: flex;
     align-items: center;
-    margin-right: 10px;
 
     .viteIcon {
-      font-size: 22px;
+      font-size: 20px;
+      padding: 5px;
+      border: 1px solid transparent;
       position: sticky;
+    }
+
+    .viteIcon:hover {
+      border-radius: 3px;
+      background: #fff;
+      border-color: $--menus-item-hover-color;
+      color: $--menus-item-hover-color;
     }
 
     .searchSelect {
@@ -350,8 +444,8 @@ export default defineComponent({
     }
   }
   .icon {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: flex-end;
   }
@@ -366,6 +460,14 @@ export default defineComponent({
 .inlineBlock {
   text-decoration: none;
   color: #000;
+}
+
+.r {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid #999;
+  display: inline-block;
 }
 </style>
 
