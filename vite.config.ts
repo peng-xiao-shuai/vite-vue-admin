@@ -26,7 +26,7 @@ export default defineConfig({
       overlay: false,
     },
     host: "localhost",
-    port: 3000,
+    port: 3001,
     // 是否自动在浏览器打开
     open: false,
     // 是否开启 https
