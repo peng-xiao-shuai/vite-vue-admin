@@ -6,13 +6,13 @@
     "build": "vite build",
     "preview": "vite preview --port 8088"
   },
-  "homepage":"https://peng-xiao-shuai-0902.github.io/vite-vue-admin/",
+  "homepage": "https://peng-xiao-shuai-0902.github.io/vite-vue-admin/",
   "dependencies": {
     "axios": "^0.21.1",
     "digit-roll": "^1.1.8",
     "echarts": "^5.0.2",
     "el-plus-powerful-table": "^1.2.5",
-    "element-plus": "^1.0.2-beta.28",
+    "element-plus": "^1.0.2-beta.40",
     "js-cookie": "^2.2.1",
     "mockjs": "^1.1.0",
     "normalize-wheel": "^1.0.1",
@@ -21,6 +21,7 @@
     "screenfull": "^5.1.0",
     "vite": "^2.0.0-beta.60",
     "vue": "^3.0.5",
+    "vue-i18n": "^9.1.6",
     "vue-router": "^4.0.3",
     "vue-svgicon": "^3.2.9",
     "vuex": "^4.0.0-rc.2"

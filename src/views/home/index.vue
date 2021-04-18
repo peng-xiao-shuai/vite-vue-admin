@@ -11,7 +11,7 @@
             :height="550 - 90 - 20 - 40"
             :colors="colors"
             :information="chart.value"
-            title="12个月用户登录曲线图"
+            :title="t('a')"
             types="line"
           >
             <template #default>
@@ -176,6 +176,8 @@ import homeEcharts from "/@/components/easy-echart/index.vue";
 import PanelGroup from "./components/PanelGroup.vue";
 import lineBarEcharts from "./components/lineBarEcharts.vue";
 
+import { useI18n } from "vue-i18n";
+
 import { useStore } from "vuex";
 import * as echarts from "echarts";
 
@@ -197,6 +199,8 @@ export default defineComponent({
     lineBarEcharts,
   },
   setup() {
+    const { t } = useI18n();
+
     // 曲线图颜色
     const chartColor: any[] = [
       {
@@ -368,6 +372,8 @@ export default defineComponent({
     handleEarnings();
 
     return {
+      t,
+
       count,
       chart,
       pageviewData,

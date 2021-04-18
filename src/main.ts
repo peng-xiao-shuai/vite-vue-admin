@@ -7,7 +7,8 @@ import ElementPlus from "element-plus";
 import { ElMessage, ElMessageBox } from "element-plus";
 import powerfulTable from "el-plus-powerful-table";
 
-// import DigitRoll from "digit-roll";
+// i18n
+import VueI18n from './language'
 
 // 国际化
 import "dayjs/locale/zh-cn";
@@ -27,11 +28,9 @@ import defalutData from "./config/defalut-data";
 // css
 // vite 暂不支持scss :export
 import "./style/iconfont.css";
-// import "element-plus/packages/theme-chalk/src/index.scss";
 import "./style/index.scss";
 
 import { mockXHR } from "../mock/index";
-import { CommonPicker } from "element-plus/lib/el-time-picker";
 // if (
 //   import.meta.env.VITE_MOCK === "true"
 // ) {
@@ -50,13 +49,13 @@ app.mixin({
     },
   },
 });
-console.log( store.getters.getElementSize);
 
 app
   .use(store)
   .use(router)
   .use(powerfulTable)
   .use(ElementPlus, { size: Cookies.get('size') || 'medium', zIndex: 3000, locale })
+  .use(VueI18n)
   .mount("#app");
 
 app.component("svg-icon", SvgIcon);
