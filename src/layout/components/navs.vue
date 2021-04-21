@@ -18,10 +18,10 @@
             :key="index"
           >
             <span v-if="item.redirect" class="no-redirect">{{
-              item.meta.title
+              t(item.meta.locale)
             }}</span>
             <router-link v-else :to="item.redirect || item.path">{{
-              item.meta.title
+              t(item.meta.locale)
             }}</router-link>
           </el-breadcrumb-item>
         </transition-group>
@@ -51,7 +51,7 @@ export default {
     matched = computed(() => {
       let arr = route.matched
       if (arr[0].path !== '/') {
-        arr = [{ path: '/', meta: { title: '首页' } }].concat(route.matched)
+        arr = [{ path: '/', meta: { title: '首页', locale: 'home' } }].concat(route.matched)
       }
 
       return arr.filter(item => item.meta && item.meta.title && !item.meta.breadcrumb)

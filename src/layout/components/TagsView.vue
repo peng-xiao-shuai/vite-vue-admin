@@ -13,11 +13,7 @@
           :style="currentName == item.name ? { background: themeColor } : {}"
         >
           <div @click="navTo(item)">
-            {{
-              defalutData.tabsName == "name"
-                ? item.name
-                : item.meta && item.meta.title
-            }}
+            {{ t(item.meta.locale) }}
           </div>
           <i
             v-if="!item.remove"
@@ -32,7 +28,7 @@
 
 <script>
 import { useStore } from "vuex"
-import { computed, reactive, ref, watch, toRaw, defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
@@ -65,6 +61,7 @@ export default defineComponent({
       }
 
       if (!isExist && val.name !== "redirect" && val.name !== "404") {
+        console.log(to)
         store.commit('tagsCommit', { to })
       }
     }

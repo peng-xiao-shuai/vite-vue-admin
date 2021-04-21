@@ -6,12 +6,12 @@ import { getUser, login } from "/@/api/logins";
 import router, { addRouter as asyncRouter } from "/@/router/index";
 
 // 筛选该账号可展示路由
-function menusFilter(menus: []) {
+function menusFilter(menus: any[]) {
   // return new Promise((resovle,reject)=>{
   // 所有一级
-  let levelOne: [] = [];
+  let levelOne: any[] = [];
   // 所有子集
-  let childs: [] = [];
+  let childs: any[] = [];
 
   menus.forEach((item: any) => {
     if (item.level === 0) {
@@ -111,7 +111,7 @@ function recursion(each: any, childs: any) {
   }
 }
 
-const state = {
+const state: any = {
   vToken: Cookies.get("vToken"),
   userInfo: {},
   menus: [],
@@ -120,6 +120,7 @@ const state = {
       path: '/',
       name: "home",
       meta: {
+        locale: 'home',
         title: "首页",
       },
       remove: true,

@@ -14,7 +14,7 @@
         >
           <i :class="[item.meta.icon, 'viteIcon']"></i>
           <span class="metaTitle" v-show="!collapse">
-            {{ (item.meta && item.meta.title) || "" }}
+            {{ t((item.meta && item.meta.locale) || "null") }}
           </span>
         </div>
       </template>
@@ -56,9 +56,15 @@
             'viteIcon',
           ]"
         ></i>
-        <span class="metaTitle" v-show="!collapse">{{
-          (item.children && item.children[0].meta.title) || item.meta.title
-        }}</span>
+        <span class="metaTitle" v-show="!collapse">
+          {{
+            t(
+              (item.children && item.children[0].meta.locale) ||
+                item.meta.locale ||
+                "null"
+            )
+          }}
+        </span>
       </router-link>
     </el-menu-item>
   </div>

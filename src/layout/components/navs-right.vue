@@ -2,7 +2,7 @@
   <div class="right">
     <!-- 搜索 -->
     <div class="item">
-      <el-tooltip content="搜索" placement="bottom">
+      <el-tooltip :content="t('search')" placement="bottom">
         <i class="viteIcon vitesousuo-" @click="isSearch = !isSearch"></i>
       </el-tooltip>
 
@@ -13,7 +13,7 @@
           popper-class="searchSelect"
           filterable
           @change="change"
-          placeholder="搜索菜单"
+          :placeholder="t('search.menus')"
         >
           <el-option
             v-for="item in menus"
@@ -89,7 +89,7 @@
                       : {}
                   "
                 ></i>
-                {{ item.label }}
+                {{ t(item.label) }}
               </div>
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -98,7 +98,7 @@
     </div>
 
     <!-- 全屏 -->
-    <el-tooltip content="全屏" placement="bottom">
+    <el-tooltip :content="t('full.screen')" placement="bottom">
       <div class="item">
         <i
           :class="[
@@ -127,14 +127,16 @@
                 span
                 @click="dialogVisible = !dialogVisible"
                 style="display: block"
-                >修改密码</span
+                >{{ t("update") }} {{ t("PIN") }}</span
               >
             </el-dropdown-item>
             <router-link class="inlineBlock" to="/">
-              <el-dropdown-item> 首页 </el-dropdown-item>
+              <el-dropdown-item> {{ t("home") }} </el-dropdown-item>
             </router-link>
             <el-dropdown-item divided>
-              <span span @click="logout" style="display: block">退出</span>
+              <span span @click="logout" style="display: block">{{
+                t("exit")
+              }}</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -376,19 +378,19 @@ export default defineComponent({
     let sizeSelect = [
       {
         value: "default",
-        label: "默认",
+        label: "default",
       },
       {
         value: "medium",
-        label: "中等",
+        label: "medium",
       },
       {
         value: "small",
-        label: "小号",
+        label: "small",
       },
       {
         value: "mini",
-        label: "迷你",
+        label: "mini",
       },
     ];
     // 修改组件大小
@@ -486,6 +488,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
 
+    .viteIcon:focus,
     &:focus {
       outline: 0;
     }

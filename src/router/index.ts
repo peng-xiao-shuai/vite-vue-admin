@@ -9,6 +9,7 @@ const routes = [
     redirect: "/home",
     meta: {
       title: "首页",
+      locale: 'home',
       icon: "viteshouye",
       // breadcrumb: true
     },
@@ -19,6 +20,8 @@ const routes = [
         component: () => import("/@/views/home/index.vue"),
         meta: {
           title: "首页",
+          locale: 'home',
+
           icon: "viteshouye",
         },
       },
@@ -53,6 +56,7 @@ export const addRouter = [
     name: "modules",
     meta: {
       title: "组件列表",
+      locale: 'component.list',
       icon: "vitezujian",
     },
     children: [
@@ -62,6 +66,7 @@ export const addRouter = [
         component: () => import("/@/views/modules/table/index.vue"),
         meta: {
           title: "表格",
+          locale: 'table',
           icon: "viteZJ-biaoge",
         },
       },
@@ -71,24 +76,29 @@ export const addRouter = [
         component: () => import("/@/views/modules/upload/index.vue"),
         meta: {
           title: "上传文件",
+          locale: 'upload.file',
           icon: "viteZJ-shangchaun",
         },
       },
       {
         path: "richText",
+
         name: "richText",
         component: () => import("/@/views/modules/rich-text/index.vue"),
         meta: {
           title: "富文本",
+          locale: 'rich.text',
           icon: "viteZJ-fuwenben",
         },
       },
       {
         path: "map",
+
         name: "map",
         component: () => import("/@/views/modules/map/index.vue"),
         meta: {
           title: "地图",
+          locale: 'map',
           icon: "viteviteZJ-ditu",
         },
       },
@@ -101,6 +111,7 @@ export const addRouter = [
     name: "icons",
     meta: {
       title: "图标",
+      locale: 'icon',
       icon: "vitei",
     },
     children: [
@@ -110,6 +121,7 @@ export const addRouter = [
         component: () => import("/@/views/icons/index.vue"),
         meta: {
           title: "图标",
+          locale: 'icon',
           icon: "vitei",
         },
       },
@@ -122,6 +134,7 @@ export const addRouter = [
     name: "eCharts",
     meta: {
       title: "图表",
+      locale: 'chart',
       icon: "vitetubiao",
     },
     children: [
@@ -131,6 +144,7 @@ export const addRouter = [
         component: () => import("/@/views/eCharts/line.vue"),
         meta: {
           title: "折线图",
+          locale: 'line.chart',
           icon: "vitezhexiantu",
         },
       },
@@ -140,6 +154,7 @@ export const addRouter = [
         component: () => import("/@/views/eCharts/pillar.vue"),
         meta: {
           title: "柱状图",
+          locale: 'pillar.chart',
           icon: "vitezhuzhuangtu",
         },
       },
@@ -149,6 +164,7 @@ export const addRouter = [
         component: () => import("/@/views/eCharts/cake.vue"),
         meta: {
           title: "饼状图",
+          locale: 'cake.chart',
           icon: "vitebingzhuangtu",
         },
       },
