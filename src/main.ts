@@ -9,6 +9,7 @@ import powerfulTable from "el-plus-powerful-table";
 
 // i18n
 import VueI18n from './language'
+import {useI18n} from 'vue-i18n';
 
 // 国际化
 import "dayjs/locale/zh-cn";
@@ -45,6 +46,10 @@ app.provide("messageBox", ElMessageBox);
 
 app.mixin({
   computed: {
+    t(){
+      const {t} = useI18n()
+      return t
+    },
     // 全局颜色
     themeColor() {
       return store.getters.getThemeColor;
