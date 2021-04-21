@@ -16,7 +16,7 @@
             v-model="loginForm.username"
             autoComplete="on"
             class="login-input borderBottom"
-            placeholder="请输入用户名"
+            :placeholder="t('please.enter.a.account.number')"
           >
             <template #prefix>
               <i class="el-icon-user icon" @click="handleIconClick"> </i>
@@ -31,7 +31,7 @@
             @keyup.enter="handleLogin"
             v-model="loginForm.password"
             autoComplete="on"
-            placeholder="请输入密码"
+            :placeholder="t('please.enter.a.PIN')"
           >
             <template #prefix>
               <i class="el-icon-lock icon" @click="handleIconClick"> </i>
@@ -56,7 +56,7 @@
           :loading="loading"
           @click.prevent="handleLogin('login_form')"
         >
-          登录
+          {{ t("login") }}
         </el-button>
       </div>
 
@@ -76,12 +76,14 @@
 //   import {isvalidUsername} from '@/utils/validate';
 //   import {setSupport,getSupport,setCookie,getCookie} from '@/utils/support';
 import bgImage from '/@/assets/bgImg.png'
-import { ref, reactive, onMounted, defineComponent, getCurrentInstance } from "vue"
-import store from '../../store'
+import { ref, reactive, onMounted, defineComponent } from "vue"
 import { ElMessage } from 'element-plus'
+import { useStore } from 'vuex'
+
 
 export default defineComponent({
   setup () {
+    let store = useStore()
 
     let loginForm = reactive({
       username: 'admin',
