@@ -10,6 +10,9 @@
             padding: '10px',
             height: height + 'px',
             boxSizing: 'border-box',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }"
         >
           <div :class="['icon-people', 'viteIcon', i.icon]"></div>

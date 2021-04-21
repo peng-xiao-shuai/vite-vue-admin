@@ -34,7 +34,7 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
 
-export default ({
+export default defineComponent({
   components: {
     menus,
     navs,

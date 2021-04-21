@@ -1,4 +1,5 @@
 import { createI18n } from 'vue-i18n'		//引入vue-i18n组件
+import defaultData from '/@/config/defalut-data';
 const modules = import.meta.globEager('./*')
 const viewModules = import.meta.globEager('../views/**/locales/[[:lower:]][[:lower:]]-[[:upper:]][[:upper:]].ts')
 
@@ -17,7 +18,6 @@ function getLangFiles(mList:any,msg:any){
     if(mList[path].default){
       //  获取文件名
       let pathName = path.substr(path.lastIndexOf('/') + 1,5)
-      console.log(path,path.lastIndexOf('/') + 1,5);
       
       if(msg[pathName]){
         msg[pathName] = {
@@ -31,13 +31,22 @@ function getLangFiles(mList:any,msg:any){
   }
 }
 
+/**
+ * 修改语言
+ * @param lang
+ */
+export function SETLOCALE(lang:string){
+  window.localStorage.setItem('locale',lang)
+  
+  window.location.reload()
+}
+
   //注册i8n实例并引入语言文件
  const i18n = createI18n({
     legacy: false,
-    locale: 'zh-CN',
+    locale: defaultData.locale,
     messages: getLangAll()
   })
-  console.log(getLangAll());
   
   
   export default i18n; //将i18n暴露出去，在main.js中引入挂载

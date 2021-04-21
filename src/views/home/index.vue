@@ -11,7 +11,7 @@
             :height="550 - 90 - 20 - 40"
             :colors="colors"
             :information="chart.value"
-            :title="t('a')"
+            :title="t('userLoginGraph')"
             types="line"
           >
             <template #default>
@@ -485,7 +485,7 @@ export default defineComponent({
       grid-template-rows: 170px auto;
       grid-column-gap: 20px;
       grid-row-gap: 20px;
-      height: 450px;
+      // height: 450px;
 
       .eachDiv-3 {
         grid-row-start: 2;
