@@ -17,7 +17,7 @@
         >
           <div :class="['icon-people', 'viteIcon', i.icon]"></div>
           <div class="warp">
-            <div class="text">{{ i.title }}</div>
+            <div class="text">{{ t(i.locale) }}</div>
             <div class="num">{{ i.value || 0 }}</div>
 
             <!-- <digit-roll :start-val="0" :end-val="i.value || 0" :duration="1000" class="num" /> -->

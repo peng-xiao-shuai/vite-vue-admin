@@ -11,7 +11,7 @@
             :height="550 - 90 - 20 - 40"
             :colors="colors"
             :information="chart.value"
-            :title="t('userLoginGraph')"
+            :title="t('user.login.line')"
             types="line"
           >
             <template #default>
@@ -27,7 +27,7 @@
                   :class="{ 's-active': current == index }"
                   @click="typeSwitch(index)"
                 >
-                  {{ item.title }}
+                  {{ t(item.locale) }}
                 </div>
               </div>
             </template>
@@ -76,7 +76,7 @@
             <!-- text -->
             <div class="text">
               <div class="money">￥{{ earnings.value.dayMoney }}</div>
-              <span class="title">今日收益</span>
+              <span class="title">{{ t("day.income") }}</span>
             </div>
             <!-- 上升 -->
             <div class="increase">
@@ -94,7 +94,7 @@
             <!-- text -->
             <div class="text">
               <div class="money">￥{{ earnings.value.totalMoney }}</div>
-              <span class="title">总收益</span>
+              <span class="title">{{ t("total.income") }}</span>
             </div>
             <!-- 上升 -->
             <div class="increase">
@@ -115,7 +115,7 @@
               :colors="colors"
               :information="earnings.chart"
               types="line"
-              title="收益折线图"
+              :title="t('income.line')"
             ></homeEcharts>
           </el-card>
         </div>
@@ -130,7 +130,7 @@
                 :colors="colors"
                 :information="pageviewData.value"
                 types="homeCake"
-                title="浏览量饼状图"
+                :title="t('page.view.pillar')"
               ></homeEcharts>
             </div>
           </div>
@@ -145,7 +145,7 @@
               justify-content: space-between;
             "
           >
-            <span>提交列表</span>
+            <span>{{ t("commit.list") }}</span>
 
             <!-- <router-link
               :to="{ name: 'submitList' }"
@@ -176,8 +176,6 @@ import homeEcharts from "/@/components/easy-echart/index.vue";
 import PanelGroup from "./components/PanelGroup.vue";
 import lineBarEcharts from "./components/lineBarEcharts.vue";
 
-import { useI18n } from "vue-i18n";
-
 import { useStore } from "vuex";
 import * as echarts from "echarts";
 
@@ -199,8 +197,6 @@ export default defineComponent({
     lineBarEcharts,
   },
   setup() {
-    const { t } = useI18n();
-
     // 曲线图颜色
     const chartColor: any[] = [
       {
@@ -241,8 +237,9 @@ export default defineComponent({
     let count = reactive([
       {
         icon: "vitehome-user",
-        title: "粉丝",
+        title: "用户",
         value: "",
+        locale: "user",
         key: "users",
         color: useStore().state.settings.themeColor,
       },
@@ -250,6 +247,7 @@ export default defineComponent({
         icon: "vitehome-wengzhang",
         title: "文章",
         value: "",
+        locale: "article",
         key: "shoppings",
         color: "#55bcff",
       },
@@ -257,6 +255,7 @@ export default defineComponent({
         icon: "vitehome-liulanliang",
         title: "浏览量",
         value: "",
+        locale: "page.view",
         key: "pageview",
         color: "#646cff ",
       },
@@ -265,6 +264,7 @@ export default defineComponent({
         title: "已提交",
         value: "",
         key: "done",
+        locale: "commit",
         color: "#F6A829 ",
       },
     ]);
@@ -372,8 +372,6 @@ export default defineComponent({
     handleEarnings();
 
     return {
-      t,
-
       count,
       chart,
       pageviewData,
