@@ -12,7 +12,9 @@ import VueI18n from './language'
 
 // 国际化
 import "dayjs/locale/zh-cn";
-import locale from "element-plus/lib/locale/lang/zh-cn";
+import cn from "element-plus/lib/locale/lang/zh-cn";
+import "dayjs/locale/en";
+import en from "element-plus/lib/locale/lang/en";
 
 import "./permission";
 import "./icons";
@@ -49,6 +51,9 @@ app.mixin({
     },
   },
 });
+
+// 判断语言
+const locale = defalutData.locale === 'zh-CN' ? cn : en
 
 app
   .use(store)

@@ -1,7 +1,10 @@
+const themeColor: any = window.localStorage.getItem("themeColor");
+const locale: any = window.localStorage.getItem("locale");
+
 export default {
   name: "vite-admin",
   themeColor: {
-    background: "#AD49FF",
+    background: themeColor || "#AD49FF",
   },
   // icon图标类型
   iconfont: "viteIcon",
@@ -9,6 +12,8 @@ export default {
   tabsName: "title",
   // 卡片阴影
   cardShadow: "hover",
+  // 默认语言
+  locale: locale || 'zh-CN',
 
   iconArr: [
     {

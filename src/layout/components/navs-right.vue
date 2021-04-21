@@ -25,6 +25,47 @@
         </el-select>
       </transition>
     </div>
+
+    <!-- 语言 -->
+    <div class="item">
+      <el-dropdown class="avatar-container" trigger="hover">
+        <div
+          :class="[
+            'viteIcon',
+            locale == 'en-US' ? 'vitelanguage2' : 'vitelanguage2',
+          ]"
+        ></div>
+        <template #dropdown>
+          <el-dropdown-menu class="user-dropdown">
+            <el-dropdown-item
+              @click="setLocale(item.value)"
+              v-for="(item, index) in localeSelect"
+              :key="'locale' + index"
+            >
+              <div
+                :style="{
+                  color: locale == item.value ? themeColor : '#666',
+                }"
+              >
+                <i
+                  class="r"
+                  :style="
+                    locale == item.value
+                      ? {
+                          borderColor: themeColor,
+                          background: themeColor,
+                        }
+                      : {}
+                  "
+                ></i>
+                {{ item.label }}
+              </div>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+    </div>
+
     <!-- 组件大小 -->
     <div class="item">
       <el-dropdown class="avatar-container" trigger="hover">
@@ -188,12 +229,14 @@
 const w = window;
 import Cookies from "js-cookie";
 
-import { defineComponent, inject, reactive, ref } from "vue";
+import { defineComponent, inject, reactive, ref, shallowRef } from "vue";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
 import { updatePassword } from "/@/api/logins";
+import { SETLOCALE } from "/@/language";
 
 import screenfull from "screenfull";
+import defaultData from "/@/config/defalut-data";
 
 export default defineComponent({
   setup() {
@@ -201,10 +244,8 @@ export default defineComponent({
     const messageBox = inject<any>("messageBox");
     let Store = useStore();
 
-    console.log(Store);
     let menu: [] = [];
     let menus: any = searchMenusFun(Store.state.user.menus, menu);
-    console.log(Store.state.user);
     let isRfs = ref(false);
     // 账号头像
     let icon = Store.state.user.userInfo.icon;
@@ -370,6 +411,23 @@ export default defineComponent({
       }, 800);
     }
 
+    const localeSelect = ref([
+      {
+        value: "zh-CN",
+        label: "中文",
+      },
+      {
+        value: "en-US",
+        label: "English",
+      },
+    ]);
+
+    let locale = defaultData.locale;
+
+    function setLocale(val: string) {
+      SETLOCALE(val);
+    }
+
     init();
 
     return {
@@ -381,12 +439,15 @@ export default defineComponent({
       pwdType,
       loginRules,
       adminForm,
+      localeSelect,
       isSearch: ref(false),
       isRfs,
       sizeSelect,
+      locale,
       size,
 
       change,
+      setLocale,
       setSize,
       click,
       rfsChange,
@@ -424,6 +485,10 @@ export default defineComponent({
   .item {
     display: flex;
     align-items: center;
+
+    &:focus {
+      outline: 0;
+    }
 
     .viteIcon {
       font-size: 20px;
