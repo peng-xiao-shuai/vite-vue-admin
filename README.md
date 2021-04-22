@@ -22,9 +22,7 @@
 
 - **菜单栏颜色配置** `style > menus.scss`
 - **全局主题颜色** `style > index.scss`
-  **启用 mock**
-
-- **只需在对应运行环境下的 `.env.XX `修改 `VITE_MOCK` 为 `true`**
+- **启用 mock 只需在对应运行环境下的 `.env.XX `修改 `VITE_MOCK` 为 `true`**
 
 ## 项目设置
 
@@ -103,7 +101,7 @@ $ npm run preview
 
 - [x] 组件菜单 > 文件上传
 - [x] 组件菜单 > 腾讯地图
-- [ ] 国际化多语言
+- [x] 国际化多语言
 - [x] 图表菜单
 - [x] 图标菜单
 - [ ] 权限测试菜单
