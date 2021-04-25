@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'App'
-  }
+export default {
+  name: 'App'
+}
 </script>
 
 <style>
-body{
+body {
   margin: 0;
+}
+#app /deep/ .el-drawer {
+  overflow: auto;
 }
 </style>

@@ -9,7 +9,7 @@ import powerfulTable from "el-plus-powerful-table";
 
 // i18n
 import VueI18n from './language'
-import {useI18n} from 'vue-i18n';
+import { useI18n } from 'vue-i18n';
 
 // 国际化
 import "dayjs/locale/zh-cn";
@@ -37,7 +37,7 @@ import { mockXHR } from "../mock/index";
 // if (
 //   import.meta.env.VITE_MOCK === "true"
 // ) {
-  mockXHR();
+mockXHR();
 // }
 
 let app = createApp(App);
@@ -46,8 +46,8 @@ app.provide("messageBox", ElMessageBox);
 
 app.mixin({
   computed: {
-    t(){
-      const {t} = useI18n()
+    t() {
+      const { t } = useI18n()
       return t
     },
     // 全局颜色
@@ -71,6 +71,12 @@ app
 app.component("svg-icon", SvgIcon);
 // app.component("powerful-table", powerfulTable);
 app.component("upload-file", uploadFile);
+
+app.config.errorHandler = (err, vm, info) => {
+  console.log('err', err);
+  console.log('vm', vm);
+  console.log('info', info);
+};
 
 // 全局挂载
 app.config.globalProperties.defalutData = defalutData;

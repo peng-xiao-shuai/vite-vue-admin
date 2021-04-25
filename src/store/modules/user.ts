@@ -179,6 +179,8 @@ const mutations = {
   },
   outLogin(state: any, val: any) {
     state.vToken = val;
+    state.userInfo = {};
+    state.menus = [];
     router.push("/login");
   },
   [TYPE.LOGIN_THEN](state: { userInfo: object; menus: [] }, val: any) {

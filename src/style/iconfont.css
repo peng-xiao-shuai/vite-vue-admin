@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'viteIcon';  /* project id 2351447 */
-  src: url('//at.alicdn.com/t/font_2351447_0p4ybn6yslkp.eot');
-  src: url('//at.alicdn.com/t/font_2351447_0p4ybn6yslkp.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_2351447_0p4ybn6yslkp.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_2351447_0p4ybn6yslkp.woff') format('woff'),
-  url('//at.alicdn.com/t/font_2351447_0p4ybn6yslkp.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_2351447_0p4ybn6yslkp.svg#viteIcon') format('svg');
+  src: url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.eot');
+  src: url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.woff') format('woff'),
+  url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.svg#viteIcon') format('svg');
 }
 .viteIcon {
   font-family: "viteIcon" !important;
@@ -14,6 +14,23 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.vitebullseye:before {
+  content: "\eb2d";
+}
+
+.vitebug:before {
+  content: "\e6c2";
+}
+
+.viteAPI:before {
+  content: "\e61e";
+}
+
+.viteyumaobi:before {
+  content: "\e601";
+}
+
 .vitelanguage1:before {
   content: "\e7a5";
 }

@@ -117,6 +117,7 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
+@import "../../style/menus.scss";
 .tags {
   padding: 7px 10px;
   border-top: 2px solid #f7f8f8;
@@ -128,6 +129,7 @@ export default defineComponent({
   display: flex;
 
   .tag {
+    transition: all 0.3s;
     padding: 4px 8px;
     box-sizing: border-box;
     height: 25px;
@@ -185,6 +187,11 @@ export default defineComponent({
 
     i {
       color: #fff;
+    }
+
+    .el-icon-close:hover {
+      background: #fff;
+      color: $--color-primary;
     }
 
     a {

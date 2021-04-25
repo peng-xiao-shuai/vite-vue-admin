@@ -12,6 +12,10 @@ export default {
   'line.chart': '折线图',
   'pillar.chart': '饼状图',
   'cake.chart': '柱状图',
+  'log': '日志',
+  'bug.log': '错误日志',
+  'ajax.log': '接口错误',
+  'add.log': '添加日至',
 
   'search': '搜索',
   'search.menus': '搜索菜单',
@@ -25,6 +29,5 @@ export default {
   'update': '修改',
   'password': '密码',
   'exit': '退出',
-
 }
 
