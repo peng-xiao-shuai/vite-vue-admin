@@ -11,9 +11,9 @@ export default defineConfig({
       "/@": path.resolve(__dirname, "./src"),
     },
   },
-  base:"/vite-vue-admin/",
+  base: "/vite-vue-admin/",
   // 控制台打印
-  logLevel: "silent",
+  // logLevel: "silent",
   build: {
     brotliSize: false,
     chunkSizeWarningLimit: 1024,
