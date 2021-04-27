@@ -1,16 +1,8 @@
-/* 改变主题色变量 */
-// $--color-primary: rgb(100, 108, 255);
-$--color-primary: #AD49FF;
-
-// 背景主题颜色
-$--bgcolor-primary: rgb(228, 230, 255);
-
-$--color-success: #13ce66;
-$--color-warning: #ffba00;
-$--color-danger: #ff4949;
 $--font-path: "/node_modules/element-plus/lib/theme-chalk/fonts";
 
 @import "element-plus/packages/theme-chalk/src/index.scss";
+
+@import './color.scss';
 
 // 富文本插入图片层级
 .tox-tinymce-aux {
