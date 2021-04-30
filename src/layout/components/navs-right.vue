@@ -66,6 +66,18 @@
       </el-dropdown>
     </div>
 
+    <!-- bug -->
+    <el-tooltip :content="t('log')" placement="bottom">
+      <div :class="['item', { isBug: $store.getters.getBugNumber !== 0 }]">
+        <i
+          :class="['viteIcon', !isRfs ? 'vitebug' : 'vitebug']"
+          @click="click"
+        ></i>
+
+        <span class="bugNum"></span>
+      </div>
+    </el-tooltip>
+
     <!-- 组件大小 -->
     <div class="item">
       <el-dropdown class="avatar-container" trigger="hover">
@@ -127,7 +139,7 @@
                 span
                 @click="dialogVisible = !dialogVisible"
                 style="display: block"
-                >{{ t("update") }} {{ t("PIN") }}</span
+                >{{ t("update") }} {{ t("password") }}</span
               >
             </el-dropdown-item>
             <router-link class="inlineBlock" to="/">
@@ -498,6 +510,13 @@ export default defineComponent({
       padding: 5px;
       border: 1px solid transparent;
       position: sticky;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      font-size: 18px;
     }
 
     .viteIcon:hover {
@@ -511,6 +530,40 @@ export default defineComponent({
       border: none;
     }
   }
+  .isBug {
+    position: relative;
+
+    .viteIcon {
+      transition: all 0.4s;
+      background: $--color-danger;
+      color: #fff;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .viteIcon:hover {
+      transition: all 0.4s;
+
+      border-radius: 3px;
+      background: $--color-danger;
+      border-color: rgba(0, 0, 0, 0);
+      color: #fff;
+    }
+
+    .bugNum {
+      background: $--color-danger;
+      position: absolute;
+      top: -3px;
+      right: 6px;
+      width: 7px;
+      height: 7px;
+      text-align: center;
+      line-height: 10px;
+      display: inline-block;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+  }
+
   .icon {
     width: 35px;
     height: 35px;

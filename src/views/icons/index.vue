@@ -19,11 +19,26 @@
 
 <script lang='ts'>
 import { ref, reactive, defineComponent, inject, nextTick } from "vue";
-import defalutData from "/@/config/defalut-data";
+import icon from "/@/style/iconfont.css";
+
 export default defineComponent({
   name: "icons",
   setup() {
-    let icons = ref(defalutData.iconArr);
+    // 获取所有的 class名
+    const array = [...icon.matchAll(/\.(\w|\-)*\:/g)].map(
+      (item: any, index: number) => {
+        return item[0].substr(1, item[0].length).slice(0, -1);
+      }
+    );
+
+    // 获取所有 名称 并且合并
+    const icons = [
+      ...icon.matchAll(/\/\*(\s)(\w*|[^\x00-\xff]*)(\s)\*\//g),
+    ].map((item: any, index: number) => ({
+      name: item[2],
+      icon: array[index],
+    }));
+
     return {
       icons,
     };
