@@ -130,7 +130,7 @@ export const addRouter = [
   {
     path: "/eCharts",
     component: layOut,
-    redirect: "/eCharts/line",
+    redirect: "/eCharts/eChartLine",
     name: "eCharts",
     meta: {
       title: "图表",
@@ -173,7 +173,7 @@ export const addRouter = [
   {
     path: "/log",
     component: layOut,
-    redirect: "/log/line",
+    redirect: "/log/add-log",
     name: "log",
     meta: {
       title: "日志",
