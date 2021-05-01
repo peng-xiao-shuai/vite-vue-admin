@@ -106,5 +106,6 @@ $ npm run preview
 - [x] 图标菜单
 - [ ] 权限测试菜单
 - [x] 全局 `el-button(el-**)` 大小
+- [x] 新增日志菜单 捕获接口报错 以及 errorHandler
 
 **其他功能可以在 `issues` 提出**

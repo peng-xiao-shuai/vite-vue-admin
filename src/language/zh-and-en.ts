@@ -15,7 +15,7 @@ export default {
   'log': '日志',
   'bug.log': '错误日志',
   'ajax.log': '接口错误',
-  'add.log': '添加日至',
+  'add.log': '添加日志',
 
   'search': '搜索',
   'search.menus': '搜索菜单',

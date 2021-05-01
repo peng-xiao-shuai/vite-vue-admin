@@ -3,6 +3,9 @@ import App from "./App.vue";
 import Cookies from "js-cookie";
 import router from "./router/index";
 import store from "./store";
+// 工具类
+import { parseTime } from '/@/utils/parse-time';
+
 import ElementPlus from "element-plus";
 import { ElMessage, ElMessageBox } from "element-plus";
 import powerfulTable from "el-plus-powerful-table";
@@ -72,10 +75,27 @@ app.component("svg-icon", SvgIcon);
 // app.component("powerful-table", powerfulTable);
 app.component("upload-file", uploadFile);
 
-app.config.errorHandler = (err, vm, info) => {
-  console.log('err', err);
-  console.log('vm', vm);
-  console.log('info', info);
+interface log {
+  url: string;
+  info: string;
+  time: string | null;
+  error: string | any;
+  name: string,
+  type: string
+}
+app.config.errorHandler = (error, vm, info) => {
+
+  let data: log = {
+    url: window.location.href,
+    info,
+    error,
+    // 手动添加的type 为 info
+    type: 'Bug',
+    name: store.state.user.userInfo.username,
+    time: parseTime(new Date())
+
+  }
+  store.commit('setErrorLog', data)
 };
 
 // 全局挂载

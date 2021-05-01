@@ -67,7 +67,10 @@
     </div>
 
     <!-- bug -->
-    <el-tooltip :content="t('log')" placement="bottom">
+    <el-tooltip
+      :content="t('log') + ' / ' + $store.getters.getBugNumber"
+      placement="bottom"
+    >
       <div :class="['item', { isBug: $store.getters.getBugNumber !== 0 }]">
         <i
           :class="['viteIcon', !isRfs ? 'vitebug' : 'vitebug']"
@@ -542,7 +545,6 @@ export default defineComponent({
     }
     .viteIcon:hover {
       transition: all 0.4s;
-
       border-radius: 3px;
       background: $--color-danger;
       border-color: rgba(0, 0, 0, 0);

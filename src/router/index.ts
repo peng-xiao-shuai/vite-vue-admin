@@ -171,6 +171,49 @@ export const addRouter = [
     ],
   },
   {
+    path: "/log",
+    component: layOut,
+    redirect: "/log/line",
+    name: "log",
+    meta: {
+      title: "日志",
+      locale: 'log',
+      icon: "vitebullseye",
+    },
+    children: [
+      {
+        path: "error-log",
+        name: "error-log",
+        component: () => import("/@/views/log/error-log.vue"),
+        meta: {
+          title: "错误日志",
+          locale: 'bug.log',
+          icon: "vitebug",
+        },
+      },
+      {
+        path: "ajax-log",
+        name: "ajax-log",
+        component: () => import("/@/views/log/ajax-log.vue"),
+        meta: {
+          title: "ajax 错误",
+          locale: 'ajax.log',
+          icon: "viteAPI",
+        },
+      },
+      {
+        path: "add-log",
+        name: "add-log",
+        component: () => import("/@/views/log/add-log.vue"),
+        meta: {
+          title: "添加日志",
+          locale: 'add.log',
+          icon: "viteyumaobi",
+        },
+      },
+    ],
+  },
+  {
     path: "/system",
     component: layOut,
     redirect: "/system/config",

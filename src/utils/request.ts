@@ -1,12 +1,35 @@
 import axios from "axios";
-
 import store from "../store/index";
-
 import { ElMessage } from "element-plus";
+import { parseTime } from './parse-time';
 
 const ENV = import.meta.env;
-
 // console.log(ENV);
+
+interface log {
+  url: string;
+  info?: string;
+  time: string | null;
+  error: string | any;
+  name: string,
+  type: string
+}
+function addBug(error: string, info?: string) {
+  console.log(error);
+
+  let data: log = {
+    url: window.location.href,
+    info,
+    error,
+    // 手动添加的type 为 info
+    type: 'Ajax',
+    name: store.state.user.userInfo.username,
+    time: parseTime(new Date())
+
+  }
+  store.commit('setErrorLog', data)
+}
+
 
 const service = axios.create({
   baseURL: ENV.VITE_BASE_URL,
@@ -59,12 +82,15 @@ service.interceptors.response.use(
         break;
       case 500:
         ElMessage({ message: "服务器打瞌睡了！", type: "error" });
+        addBug(response.data.message, '服务器打瞌睡了')
         break;
       case 400:
         ElMessage({ message: "参数错误！", type: "error" });
+        addBug(response.data.message, '参数错误！')
         break;
       case 405:
         ElMessage({ message: "请检查你的请求类型！", type: "error" });
+        addBug(response.data.message, '请检查你的请求类型！')
         break;
       case 200:
         if (ENV.VITE_MOCK === "true") {
@@ -83,12 +109,13 @@ service.interceptors.response.use(
 
       default:
         ElMessage({ message: response.data.message, type: "error" });
-        console.error(response.data.code);
+        addBug(response.data.message, code)
         break;
     }
   },
   (error) => {
     // 对响应错误做点什么
+    addBug(error.config, error.message)
 
     return Promise.reject(error);
   }

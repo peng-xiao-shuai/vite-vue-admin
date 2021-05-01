@@ -1,10 +1,9 @@
 $--font-path: "/node_modules/element-plus/lib/theme-chalk/fonts";
 
-@import "element-plus/packages/theme-chalk/src/index.scss";
-
 @import './color.scss';
 
-// 富文本插入图片层级
+@import "element-plus/packages/theme-chalk/src/index.scss";
+
 .tox-tinymce-aux {
   z-index: 6666 !important;
 }
