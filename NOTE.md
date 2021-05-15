@@ -126,3 +126,19 @@ app.provide("messageBox", ElMessageBox);
 // index.vue
 (inject('messageBox') as any).confirm(...);
 ```
+
+### jsx 类名样式不生效
+```js
+import {
+  h,
+  withScopeId,
+  getCurrentInstance,
+} from "vue";
+
+const instance = getCurrentInstance();
+const withId = withScopeId((instance as any).type.__scopeId);
+
+return withId(() =>
+  h("div")
+);
+```
