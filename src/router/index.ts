@@ -310,6 +310,51 @@ export const addRouter = [
     ],
   },
   {
+    path: "/iframe",
+    component: layOut,
+    redirect: "/iframe/iframe-",
+    name: "iframe",
+    meta: {
+      title: "iframe",
+      locale: 'iframe',
+      icon: "viteiframe",
+    },
+    children: [
+      {
+        path: "iframe-",
+        name: "iframe-",
+        component: () => import("/@/views/iframe/index.vue"),
+        meta: {
+          title: "iframe",
+          icon: "viteiframe",
+        },
+      },
+    ],
+  },
+  {
+    path: "/interlink",
+    component: layOut,
+    redirect: "/interlink/link",
+    name: "interlink",
+    meta: {
+      title: "interlink",
+      locale: 'interlink',
+      icon: "vitelianjie",
+    },
+    children: [
+      {
+        path: "link",
+        name: "link",
+        component: () => import("/@/views/link/index.vue"),
+        meta: {
+          title: "外链",
+          url: 'https://cn.vitejs.dev/',
+          icon: "vitelianjie",
+        },
+      },
+    ],
+  },
+  {
     path: "/:pathMatch(.*)",
     name: "404",
     component: () => import("../views/404.vue"),

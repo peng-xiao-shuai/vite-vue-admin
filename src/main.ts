@@ -32,8 +32,6 @@ import uploadFile from "./components/upload-file/index.vue";
 import defalutData from "./config/defalut-data";
 
 // css
-// vite 暂不支持scss :export
-import "./style/iconfont.css";
 import "./style/index.scss";
 
 import { mockXHR } from "../mock/index";

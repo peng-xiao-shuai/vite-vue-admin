@@ -1,11 +1,8 @@
 @font-face {
-  font-family: 'viteIcon';  /* project id 2351447 */
-  src: url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.eot');
-  src: url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.woff') format('woff'),
-  url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_2351447_2nvr3w4dln5.svg#viteIcon') format('svg');
+  font-family: 'viteIcon';  /* Project id 2351447 */
+  src: url('//at.alicdn.com/t/font_2351447_yxz4r8wjzt.woff2?t=1621088780130') format('woff2'),
+       url('//at.alicdn.com/t/font_2351447_yxz4r8wjzt.woff?t=1621088780130') format('woff'),
+       url('//at.alicdn.com/t/font_2351447_yxz4r8wjzt.ttf?t=1621088780130') format('truetype');
 }
 /*匹配格式为正则 /\/\*(\s)(\w*|[^\x00-\xff]*)(\s)\*\//g*/
 .viteIcon {
@@ -15,6 +12,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* 外链 */
+.vitelianjie:before {
+  content: "\e637";
+}
+
+/* 内嵌网页 */
+.viteiframe:before {
+  content: "\e933";
+}
+
 /* 日志 */
 .vitebullseye:before {
   content: "\eb2d";

@@ -44,7 +44,38 @@
       :style="{ paddingLeft: count * 20 + 'px' }"
       v-else
     >
+      <a
+        :href="
+          (item.children && item.children[0].meta.url) ||
+          (item.meta && item.meta.url)
+        "
+        target="_black"
+        v-if="
+          (item.children && item.children[0].meta.url) ||
+          (item.meta && item.meta.url)
+        "
+      >
+        <i
+          :class="[
+            (item.children && item.children[0].meta.icon) ||
+              (item.meta && item.meta.icon) ||
+              '',
+            'viteIcon',
+          ]"
+        ></i>
+        <span class="metaTitle" v-show="!collapse">
+          {{
+            t(
+              (item.children && item.children[0].meta.locale) ||
+                item.meta.locale ||
+                "null"
+            )
+          }}
+        </span>
+      </a>
+
       <router-link
+        v-else
         :to="{ name: (item.children && item.children[0].name) || item.name }"
         :style="{ overflowX: collapse ? 'visible' : 'hidden' }"
       >
