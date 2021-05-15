@@ -117,7 +117,6 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-@import "../../style/menus.scss";
 .tags {
   padding: 7px 10px;
   border-top: 2px solid #f7f8f8;
@@ -191,7 +190,6 @@ export default defineComponent({
 
     .el-icon-close:hover {
       background: #fff;
-      color: $--color-primary;
     }
 
     a {
@@ -199,35 +197,5 @@ export default defineComponent({
       color: #fff;
     }
   }
-
-  // .active::after{
-  //     content: '';
-  //     width: 200%;
-  //     height: 50%;
-  //     display: block;
-  //     position: absolute;
-  //     right: -50%;
-  //     bottom: 0;
-  //     border: none;
-  //     background: #1CC9B5;
-  //     z-index: -1;
-  // }
-
-  // }
-}
-
-.tags-enter-active,
-.tags-leave-active {
-  transition: all 0.3s;
-}
-.tags-enter-to,
-.tags-leave-from {
-  transform: translateX(0px);
-  opacity: 1;
-}
-.tags-enter-from,
-.tags-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
 }
 </style>

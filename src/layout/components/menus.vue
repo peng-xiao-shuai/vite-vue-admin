@@ -83,8 +83,6 @@ export default {
 </script>
 
 <style lang='scss'>
-@import "../../style/menus.scss";
-
 .element::-webkit-scrollbar {
   width: 0 !important;
 }
@@ -98,12 +96,6 @@ export default {
   transition: width 0.3s;
 }
 
-.menus-logo,
-.menus-logo a {
-  color: $--menus-logo-color !important;
-  background: $--menus-logo-background;
-}
-
 .clear {
   min-width: 65px;
   height: 100vh;
@@ -111,8 +103,7 @@ export default {
 
 .menus .viteIcon {
   font-size: 16px;
-  /* border: 1px solid #fff; */
-  color: $--menus-submenu-title-color;
+  // color: $--menus-submenu-title-color;
   border-radius: 50%;
   padding: 5px;
 }
@@ -128,77 +119,25 @@ export default {
 .el-submenu .el-menu-item {
   border: none !important;
   box-sizing: border-box;
-  background: $--menus-children-background !important;
+  // background: $--menus-children-background !important;
   color: #ccc;
   overflow: hidden;
   padding-right: 20px !important;
-  /* background: v-bind(children); */
-  /* padding-left: 40px !important; */
 }
 // 菜单背景色
 .el-menu-item,
 .el-submenu__title,
 .menus {
   overflow: hidden;
-  background: $--menus-background !important;
+  // background: $--menus-background !important;
 }
 
 .el-menu-item a {
   display: inline-block;
   width: 100%;
-  color: $--menus-submenu-title-color;
+  // color: $--menus-submenu-title-color;
   text-overflow: ellipsis;
   overflow-x: hidden;
   text-decoration: none;
 }
-
-.el-submenu .el-menu-item:hover {
-  background: $--menus-children-hover-background !important;
-}
-.el-submenu__title {
-  color: $--menus-submenu-title-color !important;
-}
-
-// 菜单元素点击时
-.is-active > a,
-.is-active .el-submenu__title > div > * {
-  color: $--menus-item-hover-color !important;
-}
-// 菜单展开时
-.active .el-submenu__title > i,
-.active .el-submenu__title > span {
-  color: $--menus-item-open-color !important;
-}
-
-.el-submenu__title:hover .viteIcon,
-.el-menu-item:hover .viteIcon,
-// 不可以展开下级菜单悬浮时
-.el-menu-item:hover a,
-// 可以展开下级菜单悬浮时
-.el-submenu__title:hover span {
-  // background: $--menus-children-hover-background !important;
-  color: $--menus-item-hover-color !important;
-  transition: all 0.2s;
-}
-
-// 一级菜单悬浮
-.el-menu-item[data-count="1"]:hover,
-.el-submenu__title:hover {
-  background: $--menus-item-hover-background !important;
-}
-/* .el-submenu__title:hover,.el-menu-item:hover,.el-submenu__title:hover .viteIcon,.el-menu-item:hover .viteIcon{
-  background: #182646 !important;
-  color: #5874ae !important;
-  transition: all .2s;
-}
-.el-menu-item:hover a{
-  color: #5874ae !important;
-}
-.el-menu-item:hover{
-  background: #101a33 !important;
-
-}
-.el-submenu__title:hover .viteIcon,.el-menu-item:hover .viteIcon{
-  background: #202e50 !important;
-} */
 </style>

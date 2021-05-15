@@ -1,5 +1,5 @@
 <template>
-  <div class="right">
+  <div class="nav-right">
     <!-- 搜索 -->
     <div class="item">
       <el-tooltip :content="t('search')" placement="bottom">
@@ -137,21 +137,36 @@
         </div>
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
-            <el-dropdown-item>
+            <!-- <el-dropdown-item>
               <span
                 span
                 @click="dialogVisible = !dialogVisible"
                 style="display: block"
                 >{{ t("update") }} {{ t("password") }}</span
               >
-            </el-dropdown-item>
+            </el-dropdown-item> -->
             <router-link class="inlineBlock" to="/">
-              <el-dropdown-item> {{ t("home") }} </el-dropdown-item>
+              <el-dropdown-item style="text-align: center">
+                {{ t("home") }}
+              </el-dropdown-item>
             </router-link>
             <el-dropdown-item divided>
-              <span span @click="logout" style="display: block">{{
-                t("exit")
-              }}</span>
+              <span
+                @click="logout"
+                style="display: block; text-align: center"
+                >{{ t("exit") }}</span
+              >
+            </el-dropdown-item>
+            <el-dropdown-item divided>
+              <a
+                href="https://github.com/Peng-Xiao-Shuai-0902/vite-vue-admin"
+                style="
+                  display: block;
+                  text-decoration: none;
+                  text-align: center;
+                "
+                >{{ "GitHub" }}</a
+              >
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -252,7 +267,7 @@ import { useRouter, useRoute } from "vue-router";
 import { updatePassword } from "/@/api/logins";
 import { SETLOCALE } from "/@/language";
 
-import screenfull from "screenfull";
+import screenFull from "screenfull";
 import defaultData from "/@/config/defalut-data";
 
 export default defineComponent({
@@ -291,6 +306,7 @@ export default defineComponent({
 
     let router = useRouter();
     let route = useRoute();
+    const screenfull: any = screenFull;
     function change(e: string) {
       router.push({
         name: e,
@@ -479,24 +495,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "../../style/menus.scss";
-
-.navSearch-enter-active,
-.navSearch-leave-active {
-  transition: width 0.3s;
-}
-.navSearch-enter-to,
-.navSearch-leave-from {
-  width: 200px;
-  // transform: translateX(0px);
-}
-.navSearch-enter-from,
-.navSearch-leave-to {
-  width: 0px;
-  // transform: translateX(30px);
-}
-
-.right {
+.nav-right {
   display: flex;
   align-items: center;
   .item {
@@ -525,8 +524,8 @@ export default defineComponent({
     .viteIcon:hover {
       border-radius: 3px;
       background: #fff;
-      border-color: $--menus-item-hover-color;
-      color: $--menus-item-hover-color;
+      // border-color: var(--menus-item-hover-color);
+      // color: var(--menus-item-hover-color);
     }
 
     .searchSelect {
@@ -538,7 +537,6 @@ export default defineComponent({
 
     .viteIcon {
       transition: all 0.4s;
-      background: $--color-danger;
       color: #fff;
       border-radius: 3px;
       overflow: hidden;
@@ -546,13 +544,11 @@ export default defineComponent({
     .viteIcon:hover {
       transition: all 0.4s;
       border-radius: 3px;
-      background: $--color-danger;
       border-color: rgba(0, 0, 0, 0);
       color: #fff;
     }
 
     .bugNum {
-      background: $--color-danger;
       position: absolute;
       top: -3px;
       right: 6px;
