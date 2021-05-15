@@ -1,0 +1,94 @@
+/* 页面切换动画
+------------------------------- */
+// 淡入淡出
+.fadeOpticy-leave-active,
+.fadeOpticy-enter-active {
+  transition: all 1s;
+}
+.fadeOpticy-enter-from,
+.fadeOpticy-leave-to {
+  opacity: 0;
+}
+
+// 搜索图标点击
+.navSearch-enter-active,
+.navSearch-leave-active {
+  transition: width 0.3s;
+}
+.navSearch-enter-to,
+.navSearch-leave-from {
+  width: 200px;
+  // transform: translateX(0px);
+}
+.navSearch-enter-from,
+.navSearch-leave-to {
+  width: 0px;
+  // transform: translateX(30px);
+}
+
+/* Tag 过渡动画
+------------------------------- */
+.tags-enter-active,
+.tags-leave-active {
+  transition: all 0.3s;
+}
+.tags-enter-to,
+.tags-leave-from {
+  transform: translateX(0px);
+  opacity: 1;
+}
+.tags-enter-from,
+.tags-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* Breadcrumb 面包屑过渡动画
+------------------------------- */
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+	transition: all 0.3s;
+}
+.breadcrumb-enter-from,
+.breadcrumb-leave-active {
+	opacity: 0;
+	transform: translateX(20px);
+}
+.breadcrumb-leave-active {
+	position: absolute;
+}
+
+/* logo 过渡动画
+------------------------------- */
+@keyframes logoAnimation {
+	0% {
+		transform: scale(0);
+	}
+	80% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+/* 404、401 过渡动画
+------------------------------- */
+@keyframes error-num {
+	0% {
+		transform: translateY(60px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+@keyframes error-img {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
