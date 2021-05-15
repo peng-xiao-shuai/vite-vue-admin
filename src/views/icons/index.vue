@@ -47,6 +47,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang='scss'>
+@import "../../style/common/var.scss";
 .operate-container {
   width: 100%;
   display: flex;
@@ -57,17 +58,28 @@ export default defineComponent({
   display: grid;
   grid-row-gap: 20px;
   grid-column-gap: 20px;
-  grid-template-columns: repeat(14, 1fr);
+  grid-template-columns: repeat(13, 1fr);
   > div {
     text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0);
+    color: #333;
+    border-radius: 5px;
+    transition: all 0.4s;
+    padding: 5px 0;
+
     .viteIcon {
       font-size: 28px;
-      color: #333;
     }
     .iconName {
       margin-top: 10px;
       font-size: 15px;
     }
+  }
+
+  > div:hover {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    box-shadow: 0 0 2px 0 var(--color-primary);
   }
 }
 </style>
