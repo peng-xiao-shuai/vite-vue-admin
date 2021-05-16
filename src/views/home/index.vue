@@ -204,7 +204,7 @@ export default defineComponent({
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
           {
             offset: 0,
-            color: useStore().state.settings.themeColor,
+            color: useStore().state.settings.themeColor.primary,
           },
           {
             offset: 1,
@@ -228,7 +228,7 @@ export default defineComponent({
     ];
     // 曲线图线段颜色
     const colors: any[] = [
-      useStore().state.settings.themeColor,
+      useStore().state.settings.themeColor.primary,
       "#55bcff",
       "#F6A829",
       "#646cff",
@@ -241,7 +241,7 @@ export default defineComponent({
         value: "",
         locale: "user",
         key: "users",
-        color: useStore().state.settings.themeColor,
+        color: useStore().state.settings.themeColor.primary,
       },
       {
         icon: "vitehome-wengzhang",

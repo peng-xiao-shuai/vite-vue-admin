@@ -131,12 +131,12 @@ const state: any = {
 
 const actions = {
   // 登录
-  loginAction({ state }, user: any) {
+  loginAction(store: { state: any }, user: any) {
     new Promise((resolve) => {
       login(user).then(
         (res: { data: { tokenHead: string; token: string } }) => {
           if (res) {
-            state.vToken = res.data.tokenHead + res.data.token;
+            store.state.vToken = res.data.tokenHead + res.data.token;
             Cookies.set("vToken", res.data.tokenHead + res.data.token);
             router.push({ path: "/" });
           }
@@ -147,10 +147,10 @@ const actions = {
   },
 
   // 获取用户信息
-  userInfo({ commit }, to: any) {
+  userInfo(store: { commit: any }, to: any) {
     return new Promise((resovle) => {
       getUser({ token: state.vToken }).then(async (res: any) => {
-        commit(TYPE.LOGIN_THEN, res.data);
+        store.commit(TYPE.LOGIN_THEN, res.data);
 
         menusFilter(res.data.menus);
 
@@ -160,15 +160,15 @@ const actions = {
   },
 
   // 登出
-  outLoing({ commit }) {
-    commit("outLogin", "");
+  outLoing(store: { commit: any }) {
+    store.commit("outLogin", "");
     Cookies.remove("vToken");
   },
 
-  tagsActions({ commit }, val: any) {
+  tagsActions(store: { commit: any }, val: any) {
     console.log(val);
 
-    commit("tagsCommit", val);
+    store.commit("tagsCommit", val);
   },
 };
 

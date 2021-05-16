@@ -31,5 +31,11 @@ export default {
   'update': '修改',
   'password': '密码',
   'exit': '退出',
+
+  'primary': '初始',
+  'success': '成功',
+  'info': '信息',
+  'warning': '警告',
+  'danger': '危险',
 }
 

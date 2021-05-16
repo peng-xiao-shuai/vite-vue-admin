@@ -663,7 +663,7 @@
 // default/info
 .el-message {
 	background-color: set-color(info-light-9);
-	border-color: set-color(info-light-8);
+	// border-color: set-color(info-light-8);
 	min-width: unset !important;
 	padding: 15px !important;
 }
@@ -674,7 +674,7 @@
 // success
 .el-message--success {
 	background-color: set-color(success-light-9);
-	border-color: set-color(success-light-8);
+	// border-color: set-color(success-light-8);
 }
 .el-message--success .el-message__content,
 .el-message .el-icon-success {
@@ -683,7 +683,7 @@
 // warning
 .el-message--warning {
 	background-color: set-color(warning-light-9);
-	border-color: set-color(warning-light-8);
+	// border-color: set-color(warning-light-8);
 }
 .el-message--warning .el-message__content,
 .el-message .el-icon-warning {
@@ -692,7 +692,7 @@
 // error
 .el-message--error {
 	background-color: set-color(danger-light-9);
-	border-color: set-color(danger-light-8);
+	// border-color: set-color(danger-light-8);
 }
 .el-message--error .el-message__content,
 .el-message .el-icon-error {
@@ -802,7 +802,7 @@
 /* NavRight 工具栏
 ------------------------------- */
 .nav-right .viteIcon:hover {
-	border-color: set-color(primary);
+	border-color: set-color(primary) !important;
 	color: set-color(primary);
 }
 
@@ -810,7 +810,8 @@
 	.viteIcon,
 	.viteIcon:hover,
 	.bugNum{
-		background: set-color(danger);
+		border-color: rgba(0,0,0,0);
+		background: set-color(danger) !important;
 	}
 }
 

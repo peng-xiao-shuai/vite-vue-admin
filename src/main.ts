@@ -65,7 +65,7 @@ app
   .use(store)
   .use(router)
   .use(powerfulTable)
-  .use(ElementPlus, { size: Cookies.get('size') || 'medium', zIndex: 3000, locale })
+  .use(ElementPlus, { size: Cookies.get('size') || 'small', zIndex: 3000, locale })
   .use(VueI18n)
   .mount("#app");
 

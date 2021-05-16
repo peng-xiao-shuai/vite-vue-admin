@@ -68,13 +68,13 @@
 
     <!-- bug -->
     <el-tooltip
-      :content="t('log') + ' / ' + $store.getters.getBugNumber"
+      :content="'Bug / ' + $store.getters.getBugNumber"
       placement="bottom"
     >
       <div :class="['item', { isBug: $store.getters.getBugNumber !== 0 }]">
         <i
           :class="['viteIcon', !isRfs ? 'vitebug' : 'vitebug']"
-          @click="click"
+          @click="handleNavTo('/log/add-log')"
         ></i>
 
         <span class="bugNum"></span>
@@ -424,6 +424,12 @@ export default defineComponent({
         label: "mini",
       },
     ];
+    const handleNavTo = (e: string) => {
+      router.push({
+        path: e,
+      });
+    };
+
     // 修改组件大小
     function setSize(e: string) {
       Cookies.set("size", e);
@@ -480,6 +486,7 @@ export default defineComponent({
       size,
 
       change,
+      handleNavTo,
       setLocale,
       setSize,
       click,
@@ -510,7 +517,7 @@ export default defineComponent({
     .viteIcon {
       font-size: 20px;
       padding: 5px;
-      border: 1px solid transparent;
+      border: 1px solid rgba(0, 0, 0, 0);
       position: sticky;
       width: 35px;
       height: 35px;

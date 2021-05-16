@@ -12,6 +12,8 @@
         <tags-view :collapse="collapse"></tags-view>
       </div>
       <div class="view">
+        <setting></setting>
+
         <router-view v-slot="{ Component }">
           <transition name="fadeRouter" mode="out-in">
             <keep-alive :include="caches">
@@ -28,6 +30,7 @@
 import TagsView from './components/TagsView.vue'
 import menus from './components/menus.vue'
 import navs from './components/navs.vue'
+import setting from './components/setting.vue'
 
 import { computed, defineComponent, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -38,7 +41,8 @@ export default defineComponent({
   components: {
     menus,
     navs,
-    TagsView
+    TagsView,
+    setting
   },
   setup () {
     let Store = useStore()
@@ -111,6 +115,7 @@ export default defineComponent({
     .view {
       background: #eff1f4;
       min-height: calc(100% - 90px);
+      position: relative !important;
       padding: 20px;
     }
   }

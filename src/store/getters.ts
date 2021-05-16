@@ -6,7 +6,7 @@ const getters = {
 		return state.user.menus
 	},
 	getThemeColor: (state: any) => {
-		return state.settings.themeColor
+		return state.settings.themeColor.primary
 	},
 	getBugNumber: (state: any) => {
 		return state.settings.errorLog.filter((item: any, index: number) => item.type === 'Bug' || item.type === 'Ajax').length
