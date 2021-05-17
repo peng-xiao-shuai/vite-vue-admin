@@ -5,27 +5,27 @@ const header: any[] = [
     label: "编号", //显示的标题
     minWidth: "60", //对应列的最小宽度
     sortable: true, //排序
-    poprs: [
+    props: [
       {
-        popr: "id",
+        prop: "id",
       },
     ],
   },
   {
     label: "书名", //显示的名称
-    poprs: [
+    props: [
       {
         type: "href",
-        popr: "href",
+        prop: "href",
         data: {
-          popr: "name",
+          prop: "name",
           style: { fontWeight: "bold" },
         },
       },
       {
         text: "热度：",
         type: "iconfont",
-        popr: "iconfont",
+        prop: "iconfont",
         data: {
           class: ["viteIcon"],
           style: { color: "red" },
@@ -36,10 +36,10 @@ const header: any[] = [
   {
     label: "封面", //显示的名称
     width: "120",
-    poprs: [
+    props: [
       {
         type: "image",
-        popr: "image",
+        prop: "image",
         data: {
           preview: true,
           style: { width: "40px", height: "60px", borderRadius: "5px" },
@@ -50,9 +50,9 @@ const header: any[] = [
   {
     label: "类型", //显示的名称
     width: "100",
-    poprs: [
+    props: [
       {
-        popr: "types",
+        prop: "types",
         filter: [
           { key: 0, value: "玄幻" },
           { key: 1, value: "都市" },
@@ -64,18 +64,18 @@ const header: any[] = [
   {
     label: "内容", //显示的名称
     overflowTooltip: true,
-    poprs: [
+    props: [
       {
-        popr: "text",
+        prop: "text",
       },
     ],
   },
   {
     label: "评分", //显示的名称
     width: "150",
-    poprs: [
+    props: [
       {
-        popr: "rate",
+        prop: "rate",
         type: "rate",
         data: {
           colors: [
@@ -92,9 +92,9 @@ const header: any[] = [
   {
     label: "推荐", //显示的名称
     width: "100",
-    poprs: [
+    props: [
       {
-        popr: "recommend",
+        prop: "recommend",
         type: "switch",
         data: {
           activeColor: store.getters.getThemeColor,
@@ -105,13 +105,13 @@ const header: any[] = [
   {
     label: "价格", //显示的名称
     width: "120",
-    poprs: [
+    props: [
       {
         text: "原价：",
-        popr: "oldPrice",
+        prop: "oldPrice",
       },
       {
-        popr: "price",
+        prop: "price",
         type: "input",
         data: {
           placeholder: "请输入现价",
@@ -122,16 +122,16 @@ const header: any[] = [
   {
     label: "更新时间（远程搜索）", //显示的名称
     sortable: "custom",
-    poprs: [
+    props: [
       {
-        popr: "date",
+        prop: "date",
       },
     ],
   },
   {
     label: "操作", //显示的标题
     minWidth: "120px",
-    poprs: [
+    props: [
       {
         type: "btn",
         data: [

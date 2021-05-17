@@ -16,14 +16,6 @@
 - `upload-file` (文件上传，支持指定文件格式，文件大小)
 - `powerful-table` (多功能表格组件)[文档说明](https://gitee.com/abc1612565136/powerful-table/blob/master/README.md)
 
-## 自定义配置
-
-**由于 `vite` 不支持 `scss` `export` 的导出，无法在运行中修改全局颜色，但可以在代码中修改<br>**
-
-- **菜单栏颜色配置** `style > menus.scss`
-- **全局主题颜色** `style > index.scss`
-- **启用 mock 只需在对应运行环境下的 `.env.XX `修改 `VITE_MOCK` 为 `true`**
-
 ## 项目设置
 
 >**注意事项**
@@ -104,8 +96,11 @@ $ npm run preview
 - [x] 国际化多语言
 - [x] 图表菜单
 - [x] 图标菜单
-- [ ] 权限测试菜单
 - [x] 全局 `el-button(el-**)` 大小
+- [x] 全局主题颜色修改
 - [x] 新增日志菜单 捕获接口报错 以及 errorHandler
+- [ ] 公共配置
+- [ ] 权限测试菜单
+- [ ] 工具类
 
 **其他功能可以在 `issues` 提出**

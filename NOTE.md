@@ -142,3 +142,22 @@ return withId(() =>
   h("div")
 );
 ```
+
+### Vite 主题颜色修改 
+``` scss
+// 定义变量
+$--color-primary: #409eff !default;
+
+div{
+  color: var(--color-primary)!important;
+}
+// 挂载到 root 上
+:root{
+   color: #{$--color-primary};
+}
+```
+
+**Js 修改样式**
+```js
+document.documentElement.style.setProperty('--color-primary', 'red')
+```

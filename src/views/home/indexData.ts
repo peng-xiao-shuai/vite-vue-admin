@@ -1,18 +1,18 @@
 export let header: any = [
   {
     label: "姓名", //显示的名称
-    poprs: [
+    props: [
       {
-        popr: "name",
+        prop: "name",
       },
     ],
   },
   {
     label: "头像", //显示的名称
-    poprs: [
+    props: [
       {
         type: "image",
-        popr: "head",
+        prop: "head",
         data: {
           preview: true,
           style: { width: "40px", height: "40px", borderRadius: "50%" },
@@ -22,41 +22,41 @@ export let header: any = [
   },
   {
     label: "性别", //显示的名称
-    poprs: [
+    props: [
       {
-        popr: "gender",
+        prop: "gender",
       },
     ],
   },
   {
     label: "内容", //显示的名称
-    poprs: [
+    props: [
       {
-        popr: "content",
+        prop: "content",
       },
     ],
   },
   {
     label: "时间", //显示的名称
-    poprs: [
+    props: [
       {
-        popr: "date",
+        prop: "date",
       },
     ],
   },
   {
     label: "邮箱", //显示的名称
-    poprs: [
+    props: [
       {
-        popr: "email",
+        prop: "email",
       },
     ],
   },
   {
     label: "状态", //显示的名称
-    poprs: [
+    props: [
       {
-        popr: "status",
+        prop: "status",
         filter: [
           { key: true, value: "提交成功" },
           { key: false, value: "提交失败" },
