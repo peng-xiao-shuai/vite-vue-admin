@@ -728,10 +728,10 @@ echarts@^5.0.2:
     tslib "2.0.3"
     zrender "5.0.4"
 
-el-plus-powerful-table@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.npm.taobao.org/el-plus-powerful-table/download/el-plus-powerful-table-1.2.5.tgz#3a00b25098d0d33feddce9964d0a78978bb8c187"
-  integrity sha1-OgCyUJjQ0z/t3OmWTQp4l4u4wYc=
+el-plus-powerful-table@^1.3.0:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/el-plus-powerful-table/-/el-plus-powerful-table-1.3.1.tgz#c5af1ac8827596480a17185b08276425ad5b5b88"
+  integrity sha512-M0RrxHgI+SuuCHKfvrmz8PHPB+TwXT3wQuxMN1JL4R1setLWjI9Sf16bo8Lhj4J6iENlfzho8z9mSFs44PzUVA==
   dependencies:
     element-plus "^1.0.2-beta.31"
     vue "^3.0.4"
