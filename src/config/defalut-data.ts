@@ -6,14 +6,25 @@ let themeColor: any = {
   danger: '#f56c6c',
 }
 
-Object.keys(themeColor).forEach((item: any) => {
-  themeColor[item] = window.localStorage.getItem(item) ? window.localStorage.getItem(item) : themeColor[item]
-  document.documentElement.style.setProperty('--color-' + item, themeColor[item])
+let Tcolors: any = JSON.parse(window.localStorage.getItem('themeColors') || "{}")
+let Lcolors: any = JSON.parse(window.localStorage.getItem('themeLightColors') || "{}")
+
+Object.keys(Tcolors).forEach((item: string) => {
+  document.documentElement.style.setProperty(item, Tcolors[item])
+  let last = item.lastIndexOf('-')
+  themeColor[item.substr(last + 1)] = Tcolors[item]
+
 })
-const locale: any = window.localStorage.getItem("locale");
+
+// 设置颜色
+Object.keys(Lcolors).forEach((item: string) => {
+  document.documentElement.style.setProperty(item, Lcolors[item])
+})
+
+const locale: any = window.localStorage.getItem("locale") || 'zh-CN';
 
 export default {
-  name: "vite-admin",
+  name: "vite-vue-admin",
   themeColor,
   // icon图标类型
   iconfont: "viteIcon",
@@ -22,5 +33,5 @@ export default {
   // 卡片阴影
   cardShadow: "hover",
   // 默认语言
-  locale: locale || 'zh-CN',
+  locale,
 };

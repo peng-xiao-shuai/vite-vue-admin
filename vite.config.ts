@@ -25,7 +25,7 @@ export default defineConfig({
     hmr: {
       overlay: false,
     },
-    host: "localhost",
+    // host: "localhost",
     port: 3001,
     // 是否自动在浏览器打开
     open: false,

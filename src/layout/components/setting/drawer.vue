@@ -30,6 +30,7 @@
 <script setup>
 import { defineEmit, defineProps } from "vue"
 import { useStore } from "vuex"
+import { getLightColor } from '/@/utils/theme'
 const store = useStore()
 let props = defineProps({
   drawer: { type: Boolean, default: false },
@@ -38,8 +39,32 @@ const emit = defineEmit(["update:drawer"])
 
 const themeColor = store.state.settings.themeColor
 const handleThemeColor = (color, key) => {
-  window.localStorage.setItem(key, color)
-  document.documentElement.style.setProperty('--color-' + key, color)
+  // 设置主题颜色
+  const Tcolors = JSON.parse(window.localStorage.getItem('themeColors') || "{}")
+  const Lcolors = JSON.parse(window.localStorage.getItem('themeLightColors') || "{}")
+
+  let colorKey = '--color-' + key
+  setTheme(Tcolors, colorKey, color, 'themeColors')
+
+  // 设置不同透明度颜色
+  for (let i in new Array(10).fill(10)) {
+    if (i % 2 == 1) {
+      let colorKey = '--color-' + key + '-light-' + i
+      setTheme(Lcolors, colorKey, getLightColor(color, i / 10), 'themeLightColors')
+    }
+  }
+
+  /**
+   * @param {object} v Lcolors
+   * @param {string} ckey --color-' + key + '-light-' + i
+   * @param {string} cval red
+   * @param {string} key themeLightColors
+   */
+  function setTheme (v, ckey, cval, key) {
+    document.documentElement.style.setProperty(ckey, cval)
+    v[ckey] = cval
+    window.localStorage.setItem(key, JSON.stringify(v))
+  }
 }
 
 const handleClose = () => {
