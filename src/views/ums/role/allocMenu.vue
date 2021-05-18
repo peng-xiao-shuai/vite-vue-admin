@@ -18,11 +18,10 @@
 </template>
 
 <script>
-import { fetchTreeList } from '/@/api/ums/menu'
-import { listMenuByRole, allocMenu } from '/@/api/ums/role'
+import { fetchTreeList } from '@/api/ums/menu'
+import { listMenuByRole, allocMenu } from '@/api/ums/role'
 
 export default {
-  name: "allocMenu",
   data () {
     return {
       menuTreeList: [],
@@ -33,10 +32,18 @@ export default {
       roleId: null
     }
   },
-  created () {
-    this.roleId = this.$route.query.roleId
-    this.treeList()
-    this.getRoleMenu(this.roleId)
+  watch: {
+    '$route.query.roleId': {
+      immediate: true,
+      deep: true,
+      handler (val) {
+        this.roleId = val
+        if (this.roleId) {
+          this.treeList()
+          this.getRoleMenu(this.roleId)
+        }
+      }
+    }
   },
   methods: {
     treeList () {

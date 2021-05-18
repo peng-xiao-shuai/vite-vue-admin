@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import { fetchAllResourceList, listAllCate } from '/@/api/ums/resource'
-import { allocResource, listResourceByRole } from '/@/api/ums/role'
+import { fetchAllResourceList, listAllCate } from '@/api/ums/resource'
+import { allocResource, listResourceByRole } from '@/api/ums/role'
 
 export default {
   name: "allocResource",

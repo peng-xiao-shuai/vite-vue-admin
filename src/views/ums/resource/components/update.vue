@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { updateResource, createResource } from "/@/api/ums/resource"
+import { updateResource, createResource } from "@/api/ums/resource"
 
 export default {
   props: {

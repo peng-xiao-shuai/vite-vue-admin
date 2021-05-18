@@ -115,9 +115,9 @@
   </div>
 </template>
 <script>
-import { fetchList, createRole, updateRole, updateStatus, deleteRole } from '/@/api/ums/role'
+import { fetchList, createRole, updateRole, updateStatus, deleteRole } from '@/api/ums/role'
 import { header } from './indexData'
-// import {formatDate} from '/@/utils/date';
+// import {formatDate} from '@/utils/parse-time';
 
 const defaultListQuery = {
   pageNum: 1,
@@ -132,7 +132,6 @@ const defaultRole = {
   status: 1
 }
 export default {
-  name: 'roleList',
   data () {
     return {
       config: header,
@@ -189,7 +188,7 @@ export default {
 
       this.getList()
     },
-    handleDelete (row, index) {
+    handleDelete ({ row, index }) {
       this.$confirm('是否要删除该角色?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -208,7 +207,7 @@ export default {
         })
       })
     },
-    handleUpdate (row, index) {
+    handleUpdate ({ row, index }) {
       this.dialogVisible = true
       this.isEdit = true
       this.role = JSON.parse(JSON.stringify(row))
@@ -241,10 +240,10 @@ export default {
         }
       })
     },
-    handleSelectMenu (row, index) {
+    handleSelectMenu ({ row, index }) {
       this.$router.push({ path: '/ums/allocMenu', query: { roleId: row.id } })
     },
-    handleSelectResource (row, index) {
+    handleSelectResource ({ row, index }) {
       this.$router.push({ path: '/ums/allocResource', query: { roleId: row.id } })
     },
     getList () {

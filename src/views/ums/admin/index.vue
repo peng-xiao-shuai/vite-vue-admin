@@ -113,12 +113,12 @@
             <el-radio :label="0">否</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-ite>
+        <el-form-item>
           <el-button @click="dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="handleDialogConfirm()"
             >确 定</el-button
           >
-        </el-form-ite>
+        </el-form-item>
       </el-form>
     </el-dialog>
     <el-dialog title="分配角色" v-model="allocDialogVisible" width="30%">
@@ -146,10 +146,10 @@
   </div>
 </template>
 <script>
-import { fetchList, createAdmin, updateAdmin, updateStatus, deleteAdmin, getRoleByAdmin, allocRole } from '/@/api/logins'
-import { fetchAllRoleList } from '/@/api/ums/role'
+import { fetchList, createAdmin, updateAdmin, updateStatus, deleteAdmin, getRoleByAdmin, allocRole } from '@/api/logins'
+import { fetchAllRoleList } from '@/api/ums/role'
 import { header } from './indexData'
-// import {formatDate} from '@/utils/date';
+// import {formatDate} from  '@/utils/parse-time';
 
 const defaultListQuery = {
   pageNum: 1,
@@ -166,7 +166,6 @@ const defaultAdmin = {
   status: 1
 }
 export default {
-  name: 'adminList',
   data () {
     return {
       config: header,
@@ -229,7 +228,7 @@ export default {
         this.getList()
       })
     },
-    handleDelete (row, index) {
+    handleDelete ({ row, index }) {
       deleteAdmin(row.id).then(response => {
         this.$message({
           type: 'success',
@@ -238,7 +237,7 @@ export default {
         this.getList()
       })
     },
-    handleUpdate (row, index) {
+    handleUpdate ({ row, index }) {
       this.dialogVisible = true
       this.isEdit = true
       this.admin = Object.assign({}, row)

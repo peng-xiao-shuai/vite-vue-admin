@@ -112,13 +112,13 @@
   </div>
 </template>
 <script>
-import { fetchList, deleteResource, listAllCate } from '/@/api/ums/resource'
+import { fetchList, deleteResource, listAllCate } from '@/api/ums/resource'
 
 import { header } from './indexData'
 
 import update from './components/update.vue'
 
-// import {formatDate} from '@/utils/date';
+// import {formatDate} from  '@/utils/parse-time';
 
 const defaultListQuery = {
   pageNum: 1,
@@ -135,7 +135,6 @@ const defaultResource = {
   description: ''
 }
 export default {
-  name: 'resource',
   components: {
     update
   },
@@ -182,7 +181,7 @@ export default {
       this.resource = Object.assign({}, defaultResource)
       this.resource.categoryId = this.defaultCategoryId
     },
-    handleDelete (row, index) {
+    handleDelete ({ row, index }) {
 
       deleteResource(row.id).then(response => {
         this.$message({
@@ -192,7 +191,7 @@ export default {
         this.getList()
       })
     },
-    handleUpdate (row, index) {
+    handleUpdate ({ row, index }) {
       this.isDialog = true
       this.isEdit = true
       this.resource = Object.assign({}, row)

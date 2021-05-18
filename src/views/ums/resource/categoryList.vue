@@ -82,8 +82,8 @@ import {
   createResourceCategory,
   updateResourceCategory,
   deleteResourceCategory,
-} from "/@/api/ums/resource"
-// import {formatDate} from '@/utils/date';
+} from "@/api/ums/resource"
+// import {formatDate} from  '@/utils/parse-time';
 import { category } from "./indexData"
 
 const defaultResourceCategory = {

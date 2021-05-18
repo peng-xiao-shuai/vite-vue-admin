@@ -62,8 +62,8 @@
 </template>
 
 <script>
-import { fetchList, createMenu, updateMenu, getMenu } from '/@/api/ums/menu'
-import defalutData from '/@/config/defalut-data'
+import { fetchList, createMenu, updateMenu, getMenu } from '@/api/ums/menu'
+import defalutData from '@/config/defalut-data'
 
 const defaultMenu = {
   title: '',

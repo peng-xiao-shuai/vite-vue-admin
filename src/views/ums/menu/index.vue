@@ -42,7 +42,7 @@
           :tableName="'menuTable'"
           @sizeChange="getList"
           @switchChange="handleHiddenChange"
-          @look="handleShowNextLevel"
+          @query="handleShowNextLevel"
           @update="handleUpdate"
           @remove="handleDelete"
         >
@@ -65,11 +65,11 @@ import {
   deleteMenu,
   updateMenu,
   updateHidden,
-} from "/@/api/ums/menu"
+} from "@/api/ums/menu"
 import { header } from "./indexData.ts"
 import { ref, reactive, defineComponent, watch, getCurrentInstance, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import store from '/@/store'
+import store from '@/store'
 
 // 组件
 import update from './components/update.vue'
@@ -77,7 +77,6 @@ import update from './components/update.vue'
 const menusArr = [{ id: 0, title: '无上级菜单' }]
 
 export default defineComponent({
-  name: 'menu',
   components: {
     update
   },
@@ -139,7 +138,7 @@ export default defineComponent({
         })
       })
     }
-    function handleShowNextLevel (row, index) {
+    function handleShowNextLevel ({ row, index }) {
       console.log(upParent.value)
       upParent.value.push([row])
 
@@ -157,13 +156,13 @@ export default defineComponent({
 
       getList()
     }
-    function handleUpdate (row, index) {
+    function handleUpdate ({ row, index }) {
       isDialog.value = true
 
       currentFrom.value = reactive(JSON.parse(JSON.stringify(row)))
       // console.log(currentFrom);
     }
-    function handleDelete (row, index) {
+    function handleDelete ({ row, index }) {
       deleteMenu(row.id).then((response) => {
         _this.$message({
           message: "删除成功",
