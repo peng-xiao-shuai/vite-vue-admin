@@ -162,7 +162,7 @@
   </el-card>
 </template>
 <script>
-import { getSettings, setSetting } from "/@/api/system/config"
+import { getSettings, setSetting } from "@/api/system/config"
 const defaultOrderSetting = {
   courierType: "",
   systemName: "",

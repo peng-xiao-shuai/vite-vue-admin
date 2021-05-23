@@ -1,4 +1,4 @@
-import request from "/@/utils/request";
+import request from "@/utils/request";
 
 // 折线图
 export function lineFun(params?: object): any {

@@ -1,43 +1,43 @@
 const header: any[] = [
   {
     label: '账号名',
-    poprs: [{
-      popr: 'name'
+    props: [{
+      prop: 'name'
     }]
   },
   {
     label: '问题信息',
-    poprs: [{
-      popr: 'info'
+    props: [{
+      prop: 'info'
     }]
   },
   {
     label: '问题地址',
-    poprs: [{
+    props: [{
       type: "href",
-      popr: "url",
+      prop: "url",
       data: {
-        popr: "url",
+        prop: "url",
         style: { fontWeight: "bold" },
       },
     },]
   },
   {
     label: '问题详情',
-    poprs: [{
-      popr: 'error'
+    props: [{
+      prop: 'error'
     }]
   },
   {
     label: '问题时间',
-    poprs: [{
-      popr: 'time'
+    props: [{
+      prop: 'time'
     }]
   },
   {
     label: '问题类型',
-    poprs: [{
-      popr: 'type'
+    props: [{
+      prop: 'type'
     }]
   },
 ];

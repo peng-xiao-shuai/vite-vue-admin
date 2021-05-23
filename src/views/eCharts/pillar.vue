@@ -14,9 +14,9 @@
 
 <script lang='ts'>
 import { defineComponent, reactive } from "vue";
-import easyEchart from "/@/components/easy-echart/index.vue";
+import easyEchart from "@/components/easy-echart/index.vue";
 import * as echarts from "echarts";
-import { pillarFun } from "/@/api/echarts/index";
+import { pillarFun } from "@/api/echarts/index";
 
 export default defineComponent({
   name: "eChartsLine",

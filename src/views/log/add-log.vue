@@ -68,9 +68,9 @@
 
 <script lang='ts'>
 import { defineComponent, reactive, ref } from "vue";
-import { parseTime } from "/@/utils/parse-time";
+import { parseTime } from "@/utils/parse-time";
 import { header } from "./indexData";
-import { getLogList } from "/@/api/other";
+import { getLogList } from "@/api/other";
 import { useStore } from "vuex";
 
 export default defineComponent({

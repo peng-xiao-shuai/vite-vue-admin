@@ -2,8 +2,8 @@ import TYPE from "../type/userType";
 
 import Cookies from "js-cookie";
 
-import { getUser, login } from "/@/api/logins";
-import router, { addRouter as asyncRouter } from "/@/router/index";
+import { getUser, login } from "@/api/logins";
+import router, { addRouter as asyncRouter } from "@/router/index";
 
 // 筛选该账号可展示路由
 function menusFilter(menus: any[]) {

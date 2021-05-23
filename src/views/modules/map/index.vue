@@ -48,7 +48,7 @@ import { ref, reactive, defineComponent, inject, nextTick } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // 组件
-import { markerFun, markerDragend, GeocoderFun } from "/@/utils/map.js";
+import { markerFun, markerDragend, GeocoderFun } from "@/utils/map.js";
 
 export default defineComponent({
   name: "modulesMap",

@@ -24,7 +24,7 @@
 </template>
 
 <script lang='ts'>
-import router from "/@/router/index";
+import router from "@/router/index";
 import { useStore } from "vuex";
 
 // 组件

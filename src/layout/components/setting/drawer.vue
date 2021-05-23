@@ -30,7 +30,7 @@
 <script setup>
 import { defineEmit, defineProps } from "vue"
 import { useStore } from "vuex"
-import { getLightColor } from '/@/utils/theme'
+import { getLightColor } from '@/utils/theme'
 const store = useStore()
 let props = defineProps({
   drawer: { type: Boolean, default: false },

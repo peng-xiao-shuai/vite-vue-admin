@@ -19,7 +19,7 @@
 
 <script lang='ts'>
 import { ref, reactive, defineComponent, inject, nextTick } from "vue";
-import icon from "/@/style/iconfont.css";
+import icon from "@/style/iconfont.css";
 
 export default defineComponent({
   name: "icons",

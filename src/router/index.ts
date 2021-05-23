@@ -1,7 +1,9 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 // console.log(router)
-import layOut from "/@/layout/index.vue";
+import layOut from "@/layout/index.vue";
+import much from "@/layout/components/router-view.vue";
+
 const routes = [
   {
     path: "/",
@@ -17,7 +19,7 @@ const routes = [
       {
         path: "home",
         name: "home",
-        component: () => import("/@/views/home/index.vue"),
+        component: () => import("@/views/home/index.vue"),
         meta: {
           title: "首页",
           locale: 'home',
@@ -31,7 +33,7 @@ const routes = [
     path: "/redirect",
     name: "redirect",
     hidden: true,
-    component: () => import("/@/views/redirect.vue"),
+    component: () => import("@/views/redirect.vue"),
   },
   {
     path: "/login",
@@ -44,7 +46,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import("/@/views/login/index.vue"),
+    component: () => import("@/views/login/index.vue"),
   },
 ];
 
@@ -63,7 +65,7 @@ export const addRouter = [
       {
         path: "table",
         name: "table",
-        component: () => import("/@/views/modules/table/index.vue"),
+        component: () => import("@/views/modules/table/index.vue"),
         meta: {
           title: "表格",
           locale: 'table',
@@ -71,9 +73,19 @@ export const addRouter = [
         },
       },
       {
+        path: "cascader",
+        name: "cascader",
+        component: () => import("@/views/modules/cascader/index.vue"),
+        meta: {
+          title: "级联面板",
+          locale: 'cascader',
+          icon: "viteZJ-biaoge",
+        },
+      },
+      {
         path: "upload",
         name: "upload",
-        component: () => import("/@/views/modules/upload/index.vue"),
+        component: () => import("@/views/modules/upload/index.vue"),
         meta: {
           title: "上传文件",
           locale: 'upload.file',
@@ -84,7 +96,7 @@ export const addRouter = [
         path: "richText",
 
         name: "richText",
-        component: () => import("/@/views/modules/rich-text/index.vue"),
+        component: () => import("@/views/modules/rich-text/index.vue"),
         meta: {
           title: "富文本",
           locale: 'rich.text',
@@ -95,7 +107,7 @@ export const addRouter = [
         path: "map",
 
         name: "map",
-        component: () => import("/@/views/modules/map/index.vue"),
+        component: () => import("@/views/modules/map/index.vue"),
         meta: {
           title: "地图",
           locale: 'map',
@@ -118,7 +130,7 @@ export const addRouter = [
       {
         path: "icon",
         name: "icon",
-        component: () => import("/@/views/icons/index.vue"),
+        component: () => import("@/views/icons/index.vue"),
         meta: {
           title: "图标",
           locale: 'icon',
@@ -141,7 +153,7 @@ export const addRouter = [
       {
         path: "eChartLine",
         name: "eChartLine",
-        component: () => import("/@/views/eCharts/line.vue"),
+        component: () => import("@/views/eCharts/line.vue"),
         meta: {
           title: "折线图",
           locale: 'line.chart',
@@ -151,7 +163,7 @@ export const addRouter = [
       {
         path: "eChartPillar",
         name: "eChartPillar",
-        component: () => import("/@/views/eCharts/pillar.vue"),
+        component: () => import("@/views/eCharts/pillar.vue"),
         meta: {
           title: "柱状图",
           locale: 'pillar.chart',
@@ -161,7 +173,7 @@ export const addRouter = [
       {
         path: "eChartCake",
         name: "eChartCake",
-        component: () => import("/@/views/eCharts/cake.vue"),
+        component: () => import("@/views/eCharts/cake.vue"),
         meta: {
           title: "饼状图",
           locale: 'cake.chart',
@@ -184,7 +196,7 @@ export const addRouter = [
       {
         path: "error-log",
         name: "error-log",
-        component: () => import("/@/views/log/error-log.vue"),
+        component: () => import("@/views/log/error-log.vue"),
         meta: {
           title: "错误日志",
           locale: 'bug.log',
@@ -194,7 +206,7 @@ export const addRouter = [
       {
         path: "ajax-log",
         name: "ajax-log",
-        component: () => import("/@/views/log/ajax-log.vue"),
+        component: () => import("@/views/log/ajax-log.vue"),
         meta: {
           title: "ajax 错误",
           locale: 'ajax.log',
@@ -204,7 +216,7 @@ export const addRouter = [
       {
         path: "add-log",
         name: "add-log",
-        component: () => import("/@/views/log/add-log.vue"),
+        component: () => import("@/views/log/add-log.vue"),
         meta: {
           title: "添加日志",
           locale: 'add.log',
@@ -226,7 +238,7 @@ export const addRouter = [
       {
         path: "config",
         name: "config",
-        component: () => import("/@/views/system/index.vue"),
+        component: () => import("@/views/system/index.vue"),
         meta: {
           title: "系统配置",
           icon: "viteliebiao",
@@ -247,7 +259,7 @@ export const addRouter = [
       {
         path: "admin",
         name: "admin",
-        component: () => import("/@/views/ums/admin/index.vue"),
+        component: () => import("@/views/ums/admin/index.vue"),
         meta: {
           title: "用户列表",
           icon: "viteyonghuliebiao",
@@ -256,7 +268,7 @@ export const addRouter = [
       {
         path: "role",
         name: "role",
-        component: () => import("/@/views/ums/role/index.vue"),
+        component: () => import("@/views/ums/role/index.vue"),
         meta: {
           title: "角色列表",
           icon: "vitejiaose",
@@ -265,7 +277,7 @@ export const addRouter = [
       {
         path: "allocMenu",
         name: "allocMenu",
-        component: () => import("/@/views/ums/role/allocMenu.vue"),
+        component: () => import("@/views/ums/role/allocMenu.vue"),
         meta: {
           title: "分配菜单",
         },
@@ -274,7 +286,7 @@ export const addRouter = [
       {
         path: "allocResource",
         name: "allocResource",
-        component: () => import("/@/views/ums/role/allocResource.vue"),
+        component: () => import("@/views/ums/role/allocResource.vue"),
         meta: {
           title: "分配资源",
         },
@@ -283,7 +295,7 @@ export const addRouter = [
       {
         path: "menu",
         name: "menu",
-        component: () => import("/@/views/ums/menu/index.vue"),
+        component: () => import("@/views/ums/menu/index.vue"),
         meta: {
           title: "菜单列表",
           icon: "vitecaidanliebiao",
@@ -292,7 +304,7 @@ export const addRouter = [
       {
         path: "resource",
         name: "resource",
-        component: () => import("/@/views/ums/resource/index.vue"),
+        component: () => import("@/views/ums/resource/index.vue"),
         meta: {
           title: "资源列表",
           icon: "viteziyuanliebiao",
@@ -301,7 +313,7 @@ export const addRouter = [
       {
         path: "resourceCategory",
         name: "resourceCategory",
-        component: () => import("/@/views/ums/resource/categoryList.vue"),
+        component: () => import("@/views/ums/resource/categoryList.vue"),
         meta: {
           title: "资源分类",
         },
@@ -323,7 +335,7 @@ export const addRouter = [
       {
         path: "iframe-",
         name: "iframe-",
-        component: () => import("/@/views/iframe/index.vue"),
+        component: () => import("@/views/iframe/index.vue"),
         meta: {
           title: "iframe",
           icon: "viteiframe",
@@ -345,7 +357,7 @@ export const addRouter = [
       {
         path: "link",
         name: "link",
-        component: () => import("/@/views/link/index.vue"),
+        component: () => import("@/views/link/index.vue"),
         meta: {
           title: "外链",
           url: 'https://cn.vitejs.dev/',

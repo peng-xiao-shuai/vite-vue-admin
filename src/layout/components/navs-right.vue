@@ -264,11 +264,11 @@ import Cookies from "js-cookie";
 import { defineComponent, inject, reactive, ref, shallowRef } from "vue";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
-import { updatePassword } from "/@/api/logins";
-import { SETLOCALE } from "/@/language";
+import { updatePassword } from "@/api/logins";
+import { SETLOCALE } from "@/language";
 
 import screenFull from "screenfull";
-import defaultData from "/@/config/defalut-data";
+import defaultData from "@/config/defalut-data";
 
 export default defineComponent({
   setup() {

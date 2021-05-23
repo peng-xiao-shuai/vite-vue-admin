@@ -75,7 +75,7 @@
 <script>
 //   import {isvalidUsername} from '@/utils/validate';
 //   import {setSupport,getSupport,setCookie,getCookie} from '@/utils/support';
-import bgImage from '/@/assets/bgImg.png'
+import bgImage from '@/assets/bgImg.png'
 import { ref, reactive, onMounted, defineComponent } from "vue"
 import { ElMessage } from 'element-plus'
 import { useStore } from 'vuex'

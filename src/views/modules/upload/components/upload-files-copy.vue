@@ -1,6 +1,6 @@
 <template>
   <!-- 此组件功能同 src > components > upload-file 组件 -->
-  <!-- 此组件只用于上传组件页面 -->
+  <!-- 此组件只用于上传,组件页面 -->
 
   <div>
     <div style="display: flex">
@@ -71,7 +71,7 @@
 
 <script>
 import { reactive } from 'vue'
-import { media } from '/@/api/other'
+import { media } from '@/api/other'
 import { number } from 'echarts'
 const ENV = import.meta.env
 

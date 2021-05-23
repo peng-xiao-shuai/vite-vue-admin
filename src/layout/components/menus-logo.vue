@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import defalutData from '/@/config/defalut-data'
+import defalutData from '@/config/defalut-data'
 export default {
   name: 'logo',
   props: {

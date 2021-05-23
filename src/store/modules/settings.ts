@@ -1,4 +1,4 @@
-import config from "/@/config/defalut-data";
+import config from "@/config/defalut-data";
 
 interface setting {
   themeColor: {

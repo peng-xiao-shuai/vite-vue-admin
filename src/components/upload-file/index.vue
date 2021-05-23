@@ -92,7 +92,7 @@ import { reactive } from 'vue'
 // 	fileDelete
 // } from '@/api/_type'
 
-import { media } from '/@/api/other'
+import { media } from '@/api/other'
 
 const ENV = import.meta.env
 

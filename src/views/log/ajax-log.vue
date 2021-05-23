@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { logAjax } from '/@/api/other'
+import { logAjax } from '@/api/other'
 export default {
   methods: {
     handleNewError () {

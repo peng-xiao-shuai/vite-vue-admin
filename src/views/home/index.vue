@@ -172,7 +172,7 @@
 </template>
 
 <script lang='ts'>
-import homeEcharts from "/@/components/easy-echart/index.vue";
+import homeEcharts from "@/components/easy-echart/index.vue";
 import PanelGroup from "./components/PanelGroup.vue";
 import lineBarEcharts from "./components/lineBarEcharts.vue";
 
@@ -185,7 +185,7 @@ import {
   earningsFun,
   chartFun,
   tableFun,
-} from "/@/api/home";
+} from "@/api/home";
 import { defineComponent, reactive, ref } from "vue";
 import { header } from "./indexData";
 

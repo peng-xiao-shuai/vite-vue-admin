@@ -52,6 +52,16 @@ const roles = {
     },
     {
       hidden: 0,
+      icon: "viteviteZJ-ditu",
+      id: 15,
+      level: 1,
+      name: "cascader",
+      parentId: 1,
+      sort: 997,
+      title: "级联面板",
+    },
+    {
+      hidden: 0,
       icon: "vitei",
       id: 20,
       level: 0,

@@ -14,13 +14,7 @@
       <div class="view">
         <setting></setting>
 
-        <router-view v-slot="{ Component }">
-          <transition name="fadeRouter" mode="out-in">
-            <keep-alive :include="caches">
-              <component :is="Component" />
-            </keep-alive>
-          </transition>
-        </router-view>
+        <router-view></router-view>
       </div>
     </div>
   </div>
@@ -30,38 +24,28 @@
 import TagsView from './components/TagsView.vue'
 import menus from './components/menus.vue'
 import navs from './components/navs.vue'
+import routerView from './components/router-view.vue'
 import setting from './components/setting.vue'
 
 import { computed, defineComponent, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
-
 
 export default defineComponent({
   components: {
+    routerView,
     menus,
     navs,
     TagsView,
     setting
   },
   setup () {
-    let Store = useStore()
     let collapse = ref(true)
 
     function isCollapse (e) {
       collapse.value = e
     }
-
-    let route = useRoute()
-    let caches = computed(() => Store.state.user.tags.map(item => item.name))
-    let key = computed(() => {
-      return route.path
-    })
-
     return {
       collapse,
       isCollapse,
-      key,
       caches
     }
   }

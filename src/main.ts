@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import router from "./router/index";
 import store from "./store";
 // 工具类
-import { parseTime } from '/@/utils/parse-time';
+import { parseTime } from '@/utils/parse-time';
 
 import ElementPlus from "element-plus";
 import { ElMessage, ElMessageBox } from "element-plus";

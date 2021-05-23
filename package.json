@@ -8,10 +8,12 @@
   },
   "homepage": "https://peng-xiao-shuai-0902.github.io/vite-vue-admin/",
   "dependencies": {
+    "@antv/x6": "^1.21.7",
+    "@antv/x6-vue-shape": "^1.2.4",
     "axios": "^0.21.1",
     "digit-roll": "^1.1.8",
     "echarts": "^5.0.2",
-    "el-plus-powerful-table": "^1.3.0",
+    "el-plus-powerful-table": "^1.3.8",
     "element-plus": "^1.0.2-beta.40",
     "js-cookie": "^2.2.1",
     "mockjs": "^1.1.0",

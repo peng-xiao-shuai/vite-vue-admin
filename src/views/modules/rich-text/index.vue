@@ -44,13 +44,13 @@
 </template>
 
 <script lang='ts'>
-import { richTextFun } from "/@/api/modules/richText";
+import { richTextFun } from "@/api/modules/richText";
 import { ref, reactive, defineComponent, inject } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 // 组件
 // import update from "./components/update.vue";
-import tinyMce from "/@/components/tiny-mce/index.vue";
+import tinyMce from "@/components/tiny-mce/index.vue";
 
 export default defineComponent({
   name: "modulesRichText",

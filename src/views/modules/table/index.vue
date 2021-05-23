@@ -98,7 +98,7 @@
 </template>
 
 <script lang='ts'>
-import { tableFun } from "/@/api/modules/table";
+import { tableFun } from "@/api/modules/table";
 import { header } from "./indexData";
 import { ref, reactive, defineComponent, inject, shallowReactive } from "vue";
 import { useRouter, useRoute } from "vue-router";

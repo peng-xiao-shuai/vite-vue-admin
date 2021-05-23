@@ -20,19 +20,20 @@ const drawer = ref(false);
 const pageY = ref<number>(
   Number(window.localStorage.getItem("setting-enter")) || 90
 );
-// let mouseY = ref(0);
 let status = false;
+let isMove = false;
 // 鼠标按下
 const handleDown = (e: any) => {
   // mouseY.value = e.offsetY;
+  // console.log("down");
   status = true;
 };
 // 鼠标悬浮
 const handleeMove = (e: any) => {
   if (status) {
-    // console.log("e :>> ", e);
+    // console.log("move");
+    isMove = true;
     if (pageY.value >= 90) {
-      // console.log(window.innerHeight, pageY.value);
       if (pageY.value + 60 <= window.innerHeight) {
         status = true;
         pageY.value = e.pageY - 30;
@@ -49,10 +50,13 @@ const handleeMove = (e: any) => {
 // 松开鼠标
 const handleUp = (e: any) => {
   window.localStorage.setItem("setting-enter", String(pageY.value));
+  setTimeout(() => {
+    isMove = false;
+  });
   status = false;
 };
 const handleClick = () => {
-  drawer.value = true;
+  if (!isMove) drawer.value = true;
 };
 </script>
 

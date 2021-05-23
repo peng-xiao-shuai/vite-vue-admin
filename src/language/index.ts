@@ -1,5 +1,5 @@
 import { createI18n } from 'vue-i18n'		//引入vue-i18n组件
-import defaultData from '/@/config/defalut-data';
+import defaultData from '@/config/defalut-data';
 const modules = import.meta.globEager('./*')
 const viewModules = import.meta.globEager('../views/**/locales/*.ts')
 const componentModules = import.meta.globEager('../components/**/locales/*.ts')

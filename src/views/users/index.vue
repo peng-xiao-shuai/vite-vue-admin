@@ -72,7 +72,7 @@
   </div>
 </template>
 <script>
-import { userlist } from "/@/api/users/user"
+import { userlist } from "@/api/users/user"
 import { header } from "./indexData"
 
 import update from './components/update.vue'
