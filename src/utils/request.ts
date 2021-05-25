@@ -69,29 +69,29 @@ service.interceptors.response.use(
     switch (code) {
       case 502:
         ElMessage({ message: response.data.message, type: "warning" });
-        break;
+        return Promise.reject(response);
       case 401:
         ElMessage({ message: response.data.message, type: "error" });
+        return Promise.reject(response);
 
         store.dispatch("outLoing");
-        // .then((res) => {
-        //     router.push('/login')
-        // }).catch((err) => {
+      // .then((res) => {
+      //     router.push('/login')
+      // }).catch((err) => {
 
-        // });
-        break;
+      // });
       case 500:
         ElMessage({ message: "服务器打瞌睡了！", type: "error" });
         addBug(response.data.message, '服务器打瞌睡了')
-        break;
+        return Promise.reject(response);
       case 400:
         ElMessage({ message: "参数错误！", type: "error" });
         addBug(response.data.message, '参数错误！')
-        break;
+        return Promise.reject(response);
       case 405:
         ElMessage({ message: "请检查你的请求类型！", type: "error" });
         addBug(response.data.message, '请检查你的请求类型！')
-        break;
+        return Promise.reject(response);
       case 200:
         if (ENV.VITE_MOCK === "true") {
           // console.log(response.data);
@@ -110,7 +110,7 @@ service.interceptors.response.use(
       default:
         ElMessage({ message: response.data.message, type: "error" });
         addBug(response.data.message, code)
-        break;
+        return Promise.reject(response);
     }
   },
   (error) => {
