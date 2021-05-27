@@ -1,4 +1,12 @@
 
+@import 'mixins/function.scss';
+
+.i-icon:hover {
+  border: 1px solid setColor(primary);
+  color: setColor(primary);
+  box-shadow: 0 0 2px 0 setColor(primary);
+}
+
 // 富文本层级
 .tox-tinymce-aux {
   z-index: 6666 !important;
