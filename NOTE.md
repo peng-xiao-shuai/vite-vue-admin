@@ -292,7 +292,7 @@ export default definedComponents({
 
 ```
 
-2. jsx中<transition></transition>
+2. jsx中 使用 transition
 ```js
 import {Transition,ref} from 'vue'
 export default definedComponents({
