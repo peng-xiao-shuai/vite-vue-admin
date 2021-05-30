@@ -99,7 +99,7 @@ const ENV = import.meta.env
 export default {
   name: 'allUpload',
   props: {
-    value: String,
+    modelValue: String,
     limit: {
       default: 1,
       type: Number
@@ -149,7 +149,7 @@ export default {
       uploadUrl: ENV.VITE_BASE_URL + media
     }
   },
-  emits: ['update:value'],
+  emits: ['update:modelValue'],
   methods: {
     onError (err, file) {
       console.log(err, file)
@@ -224,7 +224,7 @@ export default {
           console.log('上传成功', this.imgArr.join(','))
 
           // 自定义事件返回给父组件
-          this.$emit('update:value', this.imgArr.join(','))
+          this.$emit('update:modelValue', this.imgArr.join(','))
         }, 400)
       } else {
         this.$message.error('上传失败！')
@@ -247,7 +247,7 @@ export default {
       this.$refs.upload.uploadFiles.splice(index, 1)
 
       // 自定义事件返回给父组件
-      this.$emit('update:value', this.imgArr.join(','))
+      this.$emit('update:modelValue', this.imgArr.join(','))
 
       // console.log('删除', this.imgArr, this.$refs.upload.uploadFiles);
 
@@ -275,7 +275,7 @@ export default {
     }
   },
   watch: {
-    value: {
+    modelValue: {
       handler (val, oldVal) {
         // console.log('传过来的数据' + typeof val, val);
         if (typeof val === 'string' && val) {

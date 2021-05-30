@@ -11,10 +11,10 @@
 import { defineComponent, ref, onMounted, nextTick, watchEffect } from "vue"
 import axios from 'axios'
 export default defineComponent({
-  emits: ['update:myValue'],
+  emits: ['update:modelValue'],
   props: {
     //传入的默认值
-    myValue: {
+    modelValue: {
       type: String,
       default: ''
     },
@@ -68,16 +68,16 @@ export default defineComponent({
     let tinymceId = 'vue-tinymce-' + +new Date()
 
     watchEffect(() => {
-      if (hasInit.value && props.myValue != '') {
+      if (hasInit.value && props.modelValue != '') {
         nextTick(() => {
-          window.tinymce.get(tinymceId).setContent(props.myValue)
+          window.tinymce.get(tinymceId).setContent(props.modelValue)
         })
-        // context.emit("update:myValue", window.tinymce.get(tinymceId).getContent())
+        // context.emit("update:modelValue", window.tinymce.get(tinymceId).getContent())
       }
     })
 
     function getContentFun () {
-      context.emit('update:myValue', window.tinymce.get(tinymceId).getContent())
+      context.emit('update:modelValue', window.tinymce.get(tinymceId).getContent())
     }
 
     function init () {

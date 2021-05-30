@@ -10,7 +10,7 @@
       <div class="lineTinyBox">
         <tiny-mce
           :width="'100%'"
-          v-model:myValue="myValue"
+          v-model="myValue"
           :height="667"
           :url="'图片路径'"
           ref="tinymce"

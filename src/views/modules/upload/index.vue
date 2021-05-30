@@ -65,7 +65,7 @@
         </div>
         <div style="display: flex; justify-content: center; margin-top: 20px">
           <upload-files-copy
-            v-model:value="currentFrom.image"
+            v-model="currentFrom.image"
             :fileSize:="currentFrom.fileSize"
             :limit="currentFrom.limit"
             :fileType="currentFrom.fileType"
