@@ -99,7 +99,8 @@ $ npm run preview
 - [x] 全局 `el-button(el-**)` 大小
 - [x] 全局主题颜色修改
 - [x] 新增日志菜单 捕获接口报错 以及 errorHandler
-- [ ] 公共配置
+- [x] 公共配置
+- [x] 使用JSX/TSX /src/layout/components/nav-right
 - [ ] 权限测试菜单
 - [ ] 工具类
 

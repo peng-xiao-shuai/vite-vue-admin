@@ -1,129 +1,19 @@
 <template>
   <div class="nav-right">
     <!-- 搜索 -->
-    <div class="item">
-      <el-tooltip :content="t('search')" placement="bottom">
-        <i class="viteIcon vitesousuo-" @click="isSearch = !isSearch"></i>
-      </el-tooltip>
-
-      <transition name="navSearch">
-        <el-select
-          v-show="isSearch"
-          v-model="search"
-          popper-class="searchSelect"
-          filterable
-          @change="change"
-          :placeholder="t('search.menus')"
-        >
-          <el-option
-            v-for="item in menus"
-            :key="item.path"
-            :label="item.path"
-            :value="item.name"
-          >
-          </el-option>
-        </el-select>
-      </transition>
-    </div>
+    <search></search>
 
     <!-- 语言 -->
-    <div class="item">
-      <el-dropdown class="avatar-container" trigger="hover">
-        <div
-          :class="[
-            'viteIcon',
-            locale == 'en-US' ? 'vitelanguage2' : 'vitelanguage2',
-          ]"
-        ></div>
-        <template #dropdown>
-          <el-dropdown-menu class="user-dropdown">
-            <el-dropdown-item
-              @click="setLocale(item.value)"
-              v-for="(item, index) in localeSelect"
-              :key="'locale' + index"
-            >
-              <div
-                :style="{
-                  color: locale == item.value ? themeColor : '#666',
-                }"
-              >
-                <i
-                  class="r"
-                  :style="
-                    locale == item.value
-                      ? {
-                          borderColor: themeColor,
-                          background: themeColor,
-                        }
-                      : {}
-                  "
-                ></i>
-                {{ item.label }}
-              </div>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
-    </div>
+    <language></language>
 
     <!-- bug -->
-    <el-tooltip
-      :content="'Bug / ' + $store.getters.getBugNumber"
-      placement="bottom"
-    >
-      <div :class="['item', { isBug: $store.getters.getBugNumber !== 0 }]">
-        <i
-          :class="['viteIcon', !isRfs ? 'vitebug' : 'vitebug']"
-          @click="handleNavTo('/log/add-log')"
-        ></i>
-
-        <span class="bugNum"></span>
-      </div>
-    </el-tooltip>
+    <bug></bug>
 
     <!-- 组件大小 -->
-    <div class="item">
-      <el-dropdown class="avatar-container" trigger="hover">
-        <div class="viteIcon vitefont-size"></div>
-        <template #dropdown>
-          <el-dropdown-menu class="user-dropdown">
-            <el-dropdown-item
-              @click="setSize(item.value)"
-              v-for="(item, index) in sizeSelect"
-              :key="index"
-            >
-              <div :style="{ color: size == item.value ? themeColor : '#666' }">
-                <i
-                  class="r"
-                  :style="
-                    size == item.value
-                      ? {
-                          borderColor: themeColor,
-                          background: themeColor,
-                        }
-                      : {}
-                  "
-                ></i>
-                {{ t(item.label) }}
-              </div>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
-    </div>
-
+    <size></size>
     <!-- 全屏 -->
-    <el-tooltip :content="t('full.screen')" placement="bottom">
-      <div class="item">
-        <i
-          :class="[
-            'viteIcon',
-            !isRfs ? 'vitefullScreen' : 'vitecancel-full-screen',
-          ]"
-          @click="click"
-        ></i>
-      </div>
-    </el-tooltip>
+    <full-screen></full-screen>
+
     <!-- 用户 -->
     <div class="item">
       <el-dropdown class="avatar-container" trigger="hover">
@@ -258,31 +148,33 @@
   </div>
 </template>
 <script lang='ts'>
-const w = window;
-import Cookies from "js-cookie";
-
 import { defineComponent, inject, reactive, ref, shallowRef } from "vue";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
 import { updatePassword } from "@/api/logins";
-import { SETLOCALE } from "@/language";
 
-import screenFull from "screenfull";
-import defaultData from "@/config/defalut-data";
+import search from "./nav-right/seacrh";
+import language from "./nav-right/language.vue";
+import bug from "./nav-right/bug";
+import fullScreen from "./nav-right/full-screen";
+import size from "./nav-right/size";
 
 export default defineComponent({
+  components: {
+    search,
+    language,
+    bug,
+    fullScreen,
+    size,
+  },
   setup() {
     const message = inject<any>("$message");
     const messageBox = inject<any>("messageBox");
     let Store = useStore();
 
-    let menu: [] = [];
-    let menus: any = searchMenusFun(Store.state.user.menus, menu);
-    let isRfs = ref(false);
     // 账号头像
     let icon = Store.state.user.userInfo.icon;
 
-    let search = ref("");
     let dialogVisible = ref(false);
     let pwdType = ref("password");
     let adminForm = ref<any | null>(null);
@@ -304,57 +196,6 @@ export default defineComponent({
       },
     });
 
-    let router = useRouter();
-    let route = useRoute();
-    const screenfull: any = screenFull;
-    function change(e: string) {
-      router.push({
-        name: e,
-      });
-    }
-
-    function searchMenusFun(arr: any[], menu: any[], superior?: any) {
-      arr.forEach((each: any) => {
-        let item: any = JSON.parse(JSON.stringify(each));
-        if (!item.hidden && item.name) {
-          if (item.children) {
-            item.path = superior ? superior.path + " /" + item.path : item.path;
-            menu.push(item);
-            menu.concat(searchMenusFun(item.children, menu, item));
-          } else {
-            item.path = superior.path + " /" + item.path;
-            menu.push(item);
-          }
-        }
-      });
-      return menu;
-    }
-    //全屏
-    function click() {
-      if (!screenfull.isEnabled) {
-        message({
-          message: "您的浏览器不支持！",
-          type: "warning",
-        });
-        return false;
-      }
-      screenfull.toggle();
-    }
-    function rfsChange() {
-      isRfs.value = screenfull.isFullscreen;
-    }
-    function init() {
-      if (screenfull.isEnabled) {
-        screenfull.on("change", rfsChange);
-      }
-    }
-    function destroy() {
-      if (screenfull.isEnabled) {
-        screenfull.off("change", rfsChange);
-      }
-    }
-    // end
-
     function logout() {
       Store.dispatch("outLoing");
     }
@@ -372,12 +213,6 @@ export default defineComponent({
               type: "warning",
             })
             .then(() => {
-              // if (_this.admin.newPassword != _this.isPassword) {
-              // _this.$message({
-              //     message: '新密码与确认密码不一致',
-              //     type: 'warning'
-              // });
-              // }
               updatePassword(admin).then((res: any) => {
                 if (res.code == "502") {
                   message({
@@ -405,94 +240,14 @@ export default defineComponent({
       });
     }
 
-    let size = ref(Cookies.get("size") || "small");
-    let sizeSelect = [
-      {
-        value: "default",
-        label: "default",
-      },
-      {
-        value: "medium",
-        label: "medium",
-      },
-      {
-        value: "small",
-        label: "small",
-      },
-      {
-        value: "mini",
-        label: "mini",
-      },
-    ];
-    const handleNavTo = (e: string) => {
-      router.push({
-        path: e,
-      });
-    };
-
-    // 修改组件大小
-    function setSize(e: string) {
-      Cookies.set("size", e);
-      size.value = e;
-
-      // let params: any = route.params;
-      // router.replace({
-      //   name: "redirect",
-      //   params: {
-      //     ...params,
-      //     __name: route.name,
-      //   },
-      //   query: route.query,
-      // });
-      message.success("修改成功！即将刷新网页");
-      setTimeout(() => {
-        w.location.reload();
-      }, 800);
-    }
-
-    const localeSelect = ref([
-      {
-        value: "zh-CN",
-        label: "中文",
-      },
-      {
-        value: "en-US",
-        label: "English",
-      },
-    ]);
-
-    let locale = defaultData.locale;
-
-    function setLocale(val: string) {
-      SETLOCALE(val);
-    }
-
-    init();
-
     return {
-      menus,
-      search,
       icon,
       dialogVisible,
       admin,
       pwdType,
       loginRules,
       adminForm,
-      localeSelect,
-      isSearch: ref(false),
-      isRfs,
-      sizeSelect,
-      locale,
-      size,
 
-      change,
-      handleNavTo,
-      setLocale,
-      setSize,
-      click,
-      rfsChange,
-      init,
-      destroy,
       close,
       logout,
       handleDialogConfirm,
@@ -501,14 +256,24 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .nav-right {
   display: flex;
   align-items: center;
   .item {
     display: flex;
     align-items: center;
-
+    .icon {
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .viteIcon {
+      font-size: 26px;
+      color: #666;
+      margin-right: 10px;
+    }
     .viteIcon:focus,
     &:focus {
       outline: 0;
@@ -531,6 +296,7 @@ export default defineComponent({
     .viteIcon:hover {
       border-radius: 3px;
       background: #fff;
+      transition: all 0.6s;
       // border-color: var(--menus-item-hover-color);
       // color: var(--menus-item-hover-color);
     }
@@ -568,32 +334,11 @@ export default defineComponent({
       border: 2px solid #fff;
     }
   }
-
-  .icon {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: flex-end;
-  }
-}
-
-.viteIcon {
-  font-size: 26px;
-  color: #666;
-  margin-right: 10px;
 }
 
 .inlineBlock {
   text-decoration: none;
   color: #000;
-}
-
-.r {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1px solid #999;
-  display: inline-block;
 }
 </style>
 
