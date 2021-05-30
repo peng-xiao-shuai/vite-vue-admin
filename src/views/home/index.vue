@@ -271,14 +271,10 @@ export default defineComponent({
     let chart = reactive({ value: {} });
     let pageviewData = reactive({ value: {} });
 
-    // 12个月数据
-    let user = reactive<any | null>(null);
     // 自定义线段颜色
     let userLineColor: any = reactive({ value: [] });
 
     let current = ref(0);
-    let reform = reactive<any | null>(null);
-    let investigation = reactive<any | null>(null);
     let earnings = reactive({ value: {}, chart: {} });
 
     // 表格相关
@@ -380,13 +376,10 @@ export default defineComponent({
       list,
       tbConfig,
       current,
-      user,
       userLineColor,
       findTime,
 
-      reform,
       handleGetTable,
-      investigation,
       typeSwitch,
       command,
     };

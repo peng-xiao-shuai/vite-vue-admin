@@ -1,6 +1,9 @@
 <template>
   <div class="menus" :style="{ width: !collapse ? '65px' : '200px' }">
-    <menus-logo :collapse="collapse"></menus-logo>
+    <menus-logo
+      :collapse="collapse"
+      v-if="$store.state.settings.drawerSetting.isLogo"
+    ></menus-logo>
 
     <el-scrollbar style="height: calc(100vh - 50px)">
       <el-menu

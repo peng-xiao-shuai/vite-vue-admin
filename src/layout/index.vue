@@ -7,9 +7,30 @@
       class="right"
       :style="!collapse ? { marginLeft: '65px' } : { marginLeft: '200px' }"
     >
-      <div class="top">
+      <!-- 站位 -->
+      <div
+        :style="{
+          height: $store.state.settings.drawerSetting.isTagsView
+            ? '90px'
+            : '50px',
+        }"
+        v-if="$store.state.settings.drawerSetting.fixed"
+      ></div>
+      <div
+        class="top"
+        :style="{
+          position:
+            $store.state.settings.drawerSetting.fixed === 1
+              ? 'fixed'
+              : 'sticky',
+          top: 0,
+        }"
+      >
         <navs @isCollapse="isCollapse"></navs>
-        <tags-view :collapse="collapse"></tags-view>
+        <tags-view
+          :collapse="collapse"
+          v-if="$store.state.settings.drawerSetting.isTagsView"
+        ></tags-view>
       </div>
       <div class="view">
         <setting></setting>
@@ -91,9 +112,11 @@ export default defineComponent({
     transition: margin-left 0.3s;
 
     .top {
+      width: 100%;
       position: sticky;
       z-index: 6;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background: #fff;
+      // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .view {
