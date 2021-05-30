@@ -93,8 +93,17 @@ export const addRouter = [
         },
       },
       {
+        path: "icon",
+        name: "icon",
+        component: () => import("@/views/modules/icons/index.vue"),
+        meta: {
+          title: "图标",
+          locale: 'icon',
+          icon: "vitei",
+        },
+      },
+      {
         path: "richText",
-
         name: "richText",
         component: () => import("@/views/modules/rich-text/index.vue"),
         meta: {
@@ -112,29 +121,6 @@ export const addRouter = [
           title: "地图",
           locale: 'map',
           icon: "viteviteZJ-ditu",
-        },
-      },
-    ],
-  },
-  {
-    path: "/icons",
-    component: layOut,
-    redirect: "/icons/icon",
-    name: "icons",
-    meta: {
-      title: "图标",
-      locale: 'icon',
-      icon: "vitei",
-    },
-    children: [
-      {
-        path: "icon",
-        name: "icon",
-        component: () => import("@/views/icons/index.vue"),
-        meta: {
-          title: "图标",
-          locale: 'icon',
-          icon: "vitei",
         },
       },
     ],

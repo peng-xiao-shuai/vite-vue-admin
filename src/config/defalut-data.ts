@@ -1,3 +1,20 @@
+interface setting {
+  themeColor?: {
+    primary: string,
+    success: string,
+    info: string,
+    warning: string,
+    danger: string,
+  },
+  errorLog?: any[],
+  drawerSetting?: {
+    isLogo?: number,
+    isTagsView?: number,
+    fixed?: number
+  },
+  a: number
+}
+
 let themeColor: any = {
   primary: "#AD49FF",
   success: '#67c23a',
@@ -22,6 +39,7 @@ Object.keys(Lcolors).forEach((item: string) => {
 })
 
 const locale: any = window.localStorage.getItem("locale") || 'zh-CN';
+const settings: setting = JSON.parse(window.localStorage.getItem('settings') || '{}')
 
 export default {
   name: "vite-vue-admin",
@@ -34,4 +52,9 @@ export default {
   cardShadow: "hover",
   // 默认语言
   locale,
+  settings: Object.assign({
+    fixed: 0,
+    isLogo: 1,
+    isTagsView: 1,
+  }, settings)
 };

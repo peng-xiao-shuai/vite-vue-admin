@@ -1,19 +1,11 @@
 import config from "@/config/defalut-data";
 
-interface setting {
-  themeColor: {
-    primary: string,
-    success: string,
-    info: string,
-    warning: string,
-    danger: string,
-  },
-  errorLog: any[]
-}
+import { setting } from '@/utils/interface';
 
 let state: setting = {
   themeColor: config.themeColor,
-  errorLog: []
+  errorLog: [],
+  drawerSetting: config.settings
 };
 
 let mutations = {
@@ -22,9 +14,12 @@ let mutations = {
   },
   setThemeColor(state: any, val: string, key: string) {
     console.log(val, key);
-
     // state.errorLog.push(val)
-  }
+  },
+  setDrawerSetting(state: any, { val, key }: { val: string, key: string }) {
+    state.drawerSetting[key] = val
+    window.localStorage.setItem('settings', JSON.stringify(state.drawerSetting))
+  },
 }
 export default {
   state,

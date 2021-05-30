@@ -101,28 +101,29 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-    switch (error.response.status) {
-      case 500:
-        ElMessage({ message: "服务器打瞌睡了！", type: "error" });
-        addBug(error.response.data.message, '服务器打瞌睡了')
-        break;
-      case 503:
-        ElMessage({ message: '后台服务重启中，请稍后再试！', type: "error" });
-        break
-      case 400:
-        ElMessage({ message: '参数错误！', type: "error" });
-        break
-      case 404:
-        ElMessage({ message: '找不到接口！', type: "error" });
-        break
-      default:
-        ElMessage({ message: error.response.data.message, type: "error" });
-        addBug(error.response.data.message, error.response.status)
-        break;
+    try {
+      switch (error.response.status) {
+        case 500:
+          ElMessage({ message: "服务器打瞌睡了！", type: "error" });
+          addBug(error.response.data.message, '服务器打瞌睡了')
+          break;
+        case 503:
+          ElMessage({ message: '后台服务重启中，请稍后再试！', type: "error" });
+          break
+        case 400:
+          ElMessage({ message: '参数错误！', type: "error" });
+          break
+        case 404:
+          ElMessage({ message: '找不到接口！', type: "error" });
+          break
+        default:
+          ElMessage({ message: error.response.data.message, type: "error" });
+          break;
+      }
+      addBug(error.response.data.message, error.response.status)
+    } catch (error) {
+      ElMessage({ message: '连接超时，请重试！', type: "error" });
     }
-
-    // 对响应错误做点什么
-    addBug(error.config, error.message)
 
     return Promise.reject(error);
   }
