@@ -52,13 +52,13 @@ const roles = {
     },
     {
       hidden: 0,
-      icon: "viteviteZJ-ditu",
+      icon: "viteantv",
       id: 15,
       level: 1,
-      name: "cascader",
+      name: "antv-x6",
       parentId: 1,
       sort: 997,
-      title: "级联面板",
+      title: "antv-x6",
     },
     {
       hidden: 0,

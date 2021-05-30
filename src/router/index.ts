@@ -73,13 +73,13 @@ export const addRouter = [
         },
       },
       {
-        path: "cascader",
-        name: "cascader",
-        component: () => import("@/views/modules/cascader/index.vue"),
+        path: "antv-x6",
+        name: "antv-x6",
+        component: () => import("@/views/modules/antv-x6/index.vue"),
         meta: {
-          title: "级联面板",
-          locale: 'cascader',
-          icon: "viteZJ-biaoge",
+          title: "antv-x6",
+          locale: 'antv-x6',
+          icon: "viteantv",
         },
       },
       {

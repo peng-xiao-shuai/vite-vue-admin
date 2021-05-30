@@ -52,6 +52,16 @@ export default {
   cardShadow: "hover",
   // 默认语言
   locale,
+  localeSelect: [
+    {
+      value: "zh-CN",
+      label: "中文",
+    },
+    {
+      value: "en-US",
+      label: "English",
+    },
+  ],
   settings: Object.assign({
     fixed: 0,
     isLogo: 1,

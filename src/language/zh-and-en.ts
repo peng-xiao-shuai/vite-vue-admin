@@ -6,7 +6,7 @@ export default {
   'upload.file': '上传文件',
   'table': '表格',
   'rich.text': '富文本',
-  'cascader': '级联面板',
+  'antv-x6': 'antv-x6',
   'map': '地图',
   'icon': '图标',
   'chart': '图表',

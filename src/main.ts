@@ -41,6 +41,10 @@ import { mockXHR } from "../mock/index";
 mockXHR();
 // }
 
+if (import.meta.env.MODE !== 'development') {
+  window.console.log = () => { }
+}
+
 let app = createApp(App);
 app.provide("$message", ElMessage);
 app.provide("messageBox", ElMessageBox);
@@ -82,6 +86,7 @@ interface log {
   type: string
 }
 app.config.errorHandler = (error, vm, info) => {
+  console.error(error);
 
   let data: log = {
     url: window.location.href,
