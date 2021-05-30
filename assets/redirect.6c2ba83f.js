@@ -1,0 +1,1 @@
+import{a as e,b as r}from"./index.70c27e8f.js";import{h as a}from"./vendor.7988e31b.js";const o={setup(){let o=e(),s=r();const{params:t,query:m}=s;return console.log(s),o.replace({name:t.__name,params:t,query:m}),()=>[a("div")]}};export default o;
