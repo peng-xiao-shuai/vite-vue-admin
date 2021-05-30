@@ -12,7 +12,7 @@
   <update-drawer v-model:drawer="drawer"></update-drawer>
 </template>
 
-<script setup lang=ts>
+<script setup lang='ts'>
 import updateDrawer from "./setting/drawer.vue";
 import { ref } from "vue";
 
@@ -75,5 +75,6 @@ const handleClick = () => {
   align-items: center;
   justify-content: center;
   z-index: 99;
+  cursor: move;
 }
 </style>

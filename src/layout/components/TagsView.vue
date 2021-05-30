@@ -128,6 +128,7 @@ export default defineComponent({
   display: flex;
 
   .tag {
+    cursor: pointer;
     transition: all 0.3s;
     padding: 4px 8px;
     box-sizing: border-box;
