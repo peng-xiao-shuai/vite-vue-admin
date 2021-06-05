@@ -4,6 +4,7 @@
       :index="item.name"
       v-if="item.children && item.children.length > 1"
     >
+      <!-- 二级菜单有的情况下显示 -->
       <template #title>
         <div
           :style="{
@@ -13,16 +14,15 @@
           }"
         >
           <i :class="[item.meta.icon, 'viteIcon']"></i>
-          <span class="metaTitle" v-show="!collapse">
-            {{ t((item.meta && item.meta.locale) || "null") }}
+          <span class="metaTitle" v-show="!collapse || count !== 1">
+            {{
+              item.meta && item.meta.locale
+                ? t(item.meta && item.meta.locale)
+                : (item.meta && item.meta.title) || "null"
+            }}
           </span>
         </div>
       </template>
-      <!-- <template v-for="(each) in item.children" :key="each.name"> -->
-      <!-- <el-menu-item-group
-          v-if="!each.hidden"
-          class="children"
-        > -->
       <menusItem
         :collapse="collapse"
         v-for="each in item.children"
@@ -30,20 +30,18 @@
         :item="each"
         :count="count + 1"
       ></menusItem>
-      <!-- <el-menu-item :index="_index + '-' + idx">
-            <i :class="[each.meta.icon, 'viteIcon']"></i>
-            {{ each.meta && each.meta.title }}</el-menu-item
-          > -->
-      <!-- </el-menu-item-group> -->
-      <!-- </template> -->
     </el-submenu>
 
+    <!-- 二级菜单下有菜单的情况下显示 -->
     <el-menu-item
       :data-count="count"
       :index="(item.children && item.children[0].name) || item.name"
-      :style="{ paddingLeft: count * 20 + 'px' }"
+      :style="!collapse ? { paddingLeft: count * 20 + 'px' } : {}"
       v-else
     >
+      <!-- 最后一级菜单没有子菜单情况下显示 -->
+
+      <!-- 外链 -->
       <a
         :href="
           (item.children && item.children[0].meta.url) ||
@@ -63,17 +61,13 @@
             'viteIcon',
           ]"
         ></i>
-        <span class="metaTitle" v-show="!collapse">
-          {{
-            t(
-              (item.children && item.children[0].meta.locale) ||
-                item.meta.locale ||
-                "null"
-            )
-          }}
+
+        <span class="metaTitle">
+          {{ text(item) }}
         </span>
       </a>
 
+      <!-- 内联 -->
       <router-link
         v-else
         :to="{ name: (item.children && item.children[0].name) || item.name }"
@@ -87,14 +81,8 @@
             'viteIcon',
           ]"
         ></i>
-        <span class="metaTitle" v-show="!collapse">
-          {{
-            t(
-              (item.children && item.children[0].meta.locale) ||
-                item.meta.locale ||
-                "null"
-            )
-          }}
+        <span class="metaTitle" v-show="!collapse || count !== 1">
+          {{ text(item) }}
         </span>
       </router-link>
     </el-menu-item>
@@ -103,6 +91,7 @@
 
 <script>
 import { defineComponent } from "vue"
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'menusItem',
@@ -127,29 +116,33 @@ export default defineComponent({
   },
   emits: ['update:activeIndex'],
   setup (props, context) {
-    // let parentIdx = ref(props.activeIndex)
+    const { t } = useI18n()
 
-    // function getIndex(){
-    //   context.emit('update:activeIndex',props.parentIndex)
-    //   parentIdx.value = props.parentIndex
-    // }
+    const text = (e) => {
+      // 判断有没有locale
+      if ((e.children && e.children[0].meta.locale) || e.meta.locale) {
+        return t((e.children && e.children[0].meta.locale) || e.meta.locale)
+        // 没有就使用title
+      } else if ((e.children && e.children[0].meta.title) || e.meta.title) {
+        return (e.children && e.children[0].meta.title) || e.meta.title
+      } else {
+        return 'null'
+      }
+    }
 
-    // watch(parentIdx,(val)=>{
-    //   context.emit('update:activeIndex',val)
-    // })
-
-    // return{
-    //   parentIdx,
-    //   getIndex
-    // }
+    return {
+      text
+      //   parentIdx,
+      //   getIndex
+    }
   }
 });
 </script>
 
 <style scoped>
-._submenu :deep() .el-submenu__icon-arrow {
+/* ._submenu :deep() .el-submenu__icon-arrow {
   display: none;
-}
+} */
 
 .metaTitle {
   margin-left: 6px;

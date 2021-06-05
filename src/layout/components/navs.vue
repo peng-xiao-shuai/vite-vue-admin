@@ -18,10 +18,10 @@
             :key="index"
           >
             <span v-if="item.redirect" class="no-redirect">{{
-              t(item.meta.locale)
+              item.meta.locale ? t(item.meta.locale) : item.meta.title
             }}</span>
             <router-link v-else :to="item.redirect || item.path">{{
-              t(item.meta.locale)
+              item.meta.locale ? t(item.meta.locale) : item.meta.title
             }}</router-link>
           </el-breadcrumb-item>
         </transition-group>

@@ -13,7 +13,7 @@
           :style="currentName == item.name ? { background: themeColor } : {}"
         >
           <div @click="navTo(item)">
-            {{ t(item.meta.locale) }}
+            {{ item.meta.locale ? t(item.meta.locale) : item.meta.title }}
           </div>
           <i
             v-if="!item.remove"
