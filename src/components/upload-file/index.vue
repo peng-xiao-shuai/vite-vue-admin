@@ -10,6 +10,7 @@
         :on-success="handleSuccess"
         :on-exceed="onExceed"
         :on-error="onError"
+        :on-remove="onRemove"
         :limit="limit"
         :multiple="limit > 1"
         :action="uploadUrl"
@@ -21,7 +22,9 @@
         >
 
         <template #tip>
-          <div class="el-upload__tip">{{ tipLabel }}</div>
+          <div class="el-upload__tip">
+            {{ !tipLabel ? "支持格式" + suffixStr[fileType] : tipLabel }}
+          </div>
         </template>
       </el-upload>
 
@@ -234,6 +237,15 @@ export default {
     onExceed (fileList) {
       // console.log(this.$refs.upload.uploadFiles, this.imgArr);
       this.$message.warning('超出最大上传数量' + this.limit + '！')
+    },
+    // 文件删除
+    onRemove (file, files, e) {
+      let nameArr = this.imgArr.map(_ => {
+        return _.substr(_.lastIndexOf('/') + 1, _.length)
+      })
+      this.imgArr.splice(nameArr.indexOf(file.name), 1)
+      this.$emit('update:value', this.imgArr.join(','))
+
     },
     // 删除
     Remove (index) {
