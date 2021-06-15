@@ -67,7 +67,6 @@ export default defineComponent({
     return {
       collapse,
       isCollapse,
-      caches
     }
   }
 })
