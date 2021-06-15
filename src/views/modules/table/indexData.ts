@@ -63,10 +63,12 @@ const header: any[] = [
   },
   {
     label: "内容", //显示的名称
-    overflowTooltip: true,
+    // overflowTooltip: true,
+    width: "150",
     props: [
       {
         prop: "text",
+        develop: true
       },
     ],
   },
@@ -130,7 +132,8 @@ const header: any[] = [
   },
   {
     label: "操作", //显示的标题
-    minWidth: "120px",
+    minWidth: "180px",
+    fixed: 'right',
     props: [
       {
         type: "btn",

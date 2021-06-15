@@ -1,13 +1,14 @@
 <template>
   <el-drawer
-    :title="currentFrom.id ? '修改' : '添加'"
+    :title="currentForm.id ? '修改' : '添加'"
     :model-value="dialog"
     direction="rtl"
     ref="drawer"
+    :before-close="beforeClose"
     @close="close"
   >
     <el-form
-      :model="currentFrom"
+      :model="currentForm"
       :rules="rules"
       ref="uploadForm"
       label-position="top"
@@ -15,18 +16,18 @@
       class="Dform"
     >
       <el-form-item label="书名" prop="name">
-        <el-input v-model="currentFrom.name"></el-input>
+        <el-input v-model="currentForm.name"></el-input>
       </el-form-item>
       <el-form-item label="封面" prop="image">
         <upload-file
-          v-model:value="currentFrom.image"
+          v-model:value="currentForm.image"
           disabled
           tipLabel="当前仅为示例，请改成可上传地址"
         ></upload-file>
       </el-form-item>
       <el-form-item label="类型" prop="types">
         <el-select
-          v-model="currentFrom.types"
+          v-model="currentForm.types"
           placeholder="请选择"
           style="width: 100%"
         >
@@ -42,14 +43,14 @@
       <el-form-item label="内容" prop="text">
         <el-input
           type="textarea"
-          v-model="currentFrom.text"
+          v-model="currentForm.text"
           rows="7"
         ></el-input>
       </el-form-item>
       <el-form-item label="评分" prop="rate">
         <div class="a">
           <el-rate
-            v-model="currentFrom.rate"
+            v-model="currentForm.rate"
             :colors="[themeColor, themeColor, themeColor]"
           >
           </el-rate>
@@ -57,22 +58,22 @@
       </el-form-item>
       <el-form-item label="推荐" prop="recommend">
         <el-switch
-          v-model="currentFrom.recommend"
+          v-model="currentForm.recommend"
           :active-value="1"
           :inactive-value="0"
         ></el-switch>
       </el-form-item>
       <div class="grid grid-c-2">
         <el-form-item label="原价" prop="oldPrice">
-          <el-input v-model="currentFrom.oldPrice"></el-input>
+          <el-input v-model="currentForm.oldPrice"></el-input>
         </el-form-item>
         <el-form-item label="现价" prop="price">
-          <el-input v-model="currentFrom.price"></el-input>
+          <el-input v-model="currentForm.price"></el-input>
         </el-form-item>
       </div>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('menuFrom')">提交</el-button>
-        <el-button v-if="!currentFrom.id" @click="resetForm()">重置</el-button>
+        <el-button v-if="!currentForm.id" @click="resetForm()">重置</el-button>
       </el-form-item>
     </el-form>
   </el-drawer>
@@ -100,7 +101,7 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    currentFrom: {
+    currentForm: {
       type: Object,
       default: () => {},
     },
@@ -109,18 +110,27 @@ export default defineComponent({
       default: () => [],
     },
   },
-  emits: ["update:currentFrom", "update:dialog", "refresh"],
+  emits: ["update:currentForm", "update:dialog", "refresh"],
   setup(props, context) {
-    let messageBox = inject<any>("messageBox");
-    let message = inject<any>("$message");
-    let uploadForm = ref<any>({});
+    const messageBox = inject<any>("messageBox");
+    const message = inject<any>("$message");
+    const uploadForm = ref<any>({});
 
-    function close() {
+    const beforeClose = (hide: Function) => {
+      if (props.currentForm.id) {
+        context.emit("update:currentForm", {});
+        hide();
+      } else {
+        hide();
+      }
+    };
+
+    const close = () => {
       context.emit("update:dialog", false);
-      context.emit("update:currentFrom", {});
-    }
+      context.emit("update:currentForm", {});
+    };
 
-    function onSubmit() {
+    const onSubmit = () => {
       uploadForm.value.validate((valid: any) => {
         if (valid) {
           messageBox
@@ -130,8 +140,8 @@ export default defineComponent({
               type: "warning",
             })
             .then(() => {
-              if (props.currentFrom.id) {
-                // modifyEnterprise(props.currentFrom).then(response => {
+              if (props.currentForm.id) {
+                // modifyEnterprise(props.currentForm).then(response => {
                 message({
                   message: "修改成功",
                   type: "success",
@@ -139,7 +149,7 @@ export default defineComponent({
                 });
                 // })
               } else {
-                // addEnterprise(props.currentFrom).then((response) => {
+                // addEnterprise(props.currentForm).then((response) => {
                 setTimeout(() => {
                   message({
                     message: "提交成功",
@@ -152,8 +162,8 @@ export default defineComponent({
 
               // 刷新父组件
               setTimeout(() => {
-                // 正常情况下 不需要传props.currentFrom 直接在父组件刷新接口就行了
-                context.emit("refresh", props.currentFrom);
+                // 正常情况下 不需要传props.currentForm 直接在父组件刷新接口就行了
+                context.emit("refresh", props.currentForm);
 
                 context.emit("update:dialog", false);
               }, 200);
@@ -167,18 +177,19 @@ export default defineComponent({
           return false;
         }
       });
-    }
+    };
 
-    function resetForm() {
+    const resetForm = () => {
       uploadForm.resetFields();
-      context.emit("update:currentFrom", {});
-    }
+      context.emit("update:currentForm", {});
+    };
 
     return {
       close,
       uploadForm,
       resetForm,
       onSubmit,
+      beforeClose,
       rules: {
         title: [
           { required: true, message: "请输入菜单名称", trigger: "blur" },
