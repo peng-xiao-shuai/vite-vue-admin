@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <div class="login-form-layout">
       <span class="login-title color-main">{{ defalutData.name }}</span>
       <!-- :rules="loginRules" -->
@@ -69,25 +69,48 @@
       class="bgImage"
       :style="{ background: '#fff' }"
     ></el-image>
+
+    <el-dialog title="验证" v-model="imgObj.isDialog" custom-class="widthAuto">
+      <drag-verify-img-chip
+        :imgsrc="t2"
+        v-model:isPassing="imgObj.isPassing"
+        :showRefresh="true"
+        :barWidth="40"
+        text="请按住滑块拖动"
+        successText="验证通过"
+        handlerIcon="el-icon-d-arrow-right"
+        successIcon="el-icon-circle-check"
+        @passcallback="passcallback"
+      >
+      </drag-verify-img-chip>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 //   import {isvalidUsername} from '@/utils/validate';
-//   import {setSupport,getSupport,setCookie,getCookie} from '@/utils/support';
+import dragVerifyImgChip from '@/components/drag-verify-img/index.vue'
 import bgImage from '@/assets/bgImg.png'
 import { ref, reactive, onMounted, defineComponent } from "vue"
 import { ElMessage } from 'element-plus'
 import { useStore } from 'vuex'
-
+import t2 from "@/assets/t2.png"
 
 export default defineComponent({
+  components: {
+    dragVerifyImgChip
+  },
   setup () {
     let store = useStore()
 
     let loginForm = reactive({
       username: 'admin',
       password: 123456
+    })
+
+    const imgObj = reactive({
+      isPassing: false,
+      isDialog: false
     })
 
     let loginRules = {
@@ -119,14 +142,20 @@ export default defineComponent({
             return false
           }
 
-          loading.value = true
-          store.dispatch('loginAction', loginForm).then(res => { if (!res) { loading.value = false } })
+          imgObj.isDialog = true
+
 
         } else {
           console.log('error submit!!')
           return false
         }
       })
+
+    }
+    // 成功回调
+    const passcallback = () => {
+      loading.value = true
+      store.dispatch('loginAction', loginForm).then(res => { if (!res) { loading.value = false } })
     }
 
     return {
@@ -141,12 +170,20 @@ export default defineComponent({
       loginRules,
       pwdType,
       loading,
+      imgObj,
+      t2,
+
+      passcallback
     }
   }
 });
 </script>
 
 <style scoped>
+.content :deep(.widthAuto) {
+  width: auto !important;
+}
+
 .login-title {
   text-align: left;
   color: #333;
