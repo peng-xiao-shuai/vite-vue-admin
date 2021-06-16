@@ -287,7 +287,7 @@ export default {
         })
       })
     },
-    handleSelectRole (row, index) {
+    handleSelectRole ({ row, index }) {
       this.allocAdminId = row.id
       this.allocDialogVisible = true
       this.getRoleListByAdmin(row.id)

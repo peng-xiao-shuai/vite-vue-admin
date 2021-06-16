@@ -23,18 +23,21 @@
         </div>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery">
+        <el-form :inline="true" :model="powerfulTabledata.listQuery">
           <div class="screenForm">
             <el-form-item label="书名：">
               <el-input
-                v-model="listQuery.name"
+                v-model="powerfulTabledata.listQuery.name"
                 placeholder="请输入书名"
                 style="width: 80%"
                 clearable
               ></el-input>
             </el-form-item>
             <el-form-item label="书类型：" prop="types">
-              <el-select v-model="listQuery.types" placeholder="请选择">
+              <el-select
+                v-model="powerfulTabledata.listQuery.types"
+                placeholder="请选择"
+              >
                 <el-option
                   v-for="item in selectMenuList"
                   :key="item.value"
@@ -70,10 +73,10 @@
       <div>
         <powerful-table
           ref="Table"
-          :list="list.value"
-          :header="config"
+          :list="powerfulTabledata.list"
+          :header="powerfulTabledata.header"
           :isSelect="true"
-          :total="total"
+          :total="powerfulTabledata.total"
           :tableName="'Table'"
           :operateData="operateData"
           :selectData="selectData.value"
@@ -90,7 +93,7 @@
     <!-- 编辑区 -->
     <update
       v-model:dialog="isDialog"
-      v-model:currentFrom="currentFrom.value"
+      v-model:currentForm="currentForm.value"
       :selectMenuList="selectMenuList"
       @refresh="refresh"
     ></update>
@@ -101,7 +104,6 @@
 import { tableFun } from "@/api/modules/table";
 import { header } from "./indexData";
 import { ref, reactive, defineComponent, inject, shallowReactive } from "vue";
-import { useRouter, useRoute } from "vue-router";
 
 // 组件
 import update from "./components/update.vue";
@@ -112,11 +114,7 @@ export default defineComponent({
     update,
   },
   setup() {
-    // const router = useRouter();
-    // const route = useRoute();
     let $message = inject<any>("$message");
-
-    let list = reactive<any>({ value: [] });
 
     let selectData = shallowReactive<any>({ value: [] });
 
@@ -144,68 +142,84 @@ export default defineComponent({
       ],
     };
 
-    // console.log(themeColor);
+    interface powerfultable {
+      listQuery: query;
+      total: number;
+      header: any[];
+      list: any[];
+    }
 
-    let total = ref(0);
-    let config = reactive(header);
-    let listQuery = reactive<any>({
-      pageNum: 1,
-      pageSize: 10,
-      types: "",
-      name: "",
+    interface query {
+      pageNum: number;
+      pageSize: number;
+      types: string;
+      name: string;
+      [propName: string]: string | number;
+    }
+
+    const powerfulTabledata = reactive<powerfultable>({
+      listQuery: {
+        pageNum: 1,
+        pageSize: 10,
+        types: "",
+        name: "",
+      },
+      header: header,
+      total: 0,
+      list: [],
     });
 
     // 编辑区显隐
     let isDialog = ref(false);
     // 编辑区当前数据
-    let currentFrom = reactive({ value: {} });
+    let currentForm = reactive({ value: {} });
 
-    getList();
-
-    function handleAddMenu() {
+    const handleAddMenu = () => {
       isDialog.value = true;
-    }
-    function getList(
+    };
+    const getList = (
       e?: {
         pageNum: number | string;
         pageSize: number | string;
       },
       selectArr?: any
-    ) {
+    ) => {
       // 获取选中
       selectData.value = selectArr ? selectArr : [];
 
-      Object.assign(listQuery, e ? e : {});
-      tableFun(listQuery).then((response: any) => {
-        list.value = response.data.list;
-        total.value = response.data.total;
+      Object.assign(powerfulTabledata.listQuery, e ? e : {});
+      tableFun(powerfulTabledata.listQuery).then((response: any) => {
+        powerfulTabledata.list = response.data.list;
+        powerfulTabledata.total = response.data.total;
       });
-    }
-    function handleSortCustom(e: any) {
+    };
+    getList();
+
+    const handleSortCustom = (e: any) => {
       console.log("远程搜索", e);
-      listQuery[e.prop] = e.order;
+      powerfulTabledata.listQuery[e.prop] = e.order;
       getList();
-    }
-    function handleSwitchChange(row: any, index: number) {
-      list.value[index] = row;
+    };
+    const handleSwitchChange = (row: any, index: number) => {
+      powerfulTabledata.list[index] = row;
       $message.success("修改成功");
-    }
-    function handleUpdate(row: any, index: number) {
+    };
+    const handleUpdate = (row: any, index: number) => {
       isDialog.value = true;
 
-      currentFrom.value = reactive(JSON.parse(JSON.stringify(row)));
+      currentForm.value = reactive(JSON.parse(JSON.stringify(row)));
       console.log(row);
-    }
+    };
 
-    function handleBatchChange(
+    const handleBatchChange = (
       ids: any,
       item: { label: string; value: number },
       items: any
-    ) {
+    ) => {
       switch (item.value) {
         case 0:
         case 1:
-          list.value.forEach((each: any, index: number) => {
+          powerfulTabledata.list.forEach((each: any, index: number) => {
             if (ids.indexOf(each.id) !== -1) {
               if (item.value === 0) {
                 each.recommend = 1;
@@ -221,54 +235,57 @@ export default defineComponent({
           delect(ids);
           break;
       }
-    }
+    };
 
-    function handleDelete(row: any, index: number) {
+    const handleDelete = (row: any, index: number) => {
       delect([row.id]);
-    }
+    };
 
-    function delect(ids: any) {
-      list.value = list.value.filter((item: any) => ids.indexOf(item.id) == -1);
+    const delect = (ids: any) => {
+      powerfulTabledata.list = powerfulTabledata.list.filter(
+        (item: any) => ids.indexOf(item.id) == -1
+      );
       $message.success("删除成功");
-    }
+    };
 
-    function handleResetSearch() {
-      Object.keys(listQuery).forEach((item: any, index: number) => {
-        let arr = ["pageNum", "pageSize"];
-        if (arr.indexOf(item) == -1) {
-          listQuery[item] = "";
+    const handleResetSearch = () => {
+      Object.keys(powerfulTabledata.listQuery).forEach(
+        (item: any, index: number) => {
+          let arr = ["pageNum", "pageSize"];
+          if (arr.indexOf(item) == -1) {
+            powerfulTabledata.listQuery[item] = "";
+          }
         }
-      });
-    }
+      );
+    };
 
-    function refresh(from: any) {
+    const refresh = (from: any) => {
       console.log(from, "refresh");
-
+      // 添加修改
       if (from.id) {
-        let index = list.value.map((item: any) => item.id).indexOf(from.id);
-        list.value[index] = from;
+        let index = powerfulTabledata.list
+          .map((item: any) => item.id)
+          .indexOf(from.id);
+        powerfulTabledata.list[index] = from;
       } else {
-        list.value.push({
+        powerfulTabledata.list.push({
           ...from,
-          id: list.value[list.value.length - 1].id + 1,
+          id: powerfulTabledata.list[powerfulTabledata.list.length - 1].id + 1,
           iconfont: "vitehome-liulanliang",
           href: "https://gitee.com/abc1612565136/vite-admin",
         });
-        console.log(list.value);
+        console.log(powerfulTabledata.list);
       }
-    }
+    };
 
     return {
       // 变量
-      list,
-      total,
-      config,
       operateData,
-      listQuery,
       isDialog,
-      currentFrom,
+      currentForm,
       selectData,
       selectMenuList,
+      powerfulTabledata,
 
       // 方法
       handleResetSearch,
