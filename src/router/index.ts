@@ -113,6 +113,16 @@ export const addRouter = [
         },
       },
       {
+        path: "markDown",
+        name: "markDown",
+        component: () => import("@/views/modules/markdown/index.vue"),
+        meta: {
+          title: "markdown编辑器",
+          locale: 'markdown',
+          icon: "viteZJ-fuwenben",
+        },
+      },
+      {
         path: "map",
 
         name: "map",

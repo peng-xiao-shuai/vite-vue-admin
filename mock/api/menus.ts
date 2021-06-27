@@ -72,6 +72,16 @@ const roles = {
     },
     {
       hidden: 0,
+      icon: "markdown",
+      id: 17,
+      level: 1,
+      name: "markDown",
+      parentId: 1,
+      sort: 997,
+      title: "markdown",
+    },
+    {
+      hidden: 0,
       icon: "vitetubiao",
       id: 30,
       level: 0,

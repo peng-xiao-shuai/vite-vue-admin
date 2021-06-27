@@ -6,6 +6,7 @@ export default {
   'upload.file': '上传文件',
   'table': '表格',
   'rich.text': '富文本',
+  "markdown": 'markdown',
   'antv-x6': '图形编辑',
   'map': '地图',
   'icon': '图标',
