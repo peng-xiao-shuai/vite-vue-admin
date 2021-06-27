@@ -23,12 +23,28 @@
           ></el-color-picker>
         </el-form-item>
       </div>
+
+      <div class="grid grid-c-3">
+        <el-form-item
+          :label="item.label"
+          v-for="(item, index) in settingKeys.show_hide"
+          :key="index"
+        >
+          <el-switch
+            v-model="settings[item.key]"
+            :active-value="1"
+            :inactive-value="0"
+            @change="handleUpdateSetting($event, item.key)"
+          >
+          </el-switch>
+        </el-form-item>
+      </div>
     </el-form>
   </el-drawer>
 </template>
 
 <script setup>
-import { defineEmit, defineProps } from "vue"
+import { defineEmit, defineProps, reactive } from "vue"
 import { useStore } from "vuex"
 import { getLightColor } from '@/utils/theme'
 const store = useStore()
@@ -45,6 +61,9 @@ const handleThemeColor = (color, key) => {
 
   let colorKey = '--color-' + key
   setTheme(Tcolors, colorKey, color, 'themeColors')
+
+  document.documentElement.style.setProperty('--menu-logo-color', themeColor.primary)
+  document.documentElement.style.setProperty('--menu-item-hover-color', themeColor.primary)
 
   // 设置不同透明度颜色
   for (let i in new Array(10).fill(10)) {
@@ -70,4 +89,28 @@ const handleThemeColor = (color, key) => {
 const handleClose = () => {
   emit('update:drawer', false)
 }
+const settings = store.state.settings
+const settingKeys = reactive({
+  show_hide: [
+    { label: '固定顶部', key: 'fixed' },
+    { label: '显示顶部标签栏', key: 'isTagsView' },
+    { label: '显示左上logo栏', key: 'isLogo' }
+  ]
+})
+
+const handleUpdateSetting = (val, key) => {
+  store.commit('setDrawerSetting', { val, key })
+}
+
 </script>
+
+<style lang="scss" scoped>
+.Dform :deep() .el-form-item__label {
+  width: 100%;
+  text-align: center;
+}
+.Dform :deep() .el-form-item__content {
+  display: flex;
+  justify-content: center;
+}
+</style>

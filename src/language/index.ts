@@ -1,8 +1,9 @@
 import { createI18n } from 'vue-i18n'		//引入vue-i18n组件
-import defaultData from '@/config/defalut-data';
-const modules = import.meta.globEager('./*')
-const viewModules = import.meta.globEager('../views/**/locales/*.ts')
-const componentModules = import.meta.globEager('../components/**/locales/*.ts')
+import defaultData from '@/config/default-data';
+
+const modules = (import.meta as any).globEager('./*')
+const viewModules = (import.meta as any).globEager('../views/**/locales/*.ts')
+const componentModules = (import.meta as any).globEager('../components/**/locales/*.ts')
 
 function getLangAll(): any {
   let message: any = {}

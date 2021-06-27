@@ -118,8 +118,8 @@ export const addRouter = [
         component: () => import("@/views/modules/markdown/index.vue"),
         meta: {
           title: "markdown编辑器",
-          locale: 'markdown',
-          icon: "viteZJ-fuwenben",
+          locale: 'markdown.editor',
+          icon: "vitemarkdown",
         },
       },
       {

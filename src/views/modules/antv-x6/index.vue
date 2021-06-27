@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-card :style="{ marginBottom: '20px' }" :shadow="defalutData.cardShadow">
+    <el-card :style="{ marginBottom: '20px' }" :shadow="defaultData.cardShadow">
       <antv-x6></antv-x6>
     </el-card>
   </div>

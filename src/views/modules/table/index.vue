@@ -3,7 +3,7 @@
     <el-card
       class="filter-container"
       :style="{ marginBottom: '20px' }"
-      :shadow="defalutData.cardShadow"
+      :shadow="defaultData.cardShadow"
     >
       <div class="operate-container">
         <div>
@@ -52,7 +52,7 @@
       </div>
     </el-card>
 
-    <el-card :shadow="defalutData.cardShadow">
+    <el-card :shadow="defaultData.cardShadow">
       <div class="operate-container">
         <div>
           <i class="el-icon-tickets"></i>

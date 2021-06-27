@@ -3,7 +3,7 @@
     <div class="grid">
       <div class="eachDiv eachDiv1">
         <panel-group :count="count" :height="90" />
-        <el-card :shadow="defalutData.cardShadow">
+        <el-card :shadow="defaultData.cardShadow">
           <!-- eachDiv 原有高度 - panel-group高度 - panel-group(margin) - card(padding) -->
           <homeEcharts
             :isSlot="true"
@@ -68,7 +68,7 @@
 
       <div class="eachDiv eachDiv2">
         <div class="moneyGrid">
-          <el-card :shadow="defalutData.cardShadow" class="eachDiv">
+          <el-card :shadow="defaultData.cardShadow" class="eachDiv">
             <!-- icon -->
             <div class="viteIconBg">
               <i class="viteIcon vitehome-daymoney"></i>
@@ -86,7 +86,7 @@
             </div>
           </el-card>
 
-          <el-card :shadow="defalutData.cardShadow" class="eachDiv">
+          <el-card :shadow="defaultData.cardShadow" class="eachDiv">
             <!-- icon -->
             <div class="viteIconBg yellow">
               <i class="viteIcon vitehome-zongshouyi"></i>
@@ -105,7 +105,7 @@
           </el-card>
 
           <el-card
-            :shadow="defalutData.cardShadow"
+            :shadow="defaultData.cardShadow"
             :body-style="{ padding: '20px' }"
             class="eachDiv eachDiv-3"
           >
@@ -121,7 +121,7 @@
         </div>
       </div>
       <div class="eachDiv eachDiv3">
-        <el-card :shadow="defalutData.cardShadow">
+        <el-card :shadow="defaultData.cardShadow">
           <div class="echartsBox">
             <div class="un-handle-layout">
               <homeEcharts
@@ -137,7 +137,7 @@
         </el-card>
       </div>
       <div class="eachDiv eachDiv4">
-        <el-card :shadow="defalutData.cardShadow">
+        <el-card :shadow="defaultData.cardShadow">
           <h3
             style="
               margin: 0 0 10px 0;

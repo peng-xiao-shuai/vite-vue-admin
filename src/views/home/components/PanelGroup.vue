@@ -4,7 +4,7 @@
       <template v-for="(i, n) in count" :key="i.value">
         <el-card
           :class="['card-panel', 'item' + n]"
-          :shadow="defalutData.cardShadow"
+          :shadow="defaultData.cardShadow"
           :body-style="{
             background: i.color,
             padding: '10px',

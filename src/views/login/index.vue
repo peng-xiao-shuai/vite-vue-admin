@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="login-form-layout">
-      <span class="login-title color-main">{{ defalutData.name }}</span>
+      <span class="login-title color-main">{{ defaultData.name }}</span>
       <!-- :rules="loginRules" -->
       <el-form
         autoComplete="on"
@@ -127,7 +127,7 @@ export default defineComponent({
       store.dispatch('outLoing')
     })
 
-    // console.log(getCurrentInstance().appContext.config.globalProperties.defalutData);
+    // console.log(getCurrentInstance().appContext.config.globalProperties.defaultData);
 
     function handleLogin () {
       login_form.value.validate((valid) => {
