@@ -1,0 +1,1 @@
+import{f as e,r as t,o as d,c as a,A as o}from"./vendor.d2840fd2.js";const r=e({data:()=>({text:""})}),l=o()(((e,o,r,l,s,n)=>{const m=t("v-md-editor");return d(),a(m,{modelValue:e.text,"onUpdate:modelValue":o[1]||(o[1]=t=>e.text=t),height:"400px"},null,8,["modelValue"])}));r.render=l,r.__scopeId="data-v-22d00540";export default r;
