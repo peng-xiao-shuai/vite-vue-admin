@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'viteIcon';  /* Project id 2351447 */
-  src: url('//at.alicdn.com/t/font_2351447_wbqdrmxsaps.woff2?t=1622371215213') format('woff2'),
-       url('//at.alicdn.com/t/font_2351447_wbqdrmxsaps.woff?t=1622371215213') format('woff'),
-       url('//at.alicdn.com/t/font_2351447_wbqdrmxsaps.ttf?t=1622371215213') format('truetype');
+  src: url('//at.alicdn.com/t/font_2351447_2mgqvvwothy.woff2?t=1625154862443') format('woff2'),
+       url('//at.alicdn.com/t/font_2351447_2mgqvvwothy.woff?t=1625154862443') format('woff'),
+       url('//at.alicdn.com/t/font_2351447_2mgqvvwothy.ttf?t=1625154862443') format('truetype');
 }
 /*匹配格式为正则 /\/\*(\s)(\w*|[^\x00-\xff]*)(\s)\*\//g*/
 .viteIcon {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+/* markdown */
+.vitemarkdown:before{
+  content: '\e672'
 }
 /* antv */
 .viteantv:before {
@@ -31,7 +35,7 @@
 .vitebullseye:before {
   content: "\eb2d";
 }
-/* BUG */
+/* bug */
 .vitebug:before {
   content: "\e6c2";
 }
