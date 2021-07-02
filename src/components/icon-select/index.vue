@@ -31,7 +31,7 @@
       </div>
     </el-select>
 
-    <!-- <el-card :shadow="defalutData.cardShadow">
+    <!-- <el-card :shadow="defaultData.cardShadow">
       <div class="operate-container">
         <div>
           <i class="viteIcon vitei" style="margin-right: 5px"></i>

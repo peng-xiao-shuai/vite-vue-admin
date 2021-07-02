@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import defalutData from '@/config/defalut-data'
+import defaultData from '@/config/default-data'
 export default {
   name: 'logo',
   props: {
@@ -39,7 +39,7 @@ export default {
   },
   data () {
     return {
-      systemName: defalutData.name
+      systemName: defaultData.name
     }
   }
 };

@@ -1,12 +1,14 @@
 {
-  "include": ["src/*", "src/**/*.vue", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.ts", "src/**/*.js"],
+  "include": ["src/*", "src/**/*.vue", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.ts"],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/utils/map.js"
   ],
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]
     },
+    "outDir": "./",
     // typeRoots option has been previously configured
     // 以严格模式解析
     "strict": true,

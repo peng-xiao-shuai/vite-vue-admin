@@ -1,5 +1,5 @@
 <template>
-  <el-card :shadow="defalutData.cardShadow">
+  <el-card :shadow="defaultData.cardShadow">
     <easy-echart
       :isSlot="false"
       echartsId="pillar-cake"

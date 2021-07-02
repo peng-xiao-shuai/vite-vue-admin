@@ -1,5 +1,5 @@
 <template>
-  <!-- <el-card class="filter-container" :shadow="defalutData.cardShadow"> -->
+  <!-- <el-card class="filter-container" :shadow="defaultData.cardShadow"> -->
   <div style="width: 100%" id="container"></div>
 
   <el-dialog

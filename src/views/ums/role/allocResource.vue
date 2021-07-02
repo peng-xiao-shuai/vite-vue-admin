@@ -1,5 +1,5 @@
 <template>
-  <el-card class="form-container" :shadow="defalutData.cardShadow">
+  <el-card class="form-container" :shadow="defaultData.cardShadow">
     <div
       v-for="(cate, index) in allResourceCate"
       :class="index === 0 ? 'top-line' : null"

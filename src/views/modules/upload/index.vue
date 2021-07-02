@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-card :shadow="defalutData.cardShadow">
+    <el-card :shadow="defaultData.cardShadow">
       <div class="operate-container">
         <div>
           <i class="viteIcon viteZJ-shangchuan" style="margin-right: 5px"></i>

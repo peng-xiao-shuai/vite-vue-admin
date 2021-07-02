@@ -24,6 +24,15 @@
   }
 }
 
+@for $i from 1 through 5 {
+  .line-#{$i} {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: $i;
+    -webkit-box-orient: vertical;    
+  }
+}
+
 // 数据列表card样式
 .operate-container {
   width: 100%;
@@ -47,7 +56,7 @@
 }
 
 // 提示语
-.tip {
+.tipBox {
   padding: 0px 16px;
   border-radius: 4px;
   margin: 20px 0;

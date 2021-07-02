@@ -3,7 +3,7 @@ import App from "./App.vue";
 import Cookies from "js-cookie";
 import router from "./router/index";
 import store from "./store";
-// 工具类
+// 工具类 
 import { parseTime } from '@/utils/parse-time';
 
 import ElementPlus from "element-plus";
@@ -23,13 +23,15 @@ import en from "element-plus/lib/locale/lang/en";
 import "./permission";
 import "./icons";
 
+// markdow 编辑器
+import VMdEditor from './md-editor';
+
 // 全局组件
 import SvgIcon from "./components/SvgIcon/index.vue"; // svg component
-// import powerfulTable from "./components/powerful-table/index.vue";
 import uploadFile from "./components/upload-file/index.vue";
 
 // 全局静态配置
-import defalutData from "./config/defalut-data";
+import defaultData from "./config/default-data";
 
 // css
 import "./style/index.scss";
@@ -41,7 +43,7 @@ import { mockXHR } from "../mock/index";
 mockXHR();
 // }
 
-if (import.meta.env.MODE !== 'development') {
+if ((import.meta as any).env.MODE !== 'development') {
   window.console.log = () => { }
 }
 
@@ -55,28 +57,25 @@ app.mixin({
       const { t } = useI18n()
       return t
     },
-    // 全局颜色
-    themeColor() {
-      return store.getters.getThemeColor;
-    },
   },
 });
 
 // 判断语言
-const locale = defalutData.locale === 'zh-CN' ? cn : en
+const locale = defaultData.locale === 'zh-CN' ? cn : en
 
 app
-  .use(store)
   .use(router)
+  .use(store)
   .use(powerfulTable)
   .use(ElementPlus, { size: Cookies.get('size') || 'small', zIndex: 3000, locale })
   .use(VueI18n)
+  .use(VMdEditor)
   .mount("#app");
 
 app.component("svg-icon", SvgIcon);
-// app.component("powerful-table", powerfulTable);
 app.component("upload-file", uploadFile);
 
+// 错误拦截
 interface log {
   url: string;
   info: string;
@@ -102,4 +101,6 @@ app.config.errorHandler = (error, vm, info) => {
 };
 
 // 全局挂载
-app.config.globalProperties.defalutData = defalutData;
+app.config.globalProperties.defaultData = defaultData;
+app.config.globalProperties.themeColor = store.getters.getThemeColor;
+

@@ -5,6 +5,10 @@ declare module "*.vue" {
 
 declare module "js-cookie"
 
-declare module 'mockjs'
+declare module "mockjs"
 
-declare module 'nprogress'
+declare module "nprogress"
+
+declare module "prismjs"
+declare module '@kangc/v-md-editor'
+declare module '@kangc/v-md-editor/lib/theme/vuepress.js'

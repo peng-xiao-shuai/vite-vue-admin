@@ -1,7 +1,7 @@
 <script lang='tsx'>
 import { defineComponent, ref, Transition } from "vue";
 import { useStore } from "vuex";
-import defaultData from "@/config/defalut-data";
+import defaultData from "@/config/default-data";
 import { SETLOCALE } from "@/language";
 
 export default defineComponent({

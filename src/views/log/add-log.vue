@@ -1,5 +1,5 @@
 <template>
-  <el-card :shadow="defalutData.cardShadow">
+  <el-card :shadow="defaultData.cardShadow">
     <div class="operate-container">
       <div>
         <i class="viteIcon viteyumaobi" style="margin-right: 5px"></i>

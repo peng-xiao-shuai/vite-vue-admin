@@ -37,7 +37,7 @@
       <el-form-item label="前端图标：" prop="icon">
         <el-input v-model="currentFrom.icon" style="width: 80%"></el-input>
         <i
-          :class="[currentFrom.icon, defalutData.iconfont]"
+          :class="[currentFrom.icon, defaultData.iconfont]"
           style="margin-left: 10px; font-size: 24px"
         ></i>
         <!-- <svg-icon style="margin-left: 8px" :icon-class="currentFrom.icon"></svg-icon> -->
@@ -63,7 +63,7 @@
 
 <script>
 import { fetchList, createMenu, updateMenu, getMenu } from '@/api/ums/menu'
-import defalutData from '@/config/defalut-data'
+import defaultData from '@/config/default-data'
 
 const defaultMenu = {
   title: '',
