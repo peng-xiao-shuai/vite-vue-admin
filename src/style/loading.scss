@@ -1,0 +1,33 @@
+.loading {
+  margin: calc(100vh / 2 - 75px) auto;
+  width: 200px;
+  height: 200px;
+  column-gap: 10px !important;
+  row-gap: 10px !important;
+ 
+  >div{
+    border-radius: 50%;
+    background: var(--color-primary);
+  }
+}
+
+@for $i from 5 through 9 {
+  ._#{$i}{
+    animation: #{$i / 6.5}s show infinite;
+  }
+}
+
+@keyframes show {
+  0%{
+    opacity: 0.5;
+    transform: scale(0.5);
+  }
+  50%{
+    opacity: 1;
+    transform: scale(1);
+  }
+  100%{
+    opacity: 0.5;
+    transform: scale(0.5);
+  }
+}

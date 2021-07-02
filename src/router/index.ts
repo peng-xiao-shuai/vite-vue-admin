@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 // console.log(router)
 import layOut from "@/layout/index.vue";
 import much from "@/layout/components/router-view.vue";
+import { NextLoading } from '@/utils/loading' // progress bar
 
 const routes = [
   {
@@ -112,16 +113,7 @@ export const addRouter = [
           icon: "viteZJ-fuwenben",
         },
       },
-      {
-        path: "markDown",
-        name: "markDown",
-        component: () => import("@/views/modules/markdown/index.vue"),
-        meta: {
-          title: "markdown编辑器",
-          locale: 'markdown.editor',
-          icon: "vitemarkdown",
-        },
-      },
+
       {
         path: "map",
 
@@ -134,6 +126,27 @@ export const addRouter = [
         },
       },
     ],
+  },
+  {
+    path: "/markDown",
+    name: "markDown",
+    component: layOut,
+    redirect: "/markDown/markDownEditor",
+    meta: {
+      title: "markdown",
+      icon: "vitemarkdown",
+    },
+    children: [
+      {
+        path: "markDownEditor",
+        name: "markDownEditor",
+        component: () => import("@/views/modules/markdown/index.vue"),
+        meta: {
+          title: "markdown编辑器",
+          locale: 'markdown.editor',
+          icon: "vitemarkdown",
+        },
+      }]
   },
   {
     path: "/eCharts",
@@ -374,5 +387,7 @@ const _router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+
+NextLoading.start()
 
 export default _router;
