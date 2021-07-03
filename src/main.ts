@@ -24,7 +24,7 @@ import "./permission";
 import "./icons";
 
 // markdow 编辑器
-import VMdEditor from './md-editor';
+import { VMdEditor, VMdPreview } from './md-editor';
 
 // 全局组件
 import SvgIcon from "./components/SvgIcon/index.vue"; // svg component
@@ -70,6 +70,7 @@ app
   .use(ElementPlus, { size: Cookies.get('size') || 'small', zIndex: 3000, locale })
   .use(VueI18n)
   .use(VMdEditor)
+  .use(VMdPreview)
   .mount("#app");
 
 app.component("svg-icon", SvgIcon);

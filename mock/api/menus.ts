@@ -212,6 +212,16 @@ const roles = {
     },
     {
       hidden: 0,
+      icon: "viteyanjing",
+      id: 62,
+      level: 1,
+      name: "markDownPreview",
+      parentId: 60,
+      sort: 997,
+      title: "markdown.preview",
+    },
+    {
+      hidden: 0,
       icon: "viteliebiao",
       id: 7,
       level: 1,

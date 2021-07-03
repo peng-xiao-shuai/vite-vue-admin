@@ -140,11 +140,20 @@ export const addRouter = [
       {
         path: "markDownEditor",
         name: "markDownEditor",
-        component: () => import("@/views/modules/markdown/index.vue"),
+        component: () => import("@/views/markdown/index.vue"),
         meta: {
           title: "markdown编辑器",
           locale: 'markdown.editor',
           icon: "vitemarkdown",
+        },
+      }, {
+        path: "markDownPreview",
+        name: "markDownPreview",
+        component: () => import("@/views/markdown/preview.vue"),
+        meta: {
+          title: "markdown预览",
+          locale: 'markdown.preview',
+          icon: "viteyanjing",
         },
       }]
   },
