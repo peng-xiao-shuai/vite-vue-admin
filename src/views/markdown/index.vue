@@ -17,12 +17,12 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 const text = `
 <h2 align="center">Markdown Editor built on Vue</h2>
 
 ::: tip 我可以支持公式
-  $$\sum_{i=1}^n a_i=0$$
+  $$\\sum_{i=1}^n a_i=0$$
 :::
 
 ::: warning 我还支持表情
@@ -49,18 +49,19 @@ B-->D(fa:fa-spinner);
 ## 引用
 
 - [v-md-editor](https://ckang1229.gitee.io/vue-markdown-editor/zh)
-`
+`;
 
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref } from "vue";
 export default defineComponent({
-  setup () {
-
+  name: "md-markdown",
+  setup() {
     return {
       text,
-      leftToolbar: 'undo redo clear | emoji todo-list | h bold italic strikethrough quote | ul ol table hr | link image code | save'
-    }
-  }
-})
+      leftToolbar:
+        "undo redo clear | emoji todo-list | h bold italic strikethrough quote | ul ol table hr | link image code | save",
+    };
+  },
+});
 </script>
 
 <style scoped lang="scss">

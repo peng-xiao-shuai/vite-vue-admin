@@ -7,6 +7,7 @@ export default {
   'table': '表格',
   'rich.text': '富文本',
   "markdown.editor": 'md编辑器',
+  'markdown.preview': 'md预览',
   'antv-x6': '图形编辑',
   'map': '地图',
   'icon': '图标',
