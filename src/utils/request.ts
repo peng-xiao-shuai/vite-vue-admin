@@ -2,18 +2,10 @@ import axios from "axios";
 import store from "../store/index";
 import { ElMessage } from "element-plus";
 import { parseTime } from './parse-time';
+import { log } from '@/utils/interface';
 
-const ENV = import.meta.env;
-// console.log(ENV);
+const ENV = (import.meta as any).env;
 
-interface log {
-  url: string;
-  info?: string;
-  time: string | null;
-  error: string | any;
-  name: string,
-  type: string
-}
 function addBug(error: string, info?: string) {
   console.log(error);
 
