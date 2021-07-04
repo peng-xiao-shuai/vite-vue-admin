@@ -1,11 +1,5 @@
+import { themeColor as themeColorInterface } from '@/utils/interface';
 interface setting {
-  themeColor?: {
-    primary: string,
-    success: string,
-    info: string,
-    warning: string,
-    danger: string,
-  },
   errorLog?: any[],
   drawerSetting?: {
     isLogo?: number,
@@ -15,7 +9,7 @@ interface setting {
   a: number
 }
 
-let themeColor: any = {
+let themeColor: themeColorInterface = {
   primary: "#AD49FF",
   success: '#67c23a',
   info: '#909399',

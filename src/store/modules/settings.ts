@@ -1,12 +1,21 @@
-import config from "@/config/defalut-data";
+import config from "@/config/default-data";
 
-import { setting } from '@/utils/interface';
+import { setting, themeColor, log } from '@/utils/interface';
 
-let state: setting = {
+interface state {
+  themeColor: themeColor,
+  errorLog: log[],
+  drawerSetting: setting
+}
+
+let state: state = {
   themeColor: config.themeColor,
   errorLog: [],
   drawerSetting: config.settings
 };
+
+console.log(state.drawerSetting);
+
 
 let mutations = {
   setErrorLog(state: any, val: object) {

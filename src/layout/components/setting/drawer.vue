@@ -31,7 +31,7 @@
           :key="index"
         >
           <el-switch
-            v-model="settings[item.key]"
+            v-model="settings.drawerSetting[item.key]"
             :active-value="1"
             :inactive-value="0"
             @change="handleUpdateSetting($event, item.key)"
