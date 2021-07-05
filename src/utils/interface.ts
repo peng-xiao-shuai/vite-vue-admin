@@ -16,12 +16,17 @@ export interface themeColor {
   danger: string,
   [s: string]: string
 }
-export interface setting {
-  drawerSetting?: {
-    isLogo?: number,
-    isTagsView?: number,
-    fixed?: number
-  },
+/**
+ * @param isLogo 是否显示logo
+ * @param isTagsView 是否显示顶部标签
+ * @param fixed 是否固定显示顶部
+ * @param leftMargin 左侧菜单栏宽度
+ */
+export interface drawerSetting {
+  isLogo?: number,
+  isTagsView?: number,
+  fixed?: number,
+  leftMargin?: number,
 }
 
 // 全局错误拦截

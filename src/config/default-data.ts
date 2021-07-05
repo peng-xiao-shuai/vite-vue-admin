@@ -1,14 +1,10 @@
-import { themeColor as themeColorInterface } from '@/utils/interface';
-interface setting {
+import { themeColor as themeColorInterface, drawerSetting } from '@/utils/interface';
+interface settings {
   errorLog?: any[],
-  drawerSetting?: {
-    isLogo?: number,
-    isTagsView?: number,
-    fixed?: number
-  },
-  a: number
+  drawerSetting: drawerSetting,
 }
 
+// 主题颜色
 let themeColor: themeColorInterface = {
   primary: "#AD49FF",
   success: '#67c23a',
@@ -33,7 +29,7 @@ Object.keys(Lcolors).forEach((item: string) => {
 })
 
 const locale: any = window.localStorage.getItem("locale") || 'zh-CN';
-const settings: setting = JSON.parse(window.localStorage.getItem('settings') || '{}')
+const settings: settings = JSON.parse(window.localStorage.getItem('settings') || '{}')
 
 export default {
   name: "vite-vue-admin",

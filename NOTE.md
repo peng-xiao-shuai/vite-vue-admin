@@ -294,7 +294,7 @@ export default definedComponents({
 
 2. jsx中 使用 transition
 ```js
-import {Transition,ref} from 'vue'
+import {Transition,ref,definedComponents} from 'vue'
 export default definedComponents({
   setup(props){
     // 只有点击时执行
@@ -304,6 +304,28 @@ export default definedComponents({
         <Transition>
         <div v-show={a}></div>
       </Transition>
+      </>
+    )
+  }
+})
+```
+
+
+3. jsx中 使用 阻止冒泡
+```js
+export default definedComponents({
+  setup(props){
+    
+    // 只有点击时执行
+    const a = ()=>{
+
+    }
+    return ()=>(
+      <>
+        <div onClick={(e: any) => {
+            e.stopPropagation(a());
+          }}></div>
+      </>
     )
   }
 })

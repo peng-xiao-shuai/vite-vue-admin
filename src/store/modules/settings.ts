@@ -1,11 +1,11 @@
 import config from "@/config/default-data";
 
-import { setting, themeColor, log } from '@/utils/interface';
+import { drawerSetting, themeColor, log } from '@/utils/interface';
 
 interface state {
   themeColor: themeColor,
   errorLog: log[],
-  drawerSetting: setting
+  drawerSetting: drawerSetting
 }
 
 let state: state = {
@@ -13,8 +13,6 @@ let state: state = {
   errorLog: [],
   drawerSetting: config.settings
 };
-
-console.log(state.drawerSetting);
 
 
 let mutations = {
