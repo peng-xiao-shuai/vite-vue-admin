@@ -104,6 +104,6 @@ $ npm run preview
 - [x] 使用JSX/TSX /src/layout/components/nav-right
 - [x] markdown 编辑器（支持公式、表情、流程图...）
 - [ ] 权限测试菜单
-- [ ] 全局指令
+- [x] 全局指令
 
 **其他功能可以在 `issues` 提出**
