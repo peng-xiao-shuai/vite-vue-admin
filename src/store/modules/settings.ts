@@ -14,14 +14,14 @@ let state: state = {
   drawerSetting: config.settings
 };
 
-
 let mutations = {
   setErrorLog(state: any, val: object) {
     state.errorLog.push(val)
   },
-  setThemeColor(state: any, val: string, key: string) {
-    console.log(val, key);
-    // state.errorLog.push(val)
+  setThemeColor(state: any, { key, val }: { val: string, key: string }) {
+    state.themeColor[key] = val
+    console.log(state.themeColor[key], val);
+
   },
   setDrawerSetting(state: any, { val, key }: { val: string, key: string }) {
     state.drawerSetting[key] = val

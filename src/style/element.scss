@@ -17,7 +17,7 @@
 // default
 .el-button--default:hover,
 .el-button--default:focus {
-	@include Button(primary, primary-light-7, primary-light-5);
+	@include Button(primary, primary-light-9, primary-light-5);
 }
 .el-button--default.is-plain:hover,
 .el-button--default.is-plain:focus {
@@ -35,7 +35,7 @@
 	}
 }
 .el-button--primary.is-plain {
-	@include Button(primary, primary-light-7, primary-light-5);
+	@include Button(primary, primary-light-9, primary-light-5);
 	&:hover,
 	&:focus {
 		@include Button(whites, primary, primary);
@@ -45,7 +45,7 @@
 .el-button--primary.is-disabled:active,
 .el-button--primary.is-disabled:focus,
 .el-button--primary.is-disabled:hover {
-	@include Button(whites, primary-light-7, primary-light-7);
+	@include Button(whites, primary-light-9, primary-light-9);
 }
 .el-button--primary.is-active,
 .el-button--primary:active {
@@ -60,7 +60,7 @@
 	}
 }
 .el-button--success.is-plain {
-	@include Button(success, success-light-7, success-light-5);
+	@include Button(success, success-light-9, success-light-5);
 	&:hover,
 	&:focus {
 		@include Button(whites, success, success);
@@ -79,7 +79,7 @@
 	}
 }
 .el-button--info.is-plain {
-	@include Button(info, info-light-7, info-light-5);
+	@include Button(info, info-light-9, info-light-5);
 	&:hover,
 	&:focus {
 		@include Button(whites, info, info);
@@ -98,7 +98,7 @@
 	}
 }
 .el-button--warning.is-plain {
-	@include Button(warning, warning-light-7, warning-light-5);
+	@include Button(warning, warning-light-9, warning-light-5);
 	&:hover,
 	&:focus {
 		@include Button(whites, warning, warning);
@@ -117,7 +117,7 @@
 	}
 }
 .el-button--danger.is-plain {
-	@include Button(danger, danger-light-7, danger-light-5);
+	@include Button(danger, danger-light-9, danger-light-5);
 	&:hover,
 	&:focus {
 		@include Button(whites, danger, danger);

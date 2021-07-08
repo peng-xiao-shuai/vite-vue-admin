@@ -21,6 +21,12 @@ Object.keys(Tcolors).forEach((item: string) => {
   let last = item.lastIndexOf('-')
   themeColor[item.substr(last + 1)] = Tcolors[item]
 
+  if (item.substr(last + 1) === 'primary') {
+    import('@/store/index').then(({ default: store }) => {
+      store.commit('setThemeColor', { key: 'primary', val: themeColor.primary })
+    });
+
+  }
 })
 
 // 设置颜色
