@@ -93,6 +93,7 @@ $ npm run preview
 
 - [x] 组件菜单 > 文件上传
 - [x] 组件菜单 > 腾讯地图
+- [x] 组件菜单 > 图形编辑
 - [x] 国际化多语言
 - [x] 图表菜单
 - [x] 图标菜单
@@ -101,7 +102,8 @@ $ npm run preview
 - [x] 新增日志菜单 捕获接口报错 以及 errorHandler
 - [x] 公共配置
 - [x] 使用JSX/TSX /src/layout/components/nav-right
+- [x] markdown 编辑器（支持公式、表情、流程图...）
 - [ ] 权限测试菜单
-- [ ] 工具类
+- [ ] 全局指令
 
 **其他功能可以在 `issues` 提出**
