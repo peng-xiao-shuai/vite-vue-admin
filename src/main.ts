@@ -3,6 +3,9 @@ import App from "./App.vue";
 import Cookies from "js-cookie";
 import router from "./router/index";
 import store from "./store";
+
+// 指令
+import directive from './directives/directive';
 // 工具类 
 import { parseTime } from '@/utils/parse-time';
 
@@ -20,14 +23,15 @@ import cn from "element-plus/lib/locale/lang/zh-cn";
 import "dayjs/locale/en";
 import en from "element-plus/lib/locale/lang/en";
 
+// 路由守卫
 import "./permission";
-import "./icons";
+// import "./icons";
 
 // markdow 编辑器
 import { VMdEditor, VMdPreview } from './md-editor';
 
 // 全局组件
-import SvgIcon from "./components/SvgIcon/index.vue"; // svg component
+// import SvgIcon from "./components/SvgIcon/index.vue"; // svg component
 import uploadFile from "./components/upload-file/index.vue";
 
 // 全局静态配置
@@ -73,8 +77,10 @@ app
   .use(VMdPreview)
   .mount("#app");
 
-app.component("svg-icon", SvgIcon);
+// app.component("svg-icon", SvgIcon);
 app.component("upload-file", uploadFile);
+
+directive(app)
 
 // 错误拦截
 interface log {
