@@ -61,6 +61,9 @@ app.mixin({
       const { t } = useI18n()
       return t
     },
+    themeColor() {
+      return store.getters.getThemeColor
+    }
   },
 });
 
@@ -109,5 +112,4 @@ app.config.errorHandler = (error, vm, info) => {
 
 // 全局挂载
 app.config.globalProperties.defaultData = defaultData;
-app.config.globalProperties.themeColor = store.getters.getThemeColor;
 
