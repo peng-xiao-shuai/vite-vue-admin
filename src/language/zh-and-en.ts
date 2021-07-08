@@ -17,6 +17,8 @@ export default {
   'cake.chart': '柱状图',
   'log': '日志',
   'bug.log': '错误日志',
+  'directive': '指令',
+  'number.directive': '数字指令',
   'ajax.log': '接口错误',
   'add.log': '添加日志',
   'interlink': '链接',

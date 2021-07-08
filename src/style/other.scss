@@ -61,10 +61,11 @@
   border-radius: 4px;
   margin: 20px 0;
   width: 100%;
-  margin-top: 50px;
   height: 40px;
   line-height: 40px;
   box-sizing: border-box;
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-primary-light-9);
 }
 
 // 抽屉样式

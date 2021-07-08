@@ -244,6 +244,29 @@ export const addRouter = [
     ],
   },
   {
+    path: "/directives",
+    component: layOut,
+    redirect: "/directives/add-log",
+    name: "directives",
+    meta: {
+      title: "指令",
+      locale: 'directive',
+      icon: "vitedirective",
+    },
+    children: [
+      {
+        path: "number-directive",
+        name: "number-directive",
+        component: () => import("@/views/directives/number.vue"),
+        meta: {
+          title: "数字指令",
+          locale: 'number.directive',
+          icon: "vitenumber",
+        },
+      },
+    ],
+  },
+  {
     path: "/system",
     component: layOut,
     redirect: "/system/config",
