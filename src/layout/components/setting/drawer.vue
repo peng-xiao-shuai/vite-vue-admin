@@ -24,7 +24,7 @@
         </el-form-item>
       </div>
 
-      <div class="grid grid-c-3">
+      <div class="grid grid-c-4">
         <el-form-item
           :label="item.label"
           v-for="(item, index) in settingKeys.show_hide"
@@ -37,6 +37,19 @@
             @change="handleUpdateSetting($event, item.key)"
           >
           </el-switch>
+        </el-form-item>
+      </div>
+
+      <div class="grid grid-c-3">
+        <el-form-item :label="settingKeys.leftMargin.label">
+          <el-input
+            v-model="settings.drawerSetting[settingKeys.leftMargin.key]"
+            @change="handleUpdateSetting($event, settingKeys.leftMargin.key)"
+          >
+            <template #suffix>
+              <span>px</span>
+            </template>
+          </el-input>
         </el-form-item>
       </div>
     </el-form>
@@ -58,6 +71,10 @@ const handleThemeColor = (color, key) => {
   // 设置主题颜色
   const Tcolors = JSON.parse(window.localStorage.getItem('themeColors') || "{}")
   const Lcolors = JSON.parse(window.localStorage.getItem('themeLightColors') || "{}")
+
+  if (key === 'primary') {
+    store.commit('setThemeColor', { key: 'primary', val: color })
+  }
 
   let colorKey = '--color-' + key
   setTheme(Tcolors, colorKey, color, 'themeColors')
@@ -94,8 +111,11 @@ const settingKeys = reactive({
   show_hide: [
     { label: '固定顶部', key: 'fixed' },
     { label: '显示顶部标签栏', key: 'isTagsView' },
-    { label: '显示左上logo栏', key: 'isLogo' }
-  ]
+    { label: '显示左上logo栏', key: 'isLogo' },
+    { label: '默认菜单展开', key: 'defaultMenu' },
+  ],
+  leftMargin: { label: '菜单宽度', key: 'leftMargin', value: '' }
+
 })
 
 const handleUpdateSetting = (val, key) => {
@@ -108,6 +128,11 @@ const handleUpdateSetting = (val, key) => {
 .Dform :deep() .el-form-item__label {
   width: 100%;
   text-align: center;
+  // border-left: 4px solid var(--color-primary);
+  // background: var(--color-primary-light-9);
+  // background-clip: content-box;
+  // padding: 0;
+  // margin-bottom: 10px;
 }
 .Dform :deep() .el-form-item__content {
   display: flex;

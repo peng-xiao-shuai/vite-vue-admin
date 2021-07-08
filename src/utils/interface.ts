@@ -21,12 +21,14 @@ export interface themeColor {
  * @param isTagsView 是否显示顶部标签
  * @param fixed 是否固定显示顶部
  * @param leftMargin 左侧菜单栏宽度
+ * @param defaultMenu 默认菜单展开
  */
 export interface drawerSetting {
   isLogo?: number,
   isTagsView?: number,
   fixed?: number,
   leftMargin?: number,
+  defaultMenu?: number
 }
 
 // 全局错误拦截

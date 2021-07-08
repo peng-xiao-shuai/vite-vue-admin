@@ -1,12 +1,9 @@
 <template>
-  <div
-    class="btn"
-    :style="{ top: pageY + 'px' }"
-    @click="handleClick"
-    @mousedown="handleDown"
+  <!-- @mousedown="handleDown"
     @mouseup="handleUp"
-    @mousemove="handleeMove"
-  >
+    @mousemove="handleeMove" -->
+  <!-- TODO 优化拖动效果-->
+  <div class="btn" :style="{ top: pageY + 'px' }" @click="handleClick">
     <i class="el-icon-arrow-left"></i>
   </div>
   <update-drawer v-model:drawer="drawer"></update-drawer>

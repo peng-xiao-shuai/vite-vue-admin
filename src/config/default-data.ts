@@ -15,7 +15,6 @@ let themeColor: themeColorInterface = {
 
 let Tcolors: any = JSON.parse(window.localStorage.getItem('themeColors') || "{}")
 let Lcolors: any = JSON.parse(window.localStorage.getItem('themeLightColors') || "{}")
-
 Object.keys(Tcolors).forEach((item: string) => {
   document.documentElement.style.setProperty(item, Tcolors[item])
   let last = item.lastIndexOf('-')
@@ -59,8 +58,10 @@ export default {
     },
   ],
   settings: Object.assign({
-    fixed: 0,
+    fixed: 1,
     isLogo: 1,
     isTagsView: 1,
+    defaultMenu: 1,
+    leftMargin: 200
   }, settings)
 };

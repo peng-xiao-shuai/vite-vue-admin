@@ -1,5 +1,12 @@
 <template>
-  <div class="menus" :style="{ width: !collapse ? '65px' : '200px' }">
+  <div
+    class="menus"
+    :style="{
+      width: !collapse
+        ? '65px'
+        : ($store.state.settings.drawerSetting.leftMargin || 200) + 'px',
+    }"
+  >
     <menus-logo
       :collapse="collapse"
       v-if="$store.state.settings.drawerSetting.isLogo"

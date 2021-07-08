@@ -27,6 +27,11 @@ let mutations = {
     state.drawerSetting[key] = val
     window.localStorage.setItem('settings', JSON.stringify(state.drawerSetting))
   },
+
+  // 不走本地缓存
+  setSetting(state: any, { val, key }: { val: string, key: string }) {
+    state.drawerSetting[key] = val
+  },
 }
 export default {
   state,

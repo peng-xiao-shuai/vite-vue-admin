@@ -4,7 +4,7 @@
       <i
         :class="['vitecaidan', 'viteIcon', collapse ? 'collapse' : '']"
         :style="{ color: themeColor }"
-        @click="$emit('isCollapse', (collapse = !collapse))"
+        @click="handleCollapse"
       >
       </i>
       <el-breadcrumb separator="/">
@@ -37,15 +37,20 @@ import { computed, reactive, ref, watch, watchEffect } from 'vue'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 
 import navsRight from './navs-right.vue'
+import { useStore } from 'vuex'
 
 export default {
   components: {
     navsRight
   },
-  emits: {
-    "isCollapse": null
+  props: {
+    collapse: {
+      type: Boolean,
+      default: true,
+    },
   },
-  setup () {
+  setup (props) {
+    const store = useStore()
     let route = useRoute()
     let matched = []
     matched = computed(() => {
@@ -56,12 +61,14 @@ export default {
 
       return arr.filter(item => item.meta && item.meta.title && !item.meta.breadcrumb)
     })
-    let collapse = ref(true)
-    // console.log(matched);
+
+    const handleCollapse = () => {
+      store.commit('setSetting', { val: props.collapse ? 0 : 1, key: 'defaultMenu' })
+    }
 
     return {
       matched,
-      collapse,
+      handleCollapse
     }
   }
 }

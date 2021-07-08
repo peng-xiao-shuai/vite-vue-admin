@@ -5,7 +5,14 @@
     </div>
     <div
       class="right"
-      :style="!collapse ? { marginLeft: '65px' } : { marginLeft: '200px' }"
+      :style="
+        !collapse
+          ? { marginLeft: '65px' }
+          : {
+              marginLeft:
+                ($store.state.settings.drawerSetting.leftMargin || 200) + 'px',
+            }
+      "
     >
       <!-- 站位 -->
       <div
@@ -19,6 +26,9 @@
       <div
         class="top"
         :style="{
+          width: `calc(100% - ${
+            $store.state.settings.drawerSetting.leftMargin || 200
+          }px)`,
           boxShadow:
             $store.state.settings.drawerSetting.fixed === 1
               ? '5px 5px 5px 0px rgba(0,0,0,0.1)'
@@ -30,7 +40,7 @@
           top: 0,
         }"
       >
-        <navs @isCollapse="isCollapse"></navs>
+        <navs @isCollapse="isCollapse" :collapse="collapse"></navs>
         <tags-view
           :collapse="collapse"
           v-if="$store.state.settings.drawerSetting.isTagsView"
@@ -53,6 +63,7 @@ import routerView from './components/router-view.vue'
 import setting from './components/setting.vue'
 
 import { computed, defineComponent, ref } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   components: {
@@ -63,7 +74,8 @@ export default defineComponent({
     setting
   },
   setup () {
-    let collapse = ref(true)
+    const store = useStore()
+    let collapse = computed(() => !!store.state.settings.drawerSetting.defaultMenu)
 
     function isCollapse (e) {
       collapse.value = e
