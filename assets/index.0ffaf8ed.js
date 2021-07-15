@@ -1,1 +1,0 @@
-import{s as r}from"./index.cccf0d64.js";function a(a){return r({url:"echart/line",params:a})}function c(a){return r({url:"echart/pillar",params:a})}function n(a){return r({url:"echart/cake",params:a})}export{n as c,a as l,c as p};
