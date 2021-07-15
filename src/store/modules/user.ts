@@ -132,7 +132,7 @@ const state: any = {
 const actions = {
   // 登录
   loginAction(store: { state: any }, user: any) {
-    new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       login(user).then(
         (res: { data: { tokenHead: string; token: string } }) => {
           if (res) {
@@ -142,7 +142,9 @@ const actions = {
           }
           resolve(res);
         }
-      );
+      ).catch(err => {
+        reject(err.data)
+      })
     });
   },
 

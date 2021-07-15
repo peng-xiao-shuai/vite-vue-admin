@@ -70,7 +70,12 @@
       :style="{ background: '#fff' }"
     ></el-image>
 
-    <el-dialog title="验证" v-model="imgObj.isDialog" custom-class="widthAuto">
+    <el-dialog
+      title="验证"
+      v-model="imgObj.isDialog"
+      destroy-on-close
+      custom-class="widthAuto"
+    >
       <drag-verify-img-chip
         :imgsrc="t2"
         v-model:isPassing="imgObj.isPassing"
@@ -155,7 +160,15 @@ export default defineComponent({
     // 成功回调
     const passcallback = () => {
       loading.value = true
-      store.dispatch('loginAction', loginForm).then(res => { if (!res) { loading.value = false } })
+      store.dispatch('loginAction', loginForm)
+        .then(res => {
+          if (res.code === 200) { loading.value = false }
+        })
+        .catch(err => {
+          imgObj.isDialog = false
+          loading.value = false
+          imgObj.isPassing = false
+        })
     }
 
     return {
