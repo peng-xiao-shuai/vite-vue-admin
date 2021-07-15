@@ -156,7 +156,10 @@ export default {
   methods: {
     onError (err, file) {
       console.log(err, file)
-      this.$message.error('上传失败')
+      this.$message({
+        message: '上传失败',
+        type: 'danger'
+      })
 
       this.percentFlag = false
 
