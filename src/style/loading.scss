@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .loading {
   margin: calc(100vh / 2 - 75px) auto;
   width: 200px;
@@ -13,7 +15,7 @@
 
 @for $i from 5 through 9 {
   ._#{$i}{
-    animation: #{$i / 6.5}s show infinite;
+    animation: (math.div($i,6.5) * 1s) show infinite;
   }
 }
 
