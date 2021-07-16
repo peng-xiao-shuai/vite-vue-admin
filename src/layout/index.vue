@@ -7,36 +7,27 @@
       class="right"
       :style="
         !collapse
-          ? { marginLeft: '65px' }
+          ? { marginLeft: '65px', width: 'calc(100% - 65px)' }
           : {
               marginLeft:
                 ($store.state.settings.drawerSetting.leftMargin || 200) + 'px',
+              width: `calc(100% - ${
+                $store.state.settings.drawerSetting.leftMargin || 200
+              }px)`,
             }
       "
     >
-      <!-- 站位 -->
-      <div
-        :style="{
-          height: $store.state.settings.drawerSetting.isTagsView
-            ? '90px'
-            : '50px',
-        }"
-        v-if="$store.state.settings.drawerSetting.fixed"
-      ></div>
       <div
         class="top"
         :style="{
-          width: `calc(100% - ${
-            $store.state.settings.drawerSetting.leftMargin || 200
-          }px)`,
           boxShadow:
             $store.state.settings.drawerSetting.fixed === 1
               ? '5px 5px 5px 0px rgba(0,0,0,0.1)'
               : '0 0 0 0',
           position:
             $store.state.settings.drawerSetting.fixed === 1
-              ? 'fixed'
-              : 'sticky',
+              ? 'sticky'
+              : 'static',
           top: 0,
         }"
       >
@@ -74,6 +65,8 @@ export default defineComponent({
     setting
   },
   setup () {
+
+
     const store = useStore()
     let collapse = computed(() => !!store.state.settings.drawerSetting.defaultMenu)
 
@@ -122,12 +115,14 @@ export default defineComponent({
   }
   .right {
     // flex: 1;
-    width: 100%;
-    overflow: hidden;
-    transition: margin-left 0.3s;
+    position: relative;
+    right: 0;
+    // overflow: hidden;
+    transition: all 0.3s;
 
     .top {
       width: 100%;
+      position: -webkit-sticky;
       position: sticky;
       z-index: 6;
       background: #fff;
@@ -136,7 +131,7 @@ export default defineComponent({
 
     .view {
       background: #eff1f4;
-      min-height: calc(100% - 90px);
+      // min-height: calc(100% - 90px);
       position: relative !important;
       padding: 20px;
     }
