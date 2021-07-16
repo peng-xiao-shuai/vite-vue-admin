@@ -140,9 +140,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* ._submenu :deep() .el-submenu__icon-arrow {
+._submenu > li :deep() .el-submenu__icon-arrow {
   display: none;
-} */
+}
 
 .metaTitle {
   margin-left: 6px;
