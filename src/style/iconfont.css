@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'viteIcon';  /* Project id 2351447 */
-  src: url('//at.alicdn.com/t/font_2351447_o52o36i8lzb.woff2?t=1625726509818') format('woff2'),
-       url('//at.alicdn.com/t/font_2351447_o52o36i8lzb.woff?t=1625726509818') format('woff'),
-       url('//at.alicdn.com/t/font_2351447_o52o36i8lzb.ttf?t=1625726509818') format('truetype');
+  src: url('//at.alicdn.com/t/font_2351447_inm0pkea32.woff2?t=1626430308311') format('woff2'),
+       url('//at.alicdn.com/t/font_2351447_inm0pkea32.woff?t=1626430308311') format('woff'),
+       url('//at.alicdn.com/t/font_2351447_inm0pkea32.ttf?t=1626430308311') format('truetype');
 }
 /*匹配格式为正则 /\/\*(\s)(\w*|[^\x00-\xff]*)(\s)\*\//g*/
 .viteIcon {
