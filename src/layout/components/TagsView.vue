@@ -131,7 +131,6 @@ export default defineComponent({
     cursor: pointer;
     transition: all 0.3s;
     padding: 4px 8px;
-    box-sizing: border-box;
     height: 25px;
     background: #fff;
     border-radius: 5px;
@@ -141,6 +140,7 @@ export default defineComponent({
     align-items: center;
     font-size: 12px;
     position: relative;
+    box-sizing: border-box;
 
     div {
       line-height: 25px;
@@ -183,7 +183,7 @@ export default defineComponent({
     position: relative;
     transition: all 0.2s;
     border-radius: 5px;
-    border: none;
+    border-color: rgba(0, 0, 0, 0);
 
     i {
       color: #fff;
