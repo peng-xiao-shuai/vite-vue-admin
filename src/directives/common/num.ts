@@ -21,16 +21,15 @@ const float = (arg: string = 'number', modifiers?: any) => {
       return
     }
 
-    // 只能有一位小数点
-    // 小数长度 不能 大于 Number(keys[0]
-    if (value.split('.').length > 2 || value.substr(value.indexOf('.') + 1, value.length).length > (Number(keys[0] || 2))) {
-      // console.log('一位小数点出现2为', value, value.split('.').length);
-      (e.target as any).value = value.substr(0, value.length - 1)
-      return
-    }
-
-
     if (arg == 'float') {
+      // 只能有一位小数点
+      // 小数长度 不能 大于 Number(keys[0]
+      if (value.split('.').length > 2 || value.substr(value.indexOf('.') + 1, value.length).length > (Number(keys[0] || 2))) {
+        // console.log('一位小数点出现2为', value, value.split('.').length);
+        (e.target as any).value = value.substr(0, value.length - 1)
+        return
+      }
+
       value = value.indexOf('.') == -1 ? Number(value).toFixed((keys && Number(keys[0])) || 2) : value
     } else {
       value = Number(value)
