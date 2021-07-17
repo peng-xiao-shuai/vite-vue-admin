@@ -2,57 +2,54 @@
   <el-drawer
     title="全局配置"
     :model-value="drawer"
-    size="40%"
+    size="20%"
     @close="handleClose"
   >
-    <el-form
-      ref="currentFrom"
-      label-position="top"
-      style="padding: 0 20px"
-      class="Dform"
-    >
-      <div class="grid grid-c-5">
-        <el-form-item
-          :label="t(item) + '颜色'"
-          v-for="(item, index) in Object.keys(themeColor)"
-          :key="index"
-        >
-          <el-color-picker
-            v-model="themeColor[item]"
-            @change="handleThemeColor($event, item)"
-          ></el-color-picker>
-        </el-form-item>
+    <div style="padding: 0 20px" class="config">
+      <p class="config-title" data-label="全局颜色"></p>
+
+      <div
+        class="config-item"
+        v-for="(item, index) in Object.keys(themeColor)"
+        :key="index"
+      >
+        <label>{{ t(item) + "颜色" }}</label>
+        <el-color-picker
+          v-model="themeColor[item]"
+          @change="handleThemeColor($event, item)"
+        ></el-color-picker>
       </div>
 
-      <div class="grid grid-c-4">
-        <el-form-item
-          :label="item.label"
-          v-for="(item, index) in settingKeys.show_hide"
-          :key="index"
+      <p class="config-title" data-label="Layout"></p>
+
+      <div
+        class="config-item"
+        v-for="(item, index) in settingKeys.show_hide"
+        :key="index"
+      >
+        <label>{{ item.label }}</label>
+
+        <el-switch
+          v-model="settings.drawerSetting[item.key]"
+          :active-value="1"
+          :inactive-value="0"
+          @change="handleUpdateSetting($event, item.key)"
         >
-          <el-switch
-            v-model="settings.drawerSetting[item.key]"
-            :active-value="1"
-            :inactive-value="0"
-            @change="handleUpdateSetting($event, item.key)"
-          >
-          </el-switch>
-        </el-form-item>
+        </el-switch>
       </div>
 
-      <div class="grid grid-c-3">
-        <el-form-item :label="settingKeys.leftMargin.label">
-          <el-input
-            v-model="settings.drawerSetting[settingKeys.leftMargin.key]"
-            @change="handleUpdateSetting($event, settingKeys.leftMargin.key)"
-          >
-            <template #suffix>
-              <span>px</span>
-            </template>
-          </el-input>
-        </el-form-item>
+      <div class="config-item">
+        <label>{{ settingKeys.leftMargin.label }}</label>
+        <el-input
+          v-model.number="settings.drawerSetting[settingKeys.leftMargin.key]"
+          @change="handleUpdateSetting($event, settingKeys.leftMargin.key)"
+        >
+          <template #suffix>
+            <span>px</span>
+          </template>
+        </el-input>
       </div>
-    </el-form>
+    </div>
   </el-drawer>
 </template>
 
@@ -125,17 +122,42 @@ const handleUpdateSetting = (val, key) => {
 </script>
 
 <style lang="scss" scoped>
-.Dform :deep() .el-form-item__label {
-  width: 100%;
-  text-align: center;
-  // border-left: 4px solid var(--color-primary);
-  // background: var(--color-primary-light-9);
-  // background-clip: content-box;
-  // padding: 0;
-  // margin-bottom: 10px;
-}
-.Dform :deep() .el-form-item__content {
-  display: flex;
-  justify-content: center;
+.config {
+  &-title {
+    width: 100%;
+    height: 1px;
+    background: #333;
+    position: relative;
+    margin: 25px 0;
+
+    &::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 10%;
+      top: 0;
+      transform: translateY(-50%);
+      padding: 0 15px;
+      background: #fff;
+      color: #666;
+      font-size: 15px;
+    }
+  }
+
+  &-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    & .el-input {
+      width: 40%;
+    }
+
+    label {
+      font-size: 14px;
+      color: #666;
+    }
+  }
 }
 </style>
