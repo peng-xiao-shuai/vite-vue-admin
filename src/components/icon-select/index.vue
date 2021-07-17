@@ -1,6 +1,9 @@
 <template>
   <div class="app-container">
     <el-select
+      filterable
+      remote
+      :remote-method="remoteMethod"
       v-model="iconValue"
       placeholder="请选择图标"
       @change="change"
@@ -18,7 +21,7 @@
         }"
       >
         <el-option
-          v-for="item in icons"
+          v-for="item in options"
           :key="item.icon"
           :label="item.name"
           :value="item.icon"
@@ -100,14 +103,29 @@ export default defineComponent({
       icon: array[index],
     }));
 
+    interface icon {
+      name: string;
+      icon: string;
+    }
+
+    const options = ref<icon[]>(icons);
+
     const change = (e: any) => {
       emit("update:icon", e);
     };
 
+    // 搜索
+    const remoteMethod = (e: string) => {
+      options.value = icons.filter(
+        (_: icon) => _.icon.indexOf(e) !== -1 || _.name.indexOf(e) !== -1
+      );
+    };
+
     return {
-      icons,
-      change,
+      options,
       iconValue,
+      change,
+      remoteMethod,
     };
   },
 });

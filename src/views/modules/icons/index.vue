@@ -73,7 +73,7 @@ export default defineComponent({
   .i-icon {
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0);
-    color: #333;
+    color: #666;
     border-radius: 5px;
     transition: all 0.4s;
     padding: 5px 0;
