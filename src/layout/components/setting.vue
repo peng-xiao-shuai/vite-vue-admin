@@ -1,9 +1,12 @@
 <template>
-  <!-- @mousedown="handleDown"
+  <div
+    class="btn"
+    :style="{ top: pageY + 'px' }"
+    @mousemove="handleeMove"
+    @mousedown="handleDown"
     @mouseup="handleUp"
-    @mousemove="handleeMove" -->
-  <!-- TODO 优化拖动效果-->
-  <div class="btn" :style="{ top: pageY + 'px' }" @click="handleClick">
+    @click="handleClick"
+  >
     <i class="el-icon-arrow-left"></i>
   </div>
   <update-drawer v-model:drawer="drawer"></update-drawer>
@@ -17,43 +20,50 @@ const drawer = ref(false);
 const pageY = ref<number>(
   Number(window.localStorage.getItem("setting-enter")) || 90
 );
-let status = false;
-let isMove = false;
+// 是否可以拖到
+let status = ref<boolean>(false);
+// 是否可以点击
+let isMove = ref<boolean>(false);
 // 鼠标按下
 const handleDown = (e: any) => {
-  // mouseY.value = e.offsetY;
-  // console.log("down");
-  status = true;
+  status.value = true;
 };
+
+// 松开鼠标
+const handleUp = (e?: any) => {
+  window.localStorage.setItem("setting-enter", String(pageY.value));
+  setTimeout(() => {
+    isMove.value = false;
+  });
+  status.value = false;
+};
+
 // 鼠标悬浮
 const handleeMove = (e: any) => {
-  if (status) {
-    // console.log("move");
-    isMove = true;
+  if (status.value) {
+    isMove.value = true;
     if (pageY.value >= 90) {
       if (pageY.value + 60 <= window.innerHeight) {
-        status = true;
-        pageY.value = e.pageY - 30;
+        status.value = true;
+        pageY.value = e.clientY - 30;
       } else {
-        status = false;
+        status.value = false;
         pageY.value = window.innerHeight - 60;
       }
     } else {
-      status = false;
-      pageY.value = 90;
+      pageY.value = 100;
+
+      //取消字段选择功能
+      document.onselectstart = function () {
+        return false;
+      };
+      handleUp();
     }
   }
 };
-// 松开鼠标
-const handleUp = (e: any) => {
-  window.localStorage.setItem("setting-enter", String(pageY.value));
-  setTimeout(() => {
-    isMove = false;
-  });
-  status = false;
-};
+
 const handleClick = () => {
-  if (!isMove) drawer.value = true;
+  if (!isMove.value) drawer.value = true;
 };
 </script>
 
