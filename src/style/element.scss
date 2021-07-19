@@ -773,7 +773,7 @@
 }
 // 菜单元素点击时
 .is-active > a,
-.is-active .el-submenu__title > div > * {
+.is-active > .el-submenu__title > div > * {
   color: set-menus-color(item-hover-color) !important;
 }
 // 菜单展开时
