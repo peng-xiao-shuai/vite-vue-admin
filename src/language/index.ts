@@ -4,14 +4,15 @@ import defaultData from '@/config/default-data';
 const modules = (import.meta as any).globEager('./*')
 const viewModules = (import.meta as any).globEager('../views/**/locales/*.ts')
 const componentModules = (import.meta as any).globEager('../components/**/locales/*.ts')
+const utilsModules = (import.meta as any).globEager('../utils/locales/*.ts')
 
-function getLangAll(): any {
+
+export function getLangAll(): any {
   let message: any = {}
   getLangFiles(modules, message)
   getLangFiles(viewModules, message)
   getLangFiles(componentModules, message)
-
-  console.log(message);
+  getLangFiles(utilsModules, message)
 
   return message
 }

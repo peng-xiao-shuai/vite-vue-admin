@@ -50,7 +50,11 @@ export default {
   localeSelect: [
     {
       value: "zh-CN",
-      label: "中文",
+      label: "中文（简）",
+    },
+    {
+      value: "zh-TW",
+      label: "中文（繁）",
     },
     {
       value: "en-US",

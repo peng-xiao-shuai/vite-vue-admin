@@ -1,5 +1,7 @@
 import axios from "axios";
 import store from "../store/index";
+import { getLangAll } from '@/language/index';
+import configDefault from '@/config/default-data';
 import { ElMessage } from "element-plus";
 import { parseTime } from './parse-time';
 import { log } from '@/utils/interface';
@@ -7,7 +9,6 @@ import { log } from '@/utils/interface';
 const ENV = (import.meta as any).env;
 
 function addBug(error: string, info?: string) {
-  console.log(error);
 
   let data: log = {
     url: window.location.href,
@@ -93,20 +94,22 @@ service.interceptors.response.use(
     }
   },
   (error) => {
+    // 获取当前语言
+    const locales = getLangAll()[configDefault.locale]
     try {
       switch (error.response.status) {
         case 500:
-          ElMessage({ message: "服务器打瞌睡了！", type: "error" });
-          addBug(error.response.data.message, '服务器打瞌睡了')
+          ElMessage({ message: locales[error.response.status], type: "error" });
+          addBug(error.response.data.message, locales[500])
           break;
         case 503:
-          ElMessage({ message: '后台服务重启中，请稍后再试！', type: "error" });
+          ElMessage({ message: locales[error.response.status], type: "error" });
           break
         case 400:
-          ElMessage({ message: '参数错误！', type: "error" });
+          ElMessage({ message: locales[error.response.status], type: "error" });
           break
         case 404:
-          ElMessage({ message: '找不到接口！', type: "error" });
+          ElMessage({ message: locales[error.response.status], type: "error" });
           break
         default:
           ElMessage({ message: error.response.data.message, type: "error" });
@@ -114,7 +117,7 @@ service.interceptors.response.use(
       }
       addBug(error.response.data.message, error.response.status)
     } catch (error) {
-      ElMessage({ message: '连接超时，请重试！', type: "error" });
+      ElMessage({ message: locales['000'], type: "error" });
     }
 
     return Promise.reject(error);
