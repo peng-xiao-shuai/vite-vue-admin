@@ -157,14 +157,20 @@
               >查看全部</router-link
             > -->
           </h3>
-          <div class="un-handle-layout">
+          <el-scrollbar
+            style="
+              height: calc(100% - 40px);
+              width: 100%;
+              box-sizing: border-box;
+            "
+          >
             <powerful-table
               :isSelect="false"
               :isPagination="false"
               :list="list.value"
               :header="tbConfig"
             ></powerful-table>
-          </div>
+          </el-scrollbar>
         </el-card>
       </div>
     </div>
@@ -462,8 +468,13 @@ export default defineComponent({
     grid-column-start: 2;
     grid-column-end: 5;
 
-    :deep() .el-card {
+    :deep(.el-card) {
       height: 310px;
+
+      > .el-card__body {
+        height: 100%;
+        box-sizing: border-box;
+      }
     }
   }
   > .eachDiv {
