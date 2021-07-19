@@ -277,7 +277,7 @@ export default defineComponent({
         nodesPosition[node.id] = node.position()
 
         // 存储用户 移动位置
-        window.localStorage.setItem('nodesPosition', JSON.stringify(Object.assign(JSON.parse(window.localStorage.getItem('nodesPosition')), nodesPosition)))
+        window.localStorage.setItem('nodesPosition', JSON.stringify(Object.assign(JSON.parse(window.localStorage.getItem('nodesPosition')) || {}, nodesPosition)))
       })
     })
 

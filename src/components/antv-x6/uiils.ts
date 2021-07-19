@@ -185,10 +185,10 @@ export function addNode(graph: any, currentForm: any) {
 /**
  * 添加Edge
  * @param {object} graph 实例
- * @param {object} sourceId 父节点id
- * @param {object} targetId 子节点id
+ * @param {string} sourceId 父节点id
+ * @param {string} targetId 子节点id
  */
-export function addEdge(graph, sourceId, targetId) {
+export function addEdge(graph: Graph, sourceId: string, targetId: string) {
 
   return graph.addEdge({
     id: sourceId + '-' + targetId,
