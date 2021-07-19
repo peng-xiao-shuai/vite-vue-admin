@@ -116,7 +116,6 @@ export const addRouter = [
 
       {
         path: "map",
-
         name: "map",
         component: () => import("@/views/modules/map/index.vue"),
         meta: {
@@ -125,6 +124,83 @@ export const addRouter = [
           icon: "viteviteZJ-ditu",
         },
       },
+    ],
+  },
+  {
+    path: "/much-router",
+    component: layOut,
+    redirect: "/much-router/much-menu-one",
+    name: "much-router",
+    meta: {
+      title: "嵌套路由",
+      locale: 'nesting.router',
+      icon: "vitezujian",
+    },
+    children: [
+      {
+        path: "much-menu-one",
+        name: "much-menu-one",
+        component: () => import("@/views/modules/antv-x6/index.vue"),
+        meta: {
+          title: "二级菜单(一)",
+          locale: 'nesting.router.menu.two.1',
+          icon: "viteantv",
+        },
+      },
+      {
+        path: "much-menu-two",
+        name: "much-menu-two",
+        component: much,
+        meta: {
+          title: "二级菜单(二)",
+          locale: 'nesting.router.menu.two.2',
+          icon: "viteantv",
+        },
+        children: [
+          {
+            path: "much-menu-two-one",
+            name: "much-menu-two-one",
+            component: () => import("@/views/modules/rich-text/index.vue"),
+            meta: {
+              title: "富文本",
+              locale: 'rich.text',
+              icon: "viteZJ-rich",
+            },
+          },
+          {
+            path: "much-menu-two-two",
+            name: "much-menu-two-two",
+            component: much,
+            meta: {
+              title: "三级菜单",
+              locale: 'nesting.router.menu.three',
+              icon: "viteZJ-biaoge",
+            },
+            children: [
+              {
+                path: "much-menu-three-one",
+                name: "much-menu-three-one",
+                component: () => import("@/views/modules/map/index.vue"),
+                meta: {
+                  title: "地图",
+                  locale: 'map',
+                  icon: "viteZJ-map",
+                },
+              },
+              {
+                path: "much-menu-three-two",
+                name: "much-menu-three-two",
+                component: () => import("@/views/modules/icons/index.vue"),
+                meta: {
+                  title: "图标",
+                  locale: 'icon',
+                  icon: "viteZJ-icon",
+                },
+              },
+            ],
+          },
+        ],
+      }
     ],
   },
   {

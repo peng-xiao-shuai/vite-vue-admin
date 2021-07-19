@@ -130,11 +130,12 @@ export default defineComponent({
     }
 
     .view {
+      width: 100%;
       background: #eff1f4;
       min-height: calc(100% - 90px);
-      height: calc(100% - 90px);
       box-sizing: border-box;
       padding: 20px;
+      overflow: hidden;
     }
   }
 }

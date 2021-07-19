@@ -2,6 +2,11 @@
 export default {
   'null': '空',
   'home': '首页',
+  'nesting.router': '嵌套路由',
+  'nesting.router.menu.two.1': '二级菜单（一）',
+  'nesting.router.menu.two.2': '二级菜单（二）',
+  'nesting.router.menu.three': '三级菜单',
+
   'component.list': '组件列表',
   'upload.file': '上传文件',
   'table': '表格',
