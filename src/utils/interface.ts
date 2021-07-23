@@ -16,12 +16,15 @@ export interface themeColor {
   danger: string,
   [s: string]: string
 }
+
 /**
+ * layout 配置
  * @param isLogo 是否显示logo
  * @param isTagsView 是否显示顶部标签
  * @param fixed 是否固定显示顶部
  * @param leftMargin 左侧菜单栏宽度
  * @param defaultMenu 默认菜单展开
+ * @param grayMode 灰度模式
  */
 export interface drawerSetting {
   isLogo?: number,
@@ -29,6 +32,31 @@ export interface drawerSetting {
   fixed?: number,
   leftMargin?: number,
   defaultMenu?: number
+  grayMode?: number,
+}
+/**
+* 菜单颜色
+* @param menuBackground 菜单背景颜色
+* @param itemHoverBackground 悬浮背景颜色
+* @param itemHoverColor 悬浮文字颜色
+* @param childrenBackground 下级菜单颜色
+* @param childrenHoverBackground 下级菜单悬浮背景颜色
+* @param submenuTitleColor 菜单文字颜色
+* @param logo logo文字颜色
+* @param logoBackground logo背景颜色
+*/
+
+export interface menuColors {
+  // 菜单颜色
+  menuBackground: string,
+  itemHoverBackground: string,
+  itemHoverColor: string,
+  childrenBackground: string,
+  childrenHoverBackground: string,
+  submenuTitleColor: string,
+  logoColor: string,
+  logoBackground: string,
+  [s: string]: string
 }
 
 // 全局错误拦截

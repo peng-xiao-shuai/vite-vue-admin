@@ -2,12 +2,12 @@
   <el-drawer
     title="全局配置"
     :model-value="drawer"
-    size="20%"
+    size="280px"
     @close="handleClose"
   >
     <div style="padding: 0 20px" class="config">
+      <!-- 全局颜色 -->
       <p class="config-title" data-label="全局颜色"></p>
-
       <div
         class="config-item"
         v-for="(item, index) in Object.keys(themeColor)"
@@ -20,8 +20,8 @@
         ></el-color-picker>
       </div>
 
+      <!-- Layout -->
       <p class="config-title" data-label="Layout"></p>
-
       <div
         class="config-item"
         v-for="(item, index) in settingKeys.show_hide"
@@ -49,6 +49,20 @@
           </template>
         </el-input>
       </div>
+
+      <!-- 菜单颜色 -->
+      <p class="config-title" data-label="菜单颜色"></p>
+      <div
+        class="config-item"
+        v-for="(item, index) in settingKeys.menuColor"
+        :key="index"
+      >
+        <label>{{ item.label }}</label>
+        <el-color-picker
+          v-model="settings.menuColors[item.key]"
+          @change="handleMenuColor($event, item.key)"
+        ></el-color-picker>
+      </div>
     </div>
   </el-drawer>
 </template>
@@ -57,6 +71,7 @@
 import { defineEmit, defineProps, reactive } from "vue"
 import { useStore } from "vuex"
 import { getLightColor } from '@/utils/theme'
+import { toLine } from '@/utils/str-convert'
 const store = useStore()
 let props = defineProps({
   drawer: { type: Boolean, default: false },
@@ -64,9 +79,12 @@ let props = defineProps({
 const emit = defineEmit(["update:drawer"])
 
 const themeColor = store.state.settings.themeColor
+
+// 主题修改
 const handleThemeColor = (color, key) => {
   // 设置主题颜色
   const Tcolors = JSON.parse(window.localStorage.getItem('themeColors') || "{}")
+  // 设置light颜色
   const Lcolors = JSON.parse(window.localStorage.getItem('themeLightColors') || "{}")
 
   if (key === 'primary') {
@@ -76,6 +94,8 @@ const handleThemeColor = (color, key) => {
   let colorKey = '--color-' + key
   setTheme(Tcolors, colorKey, color, 'themeColors')
 
+
+  // 修改:root样式
   document.documentElement.style.setProperty('--menu-logo-color', themeColor.primary)
   document.documentElement.style.setProperty('--menu-item-hover-color', themeColor.primary)
 
@@ -87,17 +107,28 @@ const handleThemeColor = (color, key) => {
     }
   }
 
-  /**
-   * @param {object} v Lcolors
-   * @param {string} ckey --color-' + key + '-light-' + i
-   * @param {string} cval red
-   * @param {string} key themeLightColors
-   */
-  function setTheme (v, ckey, cval, key) {
-    document.documentElement.style.setProperty(ckey, cval)
-    v[ckey] = cval
-    window.localStorage.setItem(key, JSON.stringify(v))
-  }
+}
+
+// 菜单颜色修改
+const handleMenuColor = (color, key) => {
+  store.commit('setMenuColor', { key, val: color })
+  // 菜单颜色
+  const menuColors = JSON.parse(window.localStorage.getItem('menuColors') || "{}")
+  const colorKey = '--menu-' + toLine(key)
+
+  setTheme(menuColors, colorKey, color, 'menuColors')
+}
+
+/** 修改root样式 并且存储本地
+  * @param {object} v Lcolors
+  * @param {string} ckey --color-' + key + '-light-' + i
+  * @param {string} cval red
+  * @param {string} key themeLightColors
+  */
+function setTheme (v, ckey, cval, key) {
+  document.documentElement.style.setProperty(ckey, cval)
+  v[ckey] = cval
+  window.localStorage.setItem(key, JSON.stringify(v))
 }
 
 const handleClose = () => {
@@ -110,13 +141,32 @@ const settingKeys = reactive({
     { label: '显示顶部标签栏', key: 'isTagsView' },
     { label: '显示左上logo栏', key: 'isLogo' },
     { label: '默认菜单展开', key: 'defaultMenu' },
+    { label: '灰色模式', key: 'grayMode' },
+  ],
+  menuColor: [
+    { label: '菜单背景颜色', key: 'menuBackground' },
+    { label: '悬浮背景颜色', key: 'itemHoverBackground' },
+    { label: '悬浮文字颜色', key: 'itemHoverColor' },
+    { label: '下级菜单颜色', key: 'childrenBackground' },
+    { label: '下级菜单悬浮背景颜色', key: 'childrenHoverBackground' },
+    { label: '菜单文字颜色', key: 'submenuTitleColor' },
+    { label: 'logo文字颜色', key: 'logoColor' },
+    { label: 'logo背景颜色', key: 'logoBackground' },
   ],
   leftMargin: { label: '菜单宽度', key: 'leftMargin', value: '' }
 
 })
 
+
+// 修改 vuex setting
 const handleUpdateSetting = (val, key) => {
   store.commit('setDrawerSetting', { val, key })
+
+  switch (key) {
+    case 'grayMode':
+      document.getElementsByTagName('body')[0].style.filter = val === 0 ? 'none' : 'grayscale(1)'
+      break
+  }
 }
 
 </script>

@@ -1,9 +1,5 @@
-import { themeColor as themeColorInterface, drawerSetting } from '@/utils/interface';
-interface settings {
-  errorLog?: any[],
-  drawerSetting: drawerSetting,
-}
-
+import { themeColor as themeColorInterface, drawerSetting, menuColors } from '@/utils/interface';
+import { toHump } from '@/utils/str-convert';
 // 主题颜色
 let themeColor: themeColorInterface = {
   primary: "#AD49FF",
@@ -34,7 +30,18 @@ Object.keys(Lcolors).forEach((item: string) => {
 })
 
 const locale: any = window.localStorage.getItem("locale") || 'zh-CN';
-const settings: settings = JSON.parse(window.localStorage.getItem('settings') || '{}')
+const settings: drawerSetting = JSON.parse(window.localStorage.getItem('settings') || '{}')
+
+// 菜单颜色 
+// 先删除掉 --menu-。在将 kebab-case 转 驼峰
+const menuColorStore: menuColors = JSON.parse(window.localStorage.getItem('menuColors')?.replace(/\-\-\w*\-/g, '') || '{}')
+let menuColor: menuColors | { [s: string]: string } = {}
+
+for (let i in menuColorStore) {
+  document.documentElement.style.setProperty('--menu-' + i, menuColorStore[i])
+  menuColor[toHump(i)] = menuColorStore[i]
+}
+console.log(menuColor);
 
 export default {
   name: "vite-vue-admin",
@@ -61,11 +68,23 @@ export default {
       label: "English",
     },
   ],
+  // 菜单颜色配置
+  menuColors: Object.assign({
+    menuBackground: '#fff',
+    itemHoverBackground: 'rgb(228, 230, 255)',
+    itemHoverColor: '#AD49FF',
+    childrenBackground: 'rgb(244, 244, 252)',
+    childrenHoverBackground: 'rgb(220, 223, 255)',
+    submenuTitleColor: '#fff',
+    logoColor: '#AD49FF',
+    logoBackground: '#fff',
+  }, menuColor),
   settings: Object.assign({
-    fixed: 1,
-    isLogo: 1,
-    isTagsView: 1,
-    defaultMenu: 1,
-    leftMargin: 200
+    // layout配置
+    fixed: 0,
+    isLogo: 0,
+    isTagsView: 0,
+    defaultMenu: 0,
+    leftMargin: 200,
   }, settings)
 };
