@@ -232,16 +232,16 @@ export default defineComponent({
 
           break;
         case 2:
-          delect(ids);
+          _delete(ids);
           break;
       }
     };
 
     const handleDelete = (row: any, index: number) => {
-      delect([row.id]);
+      _delete([row.id]);
     };
 
-    const delect = (ids: any) => {
+    const _delete = (ids: any) => {
       powerfulTabledata.list = powerfulTabledata.list.filter(
         (item: any) => ids.indexOf(item.id) == -1
       );

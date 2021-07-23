@@ -142,7 +142,7 @@ const actions = {
           }
           resolve(res);
         }
-      ).catch(err => {
+      ).catch((err: any) => {
         reject(err.data)
       })
     });

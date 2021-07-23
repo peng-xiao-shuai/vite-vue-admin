@@ -744,11 +744,6 @@
 /* Menu 导航菜单
 ------------------------------- */
 // 默认样式修改
-.menus-logo,
-.menus-logo a {
-  color: set-menus-color(logo-color) !important;
-  background: set-menus-color(logo-background);
-}
 .el-submenu .el-menu-item {
   background: set-menus-color(children-background) !important;
 }
@@ -775,11 +770,6 @@
 .is-active > a,
 .is-active > .el-submenu__title > div > * {
   color: set-menus-color(item-hover-color) !important;
-}
-// 菜单展开时
-.active .el-submenu__title > i,
-.active .el-submenu__title > span {
-  color: set-menus-color(item-open-color) !important;
 }
 .el-submenu__title:hover .viteIcon,
 .el-menu-item:hover .viteIcon,

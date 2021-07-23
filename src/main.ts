@@ -94,7 +94,7 @@ interface log {
   name: string,
   type: string
 }
-app.config.errorHandler = (error, vm, info) => {
+app.config.errorHandler = (error: any, vm: any, info: string) => {
   console.error(error);
 
   let data: log = {

@@ -114,7 +114,6 @@ export default defineComponent({
       default: true
     },
   },
-  emits: ['update:activeIndex'],
   setup (props, context) {
     const { t } = useI18n()
 
