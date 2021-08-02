@@ -8,20 +8,13 @@
         </div>
       </div>
       <div class="lineTinyBox">
-        <tiny-mce
-          :width="'100%'"
-          v-model="myValue"
-          :height="667"
-          :url="'图片路径'"
-          ref="tinymce"
-          :slotStyle="{
+        <tiny-mce :width="'100%'" v-model="myValue" :height="667" :url="'图片路径'" ref="tinymce" :slotStyle="{
             display: 'flex',
             justifyContent: 'center',
             padding: '10px 0 0',
-          }"
-        >
+          }">
           <template #default>
-            <el-button type="primary" @click="getTinyMceFun(tintMceKey)">
+            <el-button type="primary" @click="getTinyMceFun()">
               确认
             </el-button>
           </template>
@@ -72,7 +65,7 @@ export default defineComponent({
         myValue.value = response.data;
       });
     }
-    function getTinyMceFun(e: any) {
+    function getTinyMceFun(e?: any) {
       console.log("获取富文本数据", myValue.value);
     }
 

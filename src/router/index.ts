@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 // console.log(router)
 import layOut from "@/layout/index.vue";
@@ -492,7 +492,7 @@ export const addRouter = [
 ];
 
 const _router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 
