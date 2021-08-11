@@ -2,7 +2,7 @@
  * @Author: 彭小黑 
  * @Date: 2021-07-08 10:48:10 
  * @Last Modified by: 彭小黑
- * @Last Modified time: 2021-08-11 15:05:04
+ * @Last Modified time: 2021-08-11 16:05:30
  */
 import type { App } from 'vue';
 
@@ -51,7 +51,7 @@ const float = (arg: string = 'number', modifiers?: any, vals?: (number | string)
 
 export default function num(app: App) {
   app.directive('num', (el, binding) => {
-    console.log(binding);
+    // console.log(binding);
 
     if (binding.arg && ['number', 'float'].indexOf(binding.arg) === -1) {
       console.error('传递给指令的参数只能为 number,float')
