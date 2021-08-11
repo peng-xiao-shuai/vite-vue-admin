@@ -7,21 +7,29 @@
       </div>
     </div>
 
-    <div class="grid grid-c-3">
+    <div class="grid grid-c-4">
       <div>
-        <div class="tipBox">只能输入整数</div>
+        <div class="tipBox">整数</div>
         <el-input v-model="inputs.number" placeholder="" v-num></el-input>
       </div>
       <div>
-        <div class="tipBox">只能输入小数（默认2位）</div>
+        <div class="tipBox">小数（默认2位）</div>
         <el-input v-model="inputs.float" placeholder="" v-num:float></el-input>
       </div>
       <div>
-        <div class="tipBox">只能输入小数（自定义保留n位）</div>
+        <div class="tipBox">小数（自定义保留n位）</div>
         <el-input
           v-model="inputs.floatLength"
           placeholder=""
           v-num:float.5
+        ></el-input>
+      </div>
+      <div>
+        <div class="tipBox">整数 || 小数（固定范围）</div>
+        <el-input
+          v-model="inputs.numberScope"
+          placeholder=""
+          v-num="[1, 10]"
         ></el-input>
       </div>
     </div>
@@ -36,7 +44,8 @@ export default defineComponent({
       inputs: reactive({
         number: 0,
         float: 0,
-        floatLength: 0
+        floatLength: 0,
+        numberScope: 1
       })
     }
   }

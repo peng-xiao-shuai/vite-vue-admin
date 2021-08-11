@@ -2,13 +2,13 @@
  * @Author: 彭小黑 
  * @Date: 2021-07-08 10:48:10 
  * @Last Modified by: 彭小黑
- * @Last Modified time: 2021-07-08 15:04:06
+ * @Last Modified time: 2021-08-11 15:05:04
  */
 import type { App } from 'vue';
 
 let inputNode: HTMLElement
 
-const float = (arg: string = 'number', modifiers?: any) => {
+const float = (arg: string = 'number', modifiers?: any, vals?: (number | string)[]) => {
   inputNode.addEventListener('input', (e: Event) => {
     const keys = Object.keys(modifiers)
 
@@ -19,6 +19,16 @@ const float = (arg: string = 'number', modifiers?: any) => {
     if (!value || value === '.') {
       (e.target as any).value = ''
       return
+    }
+
+    if (vals) {
+      for (let i in vals) {
+        if (isNaN(Number(vals[i]))) {
+          console.error('value 的下标 ', i, '不能转换为数组')
+          return
+        }
+      }
+      value = value < vals[0] ? vals[0] : value > vals[1] ? vals[1] : value
     }
 
     if (arg == 'float') {
@@ -40,16 +50,23 @@ const float = (arg: string = 'number', modifiers?: any) => {
 }
 
 export default function num(app: App) {
-  app.directive('num', {
-    // 在绑定元素的父组件挂载之前调用
-    beforeMount(el, binding) {
-      if (binding.arg && ['number', 'float'].indexOf(binding.arg) === -1) {
-        console.error('传递给指令的参数只能为 number,float')
-        return
-      }
-      // 获取input标签元素
-      inputNode = el.tagName === 'INPUT' ? el : el.children[0]
-      float(binding.arg, binding.modifiers)
+  app.directive('num', (el, binding) => {
+    console.log(binding);
+
+    if (binding.arg && ['number', 'float'].indexOf(binding.arg) === -1) {
+      console.error('传递给指令的参数只能为 number,float')
+      return
     }
+
+    if (binding.value instanceof Array && binding.value.length !== 2) {
+      console.error('传递给指令的 value 值长度不为 2 ')
+      console.error('value：', binding.value)
+      return
+    }
+    // 获取input标签元素。el.children[0]兼容el-input
+    inputNode = el.tagName === 'INPUT' ? el : el.children[0]
+
+    // value 为一个数组 [min,max]。input的值不能大于max 并且不能小于 min。可以说是input值必须在min和max之间（或者为min和max）
+    float(binding.arg, binding.modifiers, binding.value)
   })
 }
