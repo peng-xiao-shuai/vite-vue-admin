@@ -15,7 +15,7 @@ export default defineComponent({
     return () => (
       <div class="item">
         <el-tooltip
-          content={'Bug / ' + store.getters.getBugNumber}
+          content={store.getters.getBugNumber === 0 ? '没有日志或异常' : 'Bug / ' + store.getters.getBugNumber}
           placement="bottom"
         >
           <div class={['item', { isBug: store.getters.getBugNumber !== 0 }]}>
