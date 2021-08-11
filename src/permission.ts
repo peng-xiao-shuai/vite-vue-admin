@@ -1,7 +1,7 @@
 import router from './router/index'
 import store from './store'
 import NProgress from 'nprogress' // progress bar
-import 'nprogress/nprogress.css' // progress bar style
+// import 'nprogress/nprogress.css' // progress bar style
 
 import { NextLoading } from '@/utils/loading'
 
@@ -10,6 +10,7 @@ NProgress.configure({ showSpinner: false })
 const notRedirect = ['/login'] // 不重定向白名单
 
 router.beforeEach((to: any, from: any, next: any) => {
+  NProgress.start();
   // 1 判断是否有token
   // 1.1 判断是否有menus(动态路由。页面刷新后vuex会重置)
   // 1.1.1 重新获取动态路由表
