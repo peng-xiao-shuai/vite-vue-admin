@@ -68,3 +68,12 @@ export interface log {
   name: string,
   type: string
 }
+
+export interface waterMarkType {
+  switch: number,
+  text: string,
+  ratio: number,
+  color: string,
+  deg: number,
+  size: number
+}

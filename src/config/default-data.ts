@@ -1,4 +1,4 @@
-import { themeColor as themeColorInterface, drawerSetting, menuColors } from '@/utils/interface';
+import { themeColor as themeColorInterface, drawerSetting, menuColors, waterMarkType } from '@/utils/interface';
 import { toHump } from '@/utils/str-convert';
 // 主题颜色
 let themeColor: themeColorInterface = {
@@ -31,6 +31,7 @@ Object.keys(Lcolors).forEach((item: string) => {
 
 const locale: any = window.localStorage.getItem("locale") || 'zh-CN';
 const settings: drawerSetting = JSON.parse(window.localStorage.getItem('settings') || '{}')
+const waterMark: waterMarkType = JSON.parse(window.localStorage.getItem('waterMark') || '{}')
 
 // 菜单颜色 
 // 先删除掉 --menu-。在将 kebab-case 转 驼峰
@@ -41,7 +42,7 @@ for (let i in menuColorStore) {
   document.documentElement.style.setProperty('--menu-' + i, menuColorStore[i])
   menuColor[toHump(i)] = menuColorStore[i]
 }
-console.log(menuColor);
+// console.log(menuColor);
 
 export default {
   name: "vite-vue-admin",
@@ -79,12 +80,21 @@ export default {
     logoColor: '#AD49FF',
     logoBackground: '#fff',
   }, menuColor),
+  // 全局水印
+  waterMark: Object.assign({
+    switch: 0,
+    text: 'Peng_Xiao_Shuai',
+    ratio: 0,
+    color: '#999',
+    deg: -20,
+    size: 30
+  }, waterMark),
   settings: Object.assign({
     // layout配置
     fixed: 0,
-    isLogo: 0,
-    isTagsView: 0,
-    defaultMenu: 0,
+    isLogo: 1,
+    isTagsView: 1,
+    defaultMenu: 1,
     leftMargin: 200,
   }, settings)
 };

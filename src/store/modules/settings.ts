@@ -1,12 +1,14 @@
 import config from "@/config/default-data";
+import { create, remove } from '@/utils/watermark'
+import { nextTick } from 'vue';
 
-import { drawerSetting, themeColor, log, menuColors } from '@/utils/interface';
-
+import { drawerSetting, themeColor, log, menuColors, waterMarkType } from '@/utils/interface';
 interface state {
   themeColor: themeColor,
   errorLog: log[],
   drawerSetting: drawerSetting,
-  menuColors: menuColors
+  menuColors: menuColors,
+  waterMark: waterMarkType
 }
 
 let state: state = {
@@ -14,7 +16,12 @@ let state: state = {
   errorLog: [],
   drawerSetting: config.settings,
   menuColors: config.menuColors,
+  waterMark: config.waterMark,
 };
+// 添加水印
+nextTick(function () {
+  config.waterMark.switch && create(config.waterMark)
+});
 
 let mutations = {
   setErrorLog(state: any, val: object) {
@@ -37,7 +44,15 @@ let mutations = {
     window.localStorage.setItem('settings', JSON.stringify(state.drawerSetting))
   },
 
-  // 不走本地缓存
+  // 修改水印
+  setWaterMark(state: any, { val, key }: { val: string, key: string }) {
+    state.waterMark[key] = val
+    state.waterMark.switch ? create(state.waterMark) : remove()
+    window.localStorage.setItem('waterMark', JSON.stringify(state.waterMark))
+  },
+
+  // 不走本地缓存 主要用于 非全局配置栏目修改全局配置的数据
+  // 因为全局配置栏目数据每次改变都会走本地缓存
   setSetting(state: any, { val, key }: { val: string, key: string }) {
     state.drawerSetting[key] = val
   },

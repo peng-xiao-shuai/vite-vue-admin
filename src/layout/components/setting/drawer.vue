@@ -2,66 +2,77 @@
   <el-drawer
     title="全局配置"
     :model-value="drawer"
-    size="280px"
+    size="500px"
     @close="handleClose"
   >
-    <div style="padding: 0 20px" class="config">
+    <div style="padding: 0 20px" class="config grid grid-c-2">
       <!-- 全局颜色 -->
-      <p class="config-title" data-label="全局颜色"></p>
-      <div
-        class="config-item"
-        v-for="(item, index) in Object.keys(themeColor)"
-        :key="index"
-      >
-        <label>{{ t(item) + "颜色" }}</label>
-        <el-color-picker
-          v-model="themeColor[item]"
-          @change="handleThemeColor($event, item)"
-        ></el-color-picker>
+      <div>
+        <p class="config-title" data-label="全局颜色"></p>
+        <div
+          class="config-item"
+          v-for="(item, index) in Object.keys(themeColor)"
+          :key="index"
+        >
+          <label>{{ t(item) + "颜色" }}</label>
+          <el-color-picker
+            v-model="themeColor[item]"
+            @change="handleThemeColor($event, item)"
+          ></el-color-picker>
+        </div>
       </div>
 
       <!-- Layout -->
-      <p class="config-title" data-label="Layout"></p>
-      <div
-        class="config-item"
-        v-for="(item, index) in settingKeys.show_hide"
-        :key="index"
-      >
-        <label>{{ item.label }}</label>
-
-        <el-switch
-          v-model="settings.drawerSetting[item.key]"
-          :active-value="1"
-          :inactive-value="0"
-          @change="handleUpdateSetting($event, item.key)"
+      <div>
+        <p class="config-title" data-label="Layout"></p>
+        <div
+          class="config-item"
+          v-for="(item, index) in settingKeys.show_hide"
+          :key="index"
         >
-        </el-switch>
-      </div>
+          <label>{{ item.label }}</label>
 
-      <div class="config-item">
-        <label>{{ settingKeys.leftMargin.label }}</label>
-        <el-input
-          v-model.number="settings.drawerSetting[settingKeys.leftMargin.key]"
-          @change="handleUpdateSetting($event, settingKeys.leftMargin.key)"
-        >
-          <template #suffix>
-            <span>px</span>
-          </template>
-        </el-input>
+          <el-switch
+            v-model="settings.drawerSetting[item.key]"
+            :active-value="1"
+            :inactive-value="0"
+            @change="handleUpdateSetting($event, item.key)"
+          >
+          </el-switch>
+        </div>
+
+        <div class="config-item">
+          <label>{{ settingKeys.leftMargin.label }}</label>
+          <el-input
+            v-model.number="settings.drawerSetting[settingKeys.leftMargin.key]"
+            @change="handleUpdateSetting($event, settingKeys.leftMargin.key)"
+          >
+            <template #suffix>
+              <span>px</span>
+            </template>
+          </el-input>
+        </div>
       </div>
 
       <!-- 菜单颜色 -->
-      <p class="config-title" data-label="菜单颜色"></p>
-      <div
-        class="config-item"
-        v-for="(item, index) in settingKeys.menuColor"
-        :key="index"
-      >
-        <label>{{ item.label }}</label>
-        <el-color-picker
-          v-model="settings.menuColors[item.key]"
-          @change="handleMenuColor($event, item.key)"
-        ></el-color-picker>
+      <div>
+        <p class="config-title" data-label="菜单颜色"></p>
+        <div
+          class="config-item"
+          v-for="(item, index) in settingKeys.menuColor"
+          :key="index"
+        >
+          <label>{{ item.label }}</label>
+          <el-color-picker
+            v-model="settings.menuColors[item.key]"
+            @change="handleMenuColor($event, item.key)"
+          ></el-color-picker>
+        </div>
+      </div>
+
+      <!-- 全局水印 -->
+      <div>
+        <WaterMark />
       </div>
     </div>
   </el-drawer>
@@ -72,6 +83,8 @@ import { defineEmit, defineProps, reactive } from "vue"
 import { useStore } from "vuex"
 import { getLightColor } from '@/utils/theme'
 import { toLine } from '@/utils/str-convert'
+import WaterMark from './components/watermark'
+
 const store = useStore()
 let props = defineProps({
   drawer: { type: Boolean, default: false },
@@ -153,8 +166,15 @@ const settingKeys = reactive({
     { label: 'logo文字颜色', key: 'logoColor' },
     { label: 'logo背景颜色', key: 'logoBackground' },
   ],
-  leftMargin: { label: '菜单宽度', key: 'leftMargin', value: '' }
-
+  leftMargin: { label: '菜单宽度', key: 'leftMargin', value: '' },
+  waterMark: [
+    { label: '水印开关', key: 'switch' },
+    { label: '水印文字', key: 'text' },
+    { label: '背景色透明度', key: 'ratio' },
+    { label: '水印颜色', key: 'color' },
+    { label: '水印角度', key: 'deg' },
+    { label: '水印大小', key: 'size' },
+  ],
 })
 
 
@@ -173,7 +193,7 @@ const handleUpdateSetting = (val, key) => {
 
 <style lang="scss" scoped>
 .config {
-  &-title {
+  & :deep(.config-title) {
     width: 100%;
     height: 1px;
     background: #333;
@@ -193,7 +213,7 @@ const handleUpdateSetting = (val, key) => {
     }
   }
 
-  &-item {
+  & :deep(.config-item) {
     width: 100%;
     display: flex;
     justify-content: space-between;
