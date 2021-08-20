@@ -5,6 +5,17 @@ import layOut from "@/layout/index.vue";
 import much from "@/layout/components/router-view.vue";
 import { NextLoading } from '@/utils/loading' // progress bar
 
+// meta 参数
+/**
+ * @param {string} title 标题
+ * @param {string} locale i18n 配置的属性，在language文件夹
+ * @param {string} icon 图标
+ * @param {string} url 外链
+ * @param {string} iframeUrl 内嵌网页
+ * @param {string} iframeData 内嵌网页attr
+ * @param {boolean} breadcrumb 是否不展示在 “面包屑”组件上展示
+ */
+
 const routes = [
   {
     path: "/",
@@ -24,7 +35,6 @@ const routes = [
         meta: {
           title: "首页",
           locale: 'home',
-
           icon: "viteshouye",
         },
       },
@@ -70,7 +80,7 @@ export const addRouter = [
         meta: {
           title: "表格",
           locale: 'table',
-          icon: "viteZJ-biaoge",
+          icon: "viteZJ-biaoge"
         },
       },
       {
@@ -113,7 +123,6 @@ export const addRouter = [
           icon: "viteZJ-fuwenben",
         },
       },
-
       {
         path: "map",
         name: "map",
@@ -122,6 +131,16 @@ export const addRouter = [
           title: "地图",
           locale: 'map',
           icon: "viteviteZJ-ditu",
+        },
+      },
+      {
+        path: "sign",
+        name: "sign",
+        component: () => import("@/views/modules/sign/sign.vue"),
+        meta: {
+          title: "签名",
+          locale: 'sign',
+          icon: "viteviteZJ-sign",
         },
       },
     ],
@@ -455,6 +474,11 @@ export const addRouter = [
         component: () => import("@/views/iframe/index.vue"),
         meta: {
           title: "iframe",
+          iframeUrl: 'https://cn.vitejs.dev/',
+          iframeData: {
+            width: '100%',
+            height: '650px'
+          },
           icon: "viteiframe",
         },
       },

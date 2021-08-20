@@ -22,7 +22,7 @@
     "resize-observer-polyfill": "^1.5.1",
     "screenfull": "^5.1.0",
     "vite": "^2.4.0",
-    "vue": "^3.0.11",
+    "vue": "^3.2.2",
     "vue-i18n": "^9.1.6",
     "vue-router": "^4.0.3",
     "vue-svgicon": "^3.2.9",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.1.4",
     "@vitejs/plugin-vue-jsx": "^1.1.4",
-    "@vue/compiler-sfc": "^3.0.11",
+    "@vue/compiler-sfc": "^3.2.2",
     "babel-plugin-prismjs": "^2.0.1",
     "rollup-plugin-babel": "^4.4.0",
     "sass": "^1.35.1",

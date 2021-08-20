@@ -1,4 +1,4 @@
-import { createApp, inject } from "vue";
+import { createApp } from "vue";
 import App from "./App.vue";
 import Cookies from "js-cookie";
 import router from "./router/index";
@@ -49,6 +49,13 @@ mockXHR();
 
 if ((import.meta as any).env.MODE !== 'development') {
   window.console.log = () => { }
+}
+
+
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
+    defaultData: any // 这里可以用$Api具体的类型代替any
+  }
 }
 
 let app = createApp(App);
