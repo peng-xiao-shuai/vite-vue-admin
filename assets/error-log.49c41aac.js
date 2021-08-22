@@ -1,1 +1,0 @@
-import{r as e,o,c as n,a as r,w as l,G as d}from"./vendor.e8d26ddb.js";const t={methods:{handleNewError(){console.log(a)}}},s=d("触发一个错误"),c=r("p",null,'此错误已经被记录在日志页面，并在页面右上"日志按钮"区域显示提示信息',-1);t.render=function(a,d,t,u,i,f){const p=e("el-button");return o(),n("div",null,[r(p,{type:"danger",onClick:f.handleNewError},{default:l((()=>[s])),_:1},8,["onClick"]),c])};export default t;
