@@ -72,6 +72,16 @@ const roles = {
     },
     {
       hidden: 0,
+      icon: "vitesign",
+      id: 17,
+      level: 1,
+      name: "sign",
+      parentId: 1,
+      sort: 997,
+      title: "签名",
+    },
+    {
+      hidden: 0,
       icon: "vitetubiao",
       id: 30,
       level: 0,

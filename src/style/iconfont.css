@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'viteIcon';  /* Project id 2351447 */
-  src: url('//at.alicdn.com/t/font_2351447_inm0pkea32.woff2?t=1626430308311') format('woff2'),
-       url('//at.alicdn.com/t/font_2351447_inm0pkea32.woff?t=1626430308311') format('woff'),
-       url('//at.alicdn.com/t/font_2351447_inm0pkea32.ttf?t=1626430308311') format('truetype');
+  src: url('//at.alicdn.com/t/font_2351447_4mbw49i27jk.woff2?t=1629623043340') format('woff2'),
+       url('//at.alicdn.com/t/font_2351447_4mbw49i27jk.woff?t=1629623043340') format('woff'),
+       url('//at.alicdn.com/t/font_2351447_4mbw49i27jk.ttf?t=1629623043340') format('truetype');
 }
 /*匹配格式为正则 /\/\*(\s)(\w*|[^\x00-\xff]*)(\s)\*\//g*/
 .viteIcon {
@@ -11,6 +11,11 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 签名 */
+.vitesign:before {
+  content: "\e61f";
 }
 
 /* 数字 */

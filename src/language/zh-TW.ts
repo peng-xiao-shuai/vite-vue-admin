@@ -16,6 +16,8 @@ export default {
   'antv-x6': '圖形編輯',
   'map': '地圖',
   'icon': '圖標',
+  'sign': '簽名',
+
   'chart': '圖表',
   'line.chart': '折線圖',
   'pillar.chart': '餅狀圖',
