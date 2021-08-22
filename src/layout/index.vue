@@ -10,9 +10,9 @@
           ? { marginLeft: '65px', width: 'calc(100% - 65px)' }
           : {
               marginLeft:
-                ($store.state.settings.drawerSetting.leftMargin || 200) + 'px',
+                (store.leftMargin || 200) + 'px',
               width: `calc(100% - ${
-                $store.state.settings.drawerSetting.leftMargin || 200
+                store.leftMargin || 200
               }px)`,
             }
       "
@@ -21,11 +21,11 @@
         class="top"
         :style="{
           boxShadow:
-            $store.state.settings.drawerSetting.fixed === 1
+            store.fixed === 1
               ? '5px 5px 5px 0px rgba(0,0,0,0.1)'
               : '0 0 0 0',
           position:
-            $store.state.settings.drawerSetting.fixed === 1
+            store.fixed === 1
               ? 'sticky'
               : 'static',
           top: 0,
@@ -34,13 +34,14 @@
         <navs @isCollapse="isCollapse" :collapse="collapse"></navs>
         <tags-view
           :collapse="collapse"
-          v-if="$store.state.settings.drawerSetting.isTagsView"
+          v-if="store.isTagsView"
         ></tags-view>
       </div>
       <div class="view">
         <setting></setting>
 
-        <router-view></router-view>
+        <router-view v-if="!meta.iframeUrl"></router-view>
+        <iframe v-else :src="meta.iframeUrl" frameborder="0" v-bind="meta.iframeData"></iframe>
       </div>
     </div>
   </div>
@@ -55,6 +56,7 @@ import setting from './components/setting.vue'
 
 import { computed, defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -65,17 +67,20 @@ export default defineComponent({
     setting
   },
   setup () {
+    const store = useStore().state.settings.drawerSetting
+    const route = useRoute()
+    const collapse = computed(() => !!store.defaultMenu)
+    const meta = computed(() => route.meta)
 
-
-    const store = useStore()
-    let collapse = computed(() => !!store.state.settings.drawerSetting.defaultMenu)
 
     function isCollapse (e) {
       collapse.value = e
     }
     return {
+      store,
       collapse,
       isCollapse,
+      meta
     }
   }
 })
@@ -132,7 +137,7 @@ export default defineComponent({
     .view {
       width: 100%;
       background: #eff1f4;
-      min-height: calc(100% - 90px);
+      min-height: calc(100% - 91px);
       box-sizing: border-box;
       padding: 20px;
       overflow: hidden;

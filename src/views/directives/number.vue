@@ -36,20 +36,20 @@
   </el-card>
 </template>
 
-<script >
-import { defineComponent, ref, reactive } from 'vue'
+<script lang='ts'>
+import { defineComponent, ref, reactive, nextTick } from "vue";
 export default defineComponent({
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     return {
       inputs: reactive({
         number: 0,
         float: 0,
         floatLength: 0,
-        numberScope: 1
-      })
-    }
-  }
-})
+        numberScope: 1,
+      }),
+    };
+  },
+});
 </script>
 
 <style scoped lang='scss'>

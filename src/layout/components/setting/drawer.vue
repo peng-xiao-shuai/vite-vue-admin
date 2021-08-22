@@ -79,7 +79,7 @@
 </template>
 
 <script setup>
-import { defineEmit, defineProps, reactive } from "vue"
+import { reactive } from "vue"
 import { useStore } from "vuex"
 import { getLightColor } from '@/utils/theme'
 import { toLine } from '@/utils/str-convert'
@@ -89,7 +89,7 @@ const store = useStore()
 let props = defineProps({
   drawer: { type: Boolean, default: false },
 })
-const emit = defineEmit(["update:drawer"])
+const emit = defineEmits(["update:drawer"])
 
 const themeColor = store.state.settings.themeColor
 

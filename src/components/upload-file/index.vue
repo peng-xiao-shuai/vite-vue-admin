@@ -53,7 +53,7 @@
             :src="item"
             style="width: 100px; height: 100px"
             class="avatar video-avatar"
-            controls="controls"
+            controls="true"
           >
             您的浏览器不支持视频播放
           </video>
@@ -100,7 +100,7 @@ import { media } from '@/api/other'
 const ENV = import.meta.env
 
 export default {
-  name: 'allUpload',
+  name: 'uploadFile',
   props: {
     modelValue: String,
     limit: {
