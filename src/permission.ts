@@ -10,6 +10,8 @@ NProgress.configure({ showSpinner: false })
 const notRedirect = ['/login'] // 不重定向白名单
 
 router.beforeEach((to: any, from: any, next: any) => {
+  console.log(to,from,'路由跳转');
+  
   NProgress.start();
   // 1 判断是否有token
   // 1.1 判断是否有menus(动态路由。页面刷新后vuex会重置)
