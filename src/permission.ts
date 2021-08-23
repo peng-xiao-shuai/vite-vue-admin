@@ -12,8 +12,9 @@ const notRedirect = ['/login'] // 不重定向白名单
 router.beforeEach((to: any, from: any, next: any) => {
   NProgress.start();
   // 拦截 baseUrl 路径
-  if(window.location.host === 'peng-xiao-shuai-0902.github.io' && (import.meta as any).env.BASE_URL === "/vite-vue-admin/"){
+  if(window.location.host === 'peng-xiao-shuai-0902.github.io' && (import.meta as any).env.BASE_URL === "/vite-vue-admin/" && to.path === '/vite-vue-admin/'){
     next('/')
+    NProgress.done()
   }
 
   // 1 判断是否有token
