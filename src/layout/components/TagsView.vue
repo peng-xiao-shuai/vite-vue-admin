@@ -161,7 +161,7 @@ export default defineComponent({
       padding: 1px;
       border-radius: 50%;
       transform: scale(0.7);
-      *font-size: 10px;
+      font-size: 10px;
     }
     .el-icon-close:hover {
       background: #acacac;

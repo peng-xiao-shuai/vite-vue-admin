@@ -14,7 +14,7 @@ export default {
 body {
   margin: 0;
 }
-#app /deep/ .el-drawer {
+#app :deep(.el-drawer) {
   overflow: auto;
 }
 </style>
