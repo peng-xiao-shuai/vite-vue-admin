@@ -10,9 +10,12 @@ NProgress.configure({ showSpinner: false })
 const notRedirect = ['/login'] // 不重定向白名单
 
 router.beforeEach((to: any, from: any, next: any) => {
-  console.log(to,from,'路由跳转');
-  
   NProgress.start();
+  // 拦截 baseUrl 路径
+  if(window.location.host === 'peng-xiao-shuai-0902.github.io' && (import.meta as any).env.BASE_URL === "/vite-vue-admin/"){
+    next('/')
+  }
+
   // 1 判断是否有token
   // 1.1 判断是否有menus(动态路由。页面刷新后vuex会重置)
   // 1.1.1 重新获取动态路由表

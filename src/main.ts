@@ -48,10 +48,8 @@ mockXHR();
 // }
 
 if ((import.meta as any).env.MODE !== 'development') {
-  // window.console.log = () => { }
+  window.console.log = () => { }
 }
-console.log(import.meta.env);
-
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
