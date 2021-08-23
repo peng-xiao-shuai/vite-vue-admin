@@ -17,7 +17,7 @@ export default defineConfig({
     __VUE_I18N_FULL_INSTALL__: false,
     __INTLIFY_PROD_DEVTOOLS__: false,
   },
-  base: "/",
+  // base: "/",
   // 控制台打印
   // logLevel: "silent",
   build: {

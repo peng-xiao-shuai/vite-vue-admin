@@ -1,10 +1,10 @@
 {
-  "name": "vite-admin",
+  "name": "vite-vue-admin",
   "version": "1.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --base=/",
     "build": "vite build --base=/vite-vue-admin/",
-    "preview": "vite build && vite preview --port 8088"
+    "preview": "vite build --base=/vite-vue-admin/ && vite preview --port 8088"
   },
   "homepage": "https://peng-xiao-shuai-0902.github.io/vite-vue-admin/",
   "dependencies": {
