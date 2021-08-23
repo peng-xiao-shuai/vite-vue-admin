@@ -1,4 +1,63 @@
 # Vite-Vue-Admin
+<div align="center">
+	<img style="width:100px;" object-fit='cover' src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBH
+ZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjAuMSwgU1ZHIEV4cG9y
+dCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8
+c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDov
+L3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3
+LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94
+PSIwIDAgNDEwIDQwNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAw
+IDAgNDEwIDQwNDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlw
+ZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOnVybCgjTGF5ZXJfMV8pO30KCS5z
+dDF7ZmlsbDp1cmwoI0xheWVyX2NvcHlfMV8pO30KPC9zdHlsZT4KPHRpdGxl
+PmxvZ28tc3ZnPC90aXRsZT4KPGxpbmVhckdyYWRpZW50IGlkPSJMYXllcl8x
+XyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIxMDcuMDQ2
+MyIgeTE9IjQ0Ny40MDM4IiB4Mj0iMzM2LjA0NjMiIHkyPSIxMzYuNDAzOCIg
+Z3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAtMSAwIDQwNikiPgoJ
+PHN0b3AgIG9mZnNldD0iMCIgc3R5bGU9InN0b3AtY29sb3I6IzQxRDFGRiIv
+PgoJPHN0b3AgIG9mZnNldD0iMSIgc3R5bGU9InN0b3AtY29sb3I6I0JEMzRG
+RSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8cGF0aCBpZD0iTGF5ZXIiIGNsYXNz
+PSJzdDAiIGQ9Ik0zOTkuNiw1OS41bC0xODQsMzI5Yy0zLjgsNi44LTEzLjYs
+Ni44LTE3LjQsMC4xTDEwLjYsNTkuNkM2LjQsNTIuMiwxMi43LDQzLjMsMjEs
+NDQuOGwxNDUuNiwyNS40CgljMCwwLDcuNCwyLjIsOS43LDkuN0MxNzguNiw4
+Ny4zLDIwMywxNzQsMjAzLDE3NGMxLjIsMC4yLDIuNCwwLjIsMy42LDBjMCww
+LDI2LjMtODgsMjguMy05NC4xUzI0Myw3MiwyNDMsNzJsMTQ2LjEtMjcuMgoJ
+QzM5Ny40LDQzLjMsNDAzLjgsNTIuMSwzOTkuNiw1OS41eiIvPgo8bGluZWFy
+R3JhZGllbnQgaWQ9IkxheWVyX2NvcHlfMV8iIGdyYWRpZW50VW5pdHM9InVz
+ZXJTcGFjZU9uVXNlIiB4MT0iMjAzLjkzNzQiIHkxPSIzNTcuMDgwNyIgeDI9
+IjIzNi44NDk0IiB5Mj0iMTMxLjMwOTciIGdyYWRpZW50VHJhbnNmb3JtPSJt
+YXRyaXgoMSAwIDAgLTEgMCA0MDYpIj4KCTxzdG9wICBvZmZzZXQ9IjAiIHN0
+eWxlPSJzdG9wLWNvbG9yOiNGRkVBODMiLz4KCTxzdG9wICBvZmZzZXQ9Ijgu
+Mjk5OTk5ZS0wMiIgc3R5bGU9InN0b3AtY29sb3I6I0ZGREQzNSIvPgoJPHN0
+b3AgIG9mZnNldD0iMSIgc3R5bGU9InN0b3AtY29sb3I6I0ZGQTgwMCIvPgo8
+L2xpbmVhckdyYWRpZW50Pgo8cGF0aCBpZD0iTGF5ZXJfY29weSIgY2xhc3M9
+InN0MSIgZD0iTTMxMi44LDUwLjNjMCwwLTczLjUsMTMuNC03NiwxNGMtMi40
+LDAuNi0yLjgsMS42LTUuOSwxMS4yYy0yLjQsNy42LTI0LjUsOTAtMjUuOSw5
+MAoJcy0yMS43LTc4LjctMjUuOC04OS44Yy00LjEtMTEtMy42LTEyLjEtNi40
+LTEzYy0yLjgtMC44LTY5LjctMTMuMi03Ni4yLTEzLjlzLTcuOCwzLjctNy4z
+LDcuOGMwLDAsNC4xLDAuNyw0LjIsMC44bDExMS4yLDI0OC4xCgljMi45LDQu
+Nyw0LjEsNC40LDYuOCwwLjFsMTA1LTI0Ny40bDQuMi0wLjdDMzIxLjYsNTQu
+MiwzMTYuMiw0OS43LDMxMi44LDUwLjN6Ii8+Cjwvc3ZnPgo=">
+	<p>&nbsp;</p>
+	<p align="center">
+      <a href="https://vitejs.dev/" target="_blank">
+		    <img src="https://img.shields.io/badge/vite-%3E2.3.0-yellow" alt="vite">
+		</a>
+	    <a href="https://v3.vuejs.org/" target="_blank">
+	        <img src="https://img.shields.io/badge/vue.js-vue3.1.x-green" alt="vue">
+	    </a>
+	    <a href="https://element-plus.gitee.io/#/zh-CN/component/changelog" target="_blank">
+	        <img src="https://img.shields.io/badge/element--plus-%3E1.0.0-blue" alt="element plus">
+	    </a>
+		<a href="https://www.tslang.cn/" target="_blank">
+         <img src="https://img.shields.io/badge/typescript-%3E4.0.0-blue" alt="typescript">
+	    </a>
+		<a href="https://gitee.com/abc1612565136/vite-admin/blob/master/LICENSE" target="_blank">
+		    <img src="https://img.shields.io/badge/LICENSE-MIT-success" alt="license">
+		</a>
+	</p>
+	<p>&nbsp;</p>
+</div>
 
 ## 介绍
 
@@ -94,6 +153,7 @@ $ npm run preview
 - [x] 组件菜单 > 文件上传
 - [x] 组件菜单 > 腾讯地图
 - [x] 组件菜单 > 图形编辑
+- [x] 组件菜单 > 签名
 - [x] 国际化多语言
 - [x] 图表菜单
 - [x] 图标菜单
