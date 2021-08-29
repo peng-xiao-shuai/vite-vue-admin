@@ -95,6 +95,6 @@ export default {
     isLogo: 1,
     isTagsView: 1,
     defaultMenu: 1,
-    leftMargin: 200,
+    leftMargin: 230,
   }, settings)
 };

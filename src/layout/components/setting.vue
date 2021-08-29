@@ -68,15 +68,13 @@ const handleClick = () => {
 </script>
 
 <style scoped lang='scss'>
-@import "../../style/mixins/function.scss";
-
 .btn {
   width: 30px;
   height: 60px;
   border-radius: 5px 0 0 5px;
   position: fixed;
   right: 0;
-  background: set-color(primary);
+  background: var(--color-primary);
   color: #fff;
   display: flex;
   align-items: center;
