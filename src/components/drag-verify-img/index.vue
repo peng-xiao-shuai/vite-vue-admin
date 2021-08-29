@@ -287,6 +287,10 @@ export default {
       this.$emit("handlerMove")
     },
     dragMoving: function (e) {
+      document.onselectstart = function () {
+        return false;
+      };
+      
       if (this.isMoving && !this.isPassing) {
         var _x = (e.pageX || e.touches[0].pageX) - this.x
         var handler = this.$refs.handler
