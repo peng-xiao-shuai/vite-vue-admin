@@ -1,10 +1,11 @@
-import { defineComponent, ref, inject } from "vue";
+import { defineComponent, ref, inject, getCurrentInstance } from "vue";
 import { useStore } from "vuex";
 import Cookies from "js-cookie";
 
 export default defineComponent({
   setup(props) {
     const store = useStore();
+    const { proxy } = getCurrentInstance() as any
     let size = ref(Cookies.get("size") || "small");
     const message = inject<any>("$message");
 
@@ -61,7 +62,7 @@ export default defineComponent({
                           : {}
                       }
                     ></i>
-                    {item.label}
+                    { proxy.t(item.label) }
                   </div>
                 </el-dropdown-item>
               );

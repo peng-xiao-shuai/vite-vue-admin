@@ -48,5 +48,9 @@ export default {
   'info': '信息',
   'warning': '警告',
   'danger': '危险',
+
+  'Sorry,.it.got.lost.by.accident': '很抱歉，页面它不小心迷路了！',
+  'The.page.you.are.looking.for.was.moved.,removed.,renamed.or.might.never.existed': '您正在查看的页面已被移动、删除、重命名或可能不存在！',
+  'back.home': '返回首页'
 }
 
