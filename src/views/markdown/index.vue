@@ -39,7 +39,7 @@ const text = `
   这是一个详情块，在 IE / Edge 中不生效
 :::
 
-::: tip 流程图也不能忘
+::: tip 流程图 (请将index.html文件中的引入的外部流程图js取消注释)
 \`\`\`mermaid
 graph LR
 A --- B
