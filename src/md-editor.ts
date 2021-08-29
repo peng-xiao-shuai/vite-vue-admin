@@ -38,10 +38,10 @@ VMdPreview.use(createEmojiPlugin());
 
 
 // 流程图
-import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn';
-import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css';
-VMdEditor.use(createMermaidPlugin());
-VMdPreview.use(createMermaidPlugin());
+// import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn';
+// import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css';
+// VMdEditor.use(createMermaidPlugin());
+// VMdPreview.use(createMermaidPlugin());
 
 // 任务列表
 import createTodoListPlugin from '@kangc/v-md-editor/lib/plugins/todo-list/index';
