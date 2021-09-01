@@ -2,7 +2,7 @@
   <div style="padding: 5px 20px 0 10px" class="navs">
     <div class="left">
       <i
-        :class="['vitecaidan', 'viteIcon', collapse ? 'collapse' : '']"
+        :class="['vitecaidan', defaultData.iconfont, collapse ? 'collapse' : '']"
         :style="{ color: themeColor }"
         @click="handleCollapse"
       >

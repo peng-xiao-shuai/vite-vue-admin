@@ -45,7 +45,7 @@ for (let i in menuColorStore) {
 // console.log(menuColor);
 
 export default {
-  name: "vite-vue-admin",
+  name: "Vite-Vue-Admin",
   themeColor,
   // icon图标类型
   iconfont: "viteIcon",
@@ -95,6 +95,6 @@ export default {
     isLogo: 1,
     isTagsView: 1,
     defaultMenu: 1,
-    leftMargin: 230,
+    leftMargin: 240,
   }, settings)
 };

@@ -1,7 +1,7 @@
 import { defineComponent, ref, inject } from "vue";
 import screenFull from "screenfull";
 import { useI18n } from 'vue-i18n';
-
+import defaultData from '@/config/default-data';
 
 export default defineComponent({
   setup(props) {
@@ -40,7 +40,7 @@ export default defineComponent({
           <div class="item">
             <i
               class={[
-                'viteIcon',
+                defaultData.iconfont,
                 !isRfs ? 'vitefullScreen' : 'vitecancel-full-screen',
               ]}
               onClick={() => { click() }}

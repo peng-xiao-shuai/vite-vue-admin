@@ -11,6 +11,7 @@ export default {
   'upload.file': '上传文件',
   'table': '表格',
   'rich.text': '富文本',
+  'markdown': 'markdown',
   "markdown.editor": 'md编辑器',
   'markdown.preview': 'md预览',
   'antv-x6': '图形编辑',
@@ -51,6 +52,10 @@ export default {
 
   'Sorry,.it.got.lost.by.accident': '很抱歉，页面它不小心迷路了！',
   'The.page.you.are.looking.for.was.moved.,removed.,renamed.or.might.never.existed': '您正在查看的页面已被移动、删除、重命名或可能不存在！',
-  'back.home': '返回首页'
+  'back.home': '返回首页',
+
+  'you.can.use.shortcut.keys': '您可以使用快捷键',
+  'call.up.the.search.panel,press': '唤起搜索面板，按',
+  'close': '关闭',
 }
 

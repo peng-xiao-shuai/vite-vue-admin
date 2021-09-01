@@ -1,4 +1,5 @@
 import store from "@/store";
+import defaultData from '@/config/default-data'
 
 const header: any[] = [
   {
@@ -27,7 +28,7 @@ const header: any[] = [
         type: "iconfont",
         prop: "iconfont",
         data: {
-          class: ["viteIcon"],
+          class: [defaultData.iconfont],
           style: { color: "red" },
         },
       },

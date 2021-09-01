@@ -90,7 +90,7 @@
               <i
                 :class="[
                   pwdType == 'password' ? 'vitebiyan' : 'viteyanjing',
-                  'viteIcon',
+                  defaultData.iconfont,
                 ]"
                 @click="pwdType = pwdType == 'password' ? 'text' : 'password'"
               >
@@ -114,7 +114,7 @@
               <i
                 :class="[
                   pwdType == 'password' ? 'vitebiyan' : 'viteyanjing',
-                  'viteIcon',
+                  defaultData.iconfont,
                 ]"
                 @click="pwdType = pwdType == 'password' ? 'text' : 'password'"
               >

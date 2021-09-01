@@ -1,6 +1,7 @@
 import { defineComponent, ref, inject, getCurrentInstance } from "vue";
 import { useStore } from "vuex";
 import Cookies from "js-cookie";
+import defaultData from "@/config/default-data";
 
 export default defineComponent({
   setup(props) {
@@ -75,7 +76,7 @@ export default defineComponent({
     return () => (
       <div class="item">
         <el-dropdown class="avatar-container" trigger="hover" v-slots={slots}>
-          <div class="viteIcon vitefont-size"></div>
+          <div class={[defaultData.iconfont,"vitefont-size"]}></div>
 
         </el-dropdown>
       </div>

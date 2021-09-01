@@ -1,6 +1,7 @@
 import { defineComponent, ref, Transition } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import defaultData from '@/config/default-data';
 
 export default defineComponent({
   setup(props) {
@@ -20,7 +21,7 @@ export default defineComponent({
         >
           <div class={['item', { isBug: store.getters.getBugNumber !== 0 }]}>
             <i
-              class='viteIcon vitebug'
+              class={[defaultData.iconfont,'vitebug']}
               onClick={(e) => handleNavTo('/log/add-log')}
             ></i>
 

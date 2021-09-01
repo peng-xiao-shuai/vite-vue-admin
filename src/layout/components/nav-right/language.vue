@@ -62,7 +62,7 @@ export default defineComponent({
         <el-dropdown class="avatar-container" trigger="hover" v-slots={slots}>
           <div
             class={[
-              "viteIcon",
+              defaultData.iconfont,
               locale == "en-US" ? "vitelanguage2" : "vitelanguage2",
             ]}
           ></div>

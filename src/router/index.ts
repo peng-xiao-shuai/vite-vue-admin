@@ -230,6 +230,7 @@ export const addRouter = [
     meta: {
       title: "markdown",
       icon: "vitemarkdown",
+      locale: 'markdown',
     },
     children: [
       {

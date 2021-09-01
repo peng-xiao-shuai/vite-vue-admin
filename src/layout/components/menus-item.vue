@@ -13,7 +13,7 @@
             textOverflow: 'ellipsis',
           }"
         >
-          <i :class="[item.meta.icon, 'viteIcon']"></i>
+          <i :class="[item.meta.icon, defaultData.iconfont]"></i>
           <span class="metaTitle" v-show="!collapse || count !== 1">
             {{
               item.meta && item.meta.locale
@@ -58,7 +58,7 @@
             (item.children && item.children[0].meta.icon) ||
               (item.meta && item.meta.icon) ||
               '',
-            'viteIcon',
+            defaultData.iconfont,
           ]"
         ></i>
 
@@ -78,7 +78,7 @@
             (item.children && item.children[0].meta.icon) ||
               (item.meta && item.meta.icon) ||
               '',
-            'viteIcon',
+            defaultData.iconfont,
           ]"
         ></i>
         <span class="metaTitle" v-show="!collapse || count !== 1">
