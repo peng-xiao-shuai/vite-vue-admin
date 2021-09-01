@@ -37,11 +37,22 @@
           v-if="store.isTagsView"
         ></tags-view>
       </div>
-      <div class="view">
+      <div class="view" v-press-key:s="()=> useSearch = true"
+        :style="{
+          minHeight: `calc(100% - ${store.isTagsView ? '91px' : '50px'})`
+        }">
         <setting></setting>
 
-        <router-view v-if="!meta.iframeUrl"></router-view>
-        <iframe v-else :src="meta.iframeUrl" frameborder="0" v-bind="meta.iframeData"></iframe>
+        <transition name='searchView'>
+          <search-view v-show='useSearch' class="search-view"></search-view>
+        </transition>
+
+        <transition name='searchView'>
+          <div v-show='!useSearch' v-press-key:escape="()=> useSearch = false">
+            <router-view v-if="!meta.iframeUrl"></router-view>
+            <iframe v-else :src="meta.iframeUrl" frameborder="0" v-bind="meta.iframeData"></iframe>
+          </div>
+        </transition>
       </div>
     </div>
   </div>
@@ -52,14 +63,17 @@ import TagsView from './components/TagsView.vue'
 import menus from './components/menus.vue'
 import navs from './components/navs.vue'
 import routerView from './components/router-view.vue'
+import SearchView from './components/search-view.vue'
 import setting from './components/setting.vue'
 
 import { computed, defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
+import { useSearch } from '@/hooks/states';
 
 export default defineComponent({
   components: {
+    SearchView,
     routerView,
     menus,
     navs,
@@ -72,15 +86,16 @@ export default defineComponent({
     const collapse = computed(() => !!store.defaultMenu)
     const meta = computed(() => route.meta)
 
-
     function isCollapse (e) {
       collapse.value = e
     }
+
     return {
       store,
       collapse,
       isCollapse,
-      meta
+      meta,
+      useSearch
     }
   }
 })
@@ -137,10 +152,16 @@ export default defineComponent({
     .view {
       width: 100%;
       background: #eff1f4;
-      min-height: calc(100% - 91px);
       box-sizing: border-box;
       padding: 20px;
       overflow: hidden;
+      position: relative;
+
+      .search-view{
+        height: 100%;
+        width: calc(100% - 40px);
+        position: absolute;
+      }
     }
   }
 }

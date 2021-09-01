@@ -26,6 +26,25 @@
   // transform: translateX(30px);
 }
 
+// 搜索过渡二
+.searchView-enter-active,
+.searchView-leave-active {
+  transition: all .2s;
+}
+.searchView-enter-from {
+  transform: scale(1.1);
+	opacity: 0;
+}
+.searchView-enter-to,
+.searchView-leave-from {
+	transform: scale(1);
+	opacity: 1;
+}
+.searchView-leave-to {
+	transform: scale(0.9);
+	opacity: 0;
+}
+
 /* Tag 过渡动画
 ------------------------------- */
 .tags-enter-active,

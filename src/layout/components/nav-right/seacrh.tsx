@@ -1,7 +1,9 @@
 import { defineComponent,ref,Transition  } from "vue";
+import defaultData from "@/config/default-data";
 import { useI18n } from 'vue-i18n';
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { useSearch } from '@/hooks/states';
 
 export default defineComponent({
   setup(props){
@@ -38,10 +40,10 @@ export default defineComponent({
     return ()=>(
       <div class="item">
         <el-tooltip content={t('search')} placement="bottom">
-          <i class="viteIcon vitesousuo-" onClick={()=>{isSearch.value = !isSearch.value}}></i>
+          <i class={[defaultData.iconfont,"vitesousuo-"]} onClick={()=>{useSearch.value = !useSearch.value}}></i>
         </el-tooltip>
 
-        <Transition  name="navSearch">
+        {/* <Transition  name="navSearch">
           <el-select
             v-show={isSearch.value}
             v-model={search}
@@ -52,7 +54,7 @@ export default defineComponent({
           >
             {menus.map((item:any,index:number)=><el-option key={item.path} label={item.path} value={item.name}></el-option>)}
           </el-select>
-        </Transition>
+        </Transition> */}
       </div>
     )
   }
