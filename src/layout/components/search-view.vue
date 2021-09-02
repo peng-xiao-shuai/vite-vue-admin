@@ -17,8 +17,10 @@
     <!-- 220px = wrap的高度（150） + warp的下外边距（50） + view的padding（20 * 2） -->
     <el-card :shadow="defaultData.cardShadow" body-style="padding: 0;height: 100%" style="border: none;height: calc(100% - 240px);">
       <el-scrollbar>
-        <template v-for="(item,index) in funMenu()">
-          <div v-if='item.meta.locale' :key="index" :label="item.path" :value="item.name" class="menu-item">
+        <el-empty description="抱歉，没有找到相关页面！！" v-show='!funMenu().length'></el-empty>
+
+        <template v-for="item in funMenu()">
+          <div v-if='item.meta.locale' :key="item.meta.locale" :label="item.path" :value="item.name" class="menu-item" @click="navTo(item)">
             <i :class="[item.meta.icon,defaultData.iconfont]"></i>
             <div>
               <div class="name">
@@ -36,16 +38,26 @@
           </div>
         </template>
       </el-scrollbar>
+
     </el-card>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "@vue/reactivity";
+import { ref, watch } from "vue";
 import { useStore } from "vuex";
 import { useI18n } from 'vue-i18n';
+import { useRoute, useRouter } from "vue-router";
 const Store = useStore();
+const router = useRouter()
+const route = useRoute()
 const {t} = useI18n();
 const searchValue = ref<string>('')
+import { useSearch } from '@/hooks/states';
+
+watch(() => route.path,(v)=>{
+  useSearch.value = false
+})
+
 // TODO 防抖节流
 const searchMenusFun = (arr: any[], menu: any[], superior?: any)=>{
   arr.forEach((each: any) => {
@@ -77,6 +89,13 @@ const funMenu = ()=> {
 
   return menus.filter((item:any)=>{
     return item.path.indexOf(searchValue.value) != -1 || (item.meta && item.meta.locale) && t(item.meta.locale).indexOf(searchValue.value) != -1
+  })
+}
+
+// 跳转
+const navTo = (item:any)=>{
+  router.push({
+    path: item.path.replace(' ','')
   })
 }
 
