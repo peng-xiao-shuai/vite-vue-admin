@@ -1,5 +1,28 @@
 @import 'mixins/function.scss';
 
+/*修改滚动条样式*/
+*::-webkit-scrollbar,.el-scrollbar__bar.is-vertical{
+  width: 6px;
+  top: 2px;
+  /**/
+}
+*::-webkit-scrollbar-track{
+  width: 6px;
+  height: 6px;
+  background: rgb(239, 239, 239);
+  border-radius:2px;
+}
+*::-webkit-scrollbar-thumb,.el-scrollbar__thumb{
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: rgba(144, 147, 153, 0.3);
+  transition: 0.3s background-color;
+}
+*::-webkit-scrollbar-thumb:hover,.el-scrollbar__thumb:hover{
+  background-color: rgba(144, 147, 153, 0.5);
+}
+
+// 顶部加载样式
 #nprogress {
   pointer-events: none;
   .bar {
