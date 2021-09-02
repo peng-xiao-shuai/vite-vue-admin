@@ -204,7 +204,7 @@ export default [
               content: "@ctitle()",
               date: "@date()",
               email: "1612565136@qq.com",
-              "status|1": true,
+              "status|1": ['提交成功','提交失败'],
             },
           ],
         }),

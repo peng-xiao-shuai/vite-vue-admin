@@ -48,7 +48,6 @@ export default function pressKey(app: App) {
       window.onkeydown = function keydown(event: KeyboardEvent) {
         // 获取匹配项
         const match = keysArr.filter(item => event.key.toUpperCase() == item || event.key.toLowerCase() == item || event.key == item)
-        console.log(match);
 
         if (match.length) {
           keys[match[0]].funVal()

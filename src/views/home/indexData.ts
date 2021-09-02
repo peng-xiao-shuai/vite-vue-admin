@@ -9,6 +9,7 @@ export let header: any = [
   },
   {
     label: "头像", //显示的名称
+    width: '80px',
     props: [
       {
         type: "image",
@@ -22,6 +23,7 @@ export let header: any = [
   },
   {
     label: "性别", //显示的名称
+    width: '60px',
     props: [
       {
         prop: "gender",
@@ -44,23 +46,27 @@ export let header: any = [
       },
     ],
   },
-  {
-    label: "邮箱", //显示的名称
-    props: [
-      {
-        prop: "email",
-      },
-    ],
-  },
+  // {
+  //   label: "邮箱", //显示的名称
+  //   props: [
+  //     {
+  //       prop: "email",
+  //     },
+  //   ],
+  // },
   {
     label: "状态", //显示的名称
     props: [
       {
         prop: "status",
-        filter: [
-          { key: true, value: "提交成功" },
-          { key: false, value: "提交失败" },
-        ],
+        type: 'tag',
+        data:{
+          // type: 'primary',
+          effect: 'dark',
+          color:(tag:string)=>{
+            return tag == '提交失败' ? '#F56C6C' : '#67C23A'
+          }
+        },
       },
     ],
   },

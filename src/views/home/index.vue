@@ -5,7 +5,7 @@
         <panel-group :count="count" :height="90" />
         <el-card :shadow="defaultData.cardShadow">
           <!-- eachDiv 原有高度 - panel-group高度 - panel-group(margin) - card(padding) -->
-          <homeEcharts
+          <HomeEcharts
             :isSlot="true"
             echartsId="chart"
             :height="550 - 90 - 20 - 40"
@@ -62,7 +62,7 @@
                 </el-dropdown>
               </div>
             </template>
-          </homeEcharts>
+          </HomeEcharts>
         </el-card>
       </div>
 
@@ -71,7 +71,7 @@
           <el-card :shadow="defaultData.cardShadow" class="eachDiv">
             <!-- icon -->
             <div class="viteIconBg">
-              <i class="viteIcon vitehome-daymoney"></i>
+              <i :class="[defaultData.iconfont,'vitehome-daymoney']"></i>
             </div>
             <!-- text -->
             <div class="text">
@@ -89,7 +89,7 @@
           <el-card :shadow="defaultData.cardShadow" class="eachDiv">
             <!-- icon -->
             <div class="viteIconBg yellow">
-              <i class="viteIcon vitehome-zongshouyi"></i>
+              <i :class="[defaultData.iconfont,'vitehome-zongshouyi']"></i>
             </div>
             <!-- text -->
             <div class="text">
@@ -109,14 +109,14 @@
             :body-style="{ padding: '20px' }"
             class="eachDiv eachDiv-3"
           >
-            <homeEcharts
+            <HomeEcharts
               echartsId="earnings"
               :height="550 - 170 - 20 - 40"
               :colors="colors"
               :information="earnings.chart"
               types="line"
               :title="t('income.line')"
-            ></homeEcharts>
+            ></HomeEcharts>
           </el-card>
         </div>
       </div>
@@ -124,14 +124,14 @@
         <el-card :shadow="defaultData.cardShadow">
           <div class="echartsBox">
             <div class="un-handle-layout">
-              <homeEcharts
+              <HomeEcharts
                 echartsId="pageviewData"
                 :height="310 - 40"
                 :colors="colors"
                 :information="pageviewData.value"
                 types="homeCake"
                 :title="t('page.view.pillar')"
-              ></homeEcharts>
+              ></HomeEcharts>
             </div>
           </div>
         </el-card>
@@ -178,7 +178,7 @@
 </template>
 
 <script lang='ts'>
-import homeEcharts from "@/components/easy-echart/index.vue";
+import HomeEcharts from "@/components/easy-echart/index.vue";
 import PanelGroup from "./components/PanelGroup.vue";
 import lineBarEcharts from "./components/lineBarEcharts.vue";
 
@@ -198,7 +198,7 @@ import { header } from "./indexData";
 export default defineComponent({
   name: "home",
   components: {
-    homeEcharts,
+    HomeEcharts,
     PanelGroup,
     lineBarEcharts,
   },
@@ -281,7 +281,11 @@ export default defineComponent({
     let userLineColor: any = reactive({ value: [] });
 
     let current = ref(0);
-    let earnings = reactive({ value: {}, chart: {} });
+    interface earnings {
+      value: any,
+      chart: any
+    }
+    let earnings = reactive<earnings>({ value: {}, chart: {} });
 
     // 表格相关
     let listQuery = reactive({
@@ -359,7 +363,6 @@ export default defineComponent({
       Object.assign(listQuery, e ? e : {});
       tableFun(listQuery).then((res) => {
         list.value = res.data.list;
-        // console.log(list);
       });
     }
     handleGetTable();
