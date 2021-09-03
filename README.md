@@ -59,9 +59,11 @@ MiwzMTYuMiw0OS43LDMxMi44LDUwLjN6Ii8+Cjwvc3ZnPgo=">
 	<p>&nbsp;</p>
 </div>
 
-## 介绍
+English | [简体中文](./README.zh-CN.md)
 
-**Cli 配置**
+## introduce
+
+**configuration**
 
 - vue3.X
 - vuex@4
@@ -70,19 +72,19 @@ MiwzMTYuMiw0OS43LDMxMi44LDUwLjN6Ii8+Cjwvc3ZnPgo=">
 - typescript
 - mock
 
-**内置 element-plus 二开封装**
+**Built-in element-plus Two development Encapsulation**
 
-- `upload-file` (文件上传，支持指定文件格式，文件大小)
-- `powerful-table` (多功能表格组件)[文档说明](https://gitee.com/abc1612565136/powerful-table/blob/master/README.md)
+- `upload-file` (File Upload，Support specified file format,File size)
+- `powerful-table` (Multi-function form component)[Documentation readme](https://gitee.com/abc1612565136/powerful-table/blob/master/README.md)
 
-## 项目设置
+## Project settings
 
-> **注意事项**
+> **Precautions**
 
-1. 默认是开发版本和发行版本都是使用 `mock`
-   发行版本如需禁用 `mock` 请将 `main.ts` 文件下的如下代码取消注释
-   并且找到 `.env.production` 文件下的 `VITE_MOCK` 变量修改其 `false`
-2. 开发版本禁用 `mock` 请将`.env.development` 文件下的 `VITE_MOCK` 变量修改其 `false`
+1. The default is to use both the development version and the release version `mock`
+   If the release version needs to be disabled `mock` Please `main.ts` Uncomment the following code under the file
+   And find `.env.production` Under the file `VITE_MOCK` Variable to modify its `false`
+2. Development version disabled `mock` Please`.env.development` Under the file `VITE_MOCK` Variable to modify its `false`
 
 ```js
 // main.ts
@@ -106,7 +108,7 @@ or
 $ npm install
 ```
 
-> 推荐使用 yarn , **[yarn 安装与常用命令](http://liqingsong.cc/article/detail/9)** 。
+> Recommended Use yarn , **[yarn Installation and common commands](http://liqingsong.cc/article/detail/9)** 。
 
 ### 二、Compiles and hot-reloads for development
 
@@ -132,7 +134,7 @@ or
 $ npm run build
 ```
 
-### 四、本地预览生产构建产物
+### 四、Preview production build products locally
 
 ```bash
 $ yarn preview
@@ -146,25 +148,25 @@ $ npm run preview
 
 ## 捐赠
 
-如果你觉得这个项目帮助到了你，请帮助点击 Star
+If you think this project helped you, please help click `Star`
 
-## 计划 （2021-3-30）
+## plan （2021-3-30）
 
-- [x] 组件菜单 > 文件上传
-- [x] 组件菜单 > 腾讯地图
-- [x] 组件菜单 > 图形编辑
-- [x] 组件菜单 > 签名
-- [x] 国际化多语言
-- [x] 图表菜单
-- [x] 图标菜单
-- [x] 全局 `el-button(el-**)` 大小
-- [x] 全局主题颜色修改
-- [x] 新增日志菜单 捕获接口报错 以及 errorHandler
-- [x] 公共配置
-- [x] 使用 JSX/TSX /src/layout/components/nav-right
-- [x] markdown 编辑器（支持公式、表情、流程图...）
-- [ ] 权限测试菜单
-- [x] 全局指令
-- [x] 全局水印
+- [x] Component menu > File Upload
+- [x] Component menu > Tencent map
+- [x] Component menu > Graphic editing
+- [x] Component menu > sign
+- [x] Internationalized multilingual
+- [x] Chart menu
+- [x] Icon menu
+- [x] Global `el-button(el-**)` size
+- [x] Global theme color modification
+- [x] Added log menu Capture interface error as well as errorHandler
+- [x] Common configuration
+- [x] use JSX/TSX /src/layout/components/nav-right
+- [x] markdown Editor (support formulas, emoticons, flowcharts...)
+- [ ] Permission test menu
+- [x] Global directive
+- [x] Global watermark
 
-**其他功能可以在 `issues` 提出**
+**Other functions can be `issues` propose**
