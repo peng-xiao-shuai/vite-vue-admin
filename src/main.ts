@@ -33,6 +33,7 @@ import { VMdEditor, VMdPreview } from './md-editor';
 // 全局组件
 // import SvgIcon from "./components/SvgIcon/index.vue"; // svg component
 import uploadFile from "./components/upload-file/index.vue";
+import viewName from "./components/view-name/view-name.vue";
 
 // 全局静态配置
 import defaultData from "./config/default-data";
@@ -88,6 +89,7 @@ app
 
 // app.component("svg-icon", SvgIcon);
 app.component("upload-file", uploadFile);
+app.component("view-name", viewName);
 
 directive(app)
 
