@@ -1,12 +1,7 @@
 <template>
   <div class="app-container">
     <el-card :shadow="defaultData.cardShadow">
-      <div class="operate-container">
-        <div>
-          <i class="viteIcon vitei" style="margin-right: 5px"></i>
-          <span>图标</span>
-        </div>
-      </div>
+      <view-name></view-name>
 
       <div class="operate-container">
         <icon-select v-model:icon="iconVal"></icon-select>
@@ -14,7 +9,7 @@
 
       <div class="icons">
         <div class="i-icon" v-for="(item, index) in icons" :key="index">
-          <i :class="['viteIcon', item.icon]"></i>
+          <i :class="[defaultData.iconfont, item.icon]"></i>
           <div class="iconName">{{ item.name }}</div>
         </div>
       </div>

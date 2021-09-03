@@ -1,12 +1,8 @@
 <template>
   <div class="app-container">
     <el-card :shadow="defaultData.cardShadow">
-      <div class="operate-container">
-        <div>
-          <i class="viteIcon viteiframe" style="margin-right: 5px"></i>
-          <span>iframe</span>
-        </div>
-      </div>
+      <view-name></view-name>
+
       <iframe
         src="https://gitee.com/abc1612565136/vite-admin"
         frameborder="0"

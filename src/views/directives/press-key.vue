@@ -1,11 +1,6 @@
 <template>
   <el-card :shadow="defaultData.cardShadow">
-    <div class="operate-container">
-      <div>
-        <i :class="[defaultData.iconfont,'vitepress-key']" style="margin-right: 5px"></i>
-        <span>按键指令</span>
-      </div>
-    </div>
+    <view-name></view-name>
 
     <!-- 注意 -->
     <div class="tipBox warning">

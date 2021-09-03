@@ -1,15 +1,10 @@
 <template>
   <div class="app-container">
     <el-card :shadow="defaultData.cardShadow">
-      <div class="operate-container">
-        <div>
-          <i class="viteIcon vitelianjie" style="margin-right: 5px"></i>
-          <span>外联</span>
-        </div>
-      </div>
+      <view-name></view-name>
       <div class="icons">
         <!-- <div v-for="(item, index) in icons" :key="index">
-          <i :class="['viteIcon', item.icon]"></i>
+          <i :class="[defaultData.iconfont, item.icon]"></i>
           <div class="iconName">{{ item.name }}</div>
         </div> -->
       </div>

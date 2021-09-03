@@ -1,11 +1,6 @@
 <template>
   <el-card :shadow="defaultData.cardShadow">
-    <div class="operate-container">
-      <div>
-        <i :class="[defaultData.iconfont,'vitenumber']" style="margin-right: 5px"></i>
-        <span>数字指令</span>
-      </div>
-    </div>
+    <view-name></view-name>
 
     <div class="grid grid-c-4">
       <div>

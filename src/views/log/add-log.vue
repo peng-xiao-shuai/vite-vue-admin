@@ -1,11 +1,6 @@
 <template>
   <el-card :shadow="defaultData.cardShadow">
-    <div class="operate-container">
-      <div>
-        <i class="viteIcon viteyumaobi" style="margin-right: 5px"></i>
-        <span>{{ t("add.log") }}</span>
-      </div>
-    </div>
+    <view-name></view-name>
 
     <div style="margin: 15px 0">
       <el-form :inline="true" :model="addQuery">

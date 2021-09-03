@@ -3,7 +3,7 @@
     <el-card :shadow="defaultData.cardShadow">
       <div class="operate-container">
         <div>
-          <i class="viteIcon viteZJ-fuwenben" style="margin-right: 5px"></i>
+          <i :class="[defaultData.iconfont,'viteZJ-fuwenben']" style="margin-right: 5px"></i>
           <span>富文本编辑器</span>
         </div>
       </div>

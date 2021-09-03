@@ -1,12 +1,8 @@
 <template>
   <div class="app-container">
     <el-card :shadow="defaultData.cardShadow">
-      <div class="operate-container">
-        <div>
-          <i class="viteIcon viteZJ-ditu" style="margin-right: 5px"></i>
-          <span>地图</span>
-        </div>
-      </div>
+      <view-name></view-name>
+      
       <div>
         <el-form :inline="true" style="margin-bottom: 20px">
           <div class="screenForm">

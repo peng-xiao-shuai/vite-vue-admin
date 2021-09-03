@@ -1,12 +1,7 @@
 <template>
   <div class="app-container">
     <el-card :shadow="defaultData.cardShadow">
-      <div class="operate-container">
-        <div>
-          <i class="viteIcon viteyanjing" style="margin-right: 5px"></i>
-          <span>md预览</span>
-        </div>
-      </div>
+      <view-name></view-name>
 
       <v-md-preview :text="text"></v-md-preview>
     </el-card>

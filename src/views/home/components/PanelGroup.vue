@@ -10,18 +10,14 @@
             padding: '10px',
             height: height + 'px',
             boxSizing: 'border-box',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
           }"
         >
-          <div :class="['icon-people', 'viteIcon', i.icon]"></div>
           <div class="warp">
             <div class="text">{{ t(i.locale) }}</div>
             <div class="num">{{ i.value || 0 }}</div>
-
             <!-- <digit-roll :start-val="0" :end-val="i.value || 0" :duration="1000" class="num" /> -->
           </div>
+          <div :class="['icon-people', defaultData.iconfont, i.icon]"></div>
         </el-card>
       </template>
     </div>
@@ -61,17 +57,24 @@ export default defineComponent({
 
   .card-panel {
     font-size: 16px;
+    height: 100%;
     // overflow: hidden;
     border-radius: 5px;
-    :deep() .el-card .el-card__body {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    position: relative;
+    border: none;
+
+    .icon-people{
+      position: absolute;
+      bottom: -8px;
+      right: -8px;
+      opacity: 0.3;
+      transform: rotate(-25deg);
+      transition: all .2s;
     }
 
     .warp {
       min-width: 100px;
-      text-align: center;
+      // text-align: center;
       color: #fff;
 
       .text {
@@ -84,5 +87,11 @@ export default defineComponent({
       }
     }
   }
+
+  .card-panel:hover .icon-people{
+      bottom: 0;
+      right: 0;
+    }
+
 }
 </style>

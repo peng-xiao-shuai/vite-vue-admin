@@ -3,7 +3,7 @@
     <el-card :shadow="defaultData.cardShadow">
       <div class="operate-container">
         <div>
-          <i class="viteIcon vitemarkdown" style="margin-right: 5px"></i>
+          <i :class="[defaultData.iconfont,'vitemarkdown']" style="margin-right: 5px"></i>
           <span>md编辑器</span>
         </div>
       </div>

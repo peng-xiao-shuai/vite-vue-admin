@@ -1,12 +1,8 @@
 <template>
   <div class="app-container">
     <el-card :shadow="defaultData.cardShadow">
-      <div class="operate-container">
-        <div>
-          <i class="viteIcon viteZJ-shangchuan" style="margin-right: 5px"></i>
-          <span>上传文件（图片、视频）</span>
-        </div>
-      </div>
+      <view-name></view-name>
+      
       <div>
         <div>
           <el-form :inline="true" :model="currentFrom">
