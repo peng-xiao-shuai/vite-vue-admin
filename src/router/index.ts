@@ -153,7 +153,7 @@ export const addRouter = [
     meta: {
       title: "嵌套路由",
       locale: 'nesting.router',
-      icon: "vitezujian",
+      icon: "viteroute",
     },
     children: [
       {
@@ -163,7 +163,7 @@ export const addRouter = [
         meta: {
           title: "二级菜单(一)",
           locale: 'nesting.router.menu.two.1',
-          icon: "viteantv",
+          icon: "vitecaidanliebiao",
         },
       },
       {
@@ -183,7 +183,7 @@ export const addRouter = [
             meta: {
               title: "富文本",
               locale: 'rich.text',
-              icon: "viteZJ-rich",
+              icon: "viteZJ-fuwenben",
             },
           },
           {
@@ -193,7 +193,7 @@ export const addRouter = [
             meta: {
               title: "三级菜单",
               locale: 'nesting.router.menu.three',
-              icon: "viteZJ-biaoge",
+              icon: "vitecaidanliebiao",
             },
             children: [
               {
@@ -203,7 +203,7 @@ export const addRouter = [
                 meta: {
                   title: "地图",
                   locale: 'map',
-                  icon: "viteZJ-map",
+                  icon: "viteviteZJ-map",
                 },
               },
               {
@@ -213,7 +213,7 @@ export const addRouter = [
                 meta: {
                   title: "图标",
                   locale: 'icon',
-                  icon: "viteZJ-icon",
+                  icon: "viteviteZJ-icon",
                 },
               },
             ],
@@ -360,6 +360,16 @@ export const addRouter = [
           icon: "vitenumber",
         },
       },
+      {
+        path: "press-key-directive",
+        name: "press-key-directive",
+        component: () => import("@/views/directives/press-key.vue"),
+        meta: {
+          title: "按键指令",
+          locale: 'press.key.directive',
+          icon: "vitepress-key",
+        },
+      }
     ],
   },
   {
