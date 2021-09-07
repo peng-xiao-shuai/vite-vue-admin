@@ -104,6 +104,16 @@ export const addRouter = [
         },
       },
       {
+        path: "form",
+        name: "form",
+        component: () => import("@/views/modules/form/index.vue"),
+        meta: {
+          title: "表单",
+          locale: 'form',
+          icon: "viteZJ-shangchaun",
+        },
+      },
+      {
         path: "icon",
         name: "icon",
         component: () => import("@/views/modules/icons/index.vue"),
