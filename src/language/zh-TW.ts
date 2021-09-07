@@ -9,6 +9,7 @@ export default {
 
   'component.list': '組件列表',
   'upload.file': '上傳文件',
+  'form': '表單',
   'table': '表格',
   'rich.text': '富文本',
   'markdown': 'markdown',

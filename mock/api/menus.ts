@@ -12,6 +12,16 @@ const roles = {
     },
     {
       hidden: 0,
+      icon: "viteyonghuliebiao",
+      id: 18,
+      level: 1,
+      name: "form",
+      parentId: 1,
+      sort: 997,
+      title: "表单",
+    },
+    {
+      hidden: 0,
       icon: "viteZJ-biaoge",
       id: 11,
       level: 1,
