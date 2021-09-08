@@ -1,32 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/vite-vue-admin/logo.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vite-vue-admin</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" />
-  <script type="module" crossorigin src="/vite-vue-admin/assets/index.00fbdd02.js"></script>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" href="/vite-vue-admin/logo.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>vite-vue-admin</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" />
+	<script type="module" crossorigin src="/vite-vue-admin/assets/index.00fbdd02.js"></script>
   <link rel="modulepreload" href="/vite-vue-admin/assets/vendor.45a16529.js">
   <link rel="stylesheet" href="/vite-vue-admin/assets/vendor.e7fb9e21.css">
   <link rel="stylesheet" href="/vite-vue-admin/assets/index.dac1a1c9.css">
 </head>
-  <body>
-    <div id="app">
-		<img style="margin: auto;display: block;margin-top: 180px;" src="/vite-vue-admin/assets/logo.76f6ae55.png" alt="">
-		<p style="text-align: center;font-size: 30px;">vite-vue-admin</p>
-	</div>
-    <!-- 腾讯地图 -->
-    <script
-      charset="utf-8"
-      src="https://map.qq.com/api/js?v=2.exp&key=753BZ-JEZ62-YPUUO-CWXAM-ZZMG3-AGFZZ"
-    ></script>
-    <script async src="https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js"></script>
-    <!-- katex 公式解析 -->
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-    <!-- 流程图 -->
-    <!-- <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> -->
-    
-    
-  </body>
+	<body>
+		<div id="app">
+			<img id="loadindImg" src="/vite-vue-admin/assets/logo.76f6ae55.png" alt="">
+			<p id="loadingText">vite-vue-admin</p>
+		</div>
+		<!-- 腾讯地图 -->
+		<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=753BZ-JEZ62-YPUUO-CWXAM-ZZMG3-AGFZZ">
+		</script>
+		<script async src="https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js"></script>
+		<!-- katex 公式解析 -->
+		<script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+		<!-- 流程图 -->
+		<!-- <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> -->
+
+		
+	</body>
 </html>
+
+<script type="text/javascript">
+	if (localStorage.getItem("themeColors") == null) {
+		document.getElementById('loadingText').style.color = '#AD49FF'
+	} else {
+		document.getElementById('loadingText').style.color = localStorage.getItem("themeColors").split(`"`)[3]
+	}
+</script>
+
+<style type="text/css">
+	#loadindImg{
+		margin: auto;
+		display: block;
+		margin-top: 180px;
+	}
+
+	#loadingText{
+		text-align: center;
+		font-size: 30px;
+		font-family: "微软雅黑";
+	}
+</style>
