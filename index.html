@@ -9,8 +9,8 @@
 	</head>
 	<body>
 		<div id="app">
-			<img id="loadindImg" src="./public/logo.png" alt="">
-			<p id="loadingText">vite-vue-admin</p>
+			<img id="loadindImg" style="margin: auto;display: block;margin-top: 180px;" src="./public/logo.png" alt="">
+			<p id="loadingText" style="text-align: center;font-size: 30px;font-family: '微软雅黑';">vite-vue-admin</p>
 		</div>
 		<!-- 腾讯地图 -->
 		<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=753BZ-JEZ62-YPUUO-CWXAM-ZZMG3-AGFZZ">
@@ -32,17 +32,3 @@
 		document.getElementById('loadingText').style.color = localStorage.getItem("themeColors").split(`"`)[3]
 	}
 </script>
-
-<style type="text/css">
-	#loadindImg{
-		margin: auto;
-		display: block;
-		margin-top: 180px;
-	}
-
-	#loadingText{
-		text-align: center;
-		font-size: 30px;
-		font-family: "微软雅黑";
-	}
-</style>
