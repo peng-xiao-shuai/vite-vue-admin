@@ -3,7 +3,7 @@ import roles from "./menus";
 const tokens: any = {
   "admin-token": {
     icon:
-      "https://portrait.gitee.com/uploads/avatars/user/2660/7980619_wx_7c73acaa7c_1598404785.jpeg!avatar200",
+      "https://hl1249.github.io/Picture-window/img/peng.png",
     id: 3,
     menus: roles["admin"],
     roles: ["admin"],
@@ -11,7 +11,7 @@ const tokens: any = {
   },
   "editor-token": {
     icon:
-      "https://portrait.gitee.com/uploads/avatars/user/2660/7980619_wx_7c73acaa7c_1598404785.jpeg!avatar200",
+      "https://hl1249.github.io/Picture-window/img/peng.png",
     id: 3,
     menus: roles["ordinary"],
     roles: ["ordinary"],

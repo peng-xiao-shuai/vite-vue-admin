@@ -61,6 +61,10 @@
 
 <script setup>
 	import {
+		ElMessageBox
+	} from 'element-plus'
+
+	import {
 		reactive
 	} from "vue"
 	import {
@@ -87,8 +91,23 @@
 
 	// 恢复默认主题
 	const defaultSet = () => {
-		localStorage.clear()
-		location.reload();
+
+		ElMessageBox({
+				message:'是否恢复默认设置',
+				title:'提示',
+				cancelButtonText: '取消',
+				confirmButtonText: '确定',
+				showCancelButton:true
+				// type: 'warning',
+			})
+			.then(() => {
+				localStorage.removeItem('themeColors')
+				localStorage.removeItem('themeLightColors')
+				localStorage.removeItem('waterMark')
+				localStorage.removeItem('settings')
+				location.reload();
+			})
+			.catch(() => {})
 	}
 
 	// 主题修改
