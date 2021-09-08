@@ -1,1 +1,0 @@
-import{r as a,o as s,c as n,a as e,w as d,i as o}from"./vendor.305ffdb2.js";const r={name:"interlink"},t={class:"app-container"},c=o("div",{class:"icons"},null,-1);r.render=function(o,r,i,l,f,u){const w=a("view-name"),m=a("el-card");return s(),n("div",t,[e(m,{shadow:o.defaultData.cardShadow},{default:d((()=>[e(w),c])),_:1},8,["shadow"])])};export default r;
