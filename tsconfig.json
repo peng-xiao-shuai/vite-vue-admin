@@ -1,8 +1,7 @@
 {
   "include": ["src/*", "src/**/*.vue", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.ts"],
   "exclude": [
-    "node_modules",
-    "src/utils/map.js"
+    "node_modules"
   ],
   "compilerOptions": {
     "paths": {

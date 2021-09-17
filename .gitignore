@@ -3,6 +3,9 @@ node_modules
 dist
 dist-ssr
 *.local
+.vscode
+public/logo.zip
+public/*.psd
 
 # Log files
 npm-debug.log*
