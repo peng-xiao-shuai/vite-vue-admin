@@ -1,5 +1,5 @@
 import { nextTick } from 'vue';
-import loadingCss from '@/style/loading.scss';
+import loadingCss from '@/styles/loading.scss';
 
 // 定义方法
 export const NextLoading = {

@@ -20,7 +20,7 @@
 <script lang='ts'>
 import { ref, reactive, defineComponent, inject, nextTick } from "vue";
 import iconSelect from "@/components/icon-select/index.vue";
-import icon from "@/style/iconfont.css";
+import icon from "@/styles/iconfont.css";
 
 export default defineComponent({
   name: "icons",

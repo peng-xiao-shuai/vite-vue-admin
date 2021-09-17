@@ -39,7 +39,7 @@ import viewName from "./components/view-name/view-name.vue";
 import defaultData from "./config/default-data";
 
 // css
-import "./style/index.scss";
+import "./styles/index.scss";
 
 import { mockXHR } from "../mock/index";
 // if (

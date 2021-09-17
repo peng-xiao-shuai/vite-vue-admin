@@ -53,7 +53,7 @@
 
 <script lang='ts'>
 import { defineComponent, ref, watchEffect } from "vue";
-import icon from "@/style/iconfont.css";
+import icon from "@/styles/iconfont.css";
 
 export default defineComponent({
   name: "icons",
@@ -132,7 +132,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang='scss'>
-@import "../../style/common/var.scss";
 .operate-container {
   width: 100%;
   display: flex;
