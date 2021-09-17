@@ -3,7 +3,7 @@ import roles from "./menus";
 const tokens: any = {
   "admin-token": {
     icon:
-      "https://hl1249.github.io/Picture-window/img/peng.png",
+      "https://avatars.githubusercontent.com/u/53845479?v=4",
     id: 3,
     menus: roles["admin"],
     roles: ["admin"],
@@ -11,7 +11,7 @@ const tokens: any = {
   },
   "editor-token": {
     icon:
-      "https://hl1249.github.io/Picture-window/img/peng.png",
+      "https://avatars.githubusercontent.com/u/53579755?v=4",
     id: 3,
     menus: roles["ordinary"],
     roles: ["ordinary"],

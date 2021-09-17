@@ -139,7 +139,7 @@
 
         <el-form-item>
           <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="handleDialogConfirm('adminForm')"
+          <el-button type="primary" @click="handleDialogConfirm()"
             >确 定</el-button
           >
         </el-form-item>
@@ -189,11 +189,9 @@ export default defineComponent({
       ],
     });
     let admin = reactive({
-      value: {
         username: "",
         oldPassword: "",
         newPassword: "",
-      },
     });
 
     function logout() {

@@ -85,9 +85,9 @@ export default {
     switch: 0,
     text: 'Peng_Xiao_Shuai',
     ratio: 0,
-    color: '#999',
+    color: '#ddd',
     deg: -20,
-    size: 30
+    size: 25
   }, waterMark),
   settings: Object.assign({
     // layout配置
