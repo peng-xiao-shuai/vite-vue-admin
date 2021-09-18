@@ -96,7 +96,7 @@ mockXHR()
 // }
 ```
 
-### 一、Install dependencies,
+### 一、安装依赖项
 
 ```bash
 $ yarn
@@ -110,7 +110,7 @@ $ npm install
 
 > 推荐使用 yarn , **[yarn 安装与常用命令](http://liqingsong.cc/article/detail/9)** 。
 
-### 二、Compiles and hot-reloads for development
+### 二、编译为开发环境
 
 ```bash
 $ yarn dev
@@ -122,7 +122,7 @@ or
 $ npm run dev
 ```
 
-### 三、Compiles and minifies for production
+### 三、二、编译为生产环境
 
 ```bash
 $ yarn build
