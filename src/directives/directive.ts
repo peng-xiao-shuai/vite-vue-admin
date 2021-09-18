@@ -1,7 +1,7 @@
 import type { App } from 'vue';
 import num from './common/num';
 import pressKey from './common/press-key';
-import { debounce, throttle } from './common/debounce';
+import { debounce, throttle } from './common/debounce-throttle';
 
 export default function directives(app: App) {
   num(app)
