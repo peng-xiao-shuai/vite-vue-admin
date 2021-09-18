@@ -29,6 +29,7 @@ export default {
   'directive': '指令',
   'number.directive': '數字指令',
   'press.key.directive': '按鍵指令',
+  'debounce.throttle.directive': '防抖&節流指令',
 
   'ajax.log': '接口錯誤',
   'add.log': '添加日誌',

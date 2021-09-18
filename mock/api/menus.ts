@@ -270,6 +270,16 @@ const roles = {
       sort: 997,
       title: "按键指令",
     },
+    {
+      hidden: 0,
+      icon: "vitethrottle",
+      id: 73,
+      level: 1,
+      name: "debounce-throttle",
+      parentId: 70,
+      sort: 997,
+      title: "防抖节流指令",
+    },
     // 多级路由
     {
       hidden: 0,

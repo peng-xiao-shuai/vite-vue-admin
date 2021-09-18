@@ -379,6 +379,16 @@ export const addRouter = [
           locale: 'press.key.directive',
           icon: "vitepress-key",
         },
+      },
+      {
+        path: "debounce-throttle",
+        name: "debounce-throttle",
+        component: () => import("@/views/directives/debounce-throttle.vue"),
+        meta: {
+          title: "防抖&节流指令",
+          locale: 'debounce.throttle.directive',
+          icon: "vitethrottle",
+        },
       }
     ],
   },
