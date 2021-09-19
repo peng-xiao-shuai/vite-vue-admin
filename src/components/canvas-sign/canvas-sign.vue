@@ -49,8 +49,8 @@ export default defineComponent({
   emits: ["update:modelValue", "success"],
   setup(props, context) {
     // 获取canvas dom
-    let can: any, ctx: any, cw: number, ch: number;
-    let ctxRef: any = ref(null);
+    let can: HTMLCanvasElement | any, ctx: CanvasRenderingContext2D, cw: number, ch: number;
+    let ctxRef: {value: CanvasRenderingContext2D | null} = ref(null);
     const baseUrl = ref("");
     const isDialog = ref<boolean>(false);
     const id = "sign" + new Date().getTime();
@@ -58,11 +58,13 @@ export default defineComponent({
     nextTick(() => {
       can = document.getElementById(id);
 
+      if (!can) return
+
       cw = can.offsetWidth;
       ch = can.offsetHeight;
       can.width = cw;
       can.height = ch;
-      ctx = can.getContext("2d");
+      ctx = can.getContext("2d") as CanvasRenderingContext2D;
       ctxRef.value = ctx;
 
       ctx.fillStyle = props.signColor || "#fff";
@@ -70,7 +72,7 @@ export default defineComponent({
       ctx.save();
 
       ctx.strokeStyle = props.signBgColor || "#000";
-      ctx.lineWidth = "1";
+      ctx.lineWidth = 1;
     });
 
     const status = ref<boolean>(false);
@@ -94,7 +96,7 @@ export default defineComponent({
       status.value = false;
     };
 
-    const handleClear = (e: any) => {
+    const handleClear = () => {
       ctx.clearRect(0, 0, cw, ch);
     };
     const handleCreateImg = () => {

@@ -9,7 +9,7 @@ NProgress.configure({ showSpinner: false })
 
 const notRedirect = ['/login'] // 不重定向白名单
 
-router.beforeEach((to: any, from: any, next: any) => {
+router.beforeEach((to, from, next) => {
   NProgress.start();
   // 拦截 baseUrl 路径
   if(window.location.host === 'peng-xiao-shuai-0902.github.io' && (import.meta as any).env.BASE_URL === "/vite-vue-admin/" && to.path === '/vite-vue-admin/'){
@@ -30,7 +30,7 @@ router.beforeEach((to: any, from: any, next: any) => {
     if (store.getters.getMenus.length == 0) {
 
       store.dispatch('userInfo')
-        .then((res: any) => {
+        .then(() => {
           next({ ...to, replace: true })
           NProgress.done()
         })

@@ -6,6 +6,7 @@ declare module "*.vue" {
 
 declare module 'js-cookie'
 declare module 'nprogress'
+declare module 'mockjs'
 declare module 'el-plus-powerful-table'
 
 // marldown 依赖

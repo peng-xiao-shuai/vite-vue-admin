@@ -1,7 +1,7 @@
 import request from "@/utils/request";
 
-// 添加排查依据信息
-export function richTextFun(): any {
+// 查询富文本
+export function richTextFun() {
   return request({
     url: "modules/richText",
   });

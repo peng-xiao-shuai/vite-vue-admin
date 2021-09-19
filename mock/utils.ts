@@ -9,7 +9,10 @@ function param2Obj(url:string) {
   if (!search) {
     return {}
   }
-  const obj:any = {}
+  type objType = {
+    [s: string]: string,
+  }
+  const obj:objType = {}
   const searchArr = search.split('&')
   searchArr.forEach(v => {
     const index = v.indexOf('=')
@@ -28,14 +31,17 @@ function param2Obj(url:string) {
  */
 
 //  深度克隆
-function deepClone(source: any) {
+type sourceType = {
+  [s:string]: string|sourceType
+}
+function deepClone(source: sourceType) {
   if (!source && typeof source !== 'object') {
-    throw new Error('error arguments', 'deepClone')
+    throw new Error('error arguments deepClone')
   }
   const targetObj:any = source.constructor === Array ? [] : {}
   Object.keys(source).forEach(keys => {
     if (source[keys] && typeof source[keys] === 'object') {
-      targetObj[keys] = deepClone(source[keys])
+      targetObj[keys] = deepClone((source[keys] as sourceType))
     } else {
       targetObj[keys] = source[keys]
     }

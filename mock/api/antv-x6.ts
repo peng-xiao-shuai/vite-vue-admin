@@ -1,15 +1,16 @@
-interface config {
-  body: any;
-  method: string;
-  query: any;
-}
-
 import * as Mock from "mockjs";
+import { config } from '../apis';
 
-var Random = Mock.Random;
-const position = JSON.stringify({ x: 0, y: 0 })
+const position: string = JSON.stringify({ x: 0, y: 0 })
+
+type dataType = {
+  name: string,
+  id: number,
+  parentId: number,
+  jsonStr: string
+}
 // 一级
-let province: any[] = Mock.mock({
+let province: dataType[] = Mock.mock({
   'data': [
     {
       name: '湖南省',
@@ -22,7 +23,7 @@ let province: any[] = Mock.mock({
 }).data
 
 // 二级
-let city: any[] = ['长沙市', '株洲市', '湘潭市'].map((item, index) => {
+let city: dataType[] = ['长沙市', '株洲市', '湘潭市'].map((item, index) => {
   return {
     name: item,
     id: index + 2,
@@ -34,7 +35,7 @@ let city: any[] = ['长沙市', '株洲市', '湘潭市'].map((item, index) => {
 
 let statics: string[][] = [['长沙县', '芙蓉区', '天心区', '岳麓区'], ['荷塘区', '芦淞区'], ['湘潭县', '岳塘区']]
 // 三级
-let county: any[] = []
+let county: dataType[] = []
 let id = city.length + 1
 city.forEach((item, index) => {
   let arr = statics[index].map((each, idx) => {
@@ -51,7 +52,7 @@ city.forEach((item, index) => {
   county.push(...arr)
 })
 
-let data: any[] = [].concat(...province).concat(...city).concat(...county)
+let data: dataType[] = new Array<dataType>().concat(...province).concat(...city).concat(...county)
 
 export default [
   {

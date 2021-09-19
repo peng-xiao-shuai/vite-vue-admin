@@ -1,19 +1,30 @@
-interface config {
-  body: any;
-  method: string;
-  query: any;
-}
-
 import * as Mock from "mockjs";
+import { config } from '../apis';
+
 var Random = Mock.Random;
 
-const count: any = Mock.mock("@range(25)");
-let list: any = tableFun();
+const count: number[] = Mock.mock("@range(25)");
+let list = tableFun();
 
-function tableFun() {
-  let each: any = [];
+
+type listType = {
+  id: number,
+  name: string,
+  types: number,
+  image: string,
+  recommend: number,
+  iconfont: string,
+  rate: number,
+  href: string,
+  text: string,
+  price: string,
+  oldPrice: string,
+  date: string,
+}
+function tableFun():listType[] {
+  let each: listType[] = [];
   for (let i in count) {
-    let name = Random.ctitle();
+    let name: string = Random.ctitle();
     each.push(
       Mock.mock({
         id: Number(i) + 1,
@@ -47,21 +58,21 @@ export default [
       let name = config.query.name || "";
 
       if (date != "") {
-        list.sort(function (a: any, b: any) {
+        list.sort(function (a: listType, b: listType) {
           if (date == "descending") {
-            return b.date.split("-").join("") - a.date.split("-").join("");
+            return Number(b.date.split("-").join("")) - Number(a.date.split("-").join(""))
           } else {
-            return a.date.split("-").join("") - b.date.split("-").join("");
+            return Number(a.date.split("-").join("")) - Number(b.date.split("-").join(""))
           }
         });
       }
-      let listCopy: any = list;
+      let listCopy = list;
       if (types != "") {
-        listCopy = listCopy.filter((item: any) => item.types == types);
+        listCopy = listCopy.filter((item: listType) => item.types == types);
       }
       if (name != "") {
         listCopy = listCopy.filter(
-          (item: any) => item.name.indexOf(name) != -1
+          (item: listType) => item.name.indexOf(name) != -1
         );
         console.log(name, listCopy);
       }
@@ -69,7 +80,7 @@ export default [
       return {
         code: 200,
         data: {
-          list: listCopy.filter((item: any, index: number) => {
+          list: listCopy.filter((item: listType, index: number) => {
             return index >= (num - 1) * size && index < num * size;
           }),
           pageNum: num,

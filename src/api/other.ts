@@ -6,7 +6,12 @@ export function logAjax() {
     method: 'post',
   })
 }
-export function getLogList(params: any) {
+
+type logList = {
+  pageSize: number,
+  pageNum: number
+}
+export function getLogList(params: logList) {
   return request({
     url: 'log/list',
     method: 'get',
@@ -14,7 +19,7 @@ export function getLogList(params: any) {
   })
 }
 
-export function AntvX6(params: any) {
+export function AntvX6(params: {parentId: number}) {
   return request({
     url: 'antvx6/list',
     method: 'get',

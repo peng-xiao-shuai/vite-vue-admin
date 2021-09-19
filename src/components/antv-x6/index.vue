@@ -81,8 +81,7 @@ export default defineComponent({
     const getlist = (parentId = 0, _cell) => {
       AntvX6({ parentId })
         .then(res => {
-          console.log(res.data)
-          res.data.forEach((item, index) => {
+          res.data.forEach((item) => {
             const node = addNode(graph, item)
 
             // parentId != 0 添加链接桩

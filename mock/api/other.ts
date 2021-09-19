@@ -1,17 +1,11 @@
-import { mockXHR } from "..";
+import { config } from '../apis';
 import * as Mock from "mockjs";
-
-interface config {
-  body: any;
-  method: string;
-  query: any;
-}
 
 export default [
   {
     url: "log/ajax",
     type: "get",
-    response: (_: any) => {
+    response: () => {
       return {
         code: 500,
         message: "触发报错！",
@@ -21,7 +15,7 @@ export default [
   {
     url: 'log/list',
     type: 'get',
-    response: (config: any) => {
+    response: (config: config) => {
       let size = Number(config.query.pageSize);
       let num = Number(config.query.pageNum);
       return {

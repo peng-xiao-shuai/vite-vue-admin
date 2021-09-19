@@ -1,3 +1,9 @@
+export interface config {
+  body: any;
+  method: string;
+  query: any;
+}
+
 import logins from "./api/logins";
 import home from "./api/home";
 import modules from "./api/modules";

@@ -1,6 +1,19 @@
-import roles from "./menus";
+import roles, { rolesValueItemType } from "./menus";
+import { config } from '../apis';
 
-const tokens: any = {
+type tokenValue = {
+  icon: string,
+  id: number,
+  menus: rolesValueItemType[],
+  roles: string[],
+  username: string
+}
+
+type tokensType = {
+  [s:string]: tokenValue
+}
+
+const tokens: tokensType = {
   "admin-token": {
     icon:
       "https://avatars.githubusercontent.com/u/53845479?v=4",
@@ -18,7 +31,11 @@ const tokens: any = {
     username: "ordinary",
   },
 };
-const users: any = {
+
+type userType = {
+  [s: string]: {password: number, token: string}
+}
+const users: userType = {
   admin: {
     password: 123456,
     token: "admin-token",
@@ -28,12 +45,6 @@ const users: any = {
     token: "editor-token",
   },
 };
-
-interface config {
-  body: any;
-  method: string;
-  query: any;
-}
 
 export default [
   {

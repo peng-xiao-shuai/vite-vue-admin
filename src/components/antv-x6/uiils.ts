@@ -1,9 +1,9 @@
-import { Graph, Shape, Node, Cell, Edge } from "@antv/x6"
+import { Graph, Shape, Node, Cell, Edge, Model } from "@antv/x6"
 import store from "@/store/index"
 import { ElMessage } from "element-plus"
 
 // 获取缓存的xy轴
-const positions: any = JSON.parse(window.localStorage.getItem('nodesPosition') || "{}")
+const positions: {[s:string|number]: {x:number, y:number}} = JSON.parse(window.localStorage.getItem('nodesPosition') || "{}")
 
 /**
  * 初始化的graph
@@ -50,12 +50,16 @@ export function u_graph(container: HTMLElement, mapContainer: HTMLElement) {
         return true
       },
       validateEdge({ edge }: { edge: Edge }) {
-        const target: any = edge.getTargetNode()
-        const source: any = edge.getSourceNode()
+        const target = edge.getTargetNode()
+        const source = edge.getSourceNode()
+
+        // 为null 拦截
+        if (!source) return
+
         source.addChild(target)
         // 绑定上级
         return setTimeout(() => {
-          ElMessage.success('绑定成功！id为' + target?.id + '名称为' + target.attrs.currentForm.name)
+          ElMessage.success('绑定成功！id为' + target?.id + '名称为' + (target && target.attrs && target.attrs.currentForm.name))
           return true
         })
 
@@ -129,6 +133,7 @@ export const groups = {
  * @param {object} currentForm 
  * @param {object} position 
  */
+
 export function addNode(graph: any, currentForm: any) {
   const width = currentForm.name.length * 10 < 80 ? 80 : currentForm.name.length * 10
   const jsonStr = JSON.parse(currentForm.jsonStr)

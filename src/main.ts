@@ -8,7 +8,6 @@ import store from "./store";
 import directive from './directives/directive';
 // 工具类 
 import { parseTime } from '@/utils/parse-time';
-import { debounce, throttle } from '@/config/debounce-throttle';
 
 import ElementPlus from "element-plus";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -37,7 +36,8 @@ import uploadFile from "./components/upload-file/index.vue";
 import viewName from "./components/view-name/view-name.vue";
 
 // 全局静态配置
-import defaultData from "./config/default-data";
+import defaultData, { defaultDataType } from "./config/default-data";
+import { debounce, throttle } from '@/config/debounce-throttle';
 
 // css
 import "./styles/index.scss";
@@ -55,7 +55,7 @@ if ((import.meta as any).env.MODE !== 'development') {
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    defaultData: any, // 这里可以用$Api具体的类型代替any
+    defaultData: defaultDataType, // 这里可以用$Api具体的类型代替any
     $debounce: Function,
     $throttle: Function
   }
@@ -101,11 +101,11 @@ interface log {
   url: string;
   info: string;
   time: string | null;
-  error: string | any;
+  error: string;
   name: string,
   type: string
 }
-app.config.errorHandler = (error: any, vm: any, info: string) => {
+app.config.errorHandler = (error: string, vm: any, info: string) => {
   console.error(error);
 
   let data: log = {

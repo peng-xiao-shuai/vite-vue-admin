@@ -1,16 +1,9 @@
-interface config {
-  body: any;
-  method: string;
-  query: any;
-}
-
 import * as Mock from "mockjs";
 
-var Random = Mock.Random;
-function dataArr(type: string = "mock") {
-  let item: any = [];
+function dataArr(type: string = "mock"):number[] {
+  let item: number[] = [];
   // X轴数据
-  let x: any = [];
+  let x: number[] = [];
   for (let i = 0; i < 31; i++) {
     x.push(i + 1);
     item.push(Mock.mock("@integer(10,50)"));
@@ -24,7 +17,11 @@ function dataArr(type: string = "mock") {
 
 // 浏览量饼图
 function pageviewFun() {
-  let item: any = [];
+  type itemType = {
+    value: number,
+    name: string
+  }
+  let item: itemType[] = [];
   let names: string[] = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
   for (let i = 0; i < names.length; i++) {
     item.push({
@@ -35,11 +32,23 @@ function pageviewFun() {
   return item;
 }
 
-let typeSwitch = ["昨日增长", "今日增长"]
-let homeEcharts = echartsFun();
-function echartsFun() {
-  let echarts: any = [];
-  typeSwitch.forEach((item: any, index: Number) => {
+let typeSwitch: string[] = ["昨日增长", "今日增长"]
+
+export type echartsType = {
+  areaStyle: {},
+  data: number[],
+  name: string,
+  smooth: boolean,
+  emphasis: {
+    focus: string,
+  },
+  type: string,
+}
+let homeEcharts:echartsType[] = echartsFun();
+
+function echartsFun():echartsType[] {
+  let echarts: echartsType[] = [];
+  typeSwitch.forEach((item: string) => {
     echarts.push({
       areaStyle: {},
       data: dataArr(),
@@ -63,7 +72,7 @@ export default [
   {
     url: "echart/cake",
     type: "get",
-    response: (config: config) => {
+    response: () => {
       return {
         code: 200,
         data: {
@@ -74,7 +83,7 @@ export default [
   },
   {
     url: "echart/line",
-    response: (config: config) => {
+    response: () => {
       return {
         code: 200,
         data: Mock.mock({
@@ -93,7 +102,7 @@ export default [
   },
   {
     url: "echart/pillar",
-    response: (config: config) => {
+    response: () => {
       return {
         code: 200,
         data: Mock.mock({

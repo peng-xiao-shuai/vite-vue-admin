@@ -1,4 +1,18 @@
-const roles = {
+export type rolesValueItemType = {
+  hidden: number,
+  icon?: string,
+  id: number,
+  level: number,
+  name: string,
+  parentId: number,
+  sort?: number,
+  title?: string,
+}
+
+export type rolesType = {
+  [s:string]: rolesValueItemType[]
+}
+const roles:rolesType = {
   admin: [
     {
       hidden: 0,

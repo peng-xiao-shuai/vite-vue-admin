@@ -1,20 +1,15 @@
-interface config {
-  body: any;
-  method: string;
-  query: any;
-}
-
 import * as Mock from "mockjs";
+import { config } from '../apis';
+import type { echartsType } from './echart';
 
 var Random = Mock.Random;
 // 所有数据
-let list: any[] = [];
-let _x: any = dataArr("x");
+let _x: number[] = dataArr("x");
 
 function dataArr(type: string = "mock") {
-  let item: any = [];
+  let item: number[] = [];
   // X轴数据
-  let x: any = [];
+  let x: number[] = [];
   for (let i = 0; i < 31; i++) {
     x.push(i + 1);
     item.push(Mock.mock("@integer(10,50)"));
@@ -26,17 +21,19 @@ function dataArr(type: string = "mock") {
   }
 }
 
-let typeSwitch = [
+let typeSwitch:string[][] = [
   ["新增用户", "重复用户"],
   ["新增文章"],
   ["vue文档", "vite文档"],
   ["提交成功", "提交失败"],
 ];
-let homeEcharts = echartsFun();
-function echartsFun() {
-  let echarts: any = [];
-  typeSwitch.forEach((item: any, index: Number) => {
-    let each: any = [];
+let homeEcharts:echartsType[][] = echartsFun();
+
+function echartsFun():echartsType[][] {
+  let echarts: echartsType[][] = [];
+
+  typeSwitch.forEach((item: string[]) => {
+    let each: echartsType[] = [];
     for (let j in item) {
       each.push({
         areaStyle: {},
@@ -62,7 +59,11 @@ function echartsFun() {
 
 // 浏览量饼图
 function pageviewFun() {
-  let item: any = [];
+  type itemType = {
+    value: number,
+    name: string
+  }
+  let item: itemType[] = [];
   let names: string[] = ["总浏览", "本月浏览", "昨日浏览", "今日浏览"];
   for (let i = 0; i < 4; i++) {
     item.push({
@@ -77,7 +78,7 @@ export default [
   {
     url: "home/count",
     type: "get",
-    response: (config: config) => {
+    response: () => {
       return {
         code: 200,
         data: Mock.mock({
@@ -99,19 +100,19 @@ export default [
           : config.query.period == "Fifteen"
           ? 15
           : 0;
-      let timeBeingX = JSON.parse(JSON.stringify(_x));
-      let timeBeingList = JSON.parse(JSON.stringify(homeEcharts[i]));
+      let timeBeingX = [..._x];
+      let timeBeingList = [...homeEcharts[i]];
 
       // 截取部分数据
-      function timeBeingListFun() {
-        return timeBeingList.map((item: any, index: number) => {
-          let each: any = [];
-          let j: any;
+      function timeBeingListFun():echartsType[] {
+        return timeBeingList.map((item: echartsType) => {
+          let each: number[] = [];
+          let j: string;
           for (j in item.data) {
             // 默认就是31天数据 等于0时不需要截取
             if (num == 0) return item;
 
-            if (j >= num && num != 0) {
+            if (Number(j) >= num && num != 0) {
               each.push(item.data[j]);
             }
           }
@@ -134,7 +135,7 @@ export default [
   {
     url: "home/pageviewChart",
     type: "get",
-    response: (config: config) => {
+    response: () => {
       return {
         code: 200,
         data: {
@@ -145,7 +146,7 @@ export default [
   },
   {
     url: "home/earnings",
-    response: (config: config) => {
+    response: () => {
       return {
         code: 200,
         data: Mock.mock({
@@ -186,10 +187,7 @@ export default [
   },
   {
     url: "home/table",
-    response: (config: config) => {
-      let size = Number(config.query.pageSize);
-      let num = Number(config.query.pageNum);
-
+    response: () => {
       return {
         code: 200,
         data: Mock.mock({

@@ -9,8 +9,8 @@ let themeColor: themeColorInterface = {
   danger: '#f56c6c',
 }
 
-let Tcolors: any = JSON.parse(window.localStorage.getItem('themeColors') || "{}")
-let Lcolors: any = JSON.parse(window.localStorage.getItem('themeLightColors') || "{}")
+let Tcolors: {[s:string]: string} = JSON.parse(window.localStorage.getItem('themeColors') || "{}")
+let Lcolors: {[s:string]: string} = JSON.parse(window.localStorage.getItem('themeLightColors') || "{}")
 Object.keys(Tcolors).forEach((item: string) => {
   document.documentElement.style.setProperty(item, Tcolors[item])
   let last = item.lastIndexOf('-')
@@ -29,7 +29,7 @@ Object.keys(Lcolors).forEach((item: string) => {
   document.documentElement.style.setProperty(item, Lcolors[item])
 })
 
-const locale: any = window.localStorage.getItem("locale") || 'zh-CN';
+const locale: string = window.localStorage.getItem("locale") || 'zh-CN';
 const settings: drawerSetting = JSON.parse(window.localStorage.getItem('settings') || '{}')
 const waterMark: waterMarkType = JSON.parse(window.localStorage.getItem('waterMark') || '{}')
 
@@ -43,6 +43,19 @@ for (let i in menuColorStore) {
   menuColor[toHump(i)] = menuColorStore[i]
 }
 // console.log(menuColor);
+
+export type defaultDataType = {
+  name: string,
+  themeColor: themeColorInterface,
+  iconfont: string,
+  tabsName: string,
+  cardShadow: string,
+  locale: string,
+  localeSelect: {value: string, label: string}[],
+  menuColors: menuColors,
+  waterMark: waterMarkType
+  settings: drawerSetting
+}
 
 export default {
   name: "Vite-Vue-Admin",
