@@ -109,6 +109,6 @@ export default {
     isTagsView: 1,
     defaultMenu: 1,
     leftMargin: 240,
-    grayMode: 1,
+    grayMode: 0,
   }, settings)
 };

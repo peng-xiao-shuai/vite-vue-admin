@@ -5,7 +5,7 @@
     "dev": "vite --base=/",
     "build": "vite build --base=/",
     "gitBuild": "vite build --base=/vite-vue-admin/",
-    "preview": "vite build --base=/vite-vue-admin/ && vite preview --port 8088"
+    "preview": "yarn run build && vite preview --port 8088"
   },
   "homepage": "https://peng-xiao-shuai-0902.github.io/vite-vue-admin/",
   "dependencies": {
