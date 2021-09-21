@@ -59,12 +59,17 @@ export default defineComponent({
       myChart.value = echarts.init(document.getElementById(props.echartsId))
     })
     const myChart = shallowRef(null)
+    // 记录
+    let old = []
 
     watchEffect(() => {
+      let merge = old.length == (props.information.homeDateInfoResult && props.information.homeDateInfoResult.length) ? false : true
       if (props.information.horizontalList) {
+          old = props.information.homeDateInfoResult
+          
           switch (props.types) {
             case 'line':
-              lineEchart(true)
+              lineEchart(merge)
               break
             case 'pie':
               cakeChart()
@@ -124,7 +129,7 @@ export default defineComponent({
       
       // myChart.value.clear();
       // 使用刚指定的配置项和数据显示图表。
-      myChart.value.setOption(option)
+      myChart.value.setOption(option, merge)
       window.addEventListener("resize", () => { myChart.value.resize() })
     }
     // 柱状
