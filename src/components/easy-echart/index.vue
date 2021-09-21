@@ -26,7 +26,7 @@
  * }]
  * 默认南丁格尔玫瑰图
  */
-import { defineComponent } from 'vue'
+import { defineComponent, shallowRef, onMounted, watchEffect } from 'vue'
 import * as echarts from 'echarts'
 
 export default defineComponent({
@@ -53,43 +53,38 @@ export default defineComponent({
       default: ''
     }
   },
-  watch: {
-    information: {
-      deep: true,
-      immediate: true,
-      handler (val, old) {
-        // console.log(val, this.echartsId, this.title)
+  setup(props) {
+    onMounted(() => {
+    // 基于准备好的dom，初始化echarts实例
+      myChart.value = echarts.init(document.getElementById(props.echartsId))
+    })
+    const myChart = shallowRef(null)
 
-        if (val.horizontalList) {
-          // 图表是否合并渲染
-          let merge = old.homeDateInfoResult && val.homeDateInfoResult.length == old.homeDateInfoResult.length ? false : true
-          switch (this.types) {
+    watchEffect(() => {
+      if (props.information.horizontalList) {
+          switch (props.types) {
             case 'line':
-              this.lineEchart(merge)
+              lineEchart(true)
               break
             case 'pie':
-              this.cakeChart()
+              cakeChart()
               break
             case 'homeCake':
-              this.homeCakeChart()
+              homeCakeChart()
               break
             default:
-              this.pillarChart()
+              pillarChart()
               break
           }
 
         }
-      }
-    }
-  },
-  methods: {
+    })
+
     // 线
-    lineEchart (merge) {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById(this.echartsId),)
+    const lineEchart = (merge) => {
       // 指定图表的配置项和数据
       let option = {
-        color: this.colors,
+        color: props.colors,
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -116,28 +111,27 @@ export default defineComponent({
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: this.information.horizontalList
+          data: props.information.horizontalList
         },
         yAxis: [
           {
             type: 'value'
           }
         ],
-        series: this.information.homeDateInfoResult
+        series: props.information.homeDateInfoResult
       }
 
+      
+      // myChart.value.clear();
       // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option, merge)
-      window.addEventListener("resize", () => { myChart.resize() })
-    },
+      myChart.value.setOption(option)
+      window.addEventListener("resize", () => { myChart.value.resize() })
+    }
     // 柱状
-    pillarChart () {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById(this.echartsId))
-
+    const pillarChart = () => {
       // 指定图表的配置项和数据
       let option = {
-        color: this.colors,
+        color: props.colors,
         tooltip: {
           trigger: 'axis',
           axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -145,7 +139,7 @@ export default defineComponent({
           }
         },
         title: {
-          // text: this.title,
+          // text: props.title,
           // left: 'center'
         },
         grid: {
@@ -157,26 +151,24 @@ export default defineComponent({
         },
         xAxis: {
           type: 'category',
-          data: this.information.horizontalList
+          data: props.information.horizontalList
         },
         yAxis: [{
           type: 'value'
         }],
-        series: this.information.homeDateInfoResult
+        series: props.information.homeDateInfoResult
       }
 
       // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option)
+      myChart.value.setOption(option)
 
-      window.addEventListener("resize", () => { myChart.resize() })
+      window.addEventListener("resize", () => { myChart.value.resize() })
 
-    },
+    }
 
     // 饼图 
     // 默认南丁格尔玫瑰图
-    cakeChart () {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById(this.echartsId))
+    const cakeChart = () => {
       let series = {
         type: 'pie',
         radius: [50, 250],
@@ -190,7 +182,7 @@ export default defineComponent({
         },
       }
 
-      series.data = this.information.horizontalList.map((item, index) => {
+      series.data = props.information.horizontalList.map((item, index) => {
         let each = {
           value: item.value,
           name: item.name
@@ -201,7 +193,7 @@ export default defineComponent({
 
       // 指定图表的配置项和数据
       let option = {
-        color: this.colors,
+        color: props.colors,
         tooltip: {
           trigger: 'item'
         },
@@ -222,15 +214,13 @@ export default defineComponent({
       }
 
       // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option)
-      window.addEventListener("resize", () => { myChart.resize() })
-    },
+      myChart.value.setOption(option)
+      window.addEventListener("resize", () => { myChart.value.resize() })
+    }
 
     // 首页单独饼图
-    homeCakeChart () {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById(this.echartsId))
-      console.log('并数据', this.information)
+    const homeCakeChart = () => {
+      console.log('并数据', props.information)
       let series = {
         center: ['30%', '50%'],
         type: 'pie',
@@ -258,7 +248,7 @@ export default defineComponent({
         }
       }
 
-      series.data = this.information.horizontalList.map((item, index) => {
+      series.data = props.information.horizontalList.map((item, index) => {
         let each = {
           value: item.value,
           name: item.name
@@ -269,7 +259,7 @@ export default defineComponent({
 
       // 指定图表的配置项和数据
       let option = {
-        color: this.colors,
+        color: props.colors,
         tooltip: {
           trigger: 'item'
         },
@@ -290,10 +280,10 @@ export default defineComponent({
       }
 
       // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option)
-      window.addEventListener("resize", () => { myChart.resize() })
+      myChart.value.setOption(option)
+      window.addEventListener("resize", () => { myChart.value.resize() })
     }
-  },
+  }
 })
 </script>
 

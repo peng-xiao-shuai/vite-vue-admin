@@ -100,8 +100,8 @@ export default [
           : config.query.period == "Fifteen"
           ? 15
           : 0;
-      let timeBeingX = [..._x];
-      let timeBeingList = [...homeEcharts[i]];
+      let timeBeingX = JSON.parse(JSON.stringify(_x));
+      let timeBeingList = JSON.parse(JSON.stringify(homeEcharts[i]));
 
       // 截取部分数据
       function timeBeingListFun():echartsType[] {
