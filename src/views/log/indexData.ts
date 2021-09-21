@@ -1,4 +1,4 @@
-const header: any[] = [
+const header = [
   {
     label: '账号名',
     props: [{

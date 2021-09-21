@@ -1,6 +1,4 @@
-import store from "@/store";
-
-const header: any[] = [
+const header = [
   {
     label: "编号", //显示的标题
     minWidth: "50", //对应列的最小宽度

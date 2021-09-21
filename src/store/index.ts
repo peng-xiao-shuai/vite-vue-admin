@@ -1,17 +1,20 @@
 import { createStore } from 'vuex'
 
 import getters from './getters';
-import user from './modules/user';
-import settings from './modules/settings';
-import pageNum from './modules/pageNum';
+import user, { UserState } from './modules/user';
+import settings, { SettingsState } from './modules/settings';
 
+// 为 store state 声明类型
+export interface State {
+	user: UserState,
+	settings: SettingsState,
+}
 
-export default createStore({
-    // 外部模块
-    modules:{
-        user,
-        settings,
-        pageNum
-    },
-    getters
+export default createStore<State>({
+	// 外部模块
+	modules:{
+			user,
+			settings
+	},
+	getters
 }) 

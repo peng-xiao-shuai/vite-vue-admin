@@ -25,12 +25,12 @@ let status = ref<boolean>(false);
 // 是否可以点击
 let isMove = ref<boolean>(false);
 // 鼠标按下
-const handleDown = (e: any) => {
+const handleDown = () => {
   status.value = true;
 };
 
 // 松开鼠标
-const handleUp = (e?: any) => {
+const handleUp = () => {
   window.localStorage.setItem("setting-enter", String(pageY.value));
   setTimeout(() => {
     isMove.value = false;
@@ -39,7 +39,7 @@ const handleUp = (e?: any) => {
 };
 
 // 鼠标悬浮
-const handleeMove = (e: any) => {
+const handleeMove = (e: MouseEvent) => {
   if (status.value) {
     isMove.value = true;
     if (pageY.value >= 90) {

@@ -6,27 +6,42 @@ const viewModules = (import.meta as any).globEager('../views/**/locales/*.ts')
 const componentModules = (import.meta as any).globEager('../components/**/locales/*.ts')
 const utilsModules = (import.meta as any).globEager('../utils/locales/*.ts')
 
-
-export function getLangAll(): any {
-  let message: any = {}
+type Message = {
+  [s: string]: {} | undefined
+}
+type RtnMessage = {
+  'zh-TW': {},
+  'zh-CN': {},
+  'en-US': {},
+  [s: string]: {}
+}
+export function getLangAll(): RtnMessage {
+  let message: Message = {}
   getLangFiles(modules, message)
   getLangFiles(viewModules, message)
   getLangFiles(componentModules, message)
   getLangFiles(utilsModules, message)
-
-  return message
+  
+  return message as RtnMessage
 }
 /**
  * 获取所有语言文件
  * @param {Object} mList
  */
-function getLangFiles(mList: any, msg: any) {
+type MList = {
+  [s: string]: { default: {[s:string]: string}}
+}
+function getLangFiles(mList: MList, msg: Message) {
   for (let path in mList) {
     if (mList[path].default) {
 
       // 判断是否中英混合文件
       if (/zh-and-en/.test(path)) {
-        let localeObj: any = {
+        type LocaleObj = {
+          [s:string]: any
+        }
+
+        let localeObj: LocaleObj = {
           'zh-CN': {},
           'en-US': {}
         }

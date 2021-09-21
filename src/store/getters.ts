@@ -1,17 +1,20 @@
+import { State } from './index';
+import { log } from '@/utils/interface';
+
 const getters = {
-	getToken: (state: any) => {
+	getToken: (state: State) => {
 		return state.user.vToken
 	},
-	getMenus: (state: any) => {
+	getMenus: (state: State) => {
 		return state.user.menus
 	},
-	getThemeColor: (state: any) => {
+	getThemeColor: (state: State) => {
 		return state.settings.themeColor.primary
 	},
-	getBugNumber: (state: any) => {
-		return state.settings.errorLog.filter((item: any, index: number) => item.type === 'Bug' || item.type === 'Ajax').length
+	getBugNumber: (state: State) => {
+		return state.settings.errorLog.filter((item: log) => item.type === 'Bug' || item.type === 'Ajax').length
 	},
-	getBugs: (state: any) => {
+	getBugs: (state: State) => {
 		return state.settings.errorLog
 	},
 

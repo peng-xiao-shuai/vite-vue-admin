@@ -57,7 +57,7 @@ import { defineComponent, ref } from "vue";
 export default defineComponent({
   name: "md-markdown",
   setup() {
-    const handleUploadImage = (event: any, insertImage: any, files: File[]) => {
+    const handleUploadImage = (event: Event, insertImage: Function, files: File[]) => {
       // 拿到 files 之后上传到文件服务器，然后向编辑框中插入对应的内容
       console.log(files);
 

@@ -122,10 +122,6 @@ const msg = (str:string = '触发',type:string = 'success')=>{
   proxy.$message[type](str)
 }
 
-const inputs = reactive<any>({
-  q:'',
-})
-
 </script>
 
 <style scoped lang='scss'>

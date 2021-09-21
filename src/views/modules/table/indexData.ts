@@ -1,7 +1,7 @@
 import store from "@/store";
 import defaultData from '@/config/default-data'
 
-const header: any[] = [
+const header = [
   {
     label: "编号", //显示的标题
     minWidth: "60", //对应列的最小宽度

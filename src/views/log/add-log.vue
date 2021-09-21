@@ -98,9 +98,14 @@ export default defineComponent({
       name: store.state.user.userInfo.username,
       time: parseTime(new Date()),
     });
-    const getList = (e?: any) => {
+
+    type E = {
+      pageSize: number,
+      pageNum: number
+    }
+    const getList = (e?: E) => {
       Object.assign(listQuery, e ? e : {});
-      getLogList(listQuery).then((res: any) => {
+      getLogList(listQuery).then((res) => {
         list.value = res.data.list;
         total.value = res.data.total;
       });

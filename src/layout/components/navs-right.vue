@@ -148,9 +148,8 @@
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent, inject, reactive, ref, shallowRef } from "vue";
+import { defineComponent, inject, reactive, ref, getCurrentInstance } from "vue";
 import { useStore } from "vuex";
-import { useRouter, useRoute } from "vue-router";
 import { updatePassword } from "@/api/logins";
 
 import search from "./nav-right/seacrh";
@@ -158,6 +157,8 @@ import language from "./nav-right/language.vue";
 import bug from "./nav-right/bug";
 import fullScreen from "./nav-right/full-screen";
 import size from "./nav-right/size";
+
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 export default defineComponent({
   components: {
@@ -168,8 +169,6 @@ export default defineComponent({
     size,
   },
   setup() {
-    const message = inject<any>("$message");
-    const messageBox = inject<any>("messageBox");
     let Store = useStore();
 
     // 账号头像
@@ -202,9 +201,9 @@ export default defineComponent({
       dialogVisible.value = false;
     }
     function handleDialogConfirm() {
-      adminForm.value.validate((valid: any) => {
+      adminForm.value.validate((valid: boolean) => {
         if (valid) {
-          messageBox
+          ElMessageBox
             .confirm("是否确认修改密码?", "提示", {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
@@ -213,13 +212,13 @@ export default defineComponent({
             .then(() => {
               updatePassword(admin).then((res: any) => {
                 if (res.code == "502") {
-                  message({
+                  ElMessage({
                     message: res.message,
                     type: "warning",
                   });
                 } else if (res.code == "200") {
                   dialogVisible.value = false;
-                  message({
+                  ElMessage({
                     message: "修改成功！",
                     type: "success",
                   });
@@ -229,7 +228,7 @@ export default defineComponent({
               });
             });
         } else {
-          message({
+          ElMessage({
             message: "请完善信息",
             type: "warning",
           });

@@ -20,7 +20,7 @@
         <el-empty description="抱歉，没有找到相关页面！！" v-show='!funMenu().length'></el-empty>
 
         <template v-for="item in funMenu()">
-          <div v-if='item.meta.locale' :key="item.meta.locale" :label="item.path" :value="item.name" class="menu-item" @click="navTo(item)">
+          <div v-if='item.meta && item.meta.locale' :key="item.meta.locale" :label="item.path" :value="item.name" class="menu-item" @click="navTo(item)">
             <i :class="[item.meta.icon,defaultData.iconfont]"></i>
             <div>
               <div class="name">
@@ -47,6 +47,7 @@ import { ref, watch } from "vue";
 import { useStore } from "vuex";
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from "vue-router";
+import { Routers } from '@/router/index';
 const Store = useStore();
 const router = useRouter()
 const route = useRoute()
@@ -54,24 +55,25 @@ const {t} = useI18n();
 const searchValue = ref<string>('')
 import { useSearch } from '@/hooks/states';
 
-watch(() => route.path,(v)=>{
+watch(() => route.path, () => {
   useSearch.value = false
 })
 
+type Arr = Routers & {locales: string[]}
 
-const searchMenusFun = (arr: any[], menu: any[], superior?: any)=>{
-  arr.forEach((each: any) => {
-    let item: any = JSON.parse(JSON.stringify(each));
-    if (!item.hidden && item.name) {
-      item.locales = superior && superior.locales ? superior.locales.concat([item.meta.locale]) : item.meta.locale ? [item.meta.locale] : []
+const searchMenusFun = (arr: Arr[], menu: Arr[], superior?: Arr)=>{
+  arr.forEach((each: Arr) => {
+    let item = {...each};
+    if (!item.hidden as boolean && item.name) {
+      item.locales = superior && superior.locales ? superior.locales.concat([(item.meta as {locale: string}).locale]) : item.meta && item.meta.locale ? [item.meta.locale] : []
 
       if (item.children) {
         item.path = superior ? superior.path + " /" + item.path : item.path;
 
         menu.push(item);
-        menu.concat(searchMenusFun(item.children, menu, item));
+        menu.concat(searchMenusFun(item.children as Arr[], menu, item));
       } else {
-        item.path = superior.path + " /" + item.path;
+        item.path = (superior && superior.path) + " /" + item.path;
 
         menu.push(item);
       }
@@ -79,7 +81,8 @@ const searchMenusFun = (arr: any[], menu: any[], superior?: any)=>{
   });
   return menu;
 }
-let menus: any = searchMenusFun(Store.state.user.menus, []);
+
+let menus = searchMenusFun(Store.state.user.menus, []);
 
 // 筛选菜单 在页面上循环
 const funMenu = ()=> {
@@ -87,13 +90,13 @@ const funMenu = ()=> {
     return menus
   }
 
-  return menus.filter((item:any)=>{
-    return item.path.indexOf(searchValue.value) != -1 || (item.meta && item.meta.locale) && t(item.meta.locale).indexOf(searchValue.value) != -1
+  return menus.filter((item: Arr)=>{
+    return item.path.indexOf(searchValue.value) != -1 || (item.meta && item.meta.locale) && t(item.meta.locale as string).indexOf(searchValue.value) != -1
   })
 }
 
 // 跳转
-const navTo = (item:any)=>{
+const navTo = (item: Arr)=>{
   router.push({
     path: item.path.replace(' ','')
   })

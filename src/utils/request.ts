@@ -5,6 +5,7 @@ import configDefault from '@/config/default-data';
 import { ElMessage } from "element-plus";
 import { parseTime } from './parse-time';
 import { log } from '@/utils/interface';
+import type { UserInfo } from "@/store/modules/user";
 
 const ENV = (import.meta as any).env;
 
@@ -16,7 +17,7 @@ function addBug(error: string, info?: string) {
     error,
     // 手动添加的type 为 info
     type: 'Ajax',
-    name: store.state.user.userInfo.username,
+    name: (store.state.user.userInfo as UserInfo).username,
     time: parseTime(new Date())
 
   }
@@ -95,7 +96,7 @@ service.interceptors.response.use(
   },
   (error) => {
     // 获取当前语言
-    const locales = getLangAll()[configDefault.locale]
+    const locales: {[s:string]: string} = getLangAll()[configDefault.locale]
     try {
       switch (error.response.status) {
         case 500:

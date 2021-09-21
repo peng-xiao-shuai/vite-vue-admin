@@ -72,7 +72,7 @@
         </el-form-item>
       </div>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('menuFrom')">提交</el-button>
+        <el-button type="primary" @click="onSubmit">提交</el-button>
         <el-button v-if="!currentForm.id" @click="resetForm()">重置</el-button>
       </el-form-item>
     </el-form>
@@ -85,7 +85,8 @@
 //     addEnterprise
 // } from "@/api/eps/enterprise";
 
-import { defineComponent, ref, inject } from "vue";
+import { defineComponent, ref, PropType } from "vue";
+import { ElMessage, ElMessageBox } from 'element-plus';
 
 const defaultMenu = {
   title: "",
@@ -106,14 +107,12 @@ export default defineComponent({
       default: () => {},
     },
     selectMenuList: {
-      type: Array,
+      type: Array as PropType<{label: string, value: string}[]>,
       default: () => [],
     },
   },
   emits: ["update:currentForm", "update:dialog", "refresh"],
   setup(props, context) {
-    const messageBox = inject<any>("messageBox");
-    const message = inject<any>("$message");
     const uploadForm = ref<any>({});
 
     const beforeClose = (hide: Function) => {
@@ -131,9 +130,9 @@ export default defineComponent({
     };
 
     const onSubmit = () => {
-      uploadForm.value.validate((valid: any) => {
+      uploadForm.value.validate((valid: boolean) => {
         if (valid) {
-          messageBox
+          ElMessageBox
             .confirm("是否提交数据", "提示", {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
@@ -142,7 +141,7 @@ export default defineComponent({
             .then(() => {
               if (props.currentForm.id) {
                 // modifyEnterprise(props.currentForm).then(response => {
-                message({
+                ElMessage({
                   message: "修改成功",
                   type: "success",
                   duration: 1000,
@@ -151,7 +150,7 @@ export default defineComponent({
               } else {
                 // addEnterprise(props.currentForm).then((response) => {
                 setTimeout(() => {
-                  message({
+                  ElMessage({
                     message: "提交成功",
                     type: "success",
                     duration: 1000,
@@ -169,7 +168,7 @@ export default defineComponent({
               }, 200);
             });
         } else {
-          message({
+          ElMessage({
             message: "验证失败",
             type: "error",
             duration: 1000,

@@ -21,7 +21,7 @@
                   v-for="(item, index) in count"
                   :key="'switch' + index"
                   :style="{
-                    background: current == index ? themeColor : '',
+                    background: current == index ? 'var(--color-primary)' : '',
                     transition: 'all .2s',
                   }"
                   :class="{ 's-active': current == index }"
@@ -80,7 +80,7 @@
             </div>
             <!-- 上升 -->
             <div class="increase">
-              <i class="el-icon-top" :style="{ color: themeColor }"
+              <i class="el-icon-top" style="color:  var(--color-primary)"
                 >{{ earnings.value.dayPercentage }}%</i
               >
             </div>
@@ -98,7 +98,7 @@
             </div>
             <!-- 上升 -->
             <div class="increase">
-              <i class="el-icon-top" :style="{ color: themeColor }"
+              <i class="el-icon-top" style="color: var(--color-primary)"
                 >{{ earnings.value.totalPercentage }}%</i
               >
             </div>
@@ -204,7 +204,11 @@ export default defineComponent({
   },
   setup() {
     // 曲线图颜色
-    const chartColor: any[] = [
+    type ChartColor = {
+      opacity: number,
+      color: any
+    }
+    const chartColor: ChartColor[] = [
       {
         opacity: 0.4,
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -233,14 +237,22 @@ export default defineComponent({
       },
     ];
     // 曲线图线段颜色
-    const colors: any[] = [
+    const colors: string[] = [
       useStore().state.settings.themeColor.primary,
       "#55bcff",
       "#F6A829",
       "#646cff",
     ];
 
-    let count = reactive([
+    type Count = {
+      icon: string;
+      title: string;
+      value: string;
+      locale: string;
+      key: string;
+      color: any;
+    }
+    let count = reactive<Count[]>([
       {
         icon: "vitehome-user",
         title: "用户",
@@ -278,14 +290,28 @@ export default defineComponent({
     let pageviewData = reactive({ value: {} });
 
     // 自定义线段颜色
-    let userLineColor: any = reactive({ value: [] });
+    type UserLineColor = {value: {name: string, color: string}[]}
+    let userLineColor: UserLineColor = reactive({ value: [] });
 
     let current = ref(0);
-    interface earnings {
-      value: any,
-      chart: any
+    interface Earnings {
+      value: {
+        dayMoney: number|string,
+        dayPercentage: number|string,
+        totalMoney: number|string,
+        totalPercentage: number|string
+      },
+      chart: {}
     }
-    let earnings = reactive<earnings>({ value: {}, chart: {} });
+    let earnings = reactive<Earnings>({ 
+      value: {
+        dayMoney: '',
+        dayPercentage: '',
+        totalMoney: '',
+        totalPercentage: '',
+      }, 
+      chart: {} 
+    });
 
     // 表格相关
     let listQuery = reactive({
@@ -304,13 +330,13 @@ export default defineComponent({
       handleChart(i);
     }
 
-    function command(e: any) {
+    function command(e: string) {
       handleChart(current.value, e);
     }
 
     // 浏览量
     function handlePageview() {
-      pageviewChart().then((res: any) => {
+      pageviewChart().then((res) => {
         pageviewData.value = res.data;
       });
     }
@@ -332,9 +358,7 @@ export default defineComponent({
     }
     function handleCount() {
       countFun().then((res) => {
-        let i: any;
-
-        count.forEach((i) => {
+        count.forEach((i: Count) => {
           i.value = res.data[i.key];
         });
       });

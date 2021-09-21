@@ -1,4 +1,4 @@
-const header: any[] = [{
+const header = [{
 	label: '编号', //显示的标题
 	minWidth: '80', //对应列的最小宽度
 	sortable: true, //排序
@@ -45,7 +45,7 @@ const header: any[] = [{
 	}]
 }]
 
-const category: any[] = [{
+const category = [{
 	label: '编号', //显示的标题
 	minWidth: '80', //对应列的最小宽度
 	sortable: true, //排序

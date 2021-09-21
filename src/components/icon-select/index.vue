@@ -82,7 +82,7 @@ export default defineComponent({
   setup(props, { emit }) {
     // 获取所有的 class名
     const array = [...icon.matchAll(/\.(\w|\-)*\:/g)].map(
-      (item: any, index: number) => {
+      (item: string, index: number) => {
         return item[0].substr(1, item[0].length).slice(0, -1);
       }
     );
@@ -98,7 +98,7 @@ export default defineComponent({
     // 获取所有 名称 并且合并
     const icons = [
       ...icon.matchAll(/\/\*(\s)(\w*|[^\x00-\xff]*)(\s)\*\//g),
-    ].map((item: any, index: number) => ({
+    ].map((item: string[], index: number) => ({
       name: item[2],
       icon: array[index],
     }));
@@ -110,7 +110,7 @@ export default defineComponent({
 
     const options = ref<icon[]>(icons);
 
-    const change = (e: any) => {
+    const change = (e: string) => {
       emit("update:icon", e);
     };
 

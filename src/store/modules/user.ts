@@ -1,19 +1,36 @@
 import TYPE from "../type/userType";
-
 import Cookies from "js-cookie";
-
 import { getUser, login } from "@/api/logins";
-import router, { addRouter as asyncRouter } from "@/router/index";
+import router, { addRouter as asyncRouter, Routers} from "@/router/index";
+import { RouteRecordRaw } from 'vue-router';
+import { Store } from 'vuex';
+
+type rolesValueItemType = {
+  hidden: number,
+  icon?: string,
+  id: number,
+  level: number,
+  name: string,
+  parentId: number,
+  sort?: number,
+  title?: string,
+}
+
+type Meta = {
+  id: number,
+  title: string,
+  icon: string
+}
 
 // 筛选该账号可展示路由
-function menusFilter(menus: any[]) {
+function menusFilter(menus: rolesValueItemType[]) {
   // return new Promise((resovle,reject)=>{
   // 所有一级
-  let levelOne: any[] = [];
+  let levelOne: rolesValueItemType[] = [];
   // 所有子集
-  let childs: any[] = [];
+  let childs: rolesValueItemType[] = [];
 
-  menus.forEach((item: any) => {
+  menus.forEach((item: rolesValueItemType) => {
     if (item.level === 0) {
       levelOne.push(item);
     } else {
@@ -21,7 +38,7 @@ function menusFilter(menus: any[]) {
     }
   });
 
-  let asyncrouter = asyncRouter.filter((item: any) => {
+  let asyncrouter = asyncRouter.filter((item: Routers) => {
     let each = addRouterFun(levelOne, item);
     // 拦截接口数据隐藏的菜单
     if (!each) {
@@ -37,62 +54,63 @@ function menusFilter(menus: any[]) {
 
   _sort(asyncrouter);
 
-  asyncrouter.map((item: any) => router.addRoute(item));
+  asyncrouter.map((item: Routers) => router.addRoute(item as RouteRecordRaw));
 
   // console.log('排序好的一级',asyncrouter);
 
-  state.menus = router.options.routes.concat(asyncrouter);
+  state.menus = router.options.routes.concat(asyncrouter as RouteRecordRaw[]);
 
   // resovle(state.menus)
   // })
 }
 // 排序
-function _sort(arr: any) {
-  arr.sort((a: any, b: any) => {
-    return b.sort - a.sort;
+function _sort(arr: Routers[]) {
+  arr.sort((a: Routers, b: Routers) => {
+    return (b as {sort: number}).sort - (a as {sort: number}).sort;
   });
 }
 // 格式数据
-function addRouterFun(router: any[], item: any) {
-  let each: any;
+function addRouterFun(router: rolesValueItemType[], item: Routers): Routers {
+  let each: rolesValueItemType;
 
   for (each of router) {
     if (item.hidden) {
       item.sort = 0;
-      return item;
+      break;
     }
 
     if (item.name == each.name && each.hidden != 1) {
-      item.meta.id = each.id;
+      (item.meta as Meta).id = each.id;
       if (each.title) {
-        item.meta.title = each.title;
+        (item.meta as Meta).title = each.title;
       }
       if (each.icon) {
-        item.meta.icon = each.icon;
+        (item.meta as Meta).icon = each.icon;
       }
 
       item.sort = each.sort;
-
-      return item;
+      break;
     }
   }
+
+  return item
 }
 
 // 递归菜单 查询子集
-function recursion(each: any, childs: any) {
+function recursion(each: Routers, childs: rolesValueItemType[]) {
   // 所有子集
-  let ids: any = [];
+  let ids: rolesValueItemType[] = [];
 
   if (!each.children) {
     // console.log('不进入递归',each);
   } else {
     // console.log('进入递归',each);
-    if (each.meta && each.meta.id) {
-      ids = childs.filter((i: any) => each.meta.id == i.parentId);
+    if (each.meta && (each.meta as Meta).id) {
+      ids = childs.filter((i: rolesValueItemType) => (each.meta as Meta).id == i.parentId);
       // console.log('接口返回的一级菜单子集',ids);
     }
     if (ids.length > 0) {
-      let children: any[] = [];
+      let children: Routers[] = [];
       for (let childrenItem of each.children) {
         let arr = addRouterFun(ids, childrenItem);
 
@@ -111,7 +129,39 @@ function recursion(each: any, childs: any) {
   }
 }
 
-const state: any = {
+export interface UserState {
+  vToken: string,
+  userInfo: UserInfo | {},
+  menus: RouteRecordRaw[],
+  tags: Tags[],
+  pageNums: number[]
+}
+
+export type UserInfo = {
+  icon: string,
+  id: number,
+  roles: string[],
+  username: string
+}
+
+type Tags = {
+  path: string,
+  name?: string,
+  meta?: {
+    title: string,
+    icon?: string,
+    locale?: string,
+    breadcrumb?: boolean,
+    url?: string,
+    iframeUrl?: string,
+    iframeData?: any,
+  },
+  remove?: boolean,
+  query?: {},
+  params?: {}
+}
+
+const state: UserState = {
   vToken: Cookies.get("vToken"),
   userInfo: {},
   menus: [],
@@ -126,30 +176,32 @@ const state: any = {
       remove: true,
     },
   ],
+
+  // 缓存列表页数，主要是用于没有开启keep-alive缓存时使用
   pageNums: [],
 };
 
 const actions = {
   // 登录
-  loginAction(store: { state: any }, user: any) {
+  loginAction(store: Store<UserState>, user: {username: string, password: number}) {
     return new Promise((resolve, reject) => {
       login(user).then(
         (res: { data: { tokenHead: string; token: string } }) => {
           if (res) {
-            store.state.vToken = res.data.tokenHead + res.data.token;
+            store.commit('setToken', res.data.tokenHead + res.data.token)
             Cookies.set("vToken", res.data.tokenHead + res.data.token);
             router.push({ path: "/" });
           }
           resolve(res);
         }
-      ).catch((err: any) => {
+      ).catch((err: {data: string}) => {
         reject(err.data)
       })
     });
   },
 
   // 获取用户信息
-  userInfo(store: { commit: any }, to: any) {
+  userInfo(store: Store<UserState>) {
     return new Promise((resovle) => {
       getUser({ token: state.vToken }).then(async (res: any) => {
         store.commit(TYPE.LOGIN_THEN, res.data);
@@ -162,34 +214,34 @@ const actions = {
   },
 
   // 登出
-  outLoing(store: { commit: any }) {
+  outLoing(store: Store<UserState>) {
     store.commit("outLogin", "");
     Cookies.remove("vToken");
   },
 
-  tagsActions(store: { commit: any }, val: any) {
-    console.log(val);
-
+  tagsActions(store: Store<UserState>, val: {to: Tags, removeIndex?: number}) {
     store.commit("tagsCommit", val);
   },
 };
 
 const mutations = {
-  pageNumPush(state: any, val: any) {
-    state.pageNums.push(val);
-    console.log(state.pageNums);
+  setToken(state: UserState, val: string) {
+    state.vToken = val
   },
-  outLogin(state: any, val: any) {
+  pageNumPush(state: UserState, val: number) {
+    state.pageNums.push(val);
+  },
+  outLogin(state: UserState, val: string) {
     state.vToken = val;
     state.userInfo = {};
     state.menus = [];
     router.push("/login");
   },
-  [TYPE.LOGIN_THEN](state: { userInfo: object; menus: [] }, val: any) {
+  [TYPE.LOGIN_THEN](state: { userInfo: UserInfo; menus: [] }, val: UserInfo) {
     // console.log('接受数据',val);
     state.userInfo = val;
   },
-  tagsCommit(state: any, val: any) {
+  tagsCommit(state: UserState, val: {to: Tags, removeIndex?: number}) {
     if (val.removeIndex !== undefined) {
       // console.log("删除");
 
@@ -198,6 +250,8 @@ const mutations = {
 
       state.pageNums.splice(val.removeIndex, 1);
     } else {
+      console.log(val.to);
+      
       state.tags.push(val.to);
     }
   },

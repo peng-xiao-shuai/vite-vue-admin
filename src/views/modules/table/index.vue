@@ -79,6 +79,7 @@
 
 	// 组件
 	import update from "./components/update.vue";
+	import { ElMessage } from 'element-plus';
 
 	export default defineComponent({
 		name: "modulesTable",
@@ -86,13 +87,11 @@
 			update,
 		},
 		setup() {
-			let $message = inject < any > ("$message");
-
-			let selectData = shallowReactive < any > ({
+			let selectData = shallowReactive({
 				value: []
 			});
 
-			let selectMenuList = shallowReactive < any > ([{
+			let selectMenuList = shallowReactive([{
 					value: 0,
 					label: "玄幻"
 				},
@@ -171,7 +170,7 @@
 				selectData.value = selectArr ? selectArr : [];
 
 				Object.assign(powerfulTabledata.listQuery, e ? e : {});
-				tableFun(powerfulTabledata.listQuery).then((response: any) => {
+				tableFun(powerfulTabledata.listQuery).then((response) => {
 					powerfulTabledata.list = response.data.list;
 					powerfulTabledata.total = response.data.total;
 				});
@@ -185,21 +184,19 @@
 			};
 			const handleSwitchChange = (row: any, index: number) => {
 				powerfulTabledata.list[index] = row;
-				$message.success("修改成功");
+				ElMessage.success("修改成功");
 			};
 			const handleUpdate = (row: any, index: number) => {
 				isDialog.value = true;
 
 				currentForm.value = reactive(JSON.parse(JSON.stringify(row)));
-				console.log(row);
 			};
 
 			const handleBatchChange = (
-				ids: any,
+				ids: number[],
 				item: {
 					label: string;value: number
-				},
-				items: any
+				}
 			) => {
 				switch (item.value) {
 					case 0:
@@ -213,7 +210,7 @@
 								}
 							}
 						});
-						$message.success("修改成功");
+						ElMessage.success("修改成功");
 
 						break;
 					case 2:
@@ -223,17 +220,13 @@
 			};
 
 			const handleDelete = (row: any, index: number) => {
-				_delete([row.id], [row.index]);
+				_delete([row.id]);
 			};
 
-			const _delete = (ids: any, index: number) => {
+			const _delete = (ids: number[]) => {
 
-				powerfulTabledata.list.splice(index, 1)
-
-				// powerfulTabledata.list = powerfulTabledata.list.filter(
-				//   (item: any) => ids.indexOf(item.id) == -1
-				// );
-				$message.success("删除成功");
+				powerfulTabledata.list = powerfulTabledata.list.filter((item: any) => ids.indexOf(item.id) == -1);
+				ElMessage.success("删除成功");
 			};
 
 			const handleResetSearch = () => {

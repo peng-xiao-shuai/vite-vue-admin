@@ -13,7 +13,7 @@ export const NextLoading = {
   },
   // 创建 loading
   start: () => {
-    const bodys: any = document.body;
+    const bodys: HTMLElement = document.body;
     const div = document.createElement('div');
     div.setAttribute('class', 'loading grid grid-c-3');
     const htmls = `

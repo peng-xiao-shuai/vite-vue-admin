@@ -1,4 +1,4 @@
-export let header: any = [
+export let header = [
   {
     label: "姓名", //显示的名称
     props: [

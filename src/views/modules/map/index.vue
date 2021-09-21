@@ -49,7 +49,8 @@ import { markerFun, markerDragend, GeocoderFun } from "@/utils/map.js";
 export default defineComponent({
   name: "modulesMap",
   setup() {
-    let location = reactive<any>({
+    type Location = {lat: string, lng: string}
+    let location = reactive<{value: Location}>({
       value: {
         lat: "39.90923",
         lng: "116.397428",
@@ -71,20 +72,20 @@ export default defineComponent({
       // 拖拽开始;
       markerDragend(marker);
       // 拖拽结束
-      qq.maps.event.addListener(marker, "dragend", function (e: any) {
+      qq.maps.event.addListener(marker, "dragend", function () {
         //getPosition()  返回Marker的位置
         marker.setAnimation(qq.maps.MarkerAnimation.DOWN);
         location.value = marker.getPosition();
 
-        GeocoderFun(true, location.value, marker, map).then((res: any) => {
+        GeocoderFun(true, location.value, marker, map).then((res) => {
           address.value = res.detail.address;
           location.value = res.detail.location;
         });
       });
     });
 
-    function addressChange(e: string, type: Boolean) {
-      GeocoderFun(type, e, marker, map).then((res: any) => {
+    function addressChange(e: Location, type: Boolean) {
+      GeocoderFun(type, e, marker, map).then((res) => {
         location.value = res.detail.location;
         address.value = res.detail.address;
       });

@@ -1,10 +1,10 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { DefineComponent } from 'vue';
 
 // console.log(router)
 import layOut from "@/layout/index.vue";
 import much from "@/layout/components/router-view.vue";
 import { NextLoading } from '@/utils/loading' // progress bar
-
 // meta 参数
 /**
  * @param {string} title 标题
@@ -14,9 +14,30 @@ import { NextLoading } from '@/utils/loading' // progress bar
  * @param {string} iframeUrl 内嵌网页
  * @param {string} iframeData 内嵌网页attr
  * @param {boolean} breadcrumb 是否不展示在 “面包屑”组件上展示
+ * @param {number} sort 动态添加排序
  */
 
-const routes = [
+export interface Routers {
+  path: string,
+  component: DefineComponent | Function,
+  name?: string,
+  redirect?: string,
+  meta?: {
+    title: string,
+    icon: string,
+    locale?: string,
+    breadcrumb?: boolean,
+    url?: string,
+    iframeUrl?: string,
+    iframeData?: any,
+  },
+  children?: Routers[],
+  hidden?: boolean,
+  // 动态添加
+  sort?: number
+}
+
+const routes: Routers[] = [
   {
     path: "/",
     component: layOut,
@@ -61,7 +82,7 @@ const routes = [
   },
 ];
 
-export const addRouter = [
+export const addRouter: Routers[] = [
   {
     path: "/modules",
     component: layOut,
@@ -447,6 +468,7 @@ export const addRouter = [
         component: () => import("@/views/ums/role/allocMenu.vue"),
         meta: {
           title: "分配菜单",
+          icon: "viteziyuanliebiao",
         },
         hidden: true,
       },
@@ -456,6 +478,7 @@ export const addRouter = [
         component: () => import("@/views/ums/role/allocResource.vue"),
         meta: {
           title: "分配资源",
+          icon: "viteziyuanliebiao",
         },
         hidden: true,
       },
@@ -483,6 +506,7 @@ export const addRouter = [
         component: () => import("@/views/ums/resource/categoryList.vue"),
         meta: {
           title: "资源分类",
+          icon: "viteziyuanliebiao",
         },
         hidden: true,
       },
@@ -548,7 +572,7 @@ export const addRouter = [
 
 const _router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: routes as RouteRecordRaw[],
 });
 
 NextLoading.start()

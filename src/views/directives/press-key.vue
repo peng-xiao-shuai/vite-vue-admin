@@ -129,7 +129,7 @@ const msg = (str:string,type:string = 'success')=>{
   console.log(str);
 }
 
-const inputs = reactive<any>({
+const inputs = reactive({
   q:'',
 })
 

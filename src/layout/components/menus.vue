@@ -21,7 +21,7 @@
       >
         <!-- :default-active='' -->
         <menus-item
-          :index="index + 1"
+          :index="Number(index) + 1"
           :collapse="!collapse"
           v-for="(item, index) in menus"
           :key="item.name"
@@ -54,17 +54,17 @@ export default {
       default: true,
     },
   },
-  setup(props) {
-    const route: any = useRoute();
+  setup() {
+    const route = useRoute();
     const store = useStore();
 
     function menuActive() {
       return route.name;
     }
 
-    function navTo(e: any) {
+    function navTo(name: string) {
       router.push({
-        name: e,
+        name
       });
     }
 
@@ -72,8 +72,7 @@ export default {
       store.dispatch("outLoing");
     }
 
-    function menuSelect(e: any) {
-      console.log(e);
+    function menuSelect(e: string) {
       localStorage.setItem("menuActive", e);
     }
 

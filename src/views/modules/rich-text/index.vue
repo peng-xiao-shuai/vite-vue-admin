@@ -39,7 +39,6 @@
 <script lang='ts'>
 import { richTextFun } from "@/api/modules/richText";
 import { ref, reactive, defineComponent, inject } from "vue";
-import { useRouter, useRoute } from "vue-router";
 
 // 组件
 // import update from "./components/update.vue";
@@ -52,20 +51,17 @@ export default defineComponent({
     // update,
   },
   setup() {
-    const router = useRouter();
-    const route = useRoute();
-
-    let myValue = ref<any>("");
-    let scroll = ref<any>(null);
+    let myValue = ref<string>("");
+    let scroll = ref(null);
 
     getData();
 
     function getData() {
-      richTextFun().then((response: any) => {
+      richTextFun().then((response) => {
         myValue.value = response.data;
       });
     }
-    function getTinyMceFun(e?: any) {
+    function getTinyMceFun() {
       console.log("获取富文本数据", myValue.value);
     }
 

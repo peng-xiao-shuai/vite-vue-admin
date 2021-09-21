@@ -24,7 +24,11 @@ export default defineComponent({
   setup(props, context) {
     let chart = reactive({ value: {} });
     // 曲线图颜色
-    const chartColor: any[] = [
+    type ChartColor = {
+      opacity: number,
+      color: any
+    }
+    const chartColor: ChartColor[] = [
       {
         opacity: 0.4,
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -53,18 +57,19 @@ export default defineComponent({
       },
     ];
     // 曲线图线段颜色
-    const colors: any[] = [
+    const colors: string[] = [
       "#5BB1FF",
       "#AD49FF",
       "#F6A829",
       "rgb(85, 188, 255)",
     ];
     // 自定义线段颜色
-    let userLineColor: any = reactive({ value: [] });
+    type UserLineColor = {value: {name: string, color: string}[]}
+    let userLineColor = reactive<UserLineColor>({ value: [] });
     handleChart(0);
 
     function handleChart(status: number | string, period: string = "Seven") {
-      lineFun().then((res: any) => {
+      lineFun().then((res) => {
         res.data.homeDateInfoResult.forEach((item: any, index: number) => {
           item.areaStyle = chartColor[index];
 

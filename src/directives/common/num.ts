@@ -2,15 +2,15 @@
  * @Author: 彭小黑 
  * @Date: 2021-07-08 10:48:10 
  * @Last Modified by: 彭小黑
- * @Last Modified time: 2021-08-11 16:05:30
+ * @Last Modified time: 2021-09-20 14:46:11
  */
 import type { App } from 'vue';
 
 let inputNode: HTMLElement
 
-const float = (arg: string = 'number', modifiers?: any, vals?: (number | string)[]) => {
+const float = (arg: string = 'number', modifiers?: {}, vals?: (number | string)[]) => {
   inputNode.addEventListener('input', (e: Event) => {
-    const keys = Object.keys(modifiers)
+    const keys = Object.keys(modifiers || {})
 
     let value = (e.target as any).value.replace(/[a-z]|[\u4e00-\u9fa5]|[^\x00-\xff]/ig, '') || ''
 

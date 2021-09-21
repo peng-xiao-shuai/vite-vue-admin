@@ -6,7 +6,10 @@
   height: 200px;
   column-gap: 10px !important;
   row-gap: 10px !important;
- 
+  position: absolute;
+  z-index: 999;
+  left: calc(50% - 100px);
+  
   >div{
     border-radius: 50%;
     background: var(--color-primary);

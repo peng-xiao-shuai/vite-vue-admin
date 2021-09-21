@@ -27,12 +27,13 @@ export interface themeColor {
  * @param grayMode 灰度模式
  */
 export interface drawerSetting {
-  isLogo?: number,
-  isTagsView?: number,
-  fixed?: number,
-  leftMargin?: number,
-  defaultMenu?: number
-  grayMode?: number,
+  isLogo: number,
+  isTagsView: number,
+  fixed: number,
+  leftMargin: number,
+  defaultMenu: number
+  grayMode: number,
+  [s: string]: number
 }
 /**
 * 菜单颜色
@@ -75,5 +76,6 @@ export interface waterMarkType {
   ratio: number,
   color: string,
   deg: number,
-  size: number
+  size: number,
+  [s: string]: string|number
 }

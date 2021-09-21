@@ -23,8 +23,13 @@ export default defineComponent({
   components: { easyEchart },
   setup(props, context) {
     let chart = reactive({ value: {} });
+
+    type ChartColor = {
+      opacity: number,
+      color: any
+    }
     // 曲线图颜色
-    const chartColor: any[] = [
+    const chartColor: ChartColor[] = [
       {
         opacity: 0.4,
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -53,7 +58,7 @@ export default defineComponent({
       },
     ];
     // 曲线图线段颜色
-    const colors: any[] = [
+    const colors: string[] = [
       "rgb(61,94,216)",
       "#AD49FF",
       "#FFCB4D",
@@ -62,13 +67,11 @@ export default defineComponent({
       "#27B276",
       "#FF8149",
     ];
-    // 自定义线段颜色
-    let userLineColor: any = reactive({ value: [] });
 
     handlePageview();
     // 浏览量
     function handlePageview() {
-      cakeFun().then((res: any) => {
+      cakeFun().then((res) => {
         chart.value = res.data;
       });
     }

@@ -2,33 +2,30 @@ import { defineComponent, ref, inject } from "vue";
 import screenFull from "screenfull";
 import { useI18n } from 'vue-i18n';
 import defaultData from '@/config/default-data';
+import { ElMessage } from 'element-plus';
 
 export default defineComponent({
-  setup(props) {
-    const message = inject<any>("$message");
+  setup() {
     const { t } = useI18n();
-    const screenfull: any = screenFull;
 
     let isRfs = ref(false);
 
     const click = () => {
-      console.log(112);
-
-      if (!screenfull.isEnabled) {
-        message({
+      if (!screenFull.isEnabled) {
+        ElMessage({
           message: "您的浏览器不支持！",
           type: "warning",
         });
         return false;
       }
-      screenfull.toggle();
+      screenFull.toggle();
     }
     const rfsChange = () => {
-      isRfs.value = screenfull.isFullscreen;
+      isRfs.value = (screenFull as {isFullscreen: boolean}).isFullscreen
     }
     const init = () => {
-      if (screenfull.isEnabled) {
-        screenfull.on("change", rfsChange);
+      if (screenFull.isEnabled) {
+        screenFull.on("change", rfsChange);
       }
     }
 
@@ -41,7 +38,7 @@ export default defineComponent({
             <i
               class={[
                 defaultData.iconfont,
-                !isRfs ? 'vitefullScreen' : 'vitecancel-full-screen',
+                !isRfs.value ? 'vitefullScreen' : 'vitecancel-full-screen',
               ]}
               onClick={() => { click() }}
             ></i>
