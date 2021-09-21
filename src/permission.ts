@@ -39,18 +39,10 @@ router.beforeEach((to, from, next) => {
       NProgress.done()
     }
   } else {
-    if (notRedirect.indexOf(to.path) != -1) {
       setTimeout(() => {
-        next()
+        notRedirect.indexOf(to.path) != -1 ? next() : next('/login')
         NProgress.done()
       }, 1000)
-    } else {
-      setTimeout(() => {
-        next('/login')
-        NProgress.done()
-      }, 1000)
-    }
-
   }
 })
 

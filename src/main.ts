@@ -1,8 +1,11 @@
-import { createApp } from "vue";
+import { createApp, ComponentCustomProperties } from "vue";
+import { Store } from 'vuex'
+import { Router, RouteLocationNormalizedLoaded } from 'vue-router';
 import App from "./App.vue";
 import Cookies from "js-cookie";
 import router from "./router/index";
-import store from "./store";
+import store, { State } from "./store";
+import type { UserInfo } from './store/modules/user';
 
 // 指令
 import directive from './directives/directive';
@@ -57,7 +60,10 @@ declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     defaultData: defaultDataType, // 这里可以用$Api具体的类型代替any
     $debounce: Function,
-    $throttle: Function
+    $throttle: Function,
+    $store: Store<State>,
+    $router: Router,
+    $route: RouteLocationNormalizedLoaded
   }
 }
 
@@ -114,7 +120,7 @@ app.config.errorHandler = (error: string, vm: any, info: string) => {
     error,
     // 手动添加的type 为 info
     type: 'Bug',
-    name: store.state.user.userInfo.username,
+    name: (store.state.user.userInfo as UserInfo).username,
     time: parseTime(new Date())
 
   }
