@@ -107,7 +107,7 @@ export default defineComponent({
       default: () => {},
     },
     selectMenuList: {
-      type: Array as PropType<{label: string, value: string}[]>,
+      type: Array as PropType<{label: string, value: string|number}[]>,
       default: () => [],
     },
   },

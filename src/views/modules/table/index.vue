@@ -192,12 +192,13 @@
 				currentForm.value = reactive(JSON.parse(JSON.stringify(row)));
 			};
 
-			const handleBatchChange = (
+			const handleBatchChange = ({
+				ids,
+				item
+			}: {
 				ids: number[],
-				item: {
-					label: string;value: number
-				}
-			) => {
+				item: {label: string, value: number}
+			}) => {
 				switch (item.value) {
 					case 0:
 					case 1:
@@ -219,12 +220,13 @@
 				}
 			};
 
-			const handleDelete = (row: any, index: number) => {
-				_delete([row.id]);
+			const handleDelete = ({row, index}: {row: any, index: number}) => {
+				_delete([row.id]);	
 			};
 
 			const _delete = (ids: number[]) => {
-
+				console.log(ids);
+				
 				powerfulTabledata.list = powerfulTabledata.list.filter((item: any) => ids.indexOf(item.id) == -1);
 				ElMessage.success("删除成功");
 			};
