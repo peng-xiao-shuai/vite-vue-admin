@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite --base=/",
+    "tsc": "tsc && yarn run build",
     "build": "vite build --base=/",
     "gitBuild": "vite build --base=/vite-vue-admin/",
     "preview": "yarn run build && vite preview --port 8088"
@@ -15,7 +16,7 @@
     "digit-roll": "^1.1.8",
     "echarts": "^5.0.2",
     "el-plus-powerful-table": "^1.4.15",
-    "element-plus": "1.0.2-beta.65",
+    "element-plus": "1.0.2-beta.71",
     "js-cookie": "^2.2.1",
     "mockjs": "^1.1.0",
     "normalize-wheel": "^1.0.1",

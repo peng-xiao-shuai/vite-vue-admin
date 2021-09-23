@@ -24,7 +24,7 @@ export function updateResource(id: number | string, data?: object) {
   });
 }
 
-export function deleteResource(id) {
+export function deleteResource(id: number) {
   return request({
     url: "/resource/delete/" + id,
     method: "post",
@@ -47,7 +47,7 @@ export function listAllCate() {
   });
 }
 
-export function createResourceCategory(data) {
+export function createResourceCategory(data: {}) {
   return request({
     url: "/resourceCategory/create",
     method: "post",
@@ -55,7 +55,7 @@ export function createResourceCategory(data) {
   });
 }
 
-export function updateResourceCategory(id, data) {
+export function updateResourceCategory(id: number, data: {}) {
   return request({
     url: "/resourceCategory/update/" + id,
     method: "post",
@@ -63,7 +63,7 @@ export function updateResourceCategory(id, data) {
   });
 }
 
-export function deleteResourceCategory(id) {
+export function deleteResourceCategory(id:number) {
   return request({
     url: "/resourceCategory/delete/" + id,
     method: "post",

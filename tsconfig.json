@@ -1,7 +1,7 @@
 {
-  "include": ["src/*", "src/**/*.vue", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.ts"],
+  "include": ["src/*", "src/**/*.vue", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.ts", "mock/*"],
   "exclude": [
-    "node_modules"
+    "node_modules",
   ],
   "compilerOptions": {
     "paths": {
