@@ -1,64 +1,23 @@
 import * as Mock from "mockjs";
 import { config } from '../apis';
-
-var Random = Mock.Random;
-
-const count: number[] = Mock.mock("@range(25)");
-let list = tableFun();
-
-
-type listType = {
-  id: number,
-  name: string,
-  types: number,
-  image: string,
-  recommend: number,
-  iconfont: string,
-  rate: number,
-  href: string,
-  text: string,
-  price: string,
-  oldPrice: string,
-  date: string,
-}
-function tableFun():listType[] {
-  let each: listType[] = [];
-  for (let i in count) {
-    let name: string = Random.ctitle();
-    each.push(
-      Mock.mock({
-        id: Number(i) + 1,
-        name,
-        "types|1": [0, 1, 2],
-        image: Random.image("100x100", Random.color(), name),
-        "recommend|1": [0, 1],
-        iconfont: "vitehome-liulanliang",
-        rate: "@integer(0,5)",
-        href: "https://gitee.com/abc1612565136/vite-admin",
-        text: "@cparagraph()",
-        price: "",
-        oldPrice: "@natural(30,100)",
-        date: "@date()",
-      })
-    );
-  }
-
-  return each;
-}
+import { lists, deleteLists, listType } from '../data/list';
+import { listPaging } from '../utils'
 
 export default [
   {
     url: "modules/table",
     response: (config: config) => {
-      let size = Number(config.query.pageSize);
-      let num = Number(config.query.pageNum);
+      let bookLists = lists.bookLists;
+
+      let pageSize = Number(config.query.pageSize);
+      let pageNum = Number(config.query.pageNum);
 
       let date = config.query.date || "";
       let types = config.query.types || "";
       let name = config.query.name || "";
 
       if (date != "") {
-        list.sort(function (a: listType, b: listType) {
+        bookLists.sort(function (a: listType, b: listType) {
           if (date == "descending") {
             return Number(b.date.split("-").join("")) - Number(a.date.split("-").join(""))
           } else {
@@ -66,28 +25,30 @@ export default [
           }
         });
       }
-      let listCopy = list;
+
       if (types != "") {
-        listCopy = listCopy.filter((item: listType) => item.types == types);
+        bookLists = bookLists.filter((item: listType) => item.types == types);
       }
       if (name != "") {
-        listCopy = listCopy.filter(
+        bookLists = bookLists.filter(
           (item: listType) => item.name.indexOf(name) != -1
         );
-        console.log(name, listCopy);
       }
 
       return {
         code: 200,
-        data: {
-          list: listCopy.filter((item: listType, index: number) => {
-            return index >= (num - 1) * size && index < num * size;
-          }),
-          pageNum: num,
-          pageSize: size,
-          totalpageNum: Math.ceil(listCopy.length / size),
-          total: listCopy.length,
-        },
+        data: listPaging<listType>(pageNum, pageSize, bookLists),
+      };
+    },
+  },
+  {
+    url: "modules/table/remove",
+    type: "delete",
+    response: (config: config) => {
+      deleteLists('bookLists',config.body.ids)
+      return {
+        code: 200,
+        data: {},
       };
     },
   },

@@ -14,3 +14,18 @@ export function tableFun(params: paramsType) {
     params,
   });
 }
+
+/**
+ * 删除商品
+ * @param {number[]} ids
+ * @returns {object}
+ */
+ export function bookListsDelete(ids: number[]) {
+  return request({
+    url: "modules/table/remove",
+    method: 'delete',
+    data:{
+      ids
+    }
+  });
+}

@@ -64,7 +64,8 @@
 
 <script lang='ts'>
 	import {
-		tableFun
+		tableFun,
+		bookListsDelete
 	} from "@/api/modules/table";
 	import {
 		header
@@ -73,7 +74,6 @@
 		ref,
 		reactive,
 		defineComponent,
-		inject,
 		shallowReactive
 	} from "vue";
 
@@ -225,10 +225,12 @@
 			};
 
 			const _delete = (ids: number[]) => {
-				console.log(ids);
-				
-				powerfulTabledata.list = powerfulTabledata.list.filter((item: any) => ids.indexOf(item.id) == -1);
-				ElMessage.success("删除成功");
+				bookListsDelete(ids)
+				.then(() =>{
+					ElMessage.success("删除成功");
+					getList()
+				})
+
 			};
 
 			const handleResetSearch = () => {
