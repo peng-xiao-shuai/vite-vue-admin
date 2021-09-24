@@ -37,7 +37,7 @@
           v-if="store.isTagsView"
         ></tags-view>
       </div>
-      <div class="view" v-press-key:s="()=> useSearch = true"
+      <div class="view" v-press-key:s="() => $throttle(() => useSearch = true, 100)"
         :style="{
           minHeight: `calc(100% - ${store.isTagsView ? '91px' : '50px'})`
         }">
@@ -48,7 +48,7 @@
         </transition>
 
         <transition name='searchView'>
-          <div v-show='!useSearch' v-press-key:escape="()=> useSearch = false">
+          <div v-show='!useSearch' v-press-key:escape="() => $throttle(() => useSearch = false, 100)">
             <router-view v-if="!meta.iframeUrl"></router-view>
             <iframe v-else :src="meta.iframeUrl" frameborder="0" v-bind="meta.iframeData"></iframe>
           </div>
