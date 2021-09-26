@@ -22,8 +22,8 @@ export default {
 
   'chart': '圖表',
   'line.chart': '折線圖',
-  'pillar.chart': '餅狀圖',
-  'cake.chart': '柱狀圖',
+  'pillar.chart': '柱狀圖',
+  'cake.chart': '餅狀圖',
   'log': '日誌',
   'bug.log': '錯誤日誌',
   'directive': '指令',
