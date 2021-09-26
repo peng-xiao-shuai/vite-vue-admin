@@ -184,6 +184,7 @@ import lineBarEcharts from "./components/lineBarEcharts.vue";
 
 import { useStore } from "vuex";
 import * as echarts from "echarts";
+import "vue3-number-roll-plus/main.css"
 
 import {
   pageviewChart,
@@ -200,7 +201,7 @@ export default defineComponent({
   components: {
     HomeEcharts,
     PanelGroup,
-    lineBarEcharts,
+    lineBarEcharts
   },
   setup() {
     // 曲线图颜色

@@ -150,7 +150,7 @@
 <script lang='ts'>
 import { defineComponent, inject, reactive, ref, getCurrentInstance } from "vue";
 import { useStore } from "vuex";
-import { updatePassword } from "@/api/logins";
+// import { updatePassword } from "@/api/logins";
 
 import search from "./nav-right/seacrh";
 import language from "./nav-right/language.vue";

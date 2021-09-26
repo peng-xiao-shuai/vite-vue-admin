@@ -4,6 +4,7 @@
     "node_modules",
   ],
   "compilerOptions": {
+    "types": ["vite/client"],
     "paths": {
       "@/*": ["./src/*"]
     },
@@ -30,7 +31,7 @@
     // 在表达式和声明上有隐含的any类型时报错
     "noImplicitAny": true,
     "moduleResolution": "Node",
-    "lib": ["dom", "es5", "es6", "es7", "es2015.promise"],
+    "lib": ["dom", "es5", "es6", "es2017", "es2015.promise"],
     "sourceMap": true,
     "pretty": true
   }

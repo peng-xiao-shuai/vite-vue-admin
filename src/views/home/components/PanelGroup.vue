@@ -14,7 +14,7 @@
         >
           <div class="warp">
             <div class="text">{{ t(i.locale) }}</div>
-            <div class="num">{{ i.value || 0 }}</div>
+            <VueNumberRollPlus class="num" :number='i.value || 0' isSemicolon background='rgba(0,0,0,0)'/>
             <!-- <digit-roll :start-val="0" :end-val="i.value || 0" :duration="1000" class="num" /> -->
           </div>
           <div :class="['icon-people', defaultData.iconfont, i.icon]"></div>
@@ -26,6 +26,7 @@
 
 <script lang='ts'>
 import { defineComponent } from "vue";
+import VueNumberRollPlus from "vue3-number-roll-plus"
 
 export default defineComponent({
   props: {
@@ -39,7 +40,7 @@ export default defineComponent({
     },
   },
   components: {
-    // CountTo
+    VueNumberRollPlus
   },
 });
 </script>
@@ -82,8 +83,10 @@ export default defineComponent({
         font-size: 16px;
         margin-bottom: 12px;
       }
-      .num {
+      .num > :deep(.real-time-num[data-v-61ea3133]) {
         font-size: 20px;
+        width: 14px;
+        margin: 0;
       }
     }
   }
