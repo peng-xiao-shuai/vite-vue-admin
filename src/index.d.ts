@@ -8,6 +8,7 @@ declare module 'js-cookie'
 declare module 'nprogress'
 declare module 'mockjs'
 declare module 'el-plus-powerful-table'
+declare module 'vue3-number-roll-plus'
 
 // marldown 依赖
 declare module "prismjs"

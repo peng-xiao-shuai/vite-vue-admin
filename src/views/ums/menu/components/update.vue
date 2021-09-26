@@ -35,12 +35,7 @@
         <el-input v-model="currentFrom.name"></el-input>
       </el-form-item>
       <el-form-item label="前端图标：" prop="icon">
-        <el-input v-model="currentFrom.icon" style="width: 80%"></el-input>
-        <i
-          :class="[currentFrom.icon, defaultData.iconfont]"
-          style="margin-left: 10px; font-size: 24px"
-        ></i>
-        <!-- <svg-icon style="margin-left: 8px" :icon-class="currentFrom.icon"></svg-icon> -->
+        <icon-select v-model:icon="currentFrom.icon"></icon-select>
       </el-form-item>
       <el-form-item label="是否显示：">
         <el-radio-group v-model="currentFrom.hidden" v-if="dialog">
@@ -62,8 +57,8 @@
 </template>
 
 <script>
-import { fetchList, createMenu, updateMenu, getMenu } from '@/api/ums/menu'
-import defaultData from '@/config/default-data'
+import { updateMenu } from '@/api/ums/menu'
+import iconSelect from "@/components/icon-select/index.vue";
 
 const defaultMenu = {
   title: '',
@@ -75,6 +70,9 @@ const defaultMenu = {
 }
 export default {
   name: "MenuDetail",
+  components: {
+    iconSelect
+  },
   props: {
     dialog: {
       type: Boolean,
@@ -121,29 +119,15 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-            if (this.currentFrom.id) {
-              updateMenu(this.currentFrom.id, this.currentFrom).then(response => {
-                this.$message({
-                  message: '修改成功',
-                  type: 'success',
-                  duration: 1000
-                })
-                this.$emit('update:dialog', false)
-
+            updateMenu(this.currentFrom).then(response => {
+              this.$message({
+                message: '修改成功',
+                type: 'success',
+                duration: 1000
               })
-            } else {
-              createMenu(this.currentFrom).then(response => {
-                this.$refs[formName].resetFields()
-                this.resetForm(formName)
-                this.$message({
-                  message: '提交成功',
-                  type: 'success',
-                  duration: 1000
-                })
-                this.$emit('update:dialog', false)
-              })
-            }
+              this.$emit('update:dialog', false)
 
+            })
             // 刷新父组件
             setTimeout(() => {
               this.$emit('refresh')

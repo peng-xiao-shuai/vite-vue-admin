@@ -1,36 +1,6 @@
-import roles, { rolesValueItemType } from "./menus";
 import { config } from '../apis';
-
-type tokenValue = {
-  icon: string,
-  id: number,
-  menus: rolesValueItemType[],
-  roles: string[],
-  username: string
-}
-
-type tokensType = {
-  [s:string]: tokenValue
-}
-
-const tokens: tokensType = {
-  "admin-token": {
-    icon:
-      "https://avatars.githubusercontent.com/u/53845479?v=4",
-    id: 3,
-    menus: roles["admin"],
-    roles: ["admin"],
-    username: "admin",
-  },
-  "editor-token": {
-    icon:
-      "https://avatars.githubusercontent.com/u/53579755?v=4",
-    id: 3,
-    menus: roles["ordinary"],
-    roles: ["ordinary"],
-    username: "ordinary",
-  },
-};
+import { listPaging } from '../utils'
+import { lists, tokenValue, deleteLists } from '../data/list'
 
 type userType = {
   [s: string]: {password: number, token: string}
@@ -42,7 +12,7 @@ const users: userType = {
   },
   ordinary: {
     password: 123456,
-    token: "editor-token",
+    token: "ordinary-token",
   },
 };
 
@@ -79,10 +49,50 @@ export default [
   {
     url: "admin/info*",
     response: (config: config) => {
-      console.log(tokens[config.query.token]);
       return {
         code: 200,
-        data: tokens[config.query.token],
+        data: lists.tokens.filter(item => item.token == config.query.token)[0],
+        message: "操作成功",
+      };
+    },
+  },
+  // 获取用户列表
+  {
+    url: "admin/userList",
+    response: (config: config) => {
+      let pageSize = Number(config.query.pageSize);
+      let pageNum = Number(config.query.pageNum);
+      let username = config.query.username
+
+      const list = username ? lists.tokens.filter((item: tokenValue) => item.username.indexOf(username) !== -1) : lists.tokens
+
+      return {
+        code: 200,
+        data: listPaging<tokenValue>(pageNum, pageSize, list),
+        message: "操作成功",
+      };
+    },
+  },
+  // 删除用户列表
+  {
+    url: "admin/remove",
+    type: 'delete',
+    response: (config: config) => {
+      return {
+        code: 200,
+        data: deleteLists('tokens',config.body.ids),
+      };
+    },
+  },
+  // 获取角色列表
+  {
+    url: "admin/roleList",
+    response: (config: config) => {
+      let pageSize = Number(config.query.pageSize);
+      let pageNum = Number(config.query.pageNum);
+      return {
+        code: 200,
+        data: listPaging<tokenValue>(pageNum, pageSize, lists.roleLists),
         message: "操作成功",
       };
     },

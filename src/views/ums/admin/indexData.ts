@@ -1,4 +1,15 @@
-const header = [{
+import { ElMessage } from "element-plus";
+
+export type RowType = {
+  icon: string,
+  id: number,
+  roles: string[],
+  username: string,
+  status: number,
+  createTime?: string
+}
+
+export const header = [{
 	label: '编号', //显示的标题
 	minWidth: '80', //对应列的最小宽度
 	sortable: true, //排序
@@ -12,24 +23,10 @@ const header = [{
 		prop: 'username',
 	}],
 }, {
-	label: '姓名', //显示的名称
+	label: '角色', //显示的名称
 	props: [{
-		prop: 'nickName',
-	}],
-}, {
-	label: '邮箱', //显示的名称
-	props: [{
-		prop: 'email',
-	}],
-}, {
-	label: '添加时间', //显示的名称
-	props: [{
-		prop: 'createTime',
-	}],
-}, {
-	label: '最后登录', //显示的名称
-	props: [{
-		prop: 'loginTime',
+		type: 'slot',
+		slotName: 'roles',
 	}],
 }, {
 	label: '是否启用', //显示的名称
@@ -37,10 +34,17 @@ const header = [{
 		prop: 'status',
 		type: 'switch',
 		data: {
-			activeColor: 'store.getter.themeColo',
-			inactiveText: '隐',
-			activeText: "显"
+			beforeFunction: (row: RowType) => {
+				ElMessage.warning('不允许停用！')
+
+				return  row.id == 1 ? false : true
+			}
 		}
+	}],
+}, {
+	label: '添加时间', //显示的名称
+	props: [{
+		prop: 'createTime',
 	}],
 }, {
 	label: '操作', //显示的标题
@@ -52,20 +56,21 @@ const header = [{
 			type: 'primary',
 			icon: 'el-icon-user',
 			emit: 'occupyOne'
-		}, {
-			tip: '编辑',
-			type: 'info',
-			icon: 'el-icon-edit-outline',
-			emit: 'update'
-		}, {
+		}, 
+		// {
+		// 	tip: '编辑',
+		// 	type: 'warning',
+		// 	icon: 'el-icon-edit-outline',
+		// 	emit: 'update'
+		// }, 
+		{
 			tip: '删除',
 			type: 'danger',
 			icon: 'el-icon-delete',
-			emit: 'remove'
+			emit: 'remove',
+			showBtn: (row: RowType) => {
+				return row.id == 1 ? false : true
+			}
 		}],
 	}]
 }]
-
-export {
-	header
-}

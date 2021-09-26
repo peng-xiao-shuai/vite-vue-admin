@@ -64,12 +64,9 @@ import {
   fetchList,
   deleteMenu,
   updateMenu,
-  updateHidden,
 } from "@/api/ums/menu"
 import { header } from "./indexData.ts"
-import { ref, reactive, defineComponent, watch, getCurrentInstance, computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import store from '@/store'
+import { ref, reactive, defineComponent, getCurrentInstance } from 'vue'
 
 // 组件
 import update from './components/update.vue'
@@ -81,9 +78,7 @@ export default defineComponent({
     update
   },
   setup () {
-    const _this = getCurrentInstance().ctx
-    const router = useRouter()
-    const route = useRoute()
+    const {proxy} = getCurrentInstance()
 
     let list = reactive({ value: [] })
     // 渲染的菜单
@@ -118,20 +113,18 @@ export default defineComponent({
       if (parentId.value == 0) {
         upParent.value = [menusArr]
         allList.value = menusArr
-        console.log(123, upParent)
       }
 
       Object.assign(listQuery, e ? e : listQuery)
-      fetchList(parentId.value, listQuery).then((response) => {
-
-        list.value = reactive(response.data.list)
-
-        total.value = response.data.total
+      fetchList(parentId.value, listQuery).then((res) => {
+        console.log(res);
+        list.value = reactive(res.data.list)
+        total.value = res.data.total
       })
     }
-    function handleHiddenChange (row, index) {
-      updateHidden(row.id, { hidden: row.hidden }).then((response) => {
-        _this.$message({
+    function handleHiddenChange (row) {
+      updateMenu(row).then((response) => {
+        proxy.$message({
           message: "修改成功",
           type: "success",
           duration: 1000,
@@ -163,8 +156,8 @@ export default defineComponent({
       // console.log(currentFrom);
     }
     function handleDelete ({ row, index }) {
-      deleteMenu(row.id).then((response) => {
-        _this.$message({
+      deleteMenu([row.id]).then((response) => {
+        proxy.$message({
           message: "删除成功",
           type: "success",
           duration: 1000,

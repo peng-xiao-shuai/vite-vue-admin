@@ -414,27 +414,6 @@ export const addRouter: Routers[] = [
     ],
   },
   {
-    path: "/system",
-    component: layOut,
-    redirect: "/system/config",
-    name: "system",
-    meta: {
-      title: "系统",
-      icon: "vitejiaoyu",
-    },
-    children: [
-      {
-        path: "config",
-        name: "config",
-        component: () => import("@/views/system/index.vue"),
-        meta: {
-          title: "系统配置",
-          icon: "viteliebiao",
-        },
-      },
-    ],
-  },
-  {
     path: "/ums",
     component: layOut,
     redirect: "/ums/menu",
@@ -454,35 +433,6 @@ export const addRouter: Routers[] = [
         },
       },
       {
-        path: "role",
-        name: "role",
-        component: () => import("@/views/ums/role/index.vue"),
-        meta: {
-          title: "角色列表",
-          icon: "vitejiaose",
-        },
-      },
-      {
-        path: "allocMenu",
-        name: "allocMenu",
-        component: () => import("@/views/ums/role/allocMenu.vue"),
-        meta: {
-          title: "分配菜单",
-          icon: "viteziyuanliebiao",
-        },
-        hidden: true,
-      },
-      {
-        path: "allocResource",
-        name: "allocResource",
-        component: () => import("@/views/ums/role/allocResource.vue"),
-        meta: {
-          title: "分配资源",
-          icon: "viteziyuanliebiao",
-        },
-        hidden: true,
-      },
-      {
         path: "menu",
         name: "menu",
         component: () => import("@/views/ums/menu/index.vue"),
@@ -490,25 +440,6 @@ export const addRouter: Routers[] = [
           title: "菜单列表",
           icon: "vitecaidanliebiao",
         },
-      },
-      {
-        path: "resource",
-        name: "resource",
-        component: () => import("@/views/ums/resource/index.vue"),
-        meta: {
-          title: "资源列表",
-          icon: "viteziyuanliebiao",
-        },
-      },
-      {
-        path: "resourceCategory",
-        name: "resourceCategory",
-        component: () => import("@/views/ums/resource/categoryList.vue"),
-        meta: {
-          title: "资源分类",
-          icon: "viteziyuanliebiao",
-        },
-        hidden: true,
       },
     ],
   },

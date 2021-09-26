@@ -53,7 +53,7 @@ service.interceptors.response.use(
     // 对响应数据做点什么
     let code;
     if (ENV.VITE_MOCK === "true") {
-      console.log(response);
+      console.log(response.config.url, response);
 
       code = JSON.parse(response.request.response).code;
     } else {
