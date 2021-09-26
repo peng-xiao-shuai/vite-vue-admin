@@ -70,13 +70,13 @@ function _sort(arr: Routers[]) {
   });
 }
 // 格式数据
-function addRouterFun(router: rolesValueItemType[], item: Routers): Routers {
+function addRouterFun(router: rolesValueItemType[], item: Routers): Routers | undefined {
   let each: rolesValueItemType;
 
   for (each of router) {
     if (item.hidden) {
       item.sort = 0;
-      break;
+      return item;
     }
 
     if (item.name == each.name && each.hidden != 1) {
@@ -89,11 +89,9 @@ function addRouterFun(router: rolesValueItemType[], item: Routers): Routers {
       }
 
       item.sort = each.sort;
-      break;
+      return item;
     }
   }
-
-  return item
 }
 
 // 递归菜单 查询子集
