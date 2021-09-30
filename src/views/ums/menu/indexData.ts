@@ -38,8 +38,8 @@ const header = [{
 		prop: 'hidden',
 		type: 'switch',
 		data: {
-			activeValue: 0,
-			inactiveValue: 1,
+			activeValue: 1,
+			inactiveValue: 0,
 			activeColor: 'store.getter.themeColo',
 			inactiveText: '隐',
 			activeText: "显"

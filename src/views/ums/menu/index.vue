@@ -1,6 +1,10 @@
 <template>
   <div class="app-container">
-    <el-card :style="{ marginBottom: '20px' }" :shadow="defaultData.cardShadow">
+    <el-card :shadow="defaultData.cardShadow">
+      <!-- 注意 -->
+      <div class="tipBox warning" style="margin-top: 0">
+        <p>修改、删除 菜单并不会直接改变侧边栏。需要重新调用接口。<span class="active" @click='refreshMenu'>点击</span> 刷新侧边栏</p>
+      </div>
       <div class="operate-container">
         <div>
           <i class="el-icon-tickets"></i>
@@ -29,9 +33,6 @@
           </el-button>
         </div>
       </div>
-    </el-card>
-
-    <el-card :shadow="defaultData.cardShadow">
       <div>
         <powerful-table
           ref="menuTable"
@@ -70,6 +71,8 @@ import { ref, reactive, defineComponent, getCurrentInstance } from 'vue'
 
 // 组件
 import update from './components/update.vue'
+import { useRouter } from "vue-router"
+import { useStore } from "vuex"
 
 const menusArr = [{ id: 0, title: '无上级菜单' }]
 
@@ -79,12 +82,12 @@ export default defineComponent({
   },
   setup () {
     const {proxy} = getCurrentInstance()
+    const router = useRouter()
+    const store = useStore()
 
     let list = reactive({ value: [] })
     // 渲染的菜单
     let allList = reactive({ value: [] })
-
-    console.log(allList.value)
 
     let total = ref(0)
     let config = reactive(header)
@@ -107,7 +110,6 @@ export default defineComponent({
     function handleAddMenu () {
       isDialog.value = true
       currentFrom.value = { parentId: parentId.value, hidden: 0, sort: 0 }
-      console.log('添加', currentFrom)
     }
     function getList (e) {
       if (parentId.value == 0) {
@@ -117,7 +119,6 @@ export default defineComponent({
 
       Object.assign(listQuery, e ? e : listQuery)
       fetchList(parentId.value, listQuery).then((res) => {
-        console.log(res);
         list.value = reactive(res.data.list)
         total.value = res.data.total
       })
@@ -132,7 +133,6 @@ export default defineComponent({
       })
     }
     function handleShowNextLevel ({ row, index }) {
-      console.log(upParent.value)
       upParent.value.push([row])
 
       allList.value = upParent.value[upParent.value.length - 1]
@@ -165,6 +165,18 @@ export default defineComponent({
         getList()
       })
     }
+
+    // 刷新菜单
+    const refreshMenu = () => {
+      router.getRoutes().forEach((item) => {
+        if (item.meta && item.meta.id) {
+          router.removeRoute(item.name)
+        }
+      })
+
+      store.dispatch('userInfo')
+    }
+
     return {
       // 变量
       list,
@@ -185,6 +197,7 @@ export default defineComponent({
       handleShowNextLevel,
       handleUpdate,
       handleDelete,
+      refreshMenu
     }
   }
 });

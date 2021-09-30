@@ -15,7 +15,7 @@ export type rolesType = {
 const roles:rolesType = {
   admin: [
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitezujian",
       id: 1,
       level: 0,
@@ -25,7 +25,7 @@ const roles:rolesType = {
       title: "组件列表",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteyonghuliebiao",
       id: 18,
       level: 1,
@@ -35,7 +35,7 @@ const roles:rolesType = {
       title: "表单",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteZJ-biaoge",
       id: 11,
       level: 1,
@@ -45,7 +45,7 @@ const roles:rolesType = {
       title: "表格",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteZJ-fuwenben",
       id: 12,
       level: 1,
@@ -55,7 +55,7 @@ const roles:rolesType = {
       title: "富文本",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteZJ-shangchuan",
       id: 13,
       level: 1,
@@ -65,7 +65,7 @@ const roles:rolesType = {
       title: "上传文件",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteviteZJ-ditu",
       id: 14,
       level: 1,
@@ -75,7 +75,7 @@ const roles:rolesType = {
       title: "地图",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteantv",
       id: 15,
       level: 1,
@@ -85,7 +85,7 @@ const roles:rolesType = {
       title: "antv-x6",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitei",
       id: 16,
       level: 1,
@@ -95,7 +95,7 @@ const roles:rolesType = {
       title: "图标",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitesign",
       id: 17,
       level: 1,
@@ -105,7 +105,7 @@ const roles:rolesType = {
       title: "签名",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitetubiao",
       id: 2,
       level: 0,
@@ -115,7 +115,7 @@ const roles:rolesType = {
       title: "图表",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitezhexiantu",
       id: 21,
       level: 1,
@@ -125,7 +125,7 @@ const roles:rolesType = {
       title: "折线图",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitezhuzhuangtu",
       id: 22,
       level: 1,
@@ -135,7 +135,7 @@ const roles:rolesType = {
       title: "饼状图",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitebingzhuangtu",
       id: 23,
       level: 1,
@@ -145,7 +145,7 @@ const roles:rolesType = {
       title: "柱状图",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitebullseye",
       id: 3,
       level: 0,
@@ -155,7 +155,7 @@ const roles:rolesType = {
       title: "日志",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitebug",
       id: 31,
       level: 1,
@@ -165,7 +165,7 @@ const roles:rolesType = {
       title: "错误日志",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteAPI",
       id: 32,
       level: 1,
@@ -175,7 +175,7 @@ const roles:rolesType = {
       title: "ajax 错误",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteyumaobi",
       id: 32,
       level: 1,
@@ -185,7 +185,7 @@ const roles:rolesType = {
       title: "添加日志",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteiframe",
       id: 4,
       level: 0,
@@ -195,7 +195,7 @@ const roles:rolesType = {
       title: "内嵌页面",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteiframe",
       id: 41,
       level: 1,
@@ -205,7 +205,7 @@ const roles:rolesType = {
       title: "内嵌",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitelianjie",
       id: 5,
       level: 0,
@@ -215,7 +215,7 @@ const roles:rolesType = {
       title: "外链",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitelianjie",
       id: 51,
       level: 1,
@@ -225,7 +225,7 @@ const roles:rolesType = {
       title: "外链",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitemarkdown",
       id: 6,
       level: 0,
@@ -235,7 +235,7 @@ const roles:rolesType = {
       title: "markdown",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitemarkdown",
       id: 61,
       level: 1,
@@ -245,7 +245,7 @@ const roles:rolesType = {
       title: "markdown",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteyanjing",
       id: 62,
       level: 1,
@@ -255,7 +255,7 @@ const roles:rolesType = {
       title: "markdown预览",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitedirective",
       id: 7,
       level: 0,
@@ -265,7 +265,7 @@ const roles:rolesType = {
       title: "指令",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitenumber",
       id: 71,
       level: 1,
@@ -275,7 +275,7 @@ const roles:rolesType = {
       title: "数字指令",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitepress-key",
       id: 72,
       level: 1,
@@ -285,7 +285,7 @@ const roles:rolesType = {
       title: "按键指令",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitethrottle",
       id: 73,
       level: 1,
@@ -296,7 +296,7 @@ const roles:rolesType = {
     },
     // 多级路由
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteroute",
       id: 8,
       level: 0,
@@ -306,7 +306,7 @@ const roles:rolesType = {
       title: "嵌套路由",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteantv",
       id: 81,
       level: 1,
@@ -316,7 +316,7 @@ const roles:rolesType = {
       title: "二级菜单（一）",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitecaidanliebiao",
       id: 82,
       level: 1,
@@ -326,7 +326,7 @@ const roles:rolesType = {
       title: "二级菜单（二）",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteZJ-fuwenben",
       id: 821,
       level: 2,
@@ -336,7 +336,7 @@ const roles:rolesType = {
       title: "三级级菜单（一）",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitecaidanliebiao",
       id: 822,
       level: 2,
@@ -346,7 +346,7 @@ const roles:rolesType = {
       title: "三级级菜单（二）",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteviteZJ-ditu",
       id: 8221,
       level: 3,
@@ -356,7 +356,7 @@ const roles:rolesType = {
       title: "四级级菜单（一）",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitei",
       id: 8222,
       level: 3,
@@ -367,7 +367,7 @@ const roles:rolesType = {
     },
     // 权限管理
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitequanxianguanli-02",
       id: 9,
       level: 0,
@@ -377,7 +377,7 @@ const roles:rolesType = {
       title: "权限管理",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteyonghuliebiao",
       id: 91,
       level: 1,
@@ -387,17 +387,17 @@ const roles:rolesType = {
       title: "用户列表",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitejiaose",
       id: 92,
       level: 1,
-      name: "role",
+      name: "demo",
       parentId: 9,
       sort: 9,
-      title: "角色列表",
+      title: "权限演示",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitecaidanliebiao",
       id: 93,
       level: 1,
@@ -407,7 +407,7 @@ const roles:rolesType = {
       title: "菜单列表",
     },
     // {
-    //   hidden: 0,
+    //   hidden: 1,
     //   icon: "viteliebiao",
     //   id: 9,
     //   level: 1,
@@ -419,7 +419,7 @@ const roles:rolesType = {
   ],
   ordinary: [
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitezujian",
       id: 1,
       level: 0,
@@ -429,7 +429,7 @@ const roles:rolesType = {
       title: "组件列表",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteZJ-biaoge",
       id: 11,
       level: 1,
@@ -439,7 +439,7 @@ const roles:rolesType = {
       title: "表格",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteZJ-fuwenben",
       id: 12,
       level: 1,
@@ -449,7 +449,7 @@ const roles:rolesType = {
       title: "富文本",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteZJ-shangchuan",
       id: 13,
       level: 1,
@@ -459,7 +459,7 @@ const roles:rolesType = {
       title: "上传文件",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteviteZJ-ditu",
       id: 14,
       level: 1,
@@ -469,7 +469,7 @@ const roles:rolesType = {
       title: "地图",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "viteantv",
       id: 15,
       level: 1,
@@ -479,7 +479,7 @@ const roles:rolesType = {
       title: "antv-x6",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitei",
       id: 16,
       level: 1,
@@ -489,7 +489,7 @@ const roles:rolesType = {
       title: "图标",
     },
     {
-      hidden: 0,
+      hidden: 1,
       icon: "vitesign",
       id: 17,
       level: 1,
@@ -497,6 +497,70 @@ const roles:rolesType = {
       parentId: 1,
       sort: 997,
       title: "签名",
+    },
+    // 权限管理
+    {
+      hidden: 1,
+      icon: "vitequanxianguanli-02",
+      id: 9,
+      level: 0,
+      name: "ums",
+      parentId: 0,
+      sort: 997,
+      title: "权限管理",
+    },
+      {
+        hidden: 1,
+        icon: "viteyonghuliebiao",
+        id: 91,
+        level: 1,
+        name: "admin",
+        parentId: 9,
+        sort: 9,
+        title: "用户列表",
+      },
+    {
+      hidden: 1,
+      icon: "vitejiaose",
+      id: 92,
+      level: 1,
+      name: "demo",
+      parentId: 9,
+      sort: 9,
+      title: "权限演示",
+    }
+  ],
+  test: [
+    // 权限管理
+    {
+      hidden: 1,
+      icon: "vitequanxianguanli-02",
+      id: 9,
+      level: 0,
+      name: "ums",
+      parentId: 0,
+      sort: 997,
+      title: "权限管理",
+    },
+    {
+      hidden: 1,
+      icon: "viteyonghuliebiao",
+      id: 91,
+      level: 1,
+      name: "admin",
+      parentId: 9,
+      sort: 9,
+      title: "用户列表",
+    },
+    {
+      hidden: 1,
+      icon: "vitejiaose",
+      id: 92,
+      level: 1,
+      name: "demo",
+      parentId: 9,
+      sort: 9,
+      title: "权限演示",
     }
   ],
 };

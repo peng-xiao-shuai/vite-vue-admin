@@ -2,12 +2,11 @@
  * @Author: 彭小黑 
  * @Date: 2021-09-23 13:24:52 
  * @Last Modified by: 彭小黑
- * @Last Modified time: 2021-09-26 17:11:00
+ * @Last Modified time: 2021-09-30 16:01:04
  */
 
 import * as Mock from "mockjs";
 import roles, { rolesValueItemType } from "../api/menus";
-
 var Random = Mock.Random;
 
 type ListsType = {
@@ -69,7 +68,7 @@ const tokens: tokenValue[] = [{
     token: "admin-token",
     icon: "https://avatars.githubusercontent.com/u/53845479?v=4",
     id: 1,
-    menus: roles["admin"],
+    menus: roles["admin"].filter(Item => Item.hidden == 1),
     roles: ["admin"],
     username: "admin",
     status: 1,
@@ -78,9 +77,18 @@ const tokens: tokenValue[] = [{
     token: "ordinary-token",
     icon: "https://avatars.githubusercontent.com/u/53579755?v=4",
     id: 2,
-    menus: roles["ordinary"],
+    menus: roles["ordinary"].filter(Item => Item.hidden == 1),
     roles: ["ordinary"],
     username: "ordinary",
+    status: 1,
+  },
+  {
+    token: "test-token",
+    icon: "https://avatars.githubusercontent.com/u/53579755?v=4",
+    id: 2,
+    menus: roles["admin"].filter(Item => Item.hidden == 1),
+    roles: ["admin","ordinary"],
+    username: "test",
     status: 1,
   },
 ];
@@ -103,7 +111,7 @@ export const lists: ListsType = {
   tokens,
   // 角色列表
   roleLists,
-  menus: JSON.parse(JSON.stringify(roles.admin))
+  rolesAdmin: roles.admin
 }
 
 /**
@@ -128,7 +136,9 @@ export const lists: ListsType = {
  * @param {any[]} ids 属性值
  */
 export const deleteLists = (key: string, ids: any[]) => {
-  lists[key] = lists[key].filter((item: any) => ids.indexOf(item.id) == -1)
+  const copy = JSON.parse(JSON.stringify(lists[key]))
+
+  copy.forEach((item: any, index: number) => ids.indexOf(item.id) !== -1 ? lists[key].splice(index, 1) : '')
 }
 
 /**

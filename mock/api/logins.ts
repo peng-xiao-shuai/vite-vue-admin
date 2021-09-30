@@ -1,6 +1,7 @@
 import { config } from '../apis';
 import { listPaging } from '../utils'
 import { lists, tokenValue, deleteLists } from '../data/list'
+import roles from "../api/menus";
 
 type userType = {
   [s: string]: {password: number, token: string}
@@ -13,6 +14,10 @@ const users: userType = {
   ordinary: {
     password: 123456,
     token: "ordinary-token",
+  },
+  test: {
+    password: 123456,
+    token: "test-token",
   },
 };
 
@@ -49,9 +54,16 @@ export default [
   {
     url: "admin/info*",
     response: (config: config) => {
+      const data = lists.tokens.filter(item => item.token == config.query.token)[0]
+
+      console.log(roles[data.username]);
+      
+      // 每次调用时重新获取数据
+      data.menus = roles[data.username].filter(Item => Item.hidden == 1)
+
       return {
         code: 200,
-        data: lists.tokens.filter(item => item.token == config.query.token)[0],
+        data,
         message: "操作成功",
       };
     },

@@ -16,14 +16,13 @@
       <el-menu
         :collapse="!collapse"
         mode="vertical"
-        :default-active="menuActive()"
+        :default-active="menuActive"
         class="el-menu-vertical-demo"
       >
-        <!-- :default-active='' -->
         <menus-item
           :index="Number(index) + 1"
           :collapse="!collapse"
-          v-for="(item, index) in menus"
+          v-for="(item, index) in $store.state.user.menus"
           :key="item.name"
           :item="item"
           :count="1"
@@ -34,15 +33,13 @@
 </template>
 
 <script lang='ts'>
-import router from "@/router/index";
-import { useStore } from "vuex";
-
 // 组件
 import menusLogo from "./menus-logo.vue";
 import menusItem from "./menus-item.vue";
 import { useRoute } from "vue-router";
+import { defineComponent, ref } from 'vue';
 
-export default {
+export default defineComponent({
   name: "menus",
   components: {
     menusLogo,
@@ -56,39 +53,12 @@ export default {
   },
   setup() {
     const route = useRoute();
-    const store = useStore();
-
-    function menuActive() {
-      return route.name;
-    }
-
-    function navTo(name: string) {
-      router.push({
-        name
-      });
-    }
-
-    function outlogin() {
-      store.dispatch("outLoing");
-    }
-
-    function menuSelect(e: string) {
-      localStorage.setItem("menuActive", e);
-    }
-
-    let menus = store.state.user.menus;
-    // console.log(menus);
-
+    const menuActive = ref(route.name)
     return {
-      navTo,
-      outlogin,
-      menuSelect,
-
-      menus,
-      menuActive,
+      menuActive
     };
   },
-};
+})
 </script>
 
 <style lang='scss'>

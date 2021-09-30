@@ -103,16 +103,22 @@
   display: flex;
   flex-wrap: wrap;
   align-content: center;
+
+  .active {
+    font-weight: bold;
+    color: var(--color-primary);
+    cursor: pointer;
+  }
+  
+  p {
+    // margin: 0;
+  }
 }
 
 .tipBox.warning{
   background-color: rgba(255,229,100,.3);
   border-color: #e7c000;
   color: #6b5900;
-
-  p{
-    // margin: 0;
-  }
 }
 
 // 抽屉样式

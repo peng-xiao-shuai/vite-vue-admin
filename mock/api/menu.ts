@@ -11,7 +11,7 @@ export default [
       let pageNum = config.query.pageNum;
       const parentId = config.query.parentId
 
-      const list = lists.menus.filter((item) => item.parentId == parentId)
+      const list = lists.rolesAdmin.filter((item) => item.parentId == parentId)
       
       return {
         code: 200,
@@ -25,9 +25,9 @@ export default [
     response: (config: config) => {
       // 有id的话就是修改
       if (config.body.id) {
-        updateLists('menus', config.body)
+        updateLists('rolesAdmin', config.body)
       } else {
-        addLists('menus', config.body)
+        addLists('rolesAdmin', config.body)
       }
 
       return {
@@ -40,7 +40,7 @@ export default [
     url: "menu/remove",
     type: 'delete',
     response: (config: config) => {
-      deleteLists('menus',config.body.ids)
+      deleteLists('rolesAdmin',config.body.ids)
       return {
         code: 200,
         data:{}
