@@ -1,1 +1,0 @@
-import{s as r}from"./index.41a3e251.js";function e(){return r({url:"echart/line"})}function n(){return r({url:"echart/pillar"})}function t(){return r({url:"echart/cake"})}export{t as c,e as l,n as p};

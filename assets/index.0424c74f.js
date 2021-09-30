@@ -1,0 +1,1 @@
+import{_ as t,r as e,o as c,c as r,a,w as d,i as _}from"./vendor.8c3eb18c.js";const i={name:"interlink"},l={class:"app-container"},p=_("div",{class:"icons"},null,-1);function m(o,f,h,u,v,w){const n=e("view-name"),s=e("el-card");return c(),r("div",l,[a(s,{shadow:o.defaultData.cardShadow},{default:d(()=>[a(n),p]),_:1},8,["shadow"])])}var $=t(i,[["render",m]]);export{$ as default};
