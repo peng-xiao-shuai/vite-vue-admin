@@ -132,7 +132,6 @@ export interface UserState {
   userInfo: UserInfo | {},
   menus: RouteRecordRaw[],
   tags: Tags[],
-  pageNums: number[]
 }
 
 export type UserInfo = {
@@ -163,20 +162,15 @@ const state: UserState = {
   vToken: Cookies.get("vToken"),
   userInfo: {},
   menus: [],
-  tags: [
-    {
-      path: '/',
-      name: "home",
-      meta: {
-        locale: 'home',
-        title: "首页",
-      },
-      remove: true,
+  tags: [{
+    path: '/',
+    name: "home",
+    meta: {
+      locale: 'home',
+      title: "首页",
     },
-  ],
-
-  // 缓存列表页数，主要是用于没有开启keep-alive缓存时使用
-  pageNums: [],
+    remove: true,
+  }],
 };
 
 const actions = {
@@ -226,9 +220,6 @@ const mutations = {
   setToken(state: UserState, val: string) {
     state.vToken = val
   },
-  pageNumPush(state: UserState, val: number) {
-    state.pageNums.push(val);
-  },
   outLogin(state: UserState, val: string) {
     state.vToken = val;
     state.userInfo = {};
@@ -237,16 +228,18 @@ const mutations = {
   },
   [TYPE.LOGIN_THEN](state: { userInfo: UserInfo; menus: [] }, val: UserInfo) {
     // console.log('接受数据',val);
+    state.menus.splice(0)
     state.userInfo = val;
+  },
+  // 重置tags
+  tagsRefresh(state: UserState) {
+    state.tags.splice(1)
   },
   tagsCommit(state: UserState, val: {to: Tags, removeIndex?: number}) {
     if (val.removeIndex !== undefined) {
       // console.log("删除");
 
       state.tags.splice(val.removeIndex, 1);
-      // console.log(state.tags);
-
-      state.pageNums.splice(val.removeIndex, 1);
     } else {
       console.log(val.to);
       
