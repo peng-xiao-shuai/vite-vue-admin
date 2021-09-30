@@ -7,14 +7,14 @@ export default defineComponent({
     const meta = useRoute().meta
     const { proxy } = getCurrentInstance() as any
 
-    return () => {
+    return () => (
       <>
-        <div class="operate-container">
+        <div>
           <i class={[proxy.defaultData.iconfont, meta.icon]} style="margin-right: 5px"></i>
-          <span>{ proxy.t(meta.locale) }</span>
+          <span>{ meta.locale ? proxy.t(meta.locale) : meta.title }</span>
         </div>
       </>
-    }
+    )
   }
 })
 </script>
