@@ -38,19 +38,24 @@ function menusFilter(menus: rolesValueItemType[]) {
     }
   });
 
-  let asyncrouter = asyncRouter.filter((item: Routers) => {
+  let asyncrouter = asyncRouter.map((item: Routers) => {
     let each = addRouterFun(levelOne, item);
     // 拦截接口数据隐藏的菜单
     if (!each) {
       // console.log('被拦截了',each);
       return false;
     }
-    // console.log('一级菜单',each);
-    recursion(each, childs);
+    // console.log('一级菜单',each.children)
+    // 进行深拷贝 以免破坏源数据
+    const {...eachCopy} = each
+    eachCopy.children = recursion(eachCopy, childs);
+    
+    // 删除子集
+    eachCopy.children.length == 0 && delete eachCopy.children
     // console.log('%c 完整一级路由','color:blue;',each);
     // console.log('%c --------------------------------------','color:blue;font-seze:26px');
-    return each;
-  });
+    return eachCopy;
+  }).filter(item => item) as Routers[]
 
   _sort(asyncrouter);
 
@@ -58,10 +63,8 @@ function menusFilter(menus: rolesValueItemType[]) {
 
   // console.log('排序好的一级',asyncrouter);
 
-  state.menus = router.options.routes.concat(asyncrouter as RouteRecordRaw[]);
-
-  // resovle(state.menus)
-  // })
+  // 此处用等于的话 会导致watch监听不到的问题
+  router.options.routes.concat(asyncrouter as RouteRecordRaw[]).forEach(item => state.menus.push(item))
 }
 // 排序
 function _sort(arr: Routers[]) {
@@ -79,7 +82,7 @@ function addRouterFun(router: rolesValueItemType[], item: Routers): Routers | un
       return item;
     }
 
-    if (item.name == each.name && each.hidden != 1) {
+    if (item.name == each.name && each.hidden == 1) {
       (item.meta as Meta).id = each.id;
       if (each.title) {
         (item.meta as Meta).title = each.title;
@@ -98,8 +101,8 @@ function addRouterFun(router: rolesValueItemType[], item: Routers): Routers | un
 function recursion(each: Routers, childs: rolesValueItemType[]) {
   // 所有子集
   let ids: rolesValueItemType[] = [];
-
   if (!each.children) {
+    return []
     // console.log('不进入递归',each);
   } else {
     // console.log('进入递归',each);
@@ -107,11 +110,11 @@ function recursion(each: Routers, childs: rolesValueItemType[]) {
       ids = childs.filter((i: rolesValueItemType) => (each.meta as Meta).id == i.parentId);
       // console.log('接口返回的一级菜单子集',ids);
     }
+
     if (ids.length > 0) {
       let children: Routers[] = [];
       for (let childrenItem of each.children) {
         let arr = addRouterFun(ids, childrenItem);
-
         if (arr) {
           children.push(arr);
           recursion(arr, childs);
@@ -119,10 +122,10 @@ function recursion(each: Routers, childs: rolesValueItemType[]) {
       }
       _sort(children);
       // console.log('将添加到一级路由下的子集',children);
-      each.children = children;
+      return children
     } else {
       // 没有则删除
-      delete each.children;
+      return []
     }
   }
 }
