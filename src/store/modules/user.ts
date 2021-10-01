@@ -244,7 +244,7 @@ const mutations = {
 
       state.tags.splice(val.removeIndex, 1);
     } else {
-      console.log(val.to);
+      // console.log(val.to);
       
       state.tags.push(val.to);
     }

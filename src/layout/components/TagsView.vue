@@ -61,7 +61,7 @@ export default defineComponent({
       }
 
       if (!isExist && val.name !== "redirect" && val.name !== "404") {
-        console.log(to)
+        // console.log(to)
         store.commit('tagsCommit', { to })
       }
     }

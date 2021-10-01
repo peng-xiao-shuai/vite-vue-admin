@@ -56,7 +56,7 @@ export default [
     response: (config: config) => {
       const data = lists.tokens.filter(item => item.token == config.query.token)[0]
 
-      console.log(roles[data.username]);
+      // console.log(roles[data.username]);
       
       // 每次调用时重新获取数据
       data.menus = roles[data.username].filter(Item => Item.hidden == 1)
