@@ -41,6 +41,7 @@ import viewName from "./components/view-name/view-name.vue";
 // 全局静态配置
 import defaultData, { defaultDataType } from "./config/default-data";
 import { debounce, throttle } from '@/config/debounce-throttle';
+import { permissionFun } from '@/config/roles-permission';
 
 // css
 import "./styles/index.scss";
@@ -61,6 +62,7 @@ declare module '@vue/runtime-core' {
     defaultData: defaultDataType, // 这里可以用$Api具体的类型代替any
     $debounce: Function,
     $throttle: Function,
+    $permission: Function,
     $store: Store<State>,
     $router: Router,
     $route: RouteLocationNormalizedLoaded
@@ -131,3 +133,4 @@ app.config.errorHandler = (error: string, vm: any, info: string) => {
 app.config.globalProperties.defaultData = defaultData;
 app.config.globalProperties.$debounce = debounce;
 app.config.globalProperties.$throttle = throttle;
+app.config.globalProperties.$permission = permissionFun;

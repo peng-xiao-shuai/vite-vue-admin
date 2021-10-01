@@ -165,7 +165,10 @@ $ npm run preview
 - [x] 公共配置
 - [x] 使用 JSX/TSX /src/layout/components/nav-right
 - [x] markdown 编辑器（支持公式、表情、流程图...）
-- [ ] 权限测试菜单
+- [x] 权限测试菜单（权限指令）
+- [ ] 登录密码使用MD5加密存本地
+- [ ] excel 导入导出
+- [ ] 打印指令、复制指令
 - [x] 全局指令
 - [x] 全局水印
 

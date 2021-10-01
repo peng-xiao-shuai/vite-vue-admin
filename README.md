@@ -165,7 +165,10 @@ If you think this project helped you, please help click `Star`
 - [x] Common configuration
 - [x] use JSX/TSX /src/layout/components/nav-right
 - [x] markdown Editor (support formulas, emoticons, flowcharts...)
-- [ ] Permission test menu
+- [x] Permission test menu
+- [ ] Use MD5 encryption to store the login password locally
+- [ ] excel Import and Export
+- [ ] directive drucken, directive kopieren
 - [x] Global directive
 - [x] Global watermark
 

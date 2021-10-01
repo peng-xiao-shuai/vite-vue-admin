@@ -5,6 +5,9 @@ const getters = {
 	getToken: (state: State) => {
 		return state.user.vToken
 	},
+	getUserInfo: (state: State) => {
+		return state.user.userInfo
+	},
 	getMenus: (state: State) => {
 		return state.user.menus
 	},
