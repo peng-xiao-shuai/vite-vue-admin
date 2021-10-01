@@ -414,31 +414,44 @@ export const addRouter: Routers[] = [
     ],
   },
   {
-    path: "/ums",
+    path: "/authority",
     component: layOut,
-    redirect: "/ums/menu",
-    name: "ums",
+    redirect: "/authority/menu",
+    name: "authority",
     meta: {
       title: "权限",
       icon: "vitequanxianguanli-02",
+      locale: 'authority',
     },
     children: [
       {
         path: "admin",
         name: "admin",
-        component: () => import("@/views/ums/admin/index.vue"),
+        component: () => import("@/views/authority/admin/index.vue"),
         meta: {
           title: "用户列表",
           icon: "viteyonghuliebiao",
+          locale: "user.list",
         },
       },
       {
         path: "menu",
         name: "menu",
-        component: () => import("@/views/ums/menu/index.vue"),
+        component: () => import("@/views/authority/menu/index.vue"),
         meta: {
           title: "菜单列表",
           icon: "vitecaidanliebiao",
+          locale: "menu.list",
+        },
+      },
+      {
+        path: "demo",
+        name: "demo",
+        component: () => import("@/views/authority/demo/demo.vue"),
+        meta: {
+          title: "权限演示",
+          icon: "vitecaidanliebiao",
+          locale: "authority.demo",
         },
       },
     ],

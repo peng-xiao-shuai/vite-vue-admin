@@ -35,7 +35,9 @@ export const header = [{
 		type: 'switch',
 		data: {
 			beforeFunction: (row: RowType) => {
-				ElMessage.warning('不允许停用！')
+				if (row.id == 1) {
+					ElMessage.warning('不允许停用！')
+				}
 
 				return  row.id == 1 ? false : true
 			}

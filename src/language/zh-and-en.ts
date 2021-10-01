@@ -32,6 +32,12 @@ export default {
 
   'ajax.log': '接口错误',
   'add.log': '添加日志',
+
+  'authority': '权限',
+  'user.list': '用户列表',
+  'menu.list': '菜单列表',
+  'authority.demo': '权限演示',
+
   'interlink': '链接',
   'iframe': 'iframe',
 

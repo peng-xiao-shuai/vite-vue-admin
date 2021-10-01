@@ -55,7 +55,7 @@
           @remove="remove"
         >
           <template #roles={row}>
-            <el-tag v-for="item in row.roles" :key='item'>
+            <el-tag v-for="item in row.roles" :key='item' style="margin-right: 5px">
               {{roleLists.filter((i) => i.value == item)[0]?.label}}
             </el-tag>
           </template>

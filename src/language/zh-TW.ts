@@ -33,6 +33,12 @@ export default {
 
   'ajax.log': '接口錯誤',
   'add.log': '添加日誌',
+
+  'authority': '權限',
+  'user.list': '用戶列表',
+  'menu.list': '菜單列表',
+  'authority.demo': '權限演示',
+
   'interlink': '鏈接',
   'iframe': 'iframe',
 
