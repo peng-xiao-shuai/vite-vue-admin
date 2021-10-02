@@ -1,1 +1,0 @@
-const req = (import.meta as any).glob('./svg/*.svg')

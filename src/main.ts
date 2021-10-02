@@ -28,7 +28,9 @@ import en from "element-plus/lib/locale/lang/en";
 
 // 路由守卫
 import "./permission";
-// import "./icons";
+
+// 注入svg脚本
+import 'virtual:svg-icons-register';
 
 // markdow 编辑器
 import { VMdEditor, VMdPreview } from './md-editor';
