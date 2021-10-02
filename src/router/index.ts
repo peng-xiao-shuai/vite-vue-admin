@@ -410,7 +410,27 @@ export const addRouter: Routers[] = [
           locale: 'debounce.throttle.directive',
           icon: "vitethrottle",
         },
-      }
+      },
+      {
+        path: "copy-directive",
+        name: "copy-directive",
+        component: () => import("@/views/directives/copy.vue"),
+        meta: {
+          title: "复制文本指令",
+          icon: "vitecopy",
+          locale: "copy.directive",
+        },
+      },
+      {
+        path: "demo-directive",
+        name: "demo-directive",
+        component: () => import("@/views/authority/demo/demo.vue"),
+        meta: {
+          title: "权限指令",
+          icon: "vitecaidanliebiao",
+          locale: "demo.directive",
+        },
+      },
     ],
   },
   {

@@ -294,6 +294,26 @@ const roles:rolesType = {
       sort: 997,
       title: "防抖节流指令",
     },
+    {
+      hidden: 1,
+      icon: "vitejiaose",
+      id: 74,
+      level: 1,
+      name: "demo-directive",
+      parentId: 7,
+      sort: 9,
+      title: "权限演示",
+    },
+    {
+      hidden: 1,
+      icon: "vitecopy",
+      id: 75,
+      level: 1,
+      name: "copy-directive",
+      parentId: 7,
+      sort: 9,
+      title: "复制文本指令",
+    },
     // 多级路由
     {
       hidden: 1,
