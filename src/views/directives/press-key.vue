@@ -138,12 +138,5 @@ const inputs = reactive({
 <style scoped lang='scss'>
 .tipBox{
   font-size: 15px !important;
-
-  .code{
-    border-radius: 5px;
-    padding: 0 5px;
-    color: #666;
-    background: #ddd;
-  }
 }
 </style>

@@ -13,7 +13,6 @@
     <size></size>
     <!-- 全屏 -->
     <full-screen></full-screen>
-
     <!-- 用户 -->
     <div class="item">
       <el-dropdown class="avatar-container" trigger="hover">
@@ -148,7 +147,7 @@
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent, inject, reactive, ref, getCurrentInstance } from "vue";
+import { defineComponent, reactive, ref, computed } from "vue";
 import { useStore } from "vuex";
 // import { updatePassword } from "@/api/logins";
 
@@ -172,7 +171,7 @@ export default defineComponent({
     let Store = useStore();
 
     // 账号头像
-    let icon = Store.state.user.userInfo.icon;
+    let icon = computed(() => Store.state.user.userInfo.icon)
 
     let dialogVisible = ref(false);
     let pwdType = ref("password");

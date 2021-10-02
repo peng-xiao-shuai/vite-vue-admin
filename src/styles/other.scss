@@ -109,6 +109,13 @@
     color: var(--color-primary);
     cursor: pointer;
   }
+
+  .code{
+    border-radius: 5px;
+    padding: 0 5px;
+    color: #666;
+    background: #eee;
+  }
   
   p {
     // margin: 0;

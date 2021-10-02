@@ -330,3 +330,7 @@ export default definedComponents({
   }
 })
 ```
+
+### Vite 使用svg-icon
+
+[文档](https://github.com/anncwb/vite-plugin-svg-icons/blob/main/README.zh_CN.md)

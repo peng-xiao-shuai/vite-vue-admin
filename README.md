@@ -59,7 +59,7 @@ MiwzMTYuMiw0OS43LDMxMi44LDUwLjN6Ii8+Cjwvc3ZnPgo=">
 	<p>&nbsp;</p>
 </div>
 
-English | [简体中文](./README.zh-CN.md)
+**English** | [简体中文](./README.zh-CN.md)
 
 ## introduce
 
@@ -96,7 +96,7 @@ mockXHR()
 // }
 ```
 
-### 一、Install dependencies,
+### Install dependencies,
 
 ```bash
 $ yarn
@@ -110,7 +110,7 @@ $ npm install
 
 > Recommended Use yarn , **[yarn Installation and common commands](http://liqingsong.cc/article/detail/9)** 。
 
-### 二、Compiles and hot-reloads for development
+### Compiles and hot-reloads for development
 
 ```bash
 $ yarn dev
@@ -122,7 +122,7 @@ or
 $ npm run dev
 ```
 
-### 三、Compiles and minifies for production
+### Compiles and minifies for production
 
 ```bash
 $ yarn build
@@ -134,7 +134,7 @@ or
 $ npm run build
 ```
 
-### 四、Preview production build products locally
+### Preview production build products locally
 
 ```bash
 $ yarn preview
@@ -146,9 +146,27 @@ or
 $ npm run preview
 ```
 
-## 捐赠
+## contribute
 
 If you think this project helped you, please help click `Star`
+
+## Git Contribution submission specification
+
+- reference [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) specification ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
+
+  - `feat` Add new features
+  - `fix` Fix the problem/BUG
+  - `style` The code style is related and does not affect the running result
+  - `perf` Optimization/performance improvement
+  - `refactor` Refactor
+  - `revert` Undo edit
+  - `test` Test related
+  - `docs` Documentation/notes
+  - `chore` Dependency update/scaffolding configuration modification etc.
+  - `workflow` Workflow improvements
+  - `ci` Continuous integration
+  - `types` Type definition file changes
+  - `wip` In development
 
 ## plan （2021-3-30）
 

@@ -59,7 +59,7 @@ MiwzMTYuMiw0OS43LDMxMi44LDUwLjN6Ii8+Cjwvc3ZnPgo=">
 	<p>&nbsp;</p>
 </div>
 
-[English](./README.md) | 简体中文
+[English](./README.md) | **简体中文**
 
 ## 介绍
 
@@ -122,7 +122,7 @@ or
 $ npm run dev
 ```
 
-### 三、二、编译为生产环境
+### 三、编译为生产环境
 
 ```bash
 $ yarn build
@@ -149,6 +149,24 @@ $ npm run preview
 ## 捐赠
 
 如果你觉得这个项目帮助到了你，请帮助点击 Star
+
+## Git 贡献提交规范
+
+- 参考 [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
+
+  - `feat` 添加新功能
+  - `fix` 修复问题/BUG
+  - `style` 代码风格相关，不影响运行结果
+  - `perf` 优化/性能提升
+  - `refactor` 重构
+  - `revert` 撤消 编辑
+  - `test` 测试相关
+  - `docs` 文档/注释
+  - `chore` 依赖更新/脚手架配置修改等。
+  - `workflow` 工作流程改进
+  - `ci` 持续集成
+  - `types` 类型定义文件更改
+  - `wip` 开发中
 
 ## 计划 （2021-3-30）
 

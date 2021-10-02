@@ -66,11 +66,11 @@
       <div>
         <div class="tipBox">
           多个验证（函数，满足全部显示）
-          <div style="font-size: 13px;color: var(--el-color-info);">v-permission:all="['admin','ordinary']"</div>
+          <div style="font-size: 13px;color: var(--el-color-info);">v-if="$permission(['admin','ordinary'])"</div>
         </div>
-        <el-button type='primary' v-permission:all="['admin','ordinary']">['admin','ordinary']</el-button>
-        <el-button type='success' v-permission:all="['ordinary','test']">['ordinary','test']</el-button>
-        <el-button type='warning' v-permission:all="['admin','test']">['admin','test']</el-button>
+        <el-button type='primary' v-if="$permission(['admin','ordinary'], true)">['admin','ordinary']</el-button>
+        <el-button type='success' v-if="$permission(['ordinary','test'], true)">['ordinary','test']</el-button>
+        <el-button type='warning' v-if="$permission(['admin','test'], true)">['admin','test']</el-button>
       </div>
     </div>
   </el-card>
