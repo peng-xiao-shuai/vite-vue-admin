@@ -4,10 +4,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'App'
-}
+<script lang="ts" setup>
+import { useTitle } from '@/hooks/useTitle';
+import { nextTick, onMounted } from 'vue';
+onMounted(() => {
+  useTitle()
+})
 </script>
 
 <style>
