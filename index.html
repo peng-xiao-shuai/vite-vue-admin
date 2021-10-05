@@ -10,7 +10,7 @@
 	<body>
 		<div id="app">
 			<img id="loadindImg" style="margin: auto;display: block;margin-top: 180px;width: 200px;" src="/logo.png" alt="">
-			<p id="loadingText" style="text-align: center;font-weight: bold;font-size: 30px;font-family: '微软雅黑';">Vite-Vue-Admin</p>
+			<p id="loadingText" style="text-align: center;font-weight: bold;font-size: 30px;font-family: '微软雅黑';color: #AD49FF;">Vite-Vue-Admin</p>
 		</div>
 		<!-- 腾讯地图 -->
 		<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=753BZ-JEZ62-YPUUO-CWXAM-ZZMG3-AGFZZ">
@@ -26,9 +26,7 @@
 </html>
 
 <script type="text/javascript">
-	if (localStorage.getItem("themeColors") == null) {
-		document.getElementById('loadingText').style.color = '#AD49FF'
-	} else {
+	if (localStorage.getItem("themeColors")) {
 		document.getElementById('loadingText').style.color = localStorage.getItem("themeColors").split(`"`)[3]
 	}
 </script>
