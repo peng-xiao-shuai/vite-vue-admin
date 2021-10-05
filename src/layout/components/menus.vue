@@ -37,7 +37,7 @@
 import menusLogo from "./menus-logo.vue";
 import menusItem from "./menus-item.vue";
 import { useRoute } from "vue-router";
-import { defineComponent, ref } from 'vue';
+import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
   name: "menus",
@@ -53,7 +53,7 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
-    const menuActive = ref(route.name)
+    const menuActive = computed(() => route.name)
     return {
       menuActive
     };
