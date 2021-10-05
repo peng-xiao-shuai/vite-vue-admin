@@ -132,3 +132,19 @@
 .el-drawer__header {
   margin-bottom: 20px;
 }
+
+// router-link 样式
+.router-link {
+  text-decoration: none;
+  color: #999;
+  width: 100%;
+  display: inline-block;
+}
+
+.router-link:hover {
+  color: var(--color-primary);
+}
+
+.router-link-active {
+  color: var(--color-primary);
+}

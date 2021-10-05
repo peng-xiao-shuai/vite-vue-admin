@@ -37,7 +37,7 @@
           v-if="store.isTagsView"
         ></tags-view>
       </div>
-      <div class="view" v-press-key:s="() => $throttle(() => useSearch = true, 100)"
+      <div class="view" id="view" v-press-key:s="() => $throttle(() => useSearch = true, 100)"
         :style="{
           minHeight: `calc(100% - ${store.isTagsView ? '91px' : '50px'})`
         }">
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import TagsView from './components/TagsView.vue'
+import TagsView from './components/tags-view.vue'
 import menus from './components/menus.vue'
 import navs from './components/navs.vue'
 import routerView from './components/router-view.vue'

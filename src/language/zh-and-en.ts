@@ -52,6 +52,13 @@ export default {
   'small': '小号',
   'mini': '迷你',
 
+  'reloading': '重新加载',
+  'close.current.tag.page': '关闭当前标签页',
+  'close.left.tag.page': '关闭左侧标签页',
+  'close.right.tag.page': '关闭右侧标签页',
+  'close.other.tag.page': '关闭其他标签页',
+  'close.all.tag.page': '关闭全部标签页',
+
   'update': '修改',
   'password': '密码',
   'exit': '退出',

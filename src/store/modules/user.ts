@@ -144,7 +144,7 @@ export type UserInfo = {
   username: string
 }
 
-type Tags = {
+export type Tags = {
   path: string,
   name?: string,
   meta?: {
@@ -214,7 +214,7 @@ const actions = {
     Cookies.remove("vToken");
   },
 
-  tagsActions(store: Store<UserState>, val: {to: Tags, removeIndex?: number}) {
+  tagsActions(store: Store<UserState>, val: {to: Tags, removeIndex?: number[], name?: string}) {
     store.commit("tagsCommit", val);
   },
 };
@@ -238,14 +238,19 @@ const mutations = {
   tagsRefresh(state: UserState) {
     state.tags.splice(1)
   },
-  tagsCommit(state: UserState, val: {to: Tags, removeIndex?: number}) {
-    if (val.removeIndex !== undefined) {
+  tagsCommit(state: UserState, val: {to: Tags, removeIndex?: number[], name?: string}) {
+    if (val.removeIndex !== undefined || val.name !== undefined) {
       // console.log("删除");
-
-      state.tags.splice(val.removeIndex, 1);
-    } else {
-      // console.log(val.to);
+      if (val.name) {
+        const names = [val.name, 'home']
+        console.log(names);
+        state.tags = state.tags.filter(item => names.indexOf(item.name as string) !== -1)
+        return
+      }
       
+      val.removeIndex && state.tags.splice(val.removeIndex[0], val.removeIndex[1]);
+
+    } else {
       state.tags.push(val.to);
     }
   },

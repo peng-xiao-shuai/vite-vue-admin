@@ -53,6 +53,13 @@ export default {
   'small': '小號',
   'mini': '迷你',
 
+  'reloading': '重新加載',
+  'close.current.tag.page': '關閉當前標籤頁',
+  'close.left.tag.page': '關閉左側標籤頁',
+  'close.right.tag.page': '關閉右側標籤頁',
+  'close.other.tag.page': '關閉其他標籤頁',
+  'close.all.tag.page': '關閉全部標籤頁',
+
   'update': '修改',
   'password': '密碼',
   'exit': '退出',
