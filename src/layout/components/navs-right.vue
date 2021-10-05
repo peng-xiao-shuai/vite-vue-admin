@@ -209,22 +209,22 @@ export default defineComponent({
               type: "warning",
             })
             .then(() => {
-              updatePassword(admin).then((res: any) => {
-                if (res.code == "502") {
-                  ElMessage({
-                    message: res.message,
-                    type: "warning",
-                  });
-                } else if (res.code == "200") {
-                  dialogVisible.value = false;
-                  ElMessage({
-                    message: "修改成功！",
-                    type: "success",
-                  });
+              // updatePassword(admin).then((res: any) => {
+              //   if (res.code == "502") {
+              //     ElMessage({
+              //       message: res.message,
+              //       type: "warning",
+              //     });
+              //   } else if (res.code == "200") {
+              //     dialogVisible.value = false;
+              //     ElMessage({
+              //       message: "修改成功！",
+              //       type: "success",
+              //     });
 
-                  logout();
-                }
-              });
+              //     logout();
+              //   }
+              // });
             });
         } else {
           ElMessage({
