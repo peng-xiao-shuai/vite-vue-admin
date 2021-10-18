@@ -1,1 +1,0 @@
-import{s as r}from"./index.56d3d286.js";function e(){return r({url:"echart/line"})}function u(){return r({url:"echart/pillar"})}function a(){return r({url:"echart/cake"})}export{a as c,e as l,u as p};
