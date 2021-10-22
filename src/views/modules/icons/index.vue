@@ -43,6 +43,8 @@ export default defineComponent({
       icon: array[index],
     }));
 
+    console.log(icons);
+
     const iconVal = ref("");
 
     return {

@@ -105,6 +105,16 @@ export const addRouter: Routers[] = [
         },
       },
       {
+        path: "export",
+        name: "export",
+        component: () => import("@/views/modules/export/index.vue"),
+        meta: {
+          title: "导出表格",
+          locale: 'export',
+          icon: "vitequanping",
+        },
+      },
+      {
         path: "antv-x6",
         name: "antv-x6",
         component: () => import("@/views/modules/antv-x6/index.vue"),

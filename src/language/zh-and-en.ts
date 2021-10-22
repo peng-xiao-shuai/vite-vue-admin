@@ -11,6 +11,7 @@ export default {
   'upload.file': '上传文件',
   'form': '表单',
   'table': '表格',
+  'export': '导出表格',
   'rich.text': '富文本',
   'markdown': 'markdown',
   "markdown.editor": 'md编辑器',

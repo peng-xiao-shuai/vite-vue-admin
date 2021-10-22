@@ -10,9 +10,9 @@ export type rolesValueItemType = {
 }
 
 export type rolesType = {
-  [s:string]: rolesValueItemType[]
+  [s: string]: rolesValueItemType[]
 }
-const roles:rolesType = {
+const roles: rolesType = {
   admin: [
     {
       hidden: 1,
@@ -43,6 +43,16 @@ const roles:rolesType = {
       parentId: 1,
       sort: 997,
       title: "表格",
+    },
+    {
+      hidden: 1,
+      icon: "vitequanping",
+      id: 19,
+      level: 1,
+      name: "export",
+      parentId: 1,
+      sort: 997,
+      title: "导出表格",
     },
     {
       hidden: 1,
@@ -529,16 +539,16 @@ const roles:rolesType = {
       sort: 997,
       title: "权限管理",
     },
-      {
-        hidden: 1,
-        icon: "viteyonghuliebiao",
-        id: 91,
-        level: 1,
-        name: "admin",
-        parentId: 9,
-        sort: 9,
-        title: "用户列表",
-      },
+    {
+      hidden: 1,
+      icon: "viteyonghuliebiao",
+      id: 91,
+      level: 1,
+      name: "admin",
+      parentId: 9,
+      sort: 9,
+      title: "用户列表",
+    },
     {
       hidden: 1,
       icon: "vitejiaose",

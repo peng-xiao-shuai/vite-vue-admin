@@ -15,7 +15,7 @@
     "axios": "^0.21.1",
     "digit-roll": "^1.1.8",
     "echarts": "^5.0.2",
-    "el-plus-powerful-table": "^1.4.15",
+    "el-plus-powerful-table": "^1.5.0",
     "element-plus": "1.0.2-beta.71",
     "exceljs": "^4.3.0",
     "js-cookie": "^2.2.1",

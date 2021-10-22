@@ -1,27 +1,30 @@
 import { saveAs } from 'file-saver'
 import * as ExcelJs from 'exceljs/dist/exceljs'
 
+import { ExportToExelData, ExportConfigData } from './exportType';
+
 /**
  * 支持多sheet 导出excel
  * @param multiHeaders 多行表头
  * @param headers 多sheet对应的表头
  * @param datas 数据，一个数组表示一个sheet中的数据
- * @param fileName 文件名称
  * @param sheetNames sheet名称，数组格式的，数组中按次获取sheet名称
  * @param merges 合并单元格
  * @param autoWidth 自动列宽
- * @param bookType 文档类型
  */
-export function export_json_to_excel_sheet ({
+export function export_json_to_excel_sheet({
   multiHeaders = [],
   headers = [],
   datas = [],
-  fileName,
-  sheetNames = ["sheet"],
+  sheetNames = [],
   merges = [],
-  autoWidth = true,
-  bookType = 'xlsx'
-} = {}, configData) {
+  borders = [true], // 是否需要黑色边框,
+  autoWidths = [true],
+  aligns = ['center'],
+  stripes = [true],
+}: ExportToExelData, configData: ExportConfigData) {
+  // 文档类型
+  const bookType = 'xlsx'
   // 创建一个工作簿
   const workbook = new ExcelJs.Workbook()
 
@@ -38,16 +41,15 @@ export function export_json_to_excel_sheet ({
 
     // 添加表头, 合并表头的数据
     const header = headers[tmp]
-    data.unshift(header)
+    if (header.length) data.unshift(header)
 
     // 复杂表头的标题长度
     var dataLength = 0
 
     // 使用用户定义的合并内容
-    if (merges.length) {
-      console.log(merges[tmp])
+    if (merges[tmp].length) {
       if (merges[tmp]) {
-        merges[tmp].forEach((mItem, mIndex) => {
+        merges[tmp].forEach((mItem: any, mIndex: number) => {
           const cell = mItem.split(":")
           ws.mergeCells(cell[0], cell[1])
           ws.getCell(cell[0]).value = multiHeaders[tmp][mIndex]
@@ -63,8 +65,8 @@ export function export_json_to_excel_sheet ({
     }
     // 使用默认标题合并
     else {
-      if (multiHeaders[tmp]) {
-        multiHeaders[tmp].forEach((mhItem, mhIndex) => {
+      if (multiHeaders[tmp] && multiHeaders[tmp].length) {
+        multiHeaders[tmp].forEach((mhItem: any, mhIndex: number) => {
           // 给头部多行标题动态设置合并项
           // console.log('A' + (mhIndex + 1), createCol(header.length - 1) + (mhIndex + 1))
           ws.mergeCells('A' + (mhIndex + 1), createCol(header.length - 1) + (mhIndex + 1))
@@ -78,15 +80,16 @@ export function export_json_to_excel_sheet ({
     }
 
     ws.addRows(data)
-    // console.log(data)
 
     // 给每个单元格居中
-    rowCenter(ws, header, dataLength)
+    rowCenter(ws, header.length ? header : multiHeaders[tmp], data, dataLength, tmp)
 
+    // 自适应宽度设置的优先等级，局部 -> 全局 -> 默认
+    const autoWidthFlag: boolean = autoWidths[tmp] != undefined ? autoWidths[tmp] : configData.autoWidth == undefined ? true : configData.autoWidth
     // 自动处理单元格列宽
-    if (autoWidth) {
+    if (autoWidthFlag) {
       // 设置worksheet每列的最大宽度
-      const columnWidth = data.map(row => row.map(val => {
+      const columnWidth = data.map((row: any) => row.map((val: any) => {
         // 先判断是否为null/undefined
         if (val == null) {
           return {
@@ -96,11 +99,11 @@ export function export_json_to_excel_sheet ({
         // 再判断是否为中文
         else if (val.toString().charCodeAt(0) > 255) {
           return {
-            'width': val.toString().length * 2
+            'width': val.toString().length * 2 + 2
           }
         } else {
           return {
-            'width': val.toString().length
+            'width': val.toString().length + 2
           }
         }
       }))
@@ -122,18 +125,36 @@ export function export_json_to_excel_sheet ({
    *  设置start-end行单元格水平垂直居中/添加边框
    * @param arg_ws workSheet 参数
    */
-  function rowCenter (arg_ws, header, dataLength) {
-    console.log(dataLength)
-    header.forEach((hItem, hIndex) => {
+  function rowCenter(arg_ws: any, header: any, data: any[] = [[]], dataLength: number, iIndex: number) {
+    header.forEach((hItem: any, hIndex: number) => {
       for (let dIndex = 0; dIndex < dataLength; dIndex++) {
-        arg_ws.getCell(createCol(hIndex) + (dIndex + 1)).alignment = { vertical: 'middle', horizontal: 'center' }
-        // 是否需要黑色边框
-        if (configData.border) {
+        const alignFlag = aligns[iIndex] || configData.align || 'center'
+        arg_ws.getCell(createCol(hIndex) + (dIndex + 1)).alignment = { vertical: 'middle', horizontal: alignFlag }
+        // 是否需要黑色边框，默认需要
+        // 是否需要黑色边框设置的优先等级，局部 -> 全局 -> 默认
+        const borderFlag: boolean = borders[iIndex] != undefined ? borders[iIndex] : configData.border == undefined ? true : configData.border
+        if (borderFlag && hIndex < data[0]?.length) {
           arg_ws.getCell(createCol(hIndex) + (dIndex + 1)).border = {
             top: { style: 'thin' },
             left: { style: 'thin' },
             bottom: { style: 'thin' },
             right: { style: 'thin' }
+          }
+        }
+        // 是否需要斑马纹，默认不需要
+        // 是否需要斑马纹设置的优先等级，局部 -> 全局 -> 默认
+        const stripeFlag: boolean = stripes[iIndex] != undefined ? stripes[iIndex] : configData.stripe ? true : false
+        if (stripeFlag && hIndex < data[0]?.length) {
+          if (dIndex % 2 == 0) {
+            arg_ws.getCell(createCol(hIndex) + (dIndex + 1)).fill = {
+              type: 'gradient',
+              gradient: 'angle',
+              degree: 0,
+              stops: [
+                { position: 0, color: { argb: 'FFE4E4E4' } },
+                { position: 1, color: { argb: 'FFE4E4E4' } }
+              ]
+            };
           }
         }
       }
@@ -145,7 +166,7 @@ export function export_json_to_excel_sheet ({
    * @param {n} 数字 
    * @returns 
    */
-  function createCol (n) {
+  function createCol(n: number) {
     const ordA = 'A'.charCodeAt(0)
     const ordZ = 'Z'.charCodeAt(0)
     const len = ordZ - ordA + 1
@@ -163,15 +184,15 @@ export function export_json_to_excel_sheet ({
    * @param arg_ws workSheet
    * @param arg_cols 列数组
    */
-  function colWidth (arg_ws, arg_cols) {
+  function colWidth(arg_ws: any, arg_cols: any) {
     for (const i in arg_cols) {
       arg_ws.getColumn(parseInt(i) + 1).width = arg_cols[i].width
     }
   }
   // 保存下载
-  workbook.xlsx.writeBuffer().then(buffer => {
+  workbook.xlsx.writeBuffer().then((buffer: any) => {
     saveAs(new Blob([buffer], {
       type: 'application/octet-stream'
-    }), `${fileName}.${bookType}`)
+    }), `${configData.fileName}.${bookType}`)
   })
 }
