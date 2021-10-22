@@ -1,0 +1,1 @@
+import{g as s,u as t,af as u}from"./vendor.f934f7ac.js";const c={setup(){let o=s(),e=t();const{params:a,query:r}=e;return console.log(e),o.replace({name:a.__name,params:a,query:r}),()=>[u("div")]}};export{c as default};
