@@ -2,12 +2,12 @@ import { defineConfig } from "vite";
 
 import vue from "@vitejs/plugin-vue";
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import viteSvgIcons from 'vite-plugin-svg-icons';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 
 import path from "path";
 
 export default defineConfig({
-  plugins: [vue(), vueJsx(),viteSvgIcons({
+  plugins: [vue(), vueJsx(), createSvgIconsPlugin({
     // 指定需要缓存的图标文件夹
     iconDirs: [path.resolve(process.cwd(), 'src/icons')],
     // 指定symbolId格式
@@ -28,7 +28,6 @@ export default defineConfig({
   // 控制台打印
   // logLevel: "silent",
   build: {
-    brotliSize: false,
     chunkSizeWarningLimit: 1024,
     // rollupOptions: {
     //   external: ["src/*"],

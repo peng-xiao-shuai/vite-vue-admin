@@ -1,4 +1,4 @@
-import { createApp, ComponentCustomProperties } from "vue";
+import { createApp } from "vue";
 import { Store } from 'vuex'
 import { Router, RouteLocationNormalizedLoaded } from 'vue-router';
 import App from "./App.vue";
@@ -9,12 +9,12 @@ import type { UserInfo } from './store/modules/user';
 
 // 指令
 import directive from './directives/directive';
-// 工具类 
+// 工具类
 import { parseTime } from '@/utils/parse-time';
 
 import ElementPlus from "element-plus";
 import { ElMessage, ElMessageBox } from "element-plus";
-import powerfulTable from "el-plus-powerful-table";
+import powerfulTable from "el-plus-powerful-table-ts/es";
 
 // i18n
 import VueI18n from './language'
