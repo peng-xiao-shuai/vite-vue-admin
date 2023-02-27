@@ -1,4 +1,4 @@
-@import 'mixins/function.scss';
+@use 'mixins/function.scss';
 
 /*修改滚动条样式*/
 *::-webkit-scrollbar,.el-scrollbar__bar.is-vertical{
@@ -116,7 +116,7 @@
     color: #666;
     background: #eee;
   }
-  
+
   p {
     // margin: 0;
   }
