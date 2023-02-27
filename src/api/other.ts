@@ -1,32 +1,28 @@
-import request from '../utils/request';
+import request from '@/utils/request'
 
-export function logAjax() {
-  return request({
+export const logAjax = () =>
+  request({
     url: 'log/ajax',
     method: 'post',
   })
-}
 
 type logList = {
-  pageSize: number,
+  pageSize: number
   pageNum: number
 }
-export function getLogList(params: logList) {
-  return request({
+export const getLogList = (params: logList) =>
+  request({
     url: 'log/list',
     method: 'get',
-    params
+    params,
   })
-}
 
-export function AntvX6(params: {parentId: number}) {
-  return request({
+export const AntvX6 = (params: { parentId: number }) =>
+  request({
     url: 'antvx6/list',
     method: 'get',
-    params
+    params,
   })
-}
-
 
 // 上传媒体
 export const media = 'api/minio/upload'

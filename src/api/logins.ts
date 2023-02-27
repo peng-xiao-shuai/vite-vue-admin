@@ -1,58 +1,52 @@
-import request from '../utils/request';
+import request from '@/utils/request'
 
 /**
  * 登录
- * @param data 
- * @returns 
+ * @param data
+ * @returns
  */
-export function login(data: Object){
-    return request({
-        url:'admin/login',
-        method: 'post',
-        data
-    })
-}
+export const login = (data: any) =>
+  request({
+    url: 'admin/login',
+    method: 'post',
+    data,
+  })
 
 /**
  * 获取用户信息
- * @param params 
- * @returns 
+ * @param params
+ * @returns
  */
-export function getUser(params?:Object){
-    return request({
-        url:'admin/info',
-        params
-    })
-}
+export const getUser = (params?: any) =>
+  request({
+    url: 'admin/info',
+    params,
+  })
 
 /**
  * 获取用户列表
- * @param params 
- * @returns 
+ * @param params
+ * @returns
  */
-export function getUserList(params:object) {
-  return request({
+export const getUserList = (params: any) =>
+  request({
     url: 'admin/userList',
-    params: params
+    params,
   })
-}
-
 /**
  * 删除用户列表
- * @param params 
- * @returns 
+ * @param params
+ * @returns
  */
-export function userRemove(data:Object){
-  return request({
-      url:'admin/remove',
-      method: 'delete',
-      data
+export const userRemove = (data: any) =>
+  request({
+    url: 'admin/remove',
+    method: 'delete',
+    data,
   })
-}
 
-export function logout() {
-  return request({
+export const logout = () =>
+  request({
     url: '/admin/logout',
-    method: 'post'
+    method: 'post',
   })
-}

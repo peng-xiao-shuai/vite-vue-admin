@@ -1,37 +1,33 @@
-import request from "@/utils/request";
+import request from '@/utils/request'
 
 /**
  * 获取角色列表
- * @param params 
- * @returns 
+ * @param params
+ * @returns
  */
-export function getRoleList(params:object) {
-  return request({
+export const getRoleList = (params: any) =>
+  request({
     url: 'admin/roleList',
-    params: params
+    params,
   })
-}
 
-export function createRole(data?: object) {
-  return request({
-    url: "/role/create",
-    method: "post",
-    data: data,
-  });
-}
+export const createRole = (data?: any) =>
+  request({
+    url: '/role/create',
+    method: 'post',
+    data,
+  })
 
-export function updateRole(id: number | string, data?: object) {
-  return request({
-    url: "/role/update/" + id,
-    method: "post",
-    data: data,
-  });
-}
+export const updateRole = (id: number | string, data?: any) =>
+  request({
+    url: '/role/update/' + id,
+    method: 'post',
+    data,
+  })
 
-export function deleteRole(data?: object) {
-  return request({
-    url: "/role/delete",
-    method: "post",
-    data: data,
-  });
-}
+export const deleteRole = (data?: any) =>
+  request({
+    url: '/role/delete',
+    method: 'post',
+    data,
+  })
