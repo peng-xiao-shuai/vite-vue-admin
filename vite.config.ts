@@ -1,22 +1,35 @@
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite'
 
-import vue from "@vitejs/plugin-vue";
+import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-import path from "path";
+import path from 'path'
 
 export default defineConfig({
-  plugins: [vue(), vueJsx(), createSvgIconsPlugin({
-    // 指定需要缓存的图标文件夹
-    iconDirs: [path.resolve(process.cwd(), 'src/icons')],
-    // 指定symbolId格式
-    symbolId: 'icon-[dir]-[name]',
-  }),],
+  plugins: [
+    vue(),
+    vueJsx(),
+    createSvgIconsPlugin({
+      // 指定需要缓存的图标文件夹
+      iconDirs: [path.resolve(process.cwd(), 'src/icons')],
+      // 指定symbolId格式
+      symbolId: 'icon-[dir]-[name]',
+    }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+    }),
+  ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
+      '@': path.resolve(__dirname, './src'),
+      'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
     },
   },
   define: {
@@ -51,4 +64,4 @@ export default defineConfig({
       //   }
     },
   },
-});
+})

@@ -11,6 +11,7 @@
     "outDir": "./",
     // typeRoots option has been previously configured
     // 以严格模式解析
+    "downlevelIteration": true,
     "strict": true,
     "strictPropertyInitialization": false,
     // 在.tsx文件里支持JSX
