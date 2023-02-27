@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div :class="['left']">
-      <menus :collapse="collapse"></menus>
+      <menus :collapse="collapse" />
     </div>
     <div
       class="right"
@@ -9,11 +9,8 @@
         !collapse
           ? { marginLeft: '65px', width: 'calc(100% - 65px)' }
           : {
-              marginLeft:
-                (store.leftMargin || 200) + 'px',
-              width: `calc(100% - ${
-                store.leftMargin || 200
-              }px)`,
+              marginLeft: (store.leftMargin || 200) + 'px',
+              width: `calc(100% - ${store.leftMargin || 200}px)`,
             }
       "
     >
@@ -21,36 +18,40 @@
         class="top"
         :style="{
           boxShadow:
-            store.fixed === 1
-              ? '5px 5px 5px 0px rgba(0,0,0,0.1)'
-              : '0 0 0 0',
-          position:
-            store.fixed === 1
-              ? 'sticky'
-              : 'static',
+            store.fixed === 1 ? '5px 5px 5px 0px rgba(0,0,0,0.1)' : '0 0 0 0',
+          position: store.fixed === 1 ? 'sticky' : 'static',
           top: 0,
         }"
       >
-        <navs @isCollapse="isCollapse" :collapse="collapse"></navs>
-        <tags-view
-          :collapse="collapse"
-          v-if="store.isTagsView"
-        ></tags-view>
+        <navs @is-collapse="isCollapse" :collapse="collapse" />
+        <tags-view :collapse="collapse" v-if="store.isTagsView" />
       </div>
-      <div class="view" id="view" v-press-key:s="() => $throttle(() => useSearch = true, 100)"
+      <div
+        class="view"
+        id="view"
+        v-press-key:s="() => $throttle(() => (useSearch = true), 100)"
         :style="{
-          minHeight: `calc(100% - ${store.isTagsView ? '91px' : '50px'})`
-        }">
-        <setting></setting>
+          minHeight: `calc(100% - ${store.isTagsView ? '91px' : '50px'})`,
+        }"
+      >
+        <setting />
 
-        <transition name='searchView'>
-          <search-view v-show='useSearch' class="search-view"></search-view>
+        <transition name="searchView">
+          <search-view v-show="useSearch" class="search-view" />
         </transition>
 
-        <transition name='searchView'>
-          <div v-show='!useSearch' v-press-key:escape="() => $throttle(() => useSearch = false, 100)">
-            <router-view v-if="!meta.iframeUrl"></router-view>
-            <iframe v-else :src="meta.iframeUrl" frameborder="0" v-bind="meta.iframeData"></iframe>
+        <transition name="searchView">
+          <div
+            v-show="!useSearch"
+            v-press-key:escape="() => $throttle(() => (useSearch = false), 100)"
+          >
+            <router-view v-if="!meta.iframeUrl" />
+            <iframe
+              v-else
+              :src="meta.iframeUrl"
+              frameborder="0"
+              v-bind="meta.iframeData"
+            ></iframe>
           </div>
         </transition>
       </div>
@@ -66,10 +67,10 @@ import routerView from './components/router-view.vue'
 import SearchView from './components/search-view.vue'
 import setting from './components/setting.vue'
 
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import { useSearch } from '@/hooks/states';
+import { useSearch } from '@/hooks/states'
 
 export default defineComponent({
   components: {
@@ -78,15 +79,15 @@ export default defineComponent({
     menus,
     navs,
     TagsView,
-    setting
+    setting,
   },
-  setup () {
+  setup() {
     const store = useStore().state.settings.drawerSetting
     const route = useRoute()
     const collapse = computed(() => !!store.defaultMenu)
     const meta = computed(() => route.meta)
 
-    function isCollapse (e) {
+    function isCollapse(e) {
       collapse.value = e
     }
 
@@ -95,9 +96,9 @@ export default defineComponent({
       collapse,
       isCollapse,
       meta,
-      useSearch
+      useSearch,
     }
-  }
+  },
 })
 </script>
 
@@ -157,7 +158,7 @@ export default defineComponent({
       overflow: hidden;
       position: relative;
 
-      .search-view{
+      .search-view {
         height: 100%;
         width: calc(100% - 40px);
         position: absolute;

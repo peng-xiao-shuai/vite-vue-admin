@@ -1,22 +1,20 @@
 <template>
   <div class="app-container">
     <el-card :style="{ marginBottom: '20px' }" :shadow="defaultData.cardShadow">
-      <antv-x6></antv-x6>
+      <antv-x6 />
     </el-card>
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from "vue";
-import antvX6 from "@/components/antv-x6/index.vue";
+<script lang="ts">
+import { defineComponent } from 'vue'
+import antvX6 from '@/components/antv-x6/index.vue'
 
 export default defineComponent({
-  name: "axtv-x6",
+  name: 'AxtvX6',
   components: {
     antvX6,
   },
-  setup(props) {},
-});
+  setup() {},
+})
 </script>
-<style lang="scss" scoped>
-</style>

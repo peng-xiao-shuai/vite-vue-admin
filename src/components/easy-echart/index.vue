@@ -41,21 +41,21 @@ export default defineComponent({
     //isSlot && 图表减去插槽高度
     isSlot: {
       type: Boolean,
-      default: false
+      default: false,
     },
     height: {
       type: [Number, String],
-      default: 250
+      default: 250,
     },
     // 图表类型
     types: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   setup(props) {
     onMounted(() => {
-    // 基于准备好的dom，初始化echarts实例
+      // 基于准备好的dom，初始化echarts实例
       myChart.value = echarts.init(document.getElementById(props.echartsId))
     })
     const myChart = shallowRef(null)
@@ -63,26 +63,30 @@ export default defineComponent({
     let old = []
 
     watchEffect(() => {
-      let merge = old.length == (props.information.homeDateInfoResult && props.information.homeDateInfoResult.length) ? false : true
+      let merge =
+        old.length ==
+        (props.information.homeDateInfoResult &&
+          props.information.homeDateInfoResult.length)
+          ? false
+          : true
       if (props.information.horizontalList) {
-          old = props.information.homeDateInfoResult
-          
-          switch (props.types) {
-            case 'line':
-              lineEchart(merge)
-              break
-            case 'pie':
-              cakeChart()
-              break
-            case 'homeCake':
-              homeCakeChart()
-              break
-            default:
-              pillarChart()
-              break
-          }
+        old = props.information.homeDateInfoResult
 
+        switch (props.types) {
+          case 'line':
+            lineEchart(merge)
+            break
+          case 'pie':
+            cakeChart()
+            break
+          case 'homeCake':
+            homeCakeChart()
+            break
+          default:
+            pillarChart()
+            break
         }
+      }
     })
 
     // 线
@@ -95,9 +99,9 @@ export default defineComponent({
           axisPointer: {
             type: 'cross',
             label: {
-              backgroundColor: '#6a7985'
-            }
-          }
+              backgroundColor: '#6a7985',
+            },
+          },
         },
         // legend: {
         // 	data: this.information.homeDateInfoResult.map(item => item.name || '')
@@ -107,7 +111,7 @@ export default defineComponent({
           right: '0%',
           bottom: '3%',
           top: '5%',
-          containLabel: true
+          containLabel: true,
         },
         title: {
           // text: this.title,
@@ -116,21 +120,22 @@ export default defineComponent({
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: props.information.horizontalList
+          data: props.information.horizontalList,
         },
         yAxis: [
           {
-            type: 'value'
-          }
+            type: 'value',
+          },
         ],
-        series: props.information.homeDateInfoResult
+        series: props.information.homeDateInfoResult,
       }
 
-      
       // myChart.value.clear();
       // 使用刚指定的配置项和数据显示图表。
       myChart.value.setOption(option, merge)
-      window.addEventListener("resize", () => { myChart.value.resize() })
+      window.addEventListener('resize', () => {
+        myChart.value.resize()
+      })
     }
     // 柱状
     const pillarChart = () => {
@@ -139,9 +144,10 @@ export default defineComponent({
         color: props.colors,
         tooltip: {
           trigger: 'axis',
-          axisPointer: { // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-          }
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+          },
         },
         title: {
           // text: props.title,
@@ -152,26 +158,29 @@ export default defineComponent({
           right: '0%',
           bottom: '3%',
           top: '5%',
-          containLabel: true
+          containLabel: true,
         },
         xAxis: {
           type: 'category',
-          data: props.information.horizontalList
+          data: props.information.horizontalList,
         },
-        yAxis: [{
-          type: 'value'
-        }],
-        series: props.information.homeDateInfoResult
+        yAxis: [
+          {
+            type: 'value',
+          },
+        ],
+        series: props.information.homeDateInfoResult,
       }
 
       // 使用刚指定的配置项和数据显示图表。
       myChart.value.setOption(option)
 
-      window.addEventListener("resize", () => { myChart.value.resize() })
-
+      window.addEventListener('resize', () => {
+        myChart.value.resize()
+      })
     }
 
-    // 饼图 
+    // 饼图
     // 默认南丁格尔玫瑰图
     const cakeChart = () => {
       let series = {
@@ -180,17 +189,17 @@ export default defineComponent({
         center: ['50%', '50%'],
         roseType: 'area',
         label: {
-          show: false
+          show: false,
         },
         itemStyle: {
-          borderRadius: 8
+          borderRadius: 8,
         },
       }
 
       series.data = props.information.horizontalList.map((item, index) => {
         let each = {
           value: item.value,
-          name: item.name
+          name: item.name,
         }
 
         return each
@@ -200,27 +209,29 @@ export default defineComponent({
       let option = {
         color: props.colors,
         tooltip: {
-          trigger: 'item'
+          trigger: 'item',
         },
         legend: {
-          y: 'center',  //图例上下居中
+          y: 'center', //图例上下居中
           right: '5%',
           orient: 'vertical',
           backgroundColor: 'rgb(228, 230, 255)',
           borderRadius: 5,
           padding: [25, 15, 25, 15],
-          icon: "pin"
+          icon: 'pin',
         },
         title: {
           // text: this.title,
           // left: 'left'
         },
-        series: series
+        series: series,
       }
 
       // 使用刚指定的配置项和数据显示图表。
       myChart.value.setOption(option)
-      window.addEventListener("resize", () => { myChart.value.resize() })
+      window.addEventListener('resize', () => {
+        myChart.value.resize()
+      })
     }
 
     // 首页单独饼图
@@ -234,29 +245,29 @@ export default defineComponent({
         itemStyle: {
           borderRadius: 10,
           borderColor: '#fff',
-          borderWidth: 10
+          borderWidth: 10,
         },
         label: {
           show: false,
-          position: 'center'
+          position: 'center',
         },
         emphasis: {
           label: {
             show: true,
             fontSize: '15',
             fontWeight: 'bold',
-            formatter: '{b} \n\n {d}%'
-          }
+            formatter: '{b} \n\n {d}%',
+          },
         },
         labelLine: {
-          show: false
-        }
+          show: false,
+        },
       }
 
       series.data = props.information.horizontalList.map((item, index) => {
         let each = {
           value: item.value,
-          name: item.name
+          name: item.name,
         }
 
         return each
@@ -266,29 +277,31 @@ export default defineComponent({
       let option = {
         color: props.colors,
         tooltip: {
-          trigger: 'item'
+          trigger: 'item',
         },
         legend: {
-          y: 'center',  //图例上下居中
+          y: 'center', //图例上下居中
           right: '5%',
           orient: 'vertical',
           backgroundColor: 'rgb(228, 230, 255)',
           borderRadius: 5,
           padding: [25, 15, 25, 15],
-          icon: "pin"
+          icon: 'pin',
         },
         title: {
           // text: this.title,
           // left: 'left'
         },
-        series: series
+        series: series,
       }
 
       // 使用刚指定的配置项和数据显示图表。
       myChart.value.setOption(option)
-      window.addEventListener("resize", () => { myChart.value.resize() })
+      window.addEventListener('resize', () => {
+        myChart.value.resize()
+      })
     }
-  }
+  },
 })
 </script>
 

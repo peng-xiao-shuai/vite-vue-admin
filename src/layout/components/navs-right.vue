@@ -1,18 +1,18 @@
 <template>
   <div class="nav-right">
     <!-- 搜索 -->
-    <search></search>
+    <search />
 
     <!-- 语言 -->
-    <language></language>
+    <language />
 
     <!-- bug -->
-    <bug></bug>
+    <bug />
 
     <!-- 组件大小 -->
-    <size></size>
+    <size />
     <!-- 全屏 -->
-    <full-screen></full-screen>
+    <full-screen />
     <!-- 用户 -->
     <div class="item">
       <el-dropdown class="avatar-container" trigger="hover">
@@ -27,23 +27,23 @@
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
             <!-- <el-dropdown-item>
-              <span
-                span
-                @click="dialogVisible = !dialogVisible"
-                style="display: block"
-                >{{ t("update") }} {{ t("password") }}</span
-              >
-            </el-dropdown-item> -->
+                <span
+                  span
+                  @click="dialogVisible = !dialogVisible"
+                  style="display: block"
+                  >{{ t("update") }} {{ t("password") }}</span
+                >
+              </el-dropdown-item> -->
             <router-link class="inlineBlock" to="/">
               <el-dropdown-item style="text-align: center">
-                {{ t("home") }}
+                {{ t('home') }}
               </el-dropdown-item>
             </router-link>
             <el-dropdown-item divided>
               <span
                 @click="logout"
                 style="display: block; text-align: center"
-                >{{ t("exit") }}</span
+                >{{ t('exit') }}</span
               >
             </el-dropdown-item>
             <el-dropdown-item divided>
@@ -54,7 +54,7 @@
                   text-decoration: none;
                   text-align: center;
                 "
-                >{{ "GitHub" }}</a
+                >{{ 'GitHub' }}</a
               >
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -74,7 +74,7 @@
         :rules="loginRules"
       >
         <el-form-item label="用户名：" prop="username">
-          <el-input v-model="admin.username" style="width: 100%"></el-input>
+          <el-input v-model="admin.username" style="width: 100%" />
         </el-form-item>
         <el-form-item label="旧密码：" prop="oldPassword">
           <el-input
@@ -96,8 +96,8 @@
               </i>
             </template>
             <!-- <span slot="suffix" @click="showPwd">
-              <svg-icon icon-class="eye" class="color-main"></svg-icon>
-            </span> -->
+                <svg-icon icon-class="eye" class="color-main"></svg-icon>
+              </span> -->
           </el-input>
         </el-form-item>
         <el-form-item label="新密码：" prop="newPassword">
@@ -120,21 +120,21 @@
               </i>
             </template>
             <!-- <span slot="suffix" @click="showPwd">
-              <svg-icon icon-class="eye" class="color-main"></svg-icon>
-            </span> -->
+                <svg-icon icon-class="eye" class="color-main"></svg-icon>
+              </span> -->
           </el-input>
         </el-form-item>
         <!-- <el-form-item label="确认密码：" prop="isPassword">
-          <el-input
-            name="password"
-            :type="pwdType"
-            v-model="isPassword"
-            autoComplete="on"
-            placeholder="请输入确认密码"
-            style="width: 100%"
-          >
-          </el-input>
-        </el-form-item> -->
+            <el-input
+              name="password"
+              :type="pwdType"
+              v-model="isPassword"
+              autoComplete="on"
+              placeholder="请输入确认密码"
+              style="width: 100%"
+            >
+            </el-input>
+          </el-form-item> -->
 
         <el-form-item>
           <el-button @click="dialogVisible = false">取 消</el-button>
@@ -146,16 +146,17 @@
     </el-dialog>
   </div>
 </template>
-<script lang='ts'>
-import { defineComponent, reactive, ref, computed } from "vue";
-import { useStore } from "vuex";
+
+<script lang="ts">
+import { defineComponent, reactive, ref, computed } from 'vue'
+import { useStore } from 'vuex'
 // import { updatePassword } from "@/api/logins";
 
-import search from "./nav-right/seacrh";
-import language from "./nav-right/language.vue";
-import bug from "./nav-right/bug";
-import fullScreen from "./nav-right/full-screen";
-import size from "./nav-right/size";
+import search from './nav-right/seacrh'
+import language from './nav-right/language.vue'
+import bug from './nav-right/bug'
+import fullScreen from './nav-right/full-screen'
+import size from './nav-right/size'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
 
@@ -168,72 +169,69 @@ export default defineComponent({
     size,
   },
   setup() {
-    let Store = useStore();
+    let Store = useStore()
 
     // 账号头像
     let icon = computed(() => Store.state.user.userInfo.icon)
 
-    let dialogVisible = ref(false);
-    let pwdType = ref("password");
-    let adminForm = ref<any | null>(null);
+    let dialogVisible = ref(false)
+    let pwdType = ref('password')
+    let adminForm = ref<any | null>(null)
 
     let loginRules = ref({
-      username: [{ required: true, trigger: "blur", message: "请输入用户名" }],
+      username: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
       oldPassword: [
-        { required: true, trigger: "blur", message: "请输入旧密码" },
+        { required: true, trigger: 'blur', message: '请输入旧密码' },
       ],
       newPassword: [
-        { required: true, trigger: "blur", message: "请输入新密码" },
+        { required: true, trigger: 'blur', message: '请输入新密码' },
       ],
-    });
+    })
     let admin = reactive({
-        username: "",
-        oldPassword: "",
-        newPassword: "",
-    });
+      username: '',
+      oldPassword: '',
+      newPassword: '',
+    })
 
     function logout() {
-      Store.dispatch("outLoing");
+      Store.dispatch('outLogin')
     }
 
     function close() {
-      dialogVisible.value = false;
+      dialogVisible.value = false
     }
     function handleDialogConfirm() {
       adminForm.value.validate((valid: boolean) => {
         if (valid) {
-          ElMessageBox
-            .confirm("是否确认修改密码?", "提示", {
-              confirmButtonText: "确定",
-              cancelButtonText: "取消",
-              type: "warning",
-            })
-            .then(() => {
-              // updatePassword(admin).then((res: any) => {
-              //   if (res.code == "502") {
-              //     ElMessage({
-              //       message: res.message,
-              //       type: "warning",
-              //     });
-              //   } else if (res.code == "200") {
-              //     dialogVisible.value = false;
-              //     ElMessage({
-              //       message: "修改成功！",
-              //       type: "success",
-              //     });
-
-              //     logout();
-              //   }
-              // });
-            });
+          ElMessageBox.confirm('是否确认修改密码?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+          }).then(() => {
+            // updatePassword(admin).then((res: any) => {
+            //   if (res.code == "502") {
+            //     ElMessage({
+            //       message: res.message,
+            //       type: "warning",
+            //     });
+            //   } else if (res.code == "200") {
+            //     dialogVisible.value = false;
+            //     ElMessage({
+            //       message: "修改成功！",
+            //       type: "success",
+            //     });
+            //     logout();
+            //   }
+            // });
+          })
         } else {
           ElMessage({
-            message: "请完善信息",
-            type: "warning",
-          });
-          return false;
+            message: '请完善信息',
+            type: 'warning',
+          })
+          return false
         }
-      });
+      })
     }
 
     return {
@@ -247,9 +245,9 @@ export default defineComponent({
       close,
       logout,
       handleDialogConfirm,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss">

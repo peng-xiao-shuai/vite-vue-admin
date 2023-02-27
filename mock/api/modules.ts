@@ -1,59 +1,64 @@
-import * as Mock from "mockjs";
-import { config } from '../apis';
-import { lists, deleteLists, listType } from '../data/list';
+import { config } from '../apis'
+import { lists, deleteLists, listType } from '../data/list'
 import { listPaging } from '../utils'
 
 export default [
   {
-    url: "modules/table",
+    url: 'modules/table',
     response: (config: config) => {
-      let bookLists = lists.bookLists;
+      let bookLists = lists.bookLists
 
-      let pageSize = Number(config.query.pageSize);
-      let pageNum = Number(config.query.pageNum);
+      const pageSize = Number(config.query.pageSize)
+      const pageNum = Number(config.query.pageNum)
 
-      let date = config.query.date || "";
-      let types = config.query.types || "";
-      let name = config.query.name || "";
+      const date = config.query.date || ''
+      const types = config.query.types || ''
+      const name = config.query.name || ''
 
-      if (date != "") {
+      if (date != '') {
         bookLists.sort(function (a: listType, b: listType) {
-          if (date == "descending") {
-            return Number(b.date.split("-").join("")) - Number(a.date.split("-").join(""))
+          if (date == 'descending') {
+            return (
+              Number(b.date.split('-').join('')) -
+              Number(a.date.split('-').join(''))
+            )
           } else {
-            return Number(a.date.split("-").join("")) - Number(b.date.split("-").join(""))
+            return (
+              Number(a.date.split('-').join('')) -
+              Number(b.date.split('-').join(''))
+            )
           }
-        });
+        })
       }
 
-      if (types != "") {
-        bookLists = bookLists.filter((item: listType) => item.types == types);
+      if (types != '') {
+        bookLists = bookLists.filter((item: listType) => item.types == types)
       }
-      if (name != "") {
+      if (name != '') {
         bookLists = bookLists.filter(
           (item: listType) => item.name.indexOf(name) != -1
-        );
+        )
       }
 
       return {
         code: 200,
         data: listPaging<listType>(pageNum, pageSize, bookLists),
-      };
+      }
     },
   },
   {
-    url: "modules/table/remove",
-    type: "delete",
+    url: 'modules/table/remove',
+    type: 'delete',
     response: (config: config) => {
-      deleteLists('bookLists',config.body.ids)
+      deleteLists('bookLists', config.body.ids)
       return {
         code: 200,
         data: {},
-      };
+      }
     },
   },
   {
-    url: "modules/richText",
+    url: 'modules/richText',
     response: {
       code: 200,
       data: `<p>　　巴尼小镇是云南省怒江傈僳族自治州首个易地扶贫搬迁集中安置点。从山上的金满村搬迁到巴尼小镇，近3年的时间里，搬迁户们的生活发生了可喜的变化。</p>
@@ -125,4 +130,4 @@ export default [
       <p>　　“搬出去有盼头，留下来有干劲。”如今，乡里还在加紧研究制定金满村乡村旅游规划。“等客栈、农家乐、步行街都建好了，幸福一定来敲门。”洛本卓乡党委书记郝春荣说，巩固脱贫成果、走向乡村振兴，“好日子还在后头”。</p>`,
     },
   },
-];
+]

@@ -9,7 +9,7 @@
       <div>
         <transition-group name="tags">
           <div
-            v-for="(item, index) in tags"
+            v-for="item in tags"
             :key="item.name"
             :class="['tag', { active: currentName == item.name }]"
             :style="currentName == item.name ? { background: themeColor } : {}"
@@ -17,136 +17,151 @@
             <div @click="navTo(item)">
               {{ item?.meta?.locale ? t(item.meta.locale) : item?.meta?.title }}
             </div>
-            <i
-              v-if="!item.remove"
-              class="el-icon-close"
-              @click.stop="remove(index)"
-            ></i>
+            <el-icon><el-icon-close /></el-icon>
           </div>
         </transition-group>
       </div>
-      
+
       <!-- 右侧操作 -->
       <div>
         <span class="tag" @click="dropdownChange('refresh')">
           <span class="el-icon-refresh-right"></span>
         </span>
-        <el-dropdown trigger='click'>
+        <el-dropdown trigger="click">
           <span class="tag">
             <span class="el-icon-arrow-down"></span>
           </span>
           <template #dropdown>
-            <el-dropdown-item v-for="item in dropdownList" :key='item.key' :divided="item.divided" :disabled="dropdownDisabled(item.key)" @click='dropdownChange(item.key)'>
+            <el-dropdown-item
+              v-for="item in dropdownList"
+              :key="item.key"
+              :divided="item.divided"
+              :disabled="dropdownDisabled(item.key)"
+              @click="dropdownChange(item.key)"
+            >
               <span>
                 <i :class="[item.icon]" :style="item.style"></i>
-                {{item.locale ? t(item.locale) : item.title}}
+                {{ item.locale ? t(item.locale) : item.title }}
               </span>
             </el-dropdown-item>
           </template>
         </el-dropdown>
-        <span :class="['tag', 'vitequanping', defaultData.iconfont]" @click="handleFull"></span>
+        <span
+          :class="['tag', 'vitequanping', defaultData.iconfont]"
+          @click="handleFull"
+        ></span>
       </div>
     </el-scrollbar>
   </div>
 </template>
 
 <script lang="ts">
-import { useStore } from "vuex"
-import { computed, defineComponent, toRaw } from 'vue'
+import { useStore } from 'vuex'
+import { computed, defineComponent } from 'vue'
 import { useRoute, useRouter, RouteLocationNormalizedLoaded } from 'vue-router'
-import type { Tags } from '@/store/modules/user';
-import screenFull from "screenfull";
-import { ElMessage } from 'element-plus';
+import type { Tags } from '@/store/modules/user'
+import screenFull from 'screenfull'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
   props: {
     collapse: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
-  setup () {
+  setup() {
     let store = useStore()
     let route = useRoute()
     let router = useRouter()
 
     type DropdownList = {
-      title: string,
-      locale: String,
-      icon: string,
-      key: string,
-      style?: {},
+      title: string
+      locale: string
+      icon: string
+      key: string
+      style?: {}
       divided?: boolean
     }
     // 静态数据
-    const dropdownList: DropdownList[] = [{
-      title: '重新加载',
-      locale: 'reloading',
-      icon: 'el-icon-refresh-right',
-      key: 'refresh',
-    },{
-      title: '关闭当前页',
-      locale: 'close.current.tag.page',
-      icon: 'el-icon-close',
-      divided: true,
-      key: 'closeCurrent',
-    },{
-      title: '关闭左侧标签页',
-      locale: 'close.left.tag.page',
-      icon: 'el-icon-download',
-      style: {
-        transform: 'rotate(90deg)'
+    const dropdownList: DropdownList[] = [
+      {
+        title: '重新加载',
+        locale: 'reloading',
+        icon: 'el-icon-refresh-right',
+        key: 'refresh',
       },
-      key: 'closeLeft',
-    },{
-      title: '关闭右侧标签页',
-      locale: 'close.right.tag.page',
-      icon: 'el-icon-download',
-      style: {
-        transform: 'rotate(-90deg)'
+      {
+        title: '关闭当前页',
+        locale: 'close.current.tag.page',
+        icon: 'el-icon-close',
+        divided: true,
+        key: 'closeCurrent',
       },
-      key: 'closeRight',
-    },{
-      title: '关闭其他标签页',
-      locale: 'close.other.tag.page',
-      icon: 'el-icon-c-scale-to-original',
-      key: 'closeOther',
-    },{
-      title: '关闭全部标签页',
-      locale: 'close.all.tag.page',
-      key: 'closeAll',
-      icon: 'el-icon-minus',
-    }]  
+      {
+        title: '关闭左侧标签页',
+        locale: 'close.left.tag.page',
+        icon: 'el-icon-download',
+        style: {
+          transform: 'rotate(90deg)',
+        },
+        key: 'closeLeft',
+      },
+      {
+        title: '关闭右侧标签页',
+        locale: 'close.right.tag.page',
+        icon: 'el-icon-download',
+        style: {
+          transform: 'rotate(-90deg)',
+        },
+        key: 'closeRight',
+      },
+      {
+        title: '关闭其他标签页',
+        locale: 'close.other.tag.page',
+        icon: 'el-icon-c-scale-to-original',
+        key: 'closeOther',
+      },
+      {
+        title: '关闭全部标签页',
+        locale: 'close.all.tag.page',
+        key: 'closeAll',
+        icon: 'el-icon-minus',
+      },
+    ]
     let tags = computed<Tags[]>(() => store.state.user.tags)
     // 当前路由name
     let currentName = computed(() => {
-      let isExist = tags.value.filter(item => item.name == route.name).length > 0 ? true : false
+      let isExist =
+        tags.value.filter((item) => item.name == route.name).length > 0
+          ? true
+          : false
       addTag(route, isExist)
       return route.name
     })
 
-    function addTag (val: RouteLocationNormalizedLoaded, isExist: boolean) {
+    function addTag(val: RouteLocationNormalizedLoaded, isExist: boolean) {
       let matched = val.matched[val.matched.length - 1]
       let to = {
         path: matched.path,
         name: matched.name,
         meta: matched.meta,
         query: val.query,
-        params: val.params
+        params: val.params,
       }
 
-      if (!isExist && val.name !== "redirect" && val.name !== "404") {
+      if (!isExist && val.name !== 'redirect' && val.name !== '404') {
         // console.log(to)
         store.commit('tagsCommit', { to })
       }
     }
 
-    function remove (i: number) {
+    function remove(i: number) {
       if (tags.value[i].name === currentName.value) {
         router.push({
           name: tags.value[i - 1].name,
           params: tags.value[i - 1].params,
-          query: tags.value[i - 1].query
+          query: tags.value[i - 1].query,
         })
         setTimeout(() => {
           // i 为开始删除的下标，1 为删除的个数
@@ -157,16 +172,16 @@ export default defineComponent({
       }
     }
 
-    function navTo (item: Tags) {
+    function navTo(item: Tags) {
       if (item.name === currentName.value) {
         // 手动重定向页面到 '/redirect' 页面
         router.replace({
           name: 'redirect',
           params: {
             ...item.params,
-            __name: item.name as string
+            __name: item.name as string,
           },
-          query: item.query
+          query: item.query,
         })
 
         return
@@ -176,66 +191,77 @@ export default defineComponent({
           params: {
             ...item.params,
           },
-          query: item.query
+          query: item.query,
         })
       }
     }
-    
+
     // 下拉禁用事件
-    const dropdownDisabled = (e:string) => {
-      const currentIndex = tags.value.map(item => item.name).indexOf(currentName.value as string)
+    const dropdownDisabled = (e: string) => {
+      const currentIndex = tags.value
+        .map((item) => item.name)
+        .indexOf(currentName.value as string)
       let disabled = false
-      switch(e) {
+      switch (e) {
         case 'closeLeft':
           disabled = currentIndex == 1 || currentIndex == 0
-          break;
+          break
         case 'closeRight':
-          disabled = currentIndex == tags.value.length -1
-          break;
+          disabled = currentIndex == tags.value.length - 1
+          break
       }
 
       return disabled
     }
     // 下拉点击事件
-    const dropdownChange = (e:string) => {
-      const currentIndex = tags.value.map(item => item.name).indexOf(currentName.value as string)
+    const dropdownChange = (e: string) => {
+      const currentIndex = tags.value
+        .map((item) => item.name)
+        .indexOf(currentName.value as string)
       const { path, name, query, params } = route
 
-      switch(e) {
+      switch (e) {
         case 'refresh':
-          navTo({path, name: name as string, params, query})
-          break;
+          navTo({ path, name: name as string, params, query })
+          break
         case 'closeLeft':
           store.dispatch('tagsActions', { removeIndex: [1, currentIndex - 1] })
-          break;
+          break
         case 'closeRight':
-          store.dispatch('tagsActions', { removeIndex: [currentIndex + 1, tags.value.length - currentIndex - 1] })
-          break;
+          store.dispatch('tagsActions', {
+            removeIndex: [
+              currentIndex + 1,
+              tags.value.length - currentIndex - 1,
+            ],
+          })
+          break
         case 'closeAll':
           router.push({
-            path: '/home'
+            path: '/home',
           })
           setTimeout(() => {
             // i 为开始删除的下标，1 为删除的个数
-            store.dispatch('tagsActions', { removeIndex: [1, tags.value.length - 1] })
+            store.dispatch('tagsActions', {
+              removeIndex: [1, tags.value.length - 1],
+            })
           }, 50)
-          break;
+          break
         case 'closeOther':
-            store.dispatch('tagsActions', { name: currentName.value })
-          break;
+          store.dispatch('tagsActions', { name: currentName.value })
+          break
       }
     }
 
     const handleFull = () => {
       if (!screenFull.isEnabled) {
         ElMessage({
-          message: "您的浏览器不支持！",
-          type: "warning",
-        });
-        return false;
+          message: '您的浏览器不支持！',
+          type: 'warning',
+        })
+        return false
       }
       const element = document.getElementById('view') as HTMLElement
-      screenFull.toggle(element);
+      screenFull.toggle(element)
     }
 
     return {
@@ -246,13 +272,13 @@ export default defineComponent({
       navTo,
       dropdownChange,
       handleFull,
-      dropdownDisabled
+      dropdownDisabled,
     }
-  }
+  },
 })
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .tags {
   padding: 7px 10px;
   border-top: 2px solid #f7f8f8;
@@ -318,7 +344,7 @@ export default defineComponent({
   }
 
   .tag::after {
-    content: "";
+    content: '';
     display: block;
     height: 50%;
     // border-right: 1px solid #ccc;
@@ -347,7 +373,7 @@ export default defineComponent({
     }
   }
 
-  .tag:active .el-icon-refresh-right{
+  .tag:active .el-icon-refresh-right {
     animation: deg 0.4s;
   }
 

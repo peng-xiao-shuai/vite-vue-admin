@@ -35,29 +35,28 @@
     </el-select>
 
     <!-- <el-card :shadow="defaultData.cardShadow">
-      <div class="operate-container">
-        <div>
-          <i :class="[defaultData.iconfont,'vitei']" style="margin-right: 5px"></i>
-          <span>图标</span>
+        <div class="operate-container">
+          <div>
+            <i :class="[defaultData.iconfont,'vitei']" style="margin-right: 5px"></i>
+            <span>图标</span>
+          </div>
         </div>
-      </div>
-      <div class="icons">
-        <div v-for="(item, index) in icons" :key="index">
-          <i :class="[defaultData.iconfont, item.icon]"></i>
-          <div class="iconName">{{ item.name }}</div>
+        <div class="icons">
+          <div v-for="(item, index) in icons" :key="index">
+            <i :class="[defaultData.iconfont, item.icon]"></i>
+            <div class="iconName">{{ item.name }}</div>
+          </div>
         </div>
-      </div>
-    </el-card> -->
+      </el-card> -->
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, ref, watchEffect } from "vue";
-import icon from "@/styles/iconfont.css";
+<script lang="ts">
+import { defineComponent, ref, watchEffect } from 'vue'
+import icon from '@/styles/iconfont.css'
 
 export default defineComponent({
-  name: "icons",
-  emits: ["update:icon"],
+  name: 'Icons',
   props: {
     /**
      * 一排多少个
@@ -65,7 +64,7 @@ export default defineComponent({
     columnNumber: Number,
     icon: {
       type: String,
-      default: "",
+      default: '',
     },
     /**
      * 样式
@@ -74,26 +73,25 @@ export default defineComponent({
       type: Object,
       default: () => {
         return {
-          width: "100%",
-        };
+          width: '100%',
+        }
       },
     },
   },
+  emits: ['update:icon'],
   setup(props, { emit }) {
     // 获取所有的 class名
-    const array = [...icon.matchAll(/\.(\w|\-)*\:/g)].map(
-      (item: string, index: number) => {
-        return item[0].substr(1, item[0].length).slice(0, -1);
-      }
-    );
+    const array = [...icon.matchAll(/\.(\w|\-)*\:/g)].map((item: string) => {
+      return item[0].substr(1, item[0].length).slice(0, -1)
+    })
 
-    const iconValue = ref<string>("");
+    const iconValue = ref<string>('')
     watchEffect(() => {
-      if (props.icon != "") {
-        iconValue.value = props.icon;
-        console.log(props.icon);
+      if (props.icon != '') {
+        iconValue.value = props.icon
+        console.log(props.icon)
       }
-    });
+    })
 
     // 获取所有 名称 并且合并
     const icons = [
@@ -101,37 +99,37 @@ export default defineComponent({
     ].map((item: string[], index: number) => ({
       name: item[2],
       icon: array[index],
-    }));
+    }))
 
     interface icon {
-      name: string;
-      icon: string;
+      name: string
+      icon: string
     }
 
-    const options = ref<icon[]>(icons);
+    const options = ref<icon[]>(icons)
 
     const change = (e: string) => {
-      emit("update:icon", e);
-    };
+      emit('update:icon', e)
+    }
 
     // 搜索
     const remoteMethod = (e: string) => {
       options.value = icons.filter(
         (_: icon) => _.icon.indexOf(e) !== -1 || _.name.indexOf(e) !== -1
-      );
-    };
+      )
+    }
 
     return {
       options,
       iconValue,
       change,
       remoteMethod,
-    };
+    }
   },
-});
+})
 </script>
 
-<style scoped lang='scss'>
+<style lang="scss" scoped>
 .operate-container {
   width: 100%;
   display: flex;

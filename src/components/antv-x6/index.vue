@@ -24,14 +24,14 @@
           disabled
           v-model="currentForm.value.parentName"
           placeholder="请输入上级城市名称"
-        ></el-input>
+        />
       </el-form-item>
 
       <el-form-item label="城市名称" prop="name">
         <el-input
           v-model="currentForm.value.name"
           placeholder="请输入城市名称"
-        ></el-input>
+        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -42,11 +42,9 @@
 </template>
 
 <script>
-import { defineComponent, ref, nextTick, inject, reactive } from "vue"
-import { Graph } from "@antv/x6"
-import {
-  AntvX6
-} from '@/api/other'
+import { defineComponent, ref, nextTick, inject, reactive } from 'vue'
+import { Graph } from '@antv/x6'
+import { AntvX6 } from '@/api/other'
 // import "@antv/x6-vue-shape"
 import { u_graph, addNode, addEdge } from './uiils'
 let nodeId = 13
@@ -54,12 +52,12 @@ export default defineComponent({
   props: {
     arrs: {
       type: Object,
-      default: () => { }
-    }
+      default: () => {},
+    },
   },
-  setup (props) {
+  setup() {
     const isDialog = ref(false)
-    let message = inject("$message")
+    let message = inject('$message')
     // x6 实例
     let graph = null
     // 节点实例 节点点击时需要
@@ -72,33 +70,31 @@ export default defineComponent({
       value: {
         name: '',
         parentId: 0,
-        jsonStr: JSON.stringify({ x: 0, y: 0 })
-      }
+        jsonStr: JSON.stringify({ x: 0, y: 0 }),
+      },
     })
-
 
     // 获取数据
     const getlist = (parentId = 0, _cell) => {
-      AntvX6({ parentId })
-        .then(res => {
-          res.data.forEach((item) => {
-            const node = addNode(graph, item)
+      AntvX6({ parentId }).then((res) => {
+        res.data.forEach((item) => {
+          const node = addNode(graph, item)
 
-            // parentId != 0 添加链接桩
-            if (parentId != 0) {
-              // 添加为子节点
-              _cell.addChild(node)
-              // 添加边
-              addEdge(graph, parentId, item.id)
+          // parentId != 0 添加链接桩
+          if (parentId != 0) {
+            // 添加为子节点
+            _cell.addChild(node)
+            // 添加边
+            addEdge(graph, parentId, item.id)
 
-              _cell.setAttrs({ isAjax: true })
-            }
-          })
+            _cell.setAttrs({ isAjax: true })
+          }
         })
+      })
     }
 
     nextTick(() => {
-      graph = new Graph(u_graph(document.getElementById("container")))
+      graph = new Graph(u_graph(document.getElementById('container')))
       // console.log(graph)
       getlist()
       // 悬浮显示删除线
@@ -187,7 +183,7 @@ export default defineComponent({
                   },
                 },
               ],
-              onClick ({ cell }) {
+              onClick({ cell }) {
                 console.log(cell)
                 if (!cell.attrs.isAjax) {
                   getlist(cell.id, cell)
@@ -256,14 +252,15 @@ export default defineComponent({
               x: 0,
               y: 0,
               offset: { x: node.attrs.width, y: 10 },
-              onClick () {
+              onClick() {
                 setTimeout(() => {
                   message.success('删除成功！')
                   graph.removeNode(node.id)
                 }, 200)
               },
             },
-          }])
+          },
+        ])
       })
 
       // 鼠标移开时删除按钮
@@ -276,13 +273,20 @@ export default defineComponent({
         nodesPosition[node.id] = node.position()
 
         // 存储用户 移动位置
-        window.localStorage.setItem('nodesPosition', JSON.stringify(Object.assign(JSON.parse(window.localStorage.getItem('nodesPosition')) || {}, nodesPosition)))
+        window.localStorage.setItem(
+          'nodesPosition',
+          JSON.stringify(
+            Object.assign(
+              JSON.parse(window.localStorage.getItem('nodesPosition')) || {},
+              nodesPosition
+            )
+          )
+        )
       })
     })
 
     // 关闭回调
     const close = (status) => {
-
       if (status === 'add') {
         // console.log(graph, Node, Cell)
         // 添加节点
@@ -297,7 +301,7 @@ export default defineComponent({
         currentForm.value = reactive({
           name: '',
           parentId: 0,
-          jsonStr: JSON.stringify({ x: 0, y: 0 })
+          jsonStr: JSON.stringify({ x: 0, y: 0 }),
         })
       }, 100)
     }
@@ -307,14 +311,13 @@ export default defineComponent({
         if (valid) {
           if (currentForm.value.id) {
             setTimeout(() => {
-              message.success("修改成功")
+              message.success('修改成功')
               close('update')
             }, 200)
-
           } else {
             setTimeout(() => {
               ++nodeId
-              message.success("添加成功")
+              message.success('添加成功')
               // id 需要后端添加成功后返回
               currentForm.value.id = nodeId
               close('add')
@@ -339,20 +342,24 @@ export default defineComponent({
       close,
       // saveNodesPosition,
       rules: {
-        categoryTypeId: [{
-          required: true, message: '请选择城市类型', trigger: 'change'
-        }],
-        name: [{
-          required: true, message: '请选择城市名称', trigger: 'change'
-        }]
+        categoryTypeId: [
+          {
+            required: true,
+            message: '请选择城市类型',
+            trigger: 'change',
+          },
+        ],
+        name: [
+          {
+            required: true,
+            message: '请选择城市名称',
+            trigger: 'change',
+          },
+        ],
       },
 
-      onSubmit
+      onSubmit,
     }
-
   },
-});
+})
 </script>
-
-<style lang="scss" scoped>
-</style>

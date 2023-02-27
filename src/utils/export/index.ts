@@ -1,11 +1,16 @@
-import { ExportData, ExportConfigData } from './exportType';
+import { ExportData, ExportConfigData } from './exportType'
 
-export function exportExcelSheet(exportData: ExportData[] = [{
-  header: [],
-  prop: [],
-  list: []
-}], configData: ExportConfigData = {}) {
-  import("@/utils/export/exportToExcel").then((excel) => {
+export function exportExcelSheet(
+  exportData: ExportData[] = [
+    {
+      header: [],
+      prop: [],
+      list: [],
+    },
+  ],
+  configData: ExportConfigData = {}
+) {
+  import('@/utils/export/exportToExcel').then((excel) => {
     const headers: string[][] = []
     const datas: string[][] = []
     const multiHeaders: string[][] = []
@@ -23,7 +28,7 @@ export function exportExcelSheet(exportData: ExportData[] = [{
     configData.fileName = fileName
 
     // 整合为二位数组
-    exportData.forEach((eItem: ExportData, eIndex: number) => {
+    exportData.forEach((eItem: ExportData, _eIndex: number) => {
       headers.push(eItem.header || [])
       // datas.push(formatJson(eItem.prop, eItem.list))
       datas.push(getDatas(eItem))
@@ -37,29 +42,32 @@ export function exportExcelSheet(exportData: ExportData[] = [{
     })
 
     // console.log(datas);
-    excel.export_json_to_excel_sheet({
-      headers: headers,
-      datas: datas,
-      multiHeaders: multiHeaders,
-      sheetNames: sheetNames,
-      merges: merges,
-      borders: borders,
-      autoWidths: autoWidths,
-      aligns: aligns,
-      stripes: stripes,
-    }, configData);
+    excel.export_json_to_excel_sheet(
+      {
+        headers: headers,
+        datas: datas,
+        multiHeaders: multiHeaders,
+        sheetNames: sheetNames,
+        merges: merges,
+        borders: borders,
+        autoWidths: autoWidths,
+        aligns: aligns,
+        stripes: stripes,
+      },
+      configData
+    )
 
     /**
      * 处理导出数据
      * @param eItem 导出数据对象
-     * @returns 
+     * @returns
      */
     function getDatas(eItem: ExportData) {
       const list: any[] = []
       list.push(...formatJson(eItem.prop, eItem.list))
       if (eItem.showSummary) {
         const summaryList: any[] = []
-        summaryList.push(...eItem.summaryList || [])
+        summaryList.push(...(eItem.summaryList || []))
         list.push(summaryList)
       }
       return list
@@ -67,12 +75,12 @@ export function exportExcelSheet(exportData: ExportData[] = [{
 
     /**
      * 根据prop提取list中的数据
-     * @param filterVal 
-     * @param jsonData 
-     * @returns 
+     * @param filterVal
+     * @param jsonData
+     * @returns
      */
     function formatJson(filterVal: string[], jsonData: string[]) {
-      return jsonData.map((v: any) => filterVal.map((j: any) => v[j]));
-    };
-  });
+      return jsonData.map((v: any) => filterVal.map((j: any) => v[j]))
+    }
+  })
 }

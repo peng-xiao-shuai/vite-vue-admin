@@ -10,7 +10,7 @@
     <menus-logo
       :collapse="collapse"
       v-if="$store.state.settings.drawerSetting.isLogo"
-    ></menus-logo>
+    />
 
     <el-scrollbar style="height: calc(100vh - 50px)">
       <el-menu
@@ -26,21 +26,21 @@
           :key="item.name"
           :item="item"
           :count="1"
-        ></menus-item>
+        />
       </el-menu>
     </el-scrollbar>
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 // 组件
-import menusLogo from "./menus-logo.vue";
-import menusItem from "./menus-item.vue";
-import { useRoute } from "vue-router";
-import { defineComponent, computed } from 'vue';
+import menusLogo from './menus-logo.vue'
+import menusItem from './menus-item.vue'
+import { useRoute } from 'vue-router'
+import { defineComponent, computed } from 'vue'
 
 export default defineComponent({
-  name: "menus",
+  name: 'Menus',
   components: {
     menusLogo,
     menusItem,
@@ -52,16 +52,16 @@ export default defineComponent({
     },
   },
   setup() {
-    const route = useRoute();
+    const route = useRoute()
     const menuActive = computed(() => route.name)
     return {
-      menuActive
-    };
+      menuActive,
+    }
   },
 })
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .element::-webkit-scrollbar {
   width: 0 !important;
 }

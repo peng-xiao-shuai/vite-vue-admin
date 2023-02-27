@@ -1,7 +1,7 @@
-import type { App } from 'vue';
-import num from './common/num';
-import pressKey from './common/press-key';
-import { debounce, throttle } from './common/debounce-throttle';
+import type { App } from 'vue'
+import num from './common/num'
+import pressKey from './common/press-key'
+import { debounce, throttle } from './common/debounce-throttle'
 import permission from './common/permission'
 import copy from './common/copy'
 

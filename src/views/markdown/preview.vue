@@ -1,18 +1,18 @@
 <template>
   <div class="app-container">
     <el-card :shadow="defaultData.cardShadow">
-      <view-name></view-name>
+      <view-name />
 
-      <v-md-preview :text="text"></v-md-preview>
+      <v-md-preview :text="text" />
     </el-card>
   </div>
 </template>
 
-<script >
-import { defineComponent, ref, reactive } from 'vue'
+<script>
+import { defineComponent, ref } from 'vue'
 export default defineComponent({
-  name: 'md-preview',
-  setup (props, { emit }) {
+  name: 'MdPreview',
+  setup() {
     const text = ref(`
 <h1 align="center">Markdown Editor built on Vue</h1>
 
@@ -76,11 +76,8 @@ Vue.use(VueMarkdownEditor);
 - [vuepress-plugin-container](https://vuepress.github.io/zh/plugins/container/)
 `)
     return {
-      text
+      text,
     }
-  }
+  },
 })
 </script>
-
-<style scoped lang='scss'>
-</style>

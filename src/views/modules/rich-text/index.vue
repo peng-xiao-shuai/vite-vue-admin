@@ -3,16 +3,26 @@
     <el-card :shadow="defaultData.cardShadow">
       <div class="operate-container">
         <div>
-          <i :class="[defaultData.iconfont,'viteZJ-fuwenben']" style="margin-right: 5px"></i>
+          <i
+            :class="[defaultData.iconfont, 'viteZJ-fuwenben']"
+            style="margin-right: 5px"
+          ></i>
           <span>富文本编辑器</span>
         </div>
       </div>
       <div class="lineTinyBox">
-        <tiny-mce :width="'100%'" v-model="myValue" :height="667" :url="'图片路径'" ref="tinymce" :slotStyle="{
+        <tiny-mce
+          :width="'100%'"
+          v-model="myValue"
+          :height="667"
+          :url="'图片路径'"
+          ref="tinymce"
+          :slotStyle="{
             display: 'flex',
             justifyContent: 'center',
             padding: '10px 0 0',
-          }">
+          }"
+        >
           <template #default>
             <el-button type="primary" @click="getTinyMceFun()">
               确认
@@ -29,40 +39,40 @@
     </el-card>
     <!-- 编辑区 -->
     <!-- <update
-      v-model:dialog="isDialog"
-      v-model:currentFrom="currentFrom.value"
-      @refresh="getList"
-    ></update> -->
+        v-model:dialog="isDialog"
+        v-model:currentFrom="currentFrom.value"
+        @refresh="getList"
+      ></update> -->
   </div>
 </template>
 
-<script lang='ts'>
-import { richTextFun } from "@/api/modules/richText";
-import { ref, reactive, defineComponent, inject } from "vue";
+<script lang="ts">
+import { richTextFun } from '@/api/modules/richText'
+import { ref, defineComponent } from 'vue'
 
 // 组件
 // import update from "./components/update.vue";
-import tinyMce from "@/components/tiny-mce/index.vue";
+import tinyMce from '@/components/tiny-mce/index.vue'
 
 export default defineComponent({
-  name: "modulesRichText",
+  name: 'ModulesRichText',
   components: {
     tinyMce,
     // update,
   },
   setup() {
-    let myValue = ref<string>("");
-    let scroll = ref(null);
+    let myValue = ref<string>('')
+    let scroll = ref(null)
 
-    getData();
+    getData()
 
     function getData() {
       richTextFun().then((response) => {
-        myValue.value = response.data;
-      });
+        myValue.value = response.data
+      })
     }
     function getTinyMceFun() {
-      console.log("获取富文本数据", myValue.value);
+      console.log('获取富文本数据', myValue.value)
     }
 
     return {
@@ -72,12 +82,12 @@ export default defineComponent({
       // 方法
       getTinyMceFun,
       scroll,
-    };
+    }
   },
-});
+})
 </script>
 
-<style scoped lang='scss'>
+<style lang="scss" scoped>
 .operate-container {
   width: 100%;
   display: flex;
@@ -105,7 +115,7 @@ export default defineComponent({
       position: absolute;
       left: calc(50% - 25%);
       top: -25px;
-      content: " ";
+      content: ' ';
       display: block;
       background: #000;
       width: 50%;

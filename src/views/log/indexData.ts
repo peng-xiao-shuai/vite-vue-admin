@@ -1,45 +1,57 @@
 const header = [
   {
     label: '账号名',
-    props: [{
-      prop: 'name'
-    }]
+    props: [
+      {
+        prop: 'name',
+      },
+    ],
   },
   {
     label: '问题信息',
-    props: [{
-      prop: 'info'
-    }]
+    props: [
+      {
+        prop: 'info',
+      },
+    ],
   },
   {
     label: '问题地址',
-    props: [{
-      type: "href",
-      prop: "url",
-      data: {
-        prop: "url",
-        style: { fontWeight: "bold" },
+    props: [
+      {
+        type: 'href',
+        prop: 'url',
+        data: {
+          prop: 'url',
+          style: { fontWeight: 'bold' },
+        },
       },
-    },]
+    ],
   },
   {
     label: '问题详情',
-    props: [{
-      prop: 'error'
-    }]
+    props: [
+      {
+        prop: 'error',
+      },
+    ],
   },
   {
     label: '问题时间',
-    props: [{
-      prop: 'time'
-    }]
+    props: [
+      {
+        prop: 'time',
+      },
+    ],
   },
   {
     label: '问题类型',
-    props: [{
-      prop: 'type'
-    }]
+    props: [
+      {
+        prop: 'type',
+      },
+    ],
   },
-];
+]
 
-export { header };
+export { header }

@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-card :shadow="defaultData.cardShadow">
-      <view-name></view-name>
+      <view-name />
 
       <iframe
         src="https://gitee.com/abc1612565136/vite-admin"
@@ -16,10 +16,10 @@
 <script>
 import { ref } from 'vue'
 export default {
-  name: "iframe-",
-  setup () {
+  name: 'IFrame',
+  setup() {
     // 判断是否用户是否翻墙
-    function checkWebSiteOnline (config) {
+    function checkWebSiteOnline(config) {
       let img = new Image()
       img.onload = function () {
         if (typeof config.success == 'function') config.success(config.url)
@@ -27,7 +27,7 @@ export default {
       img.onerror = function () {
         if (typeof config.error == 'function') config.error(config.url)
       }
-      img.src = config.url + "&" + Math.random()
+      img.src = config.url + '&' + Math.random()
     }
 
     let href = ref('https://gitee.com/abc1612565136/vite-admin')
@@ -36,14 +36,14 @@ export default {
     //判断能否翻墙
     checkWebSiteOnline({
       url: 'https://avatars.githubusercontent.com/u/53845479?v=4',
-      success: function (url) {
+      success: function () {
         console.log('加载成功')
         status = true
       },
-      error: function (url) {
+      error: function () {
         console.log('加载失败')
         status = false
-      }
+      },
     })
 
     setTimeout(() => {
@@ -55,11 +55,8 @@ export default {
     }, 1000)
 
     return {
-      href
+      href,
     }
-  }
-};
+  },
+}
 </script>
-
-<style scoped lang='scss'>
-</style>

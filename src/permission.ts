@@ -10,9 +10,13 @@ NProgress.configure({ showSpinner: false })
 const notRedirect = ['/login'] // 不重定向白名单
 
 router.beforeEach((to, from, next) => {
-  NProgress.start();
+  NProgress.start()
   // 拦截 baseUrl 路径
-  if(window.location.host === 'peng-xiao-shuai.github.io' && (import.meta as any).env.BASE_URL === "/vite-vue-admin/" && to.path === '/vite-vue-admin/'){
+  if (
+    window.location.host === 'peng-xiao-shuai.github.io' &&
+    (import.meta as any).env.BASE_URL === '/vite-vue-admin/' &&
+    to.path === '/vite-vue-admin/'
+  ) {
     next('/')
     NProgress.done()
   }
@@ -28,21 +32,19 @@ router.beforeEach((to, from, next) => {
 
   if (store.getters.getToken) {
     if (store.getters.getMenus.length == 0) {
-
-      store.dispatch('userInfo')
-        .then(() => {
-          next({ ...to, replace: true })
-          NProgress.done()
-        })
+      store.dispatch('userInfo').then(() => {
+        next({ ...to, replace: true })
+        NProgress.done()
+      })
     } else {
       next()
       NProgress.done()
     }
   } else {
-      setTimeout(() => {
-        notRedirect.indexOf(to.path) != -1 ? next() : next('/login')
-        NProgress.done()
-      }, 1000)
+    setTimeout(() => {
+      notRedirect.indexOf(to.path) != -1 ? next() : next('/login')
+      NProgress.done()
+    }, 1000)
   }
 })
 

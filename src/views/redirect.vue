@@ -3,7 +3,7 @@
 import { h } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 export default {
-  setup () {
+  setup() {
     let router = useRouter()
     let route = useRoute()
     const { params, query } = route
@@ -11,10 +11,11 @@ export default {
     console.log(route)
     router.replace({
       name: params.__name,
-      params, query
+      params,
+      query,
     })
 
     return () => [h('div')]
-  }
+  },
 }
 </script>

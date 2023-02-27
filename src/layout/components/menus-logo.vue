@@ -30,19 +30,19 @@
 <script>
 import defaultData from '@/config/default-data'
 export default {
-  name: 'logo',
+  name: 'Logo',
   props: {
     collapse: {
       type: Boolean,
-      default: true
+      default: true,
+    },
+  },
+  data() {
+    return {
+      systemName: defaultData.name,
     }
   },
-  data () {
-    return {
-      systemName: defaultData.name
-    }
-  }
-};
+}
 </script>
 
 <style scoped>

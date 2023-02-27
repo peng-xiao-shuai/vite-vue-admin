@@ -1,53 +1,61 @@
-import * as Mock from "mockjs";
+import * as Mock from 'mockjs'
 
-function dataArr(type: string = "mock"):number[] {
-  let item: number[] = [];
+function dataArr(type = 'mock'): number[] {
+  const item: number[] = []
   // X轴数据
-  let x: number[] = [];
+  const x: number[] = []
   for (let i = 0; i < 31; i++) {
-    x.push(i + 1);
-    item.push(Mock.mock("@integer(10,50)"));
+    x.push(i + 1)
+    item.push(Mock.mock('@integer(10,50)'))
   }
-  if (type == "x") {
-    return x;
+  if (type == 'x') {
+    return x
   } else {
-    return item;
+    return item
   }
 }
 
 // 浏览量饼图
 function pageviewFun() {
   type itemType = {
-    value: number,
+    value: number
     name: string
   }
-  let item: itemType[] = [];
-  let names: string[] = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+  const item: itemType[] = []
+  const names: string[] = [
+    '周一',
+    '周二',
+    '周三',
+    '周四',
+    '周五',
+    '周六',
+    '周日',
+  ]
   for (let i = 0; i < names.length; i++) {
     item.push({
-      value: Mock.mock("@integer(300,600)"),
+      value: Mock.mock('@integer(300,600)'),
       name: names[i],
-    });
+    })
   }
-  return item;
+  return item
 }
 
-let typeSwitch: string[] = ["昨日增长", "今日增长"]
+const typeSwitch: string[] = ['昨日增长', '今日增长']
 
 export type echartsType = {
-  areaStyle: {},
-  data: number[],
-  name: string,
-  smooth: boolean,
+  areaStyle: {}
+  data: number[]
+  name: string
+  smooth: boolean
   emphasis: {
-    focus: string,
-  },
-  type: string,
+    focus: string
+  }
+  type: string
 }
-let homeEcharts:echartsType[] = echartsFun();
+const homeEcharts: echartsType[] = echartsFun()
 
-function echartsFun():echartsType[] {
-  let echarts: echartsType[] = [];
+function echartsFun(): echartsType[] {
+  const echarts: echartsType[] = []
   typeSwitch.forEach((item: string) => {
     echarts.push({
       areaStyle: {},
@@ -59,70 +67,59 @@ function echartsFun():echartsType[] {
       // },
       // stack: "总量",
       emphasis: {
-        focus: "series",
+        focus: 'series',
       },
-      type: "line",
-    });
-  });
+      type: 'line',
+    })
+  })
 
-  return echarts;
+  return echarts
 }
 
 export default [
   {
-    url: "echart/cake",
-    type: "get",
+    url: 'echart/cake',
+    type: 'get',
     response: () => {
       return {
         code: 200,
         data: {
           horizontalList: pageviewFun(),
         },
-      };
+      }
     },
   },
   {
-    url: "echart/line",
+    url: 'echart/line',
     response: () => {
       return {
         code: 200,
         data: Mock.mock({
           homeDateInfoResult: homeEcharts,
-            horizontalList: [
-              "周一",
-              "周二",
-              "周三",
-              "周四",
-              "周五",
-              "周六",
-            ],
-          }),
-      };
+          horizontalList: ['周一', '周二', '周三', '周四', '周五', '周六'],
+        }),
+      }
     },
   },
   {
-    url: "echart/pillar",
+    url: 'echart/pillar',
     response: () => {
       return {
         code: 200,
         data: Mock.mock({
-            homeDateInfoResult: [{
+          homeDateInfoResult: [
+            {
               'data|3': ['@integer(1,10)', '@integer(1,10)'],
-              type: 'bar'
-          },{
+              type: 'bar',
+            },
+            {
               'data|3': ['@integer(1,10)', '@integer(1,10)'],
-              type: 'bar'
-          }],
-            horizontalList: [
-              "周一",
-              "周二",
-              "周三",
-              "周四",
-              "周五",
-              "周六",
-            ],
-          }),
-      };
+              type: 'bar',
+            },
+          ],
+          horizontalList: ['周一', '周二', '周三', '周四', '周五', '周六'],
+        }),
+      }
     },
   },
-];
+]

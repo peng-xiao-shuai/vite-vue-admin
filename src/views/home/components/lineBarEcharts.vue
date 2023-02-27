@@ -10,30 +10,29 @@ export default {
   props: {
     echartsId: String,
     dataECharts: Object,
-    title: String
+    title: String,
   },
-  data () {
+  data() {
     return {}
   },
-  mounted () { },
   watch: {
     dataECharts: {
       deep: true,
       immediate: true,
-      handler (val) {
+      handler(val) {
         console.log(val)
         // if(val.horizontalList){
         // 	console.log(1);
         this.drawChart(this.dataECharts)
         // }
-      }
-    }
+      },
+    },
   },
-  mounted () {
+  mounted() {
     // this.drawChart(this.dataECharts);
   },
   methods: {
-    drawChart (dataECharts) {
+    drawChart(dataECharts) {
       // 基于准备好的dom，初始化echarts实例
       var bar_dv = this.$refs.chart
       if (bar_dv) {
@@ -46,50 +45,41 @@ export default {
           //   subtext: '调用分析'
           // },
           tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
           },
           legend: {
-            data: dataECharts.series.map(item => item.name)
+            data: dataECharts.series.map((item) => item.name),
           },
           grid: {
             left: '5%',
-            right: '3%'
+            right: '3%',
           },
           toolbox: {
             show: true,
             feature: {
               dataZoom: {
-                yAxisIndex: 'none'
+                yAxisIndex: 'none',
               },
               dataView: {
-                readOnly: false
+                readOnly: false,
               },
               magicType: {
-                type: ['line', 'bar']
+                type: ['line', 'bar'],
               },
               restore: {},
-              saveAsImage: {}
-            }
+              saveAsImage: {},
+            },
           },
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: dataECharts.xAxisData
-            // data: [
-            //     "2019-05-21",
-            //     "2019-05-22",
-            //     "2019-05-23",
-            //     "2019-05-24",
-            //     "2019-05-25",
-            //     "2019-05-26",
-            //     "2019-05-27"
-            // ]
+            data: dataECharts.xAxisData,
           },
           yAxis: {
             type: 'value',
             axisLabel: {
-              formatter: '{value} 元'
-            }
+              formatter: '{value} 元',
+            },
           },
           series: [
             {
@@ -100,34 +90,34 @@ export default {
                 data: [
                   {
                     type: 'max',
-                    name: '最大值'
+                    name: '最大值',
                   },
                   {
                     type: 'min',
-                    name: '最小值'
-                  }
-                ]
+                    name: '最小值',
+                  },
+                ],
               },
               itemStyle: {
-                color: '#5bd1db'
+                color: '#5bd1db',
               },
               lineStyle: {
-                width: 3
+                width: 3,
               },
               markLine: {
                 label: {
                   show: true,
                   position: 'middle',
-                  formatter: '{b}: {c} 元'
+                  formatter: '{b}: {c} 元',
                 },
                 symbol: 'none',
                 data: [
                   {
                     type: 'average',
-                    name: '平均值'
-                  }
-                ]
-              }
+                    name: '平均值',
+                  },
+                ],
+              },
             },
             {
               name: dataECharts.series[1].name,
@@ -137,34 +127,34 @@ export default {
                 data: [
                   {
                     type: 'max',
-                    name: '最大值'
+                    name: '最大值',
                   },
                   {
                     type: 'min',
-                    name: '最小值'
-                  }
-                ]
+                    name: '最小值',
+                  },
+                ],
               },
               itemStyle: {
-                color: '#00ef09'
+                color: '#00ef09',
               },
               lineStyle: {
-                width: 3
+                width: 3,
               },
               markLine: {
                 label: {
                   show: true,
                   position: 'middle',
-                  formatter: '{b}: {c} 元'
+                  formatter: '{b}: {c} 元',
                 },
                 symbol: 'none',
                 data: [
                   {
                     type: 'average',
-                    name: '平均值'
-                  }
-                ]
-              }
+                    name: '平均值',
+                  },
+                ],
+              },
             },
             {
               name: dataECharts.series[2].name,
@@ -174,34 +164,34 @@ export default {
                 data: [
                   {
                     type: 'max',
-                    name: '最大值'
+                    name: '最大值',
                   },
                   {
                     type: 'min',
-                    name: '最小值'
-                  }
-                ]
+                    name: '最小值',
+                  },
+                ],
               },
               itemStyle: {
-                color: '#EB5252'
+                color: '#EB5252',
               },
               lineStyle: {
-                width: 3
+                width: 3,
               },
               markLine: {
                 label: {
                   show: true,
                   position: 'middle',
-                  formatter: '{b}: {c} 元'
+                  formatter: '{b}: {c} 元',
                 },
                 symbol: 'none',
                 data: [
                   {
                     type: 'average',
-                    name: '平均值'
-                  }
-                ]
-              }
+                    name: '平均值',
+                  },
+                ],
+              },
             },
             {
               name: dataECharts.series[3].name,
@@ -211,34 +201,34 @@ export default {
                 data: [
                   {
                     type: 'max',
-                    name: '最大值'
+                    name: '最大值',
                   },
                   {
                     type: 'min',
-                    name: '最小值'
-                  }
-                ]
+                    name: '最小值',
+                  },
+                ],
               },
               itemStyle: {
-                color: '#C8B2F4'
+                color: '#C8B2F4',
               },
               lineStyle: {
-                width: 3
+                width: 3,
               },
               markLine: {
                 label: {
                   show: true,
                   position: 'middle',
-                  formatter: '{b}: {c} 元'
+                  formatter: '{b}: {c} 元',
                 },
                 symbol: 'none',
                 data: [
                   {
                     type: 'average',
-                    name: '平均值'
-                  }
-                ]
-              }
+                    name: '平均值',
+                  },
+                ],
+              },
             },
             {
               name: dataECharts.series[4].name,
@@ -248,45 +238,43 @@ export default {
                 data: [
                   {
                     type: 'max',
-                    name: '最大值'
+                    name: '最大值',
                   },
                   {
                     type: 'min',
-                    name: '最小值'
-                  }
-                ]
+                    name: '最小值',
+                  },
+                ],
               },
               itemStyle: {
-                color: '#FFCB8C'
+                color: '#FFCB8C',
               },
               lineStyle: {
-                width: 3
+                width: 3,
               },
               markLine: {
                 label: {
                   show: true,
                   position: 'middle',
-                  formatter: '{b}: {c} 元'
+                  formatter: '{b}: {c} 元',
                 },
                 symbol: 'none',
                 data: [
                   {
                     type: 'average',
-                    name: '平均值'
-                  }
-                ]
-              }
-            }
-          ]
+                    name: '平均值',
+                  },
+                ],
+              },
+            },
+          ],
         }
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
       } else {
         // console.log('bar-dv为空')
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
-
-<style></style>

@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <el-card :shadow="defaultData.cardShadow">
-      <view-name></view-name>
+      <view-name />
 
       <div class="operate-container">
-        <icon-select v-model:icon="iconVal"></icon-select>
+        <icon-select v-model:icon="iconVal" />
       </div>
 
       <div class="icons">
@@ -17,23 +17,21 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { ref, reactive, defineComponent, inject, nextTick } from "vue";
-import iconSelect from "@/components/icon-select/index.vue";
-import icon from "@/styles/iconfont.css";
+<script lang="ts">
+import { ref, defineComponent } from 'vue'
+import iconSelect from '@/components/icon-select/index.vue'
+import icon from '@/styles/iconfont.css?inline'
 
 export default defineComponent({
-  name: "icons",
+  name: 'Icons',
   components: {
     iconSelect,
   },
   setup() {
     // 获取所有的 class名
-    const array = [...icon.matchAll(/\.(\w|\-)*\:/g)].map(
-      (item: string[], index: number) => {
-        return item[0].substr(1, item[0].length).slice(0, -1);
-      }
-    );
+    const array = [...icon.matchAll(/\.(\w|\-)*\:/g)].map((item: string[]) => {
+      return item[0].substr(1, item[0].length).slice(0, -1)
+    })
 
     // 获取所有 名称 并且合并
     const icons = [
@@ -41,21 +39,21 @@ export default defineComponent({
     ].map((item: string[], index: number) => ({
       name: item[2],
       icon: array[index],
-    }));
+    }))
 
-    console.log(icons);
+    console.log(icons)
 
-    const iconVal = ref("");
+    const iconVal = ref('')
 
     return {
       icons,
       iconVal,
-    };
+    }
   },
-});
+})
 </script>
 
-<style scoped lang='scss'>
+<style lang="scss" scoped>
 .operate-container {
   width: 100%;
   display: flex;

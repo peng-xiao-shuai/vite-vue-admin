@@ -1,24 +1,24 @@
-<script lang='tsx'>
-import { defineComponent, ref, Transition } from "vue";
-import { useStore } from "vuex";
-import defaultData from "@/config/default-data";
-import { SETLOCALE } from "@/language";
+<script lang="tsx">
+import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
+import defaultData from '@/config/default-data'
+import { SETLOCALE } from '@/language'
 
 export default defineComponent({
   setup() {
-    const store = useStore();
-    let locale = defaultData.locale;
+    const store = useStore()
+    let locale = defaultData.locale
     // 可选语言
-    const localeSelect = defaultData.localeSelect;
+    const localeSelect = defaultData.localeSelect
 
     const setLocale = (val: string) => {
       if (val) {
-        SETLOCALE(val);
+        SETLOCALE(val)
       }
-    };
+    }
 
     type Item = {
-      value: string,
+      value: string
       label: string
     }
 
@@ -29,9 +29,9 @@ export default defineComponent({
             {localeSelect.map((item: Item, index: number) => {
               return (
                 <el-dropdown-item
-                  key={"locale" + index}
+                  key={'locale' + index}
                   onClick={() => {
-                    setLocale(item.value);
+                    setLocale(item.value)
                   }}
                 >
                   <div
@@ -39,7 +39,7 @@ export default defineComponent({
                       color:
                         locale == item.value
                           ? store.getters.getThemeColor
-                          : "#666",
+                          : '#666',
                     }}
                   >
                     <i
@@ -56,12 +56,12 @@ export default defineComponent({
                     {item.label}
                   </div>
                 </el-dropdown-item>
-              );
+              )
             })}
           </el-dropdown-menu>
-        );
+        )
       },
-    };
+    }
 
     return () => (
       <div class="item">
@@ -69,17 +69,17 @@ export default defineComponent({
           <div
             class={[
               defaultData.iconfont,
-              locale == "en-US" ? "vitelanguage2" : "vitelanguage2",
+              locale == 'en-US' ? 'vitelanguage2' : 'vitelanguage2',
             ]}
           ></div>
         </el-dropdown>
       </div>
-    );
+    )
   },
-});
+})
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .language_r {
   width: 8px;
   height: 8px;

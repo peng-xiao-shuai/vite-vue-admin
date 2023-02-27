@@ -4,19 +4,19 @@
  */
 
 // url截取
-function param2Obj(url:string) {
+function param2Obj(url: string) {
   const search = decodeURIComponent(url.split('?')[1]).replace(/\+/g, ' ')
   if (!search) {
     return {}
   }
-  const obj:any = {}
+  const obj: any = {}
   const searchArr = search.split('&')
-  searchArr.forEach(v => {
+  searchArr.forEach((v) => {
     const index = v.indexOf('=')
     if (index !== -1) {
       const name = v.substring(0, index)
-      const val =v.substring(index + 1, v.length)
-      
+      const val = v.substring(index + 1, v.length)
+
       obj[name] = !val.length ? val : isNaN(Number(val)) ? val : Number(val)
     }
   })
@@ -33,8 +33,8 @@ function deepClone(source: any) {
   if (!source && typeof source !== 'object') {
     throw new Error('error arguments deepClone')
   }
-  const targetObj:any = source.constructor === Array ? [] : {}
-  Object.keys(source).forEach(keys => {
+  const targetObj: any = source.constructor === Array ? [] : {}
+  Object.keys(source).forEach((keys) => {
     if (source[keys] && typeof source[keys] === 'object') {
       targetObj[keys] = deepClone(source[keys])
     } else {
@@ -45,10 +45,10 @@ function deepClone(source: any) {
 }
 
 export type sizeReturn<T> = {
-  list: T[],
-  pageNum: number,
-  pageSize: number,
-  totalPageNum: number,
+  list: T[]
+  pageNum: number
+  pageSize: number
+  totalPageNum: number
   total: number
 }
 /**
@@ -59,12 +59,21 @@ export type sizeReturn<T> = {
  * @returns {T[]}
  */
 
-function listPaging<T>(pageNum: number, pageSize: number, arr: T[]): sizeReturn<T> {
+function listPaging<T>(
+  pageNum: number,
+  pageSize: number,
+  arr: T[]
+): sizeReturn<T> {
   pageNum = pageNum ? pageNum : 1
   pageSize = pageSize ? pageSize : 10
 
   return {
-    list: arr.filter((item: T, index: number) => index >= (pageNum - 1) * pageSize && index < pageNum * pageSize).sort((a: any, b: any) => a.sort && a.sort - b.sort),
+    list: arr
+      .filter(
+        (item: T, index: number) =>
+          index >= (pageNum - 1) * pageSize && index < pageNum * pageSize
+      )
+      .sort((a: any, b: any) => a.sort && a.sort - b.sort),
     pageNum,
     pageSize,
     totalPageNum: Math.ceil(arr.length / pageSize),
@@ -72,8 +81,4 @@ function listPaging<T>(pageNum: number, pageSize: number, arr: T[]): sizeReturn<
   }
 }
 
-export {
-  param2Obj,
-  deepClone,
-  listPaging
-}
+export { param2Obj, deepClone, listPaging }

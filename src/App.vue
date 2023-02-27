@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useTitle } from '@/hooks/useTitle';
-import { nextTick, onMounted } from 'vue';
+import { useTitle } from '@/hooks/useTitle'
+import { onMounted } from 'vue'
 onMounted(() => {
   useTitle()
 })

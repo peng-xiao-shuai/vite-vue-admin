@@ -2,7 +2,11 @@
   <div style="padding: 5px 20px 0 10px" class="navs">
     <div class="left">
       <i
-        :class="['vitecaidan', defaultData.iconfont, collapse ? 'collapse' : '']"
+        :class="[
+          'vitecaidan',
+          defaultData.iconfont,
+          collapse ? 'collapse' : '',
+        ]"
         :style="{ color: themeColor }"
         @click="handleCollapse"
       >
@@ -16,16 +20,23 @@
           >
             <el-dropdown v-if="item.children && item.children.length">
               <span class="dropdown-span">
-                {{
-                  item.meta.locale ? t(item.meta.locale) : item.meta.title
-                }}
-                <i class="el-icon-arrow-down"></i>
+                {{ item.meta.locale ? t(item.meta.locale) : item.meta.title }}
+                <el-icon><el-icon-arrow-down /></el-icon>
               </span>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item v-for="each in item.children" :key='each.name' :to="item.redirect || item.path">
-                    <router-link :to="each.redirect || each.path" class="router-link">
-                      {{ each.meta.locale ? t(each.meta.locale) : each.meta.title }}
+                  <el-dropdown-item
+                    v-for="each in item.children"
+                    :key="each.name"
+                    :to="item.redirect || item.path"
+                  >
+                    <router-link
+                      :to="each.redirect || each.path"
+                      class="router-link"
+                    >
+                      {{
+                        each.meta.locale ? t(each.meta.locale) : each.meta.title
+                      }}
                     </router-link>
                   </el-dropdown-item>
                 </el-dropdown-menu>
@@ -40,11 +51,12 @@
       </el-breadcrumb>
     </div>
 
-    <navs-right></navs-right>
+    <navs-right />
   </div>
 </template>
 
 <script>
+import { ArrowDown as ElIconArrowDown } from '@element-plus/icons'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -53,7 +65,8 @@ import { useStore } from 'vuex'
 
 export default {
   components: {
-    navsRight
+    navsRight,
+    ElIconArrowDown,
   },
   props: {
     collapse: {
@@ -61,7 +74,7 @@ export default {
       default: true,
     },
   },
-  setup (props) {
+  setup(props) {
     const store = useStore()
     let route = useRoute()
     let matched = []
@@ -71,39 +84,43 @@ export default {
         arr = route.matched
       }
 
-      return arr.filter(item => item.meta && item.meta.title && !item.meta.breadcrumb)
+      return arr.filter(
+        (item) => item.meta && item.meta.title && !item.meta.breadcrumb
+      )
     })
 
     const handleCollapse = () => {
-      store.commit('setSetting', { val: props.collapse ? 0 : 1, key: 'defaultMenu' })
+      store.commit('setSetting', {
+        val: props.collapse ? 0 : 1,
+        key: 'defaultMenu',
+      })
     }
-    
+
     window.addEventListener('beforeunload', function () {
       // TOKEN_KEY 在登录或注销时已经写入到storage了，此处为了解决同时打开多个窗口时token不同步的问题
       // LOCK_INFO_KEY 在锁屏和解锁时写入，此处也不应修改
-      window.localStorage.setItem('APP_LOCAL_CACHE_KEY', 121);
-      
-    });
+      window.localStorage.setItem('APP_LOCAL_CACHE_KEY', 121)
+    })
 
-      function storageChange(e) {
-        const { key, newValue, oldValue } = e;
-        console.log(e);
+    function storageChange(e) {
+      const { key, newValue, oldValue } = e
+      console.log(e)
 
-        if (!!newValue && !!oldValue) {
-          if ('APP_LOCAL_CACHE_KEY' === key) {
-            console.log('newValue',newValue);
-            // Persistent.clearLocal();
-          }
+      if (!!newValue && !!oldValue) {
+        if ('APP_LOCAL_CACHE_KEY' === key) {
+          console.log('newValue', newValue)
+          // Persistent.clearLocal();
         }
       }
+    }
 
-    window.addEventListener('storage', storageChange);
+    window.addEventListener('storage', storageChange)
 
     return {
       matched,
-      handleCollapse
+      handleCollapse,
     }
-  }
+  },
 }
 </script>
 
@@ -131,7 +148,7 @@ export default {
       margin: 0 5px;
       transition: all 0.4s;
     }
-    i.el-icon-arrow-down{
+    i.el-icon-arrow-down {
       font-size: 12px;
       margin: 0;
     }

@@ -1,5 +1,5 @@
 //创建一个Marker
-export function markerFun (content, map) {
+export function markerFun(content, map) {
   var marker = new qq.maps.Marker({
     //设置Marker的位置坐标
     position: content,
@@ -20,8 +20,8 @@ export function markerFun (content, map) {
 }
 
 // 拖到开始 结束
-export function markerDragend (marker) {
-  qq.maps.event.addListener(marker, "dragstart", function (e) {
+export function markerDragend(marker) {
+  qq.maps.event.addListener(marker, 'dragstart', function (_e) {
     //getPosition()  返回Marker的位置
     marker.setAnimation(qq.maps.MarkerAnimation.UP)
     // console.log(marker.getPosition())
@@ -39,14 +39,14 @@ export function markerDragend (marker) {
  * @param {object} marker markerFun方法返回的实例
  * @param {object} map 地图实例
  */
-export function GeocoderFun (type, data, marker, map) {
+export function GeocoderFun(type, data, marker, map) {
   //地址和经纬度之间进行转换服务
   var geocoder = new qq.maps.Geocoder()
 
   return new Promise((resolve) => {
     if (type) {
       var latLng = new qq.maps.LatLng(data.lat, data.lng)
-      geocoder.setComplete(result => {
+      geocoder.setComplete((result) => {
         console.log(result)
         resolve(result)
         map.setCenter(result.detail.location)
@@ -55,14 +55,11 @@ export function GeocoderFun (type, data, marker, map) {
       geocoder.getAddress(latLng)
     } else {
       geocoder.getLocation(data)
-      geocoder.setComplete(result => {
+      geocoder.setComplete((result) => {
         resolve(result)
         map.setCenter(result.detail.location)
         marker.setPosition(result.detail.location)
       })
     }
   })
-
 }
-
-

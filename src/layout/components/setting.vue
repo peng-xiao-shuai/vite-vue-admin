@@ -7,67 +7,67 @@
     @mouseup="handleUp"
     @click="handleClick"
   >
-    <i class="el-icon-arrow-left"></i>
+    <el-icon><el-icon-arrow-left /></el-icon>
   </div>
-  <update-drawer v-model:drawer="drawer"></update-drawer>
+  <update-drawer v-model:drawer="drawer" />
 </template>
 
-<script setup lang='ts'>
-import updateDrawer from "./setting/drawer.vue";
-import { ref } from "vue";
+<script lang="ts" setup>
+import updateDrawer from './setting/drawer.vue'
+import { ref } from 'vue'
 
-const drawer = ref(false);
+const drawer = ref(false)
 const pageY = ref<number>(
-  Number(window.localStorage.getItem("setting-enter")) || 90
-);
+  Number(window.localStorage.getItem('setting-enter')) || 90
+)
 // 是否可以拖到
-let status = ref<boolean>(false);
+let status = ref<boolean>(false)
 // 是否可以点击
-let isMove = ref<boolean>(false);
+let isMove = ref<boolean>(false)
 // 鼠标按下
 const handleDown = () => {
-  status.value = true;
-};
+  status.value = true
+}
 
 // 松开鼠标
 const handleUp = () => {
-  window.localStorage.setItem("setting-enter", String(pageY.value));
+  window.localStorage.setItem('setting-enter', String(pageY.value))
   setTimeout(() => {
-    isMove.value = false;
-  });
-  status.value = false;
-};
+    isMove.value = false
+  })
+  status.value = false
+}
 
 // 鼠标悬浮
 const handleeMove = (e: MouseEvent) => {
   if (status.value) {
-    isMove.value = true;
+    isMove.value = true
     if (pageY.value >= 90) {
       if (pageY.value + 60 <= window.innerHeight) {
-        status.value = true;
-        pageY.value = e.clientY - 30;
+        status.value = true
+        pageY.value = e.clientY - 30
       } else {
-        status.value = false;
-        pageY.value = window.innerHeight - 60;
+        status.value = false
+        pageY.value = window.innerHeight - 60
       }
     } else {
-      pageY.value = 100;
+      pageY.value = 100
 
       //取消字段选择功能
       document.onselectstart = function () {
-        return false;
-      };
-      handleUp();
+        return false
+      }
+      handleUp()
     }
   }
-};
+}
 
 const handleClick = () => {
-  if (!isMove.value) drawer.value = true;
-};
+  if (!isMove.value) drawer.value = true
+}
 </script>
 
-<style scoped lang='scss'>
+<style lang="scss" scoped>
 .btn {
   width: 30px;
   height: 60px;

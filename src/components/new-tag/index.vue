@@ -17,14 +17,13 @@
       ref="saveTagInput"
       @keyup.enter="handleInputConfirm"
       @blur="handleInputConfirm"
-    >
-    </el-input>
+    />
     <el-button
       v-else
       class="button-new-tag"
       :style="(buttonData && buttonData.style) || {}"
       @click="showInput"
-      >{{ (buttonData && buttonData.text) || "+ 新增" }}</el-button
+      >{{ (buttonData && buttonData.text) || '+ 新增' }}</el-button
     >
   </div>
 </template>
@@ -36,44 +35,44 @@ export default {
     keyName: String,
     buttonData: {
       type: Object,
-      default: () => { }
-    }
+      default: () => {},
+    },
   },
-  data () {
+  emits: ['update:value'],
+  data() {
     return {
       tags: [],
       inputVisible: false,
-      inputValue: ''
+      inputValue: '',
     }
   },
-  emits: ['update:value'],
   watch: {
     value: {
       immediate: true,
-      handler (val) {
+      handler(val) {
         console.log(val)
         if (typeof val === 'string') {
           this.tags = val.split(',')
         } else {
           this.tags = val
         }
-      }
-    }
+      },
+    },
   },
   methods: {
-    handleClose (tag, index) {
+    handleClose(index) {
       this.tags.splice(index, 1)
       this.$emit('update:value', this.tags)
     },
 
-    showInput () {
+    showInput() {
       this.inputVisible = true
-      this.$nextTick(_ => {
+      this.$nextTick((_) => {
         this.$refs.saveTagInput.$refs.input.focus()
       })
     },
 
-    handleInputConfirm () {
+    handleInputConfirm() {
       let inputValue = this.inputValue
       if (inputValue) {
         let item = this.keyName ? {} : inputValue
@@ -84,9 +83,9 @@ export default {
       }
       // this.inputVisible = true
       this.inputValue = ''
-    }
+    },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

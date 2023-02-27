@@ -1,48 +1,48 @@
-export let header = [
+export const header = [
   {
-    label: "姓名", //显示的名称
+    label: '姓名', //显示的名称
     props: [
       {
-        prop: "name",
+        prop: 'name',
       },
     ],
   },
   {
-    label: "头像", //显示的名称
+    label: '头像', //显示的名称
     width: '80px',
     props: [
       {
-        type: "image",
-        prop: "head",
+        type: 'image',
+        prop: 'head',
         data: {
           preview: true,
-          style: { width: "40px", height: "40px", borderRadius: "50%" },
+          style: { width: '40px', height: '40px', borderRadius: '50%' },
         },
       },
     ],
   },
   {
-    label: "性别", //显示的名称
+    label: '性别', //显示的名称
     width: '60px',
     props: [
       {
-        prop: "gender",
+        prop: 'gender',
       },
     ],
   },
   {
-    label: "内容", //显示的名称
+    label: '内容', //显示的名称
     props: [
       {
-        prop: "content",
+        prop: 'content',
       },
     ],
   },
   {
-    label: "时间", //显示的名称
+    label: '时间', //显示的名称
     props: [
       {
-        prop: "date",
+        prop: 'date',
       },
     ],
   },
@@ -55,19 +55,28 @@ export let header = [
   //   ],
   // },
   {
-    label: "状态", //显示的名称
+    label: '状态', //显示的名称
     props: [
       {
-        prop: "status",
+        prop: 'status',
         type: 'tag',
-        data:{
+        data: {
           // type: 'primary',
           effect: 'dark',
-          color:(tag:string)=>{
+          color: (tag: string) => {
             return tag == '提交失败' ? '#F56C6C' : '#67C23A'
-          }
+          },
         },
       },
     ],
   },
-];
+]
+
+export type Count = {
+  icon: string
+  title: string
+  value: string
+  locale: string
+  key: string
+  color: any
+}

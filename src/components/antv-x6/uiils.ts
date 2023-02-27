@@ -1,18 +1,18 @@
-import { Graph, Shape, Node, Cell, Edge, Model } from "@antv/x6"
-import store from "@/store/index"
-import { ElMessage } from "element-plus"
+import { Graph, Shape, Edge } from '@antv/x6'
+import store from '@/store/index'
+import { ElMessage } from 'element-plus'
 
 // 获取缓存的xy轴
-const positions: {[s:string|number]: {x:number, y:number}} = JSON.parse(window.localStorage.getItem('nodesPosition') || "{}")
+const positions: { [s: string | number]: { x: number; y: number } } =
+  JSON.parse(window.localStorage.getItem('nodesPosition') || '{}')
 
 /**
  * 初始化的graph
  * @param {} container 画布id
  * @param {*} mapContainer 小地图id
- * @returns 
+ * @returns
  */
-export function u_graph(container: HTMLElement, mapContainer: HTMLElement) {
-
+export function u_graph(container: HTMLElement, _mapContainer: HTMLElement) {
   return {
     // 滚动
     // scroller: {
@@ -21,7 +21,7 @@ export function u_graph(container: HTMLElement, mapContainer: HTMLElement) {
     // 小地图
     // minimap: {
     //   enabled: true,
-    //   container: mapContainer,
+    //   container: _mapContainer,
     // },
     container: container,
     width: '100%',
@@ -32,11 +32,17 @@ export function u_graph(container: HTMLElement, mapContainer: HTMLElement) {
       allowBlank: false,
       allowLoop: false,
       allowNode: false,
-      validateMagnet({ e, magnet }: { e: Event, magnet: any }) {
+      validateMagnet({ magnet }: { magnet: any }) {
         return magnet.getAttribute('port-group') !== 'in'
       },
 
-      validateConnection({ sourceMagnet, targetMagnet }: { sourceMagnet: any, targetMagnet: any }) {
+      validateConnection({
+        sourceMagnet,
+        targetMagnet,
+      }: {
+        sourceMagnet: any
+        targetMagnet: any
+      }) {
         // 只能从输出链接桩创建连接
         if (!sourceMagnet || sourceMagnet.getAttribute('port-group') === 'in') {
           return false
@@ -59,10 +65,14 @@ export function u_graph(container: HTMLElement, mapContainer: HTMLElement) {
         source.addChild(target)
         // 绑定上级
         return setTimeout(() => {
-          ElMessage.success('绑定成功！id为' + target?.id + '名称为' + (target && target.attrs && target.attrs.currentForm.name))
+          ElMessage.success(
+            '绑定成功！id为' +
+              target?.id +
+              '名称为' +
+              (target && target.attrs && target.attrs.currentForm.name)
+          )
           return true
         })
-
       },
 
       connector: {
@@ -95,7 +105,7 @@ export function u_graph(container: HTMLElement, mapContainer: HTMLElement) {
           // },
         })
       },
-    }
+    },
   }
 }
 
@@ -129,19 +139,26 @@ export const groups = {
 
 /**
  * 添加Node
- * @param {object} graph 
- * @param {object} currentForm 
- * @param {object} position 
+ * @param {object} graph
+ * @param {object} currentForm
+ * @param {object} position
  */
 
 export function addNode(graph: any, currentForm: any) {
-  const width = currentForm.name.length * 10 < 80 ? 80 : currentForm.name.length * 10
+  const width =
+    currentForm.name.length * 10 < 80 ? 80 : currentForm.name.length * 10
   const jsonStr = JSON.parse(currentForm.jsonStr)
 
   const node = graph.addNode({
     id: currentForm.id,
-    x: positions && positions[currentForm.id] ? positions[currentForm.id].x : (jsonStr.x || 0),
-    y: positions && positions[currentForm.id] ? positions[currentForm.id].y : (jsonStr.y || 0),
+    x:
+      positions && positions[currentForm.id]
+        ? positions[currentForm.id].x
+        : jsonStr.x || 0,
+    y:
+      positions && positions[currentForm.id]
+        ? positions[currentForm.id].y
+        : jsonStr.y || 0,
     width: width,
     height: 40,
     // 链接桩
@@ -173,13 +190,13 @@ export function addNode(graph: any, currentForm: any) {
       body: {
         rx: 10,
         ry: 10,
-        stroke: store.getters.getThemeColor,  // 边框颜色
+        stroke: store.getters.getThemeColor, // 边框颜色
       },
       label: {
         text: currentForm.name,
         fill: store.getters.getThemeColor,
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
       },
     },
   })
@@ -194,10 +211,9 @@ export function addNode(graph: any, currentForm: any) {
  * @param {string} targetId 子节点id
  */
 export function addEdge(graph: Graph, sourceId: string, targetId: string) {
-
   return graph.addEdge({
     id: sourceId + '-' + targetId,
-    source: { cell: sourceId, port: 'out' },  // 源节点和链接桩 ID
+    source: { cell: sourceId, port: 'out' }, // 源节点和链接桩 ID
     target: { cell: targetId, port: 'in' }, // 目标节点 ID 和链接桩 ID
     router: {
       name: 'metro',

@@ -1,11 +1,11 @@
 /* 权限指令
- * @Author: 彭小黑 
- * @Date: 2021-10-01 15:25:29 
- * @Last Modified by: 彭小黑
- * @Last Modified time: 2021-10-01 22:26:28
+ * @Author: 彭小黑
+ * @Date: 2021-10-01 15:25:29
+ * @Last Modified by: peng-xiao-shuai
+ * @Last Modified time: 2023-02-27 16:01:51
  */
 
-import type { App } from 'vue';
+import type { App } from 'vue'
 import store from '@/store/index'
 
 /**
@@ -17,7 +17,7 @@ export default function permission(app: App) {
   app.directive('permission', (el, bind) => {
     // 是否需要全部满足
     const all = bind.arg
-    
+
     // 获取当前用户权限
     const roles = store.getters.getUserInfo.roles
 
@@ -28,8 +28,8 @@ export default function permission(app: App) {
     // 对字符串的兼容
     const value = bind.value instanceof Array ? bind.value : [bind.value]
 
-    const hasPermission = value.filter((role:string) => roles.includes(role))
-    
+    const hasPermission = value.filter((role: string) => roles.includes(role))
+
     if (all ? value.length !== hasPermission.length : !hasPermission.length) {
       el.parentNode && el.parentNode.removeChild(el)
     }

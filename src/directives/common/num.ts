@@ -1,28 +1,32 @@
 /* 数字 指令
- * @Author: 彭小黑 
- * @Date: 2021-07-08 10:48:10 
- * @Last Modified by: 彭小黑
- * @Last Modified time: 2021-09-20 14:46:11
+ * @Author: 彭小黑
+ * @Date: 2021-07-08 10:48:10
+ * @Last Modified by: peng-xiao-shuai
+ * @Last Modified time: 2023-02-27 16:01:17
  */
-import type { App } from 'vue';
+import type { App } from 'vue'
 
 let inputNode: HTMLElement
 
-const float = (arg: string = 'number', modifiers?: {}, vals?: (number | string)[]) => {
+const float = (arg = 'number', modifiers?: {}, vals?: (number | string)[]) => {
   inputNode.addEventListener('input', (e: Event) => {
     const keys = Object.keys(modifiers || {})
 
-    let value = (e.target as any).value.replace(/[a-z]|[\u4e00-\u9fa5]|[^\x00-\xff]/ig, '') || ''
+    let value =
+      (e.target as any).value.replace(
+        /[a-z]|[\u4e00-\u9fa5]|[^\x00-\xff]/gi,
+        ''
+      ) || ''
 
     // 为空说明只输入了 '/[a-z]|[\u4e00-\u9fa5]|[^\x00-\xff]/ig' 可以匹配的字符
     // 第一位不能为小数点
     if (!value || value === '.') {
-      (e.target as any).value = ''
+      ;(e.target as any).value = ''
       return
     }
 
     if (vals) {
-      for (let i in vals) {
+      for (const i in vals) {
         if (isNaN(Number(vals[i]))) {
           console.error('value 的下标 ', i, '不能转换为数组')
           return
@@ -34,18 +38,24 @@ const float = (arg: string = 'number', modifiers?: {}, vals?: (number | string)[
     if (arg == 'float') {
       // 只能有一位小数点
       // 小数长度 不能 大于 Number(keys[0]
-      if (value.split('.').length > 2 || value.substr(value.indexOf('.') + 1, value.length).length > (Number(keys[0] || 2))) {
+      if (
+        value.split('.').length > 2 ||
+        value.substr(value.indexOf('.') + 1, value.length).length >
+          Number(keys[0] || 2)
+      ) {
         // console.log('一位小数点出现2为', value, value.split('.').length);
-        (e.target as any).value = value.substr(0, value.length - 1)
+        ;(e.target as any).value = value.substr(0, value.length - 1)
         return
       }
 
-      value = value.indexOf('.') == -1 ? Number(value).toFixed((keys && Number(keys[0])) || 2) : value
+      value =
+        value.indexOf('.') == -1
+          ? Number(value).toFixed((keys && Number(keys[0])) || 2)
+          : value
     } else {
       value = Number(value)
     }
-    (e.target as any).value = value
-
+    ;(e.target as any).value = value
   })
 }
 

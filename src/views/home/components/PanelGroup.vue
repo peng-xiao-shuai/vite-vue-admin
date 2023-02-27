@@ -1,48 +1,54 @@
 <template>
   <div style="margin-bottom: 20px">
     <div class="grid" :style="{ height: height + 'px' }">
-      <template v-for="(i, n) in count" :key="i.value">
+      <template v-for="(item, index) in count" :key="item.value">
         <el-card
-          :class="['card-panel', 'item' + n]"
+          :class="['card-panel', 'item' + index]"
           :shadow="defaultData.cardShadow"
           :body-style="{
-            background: i.color,
+            background: item.color,
             padding: '10px',
             height: height + 'px',
             boxSizing: 'border-box',
           }"
         >
           <div class="warp">
-            <div class="text">{{ t(i.locale) }}</div>
-            <VueNumberRollPlus class="num" :number='i.value || 0' isSemicolon background='rgba(0,0,0,0)'/>
+            <div class="text">{{ t(item.locale) }}</div>
+            <VueNumberRollPlus
+              class="num"
+              :number="item.value || 0"
+              isSemicolon
+              background="rgba(0,0,0,0)"
+            />
             <!-- <digit-roll :start-val="0" :end-val="i.value || 0" :duration="1000" class="num" /> -->
           </div>
-          <div :class="['icon-people', defaultData.iconfont, i.icon]"></div>
+          <div :class="['icon-people', defaultData.iconfont, item.icon]"></div>
         </el-card>
       </template>
     </div>
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from "vue";
-import VueNumberRollPlus from "vue3-number-roll-plus"
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+import { Count } from '../indexData'
+import VueNumberRollPlus from 'vue3-number-roll-plus'
 
 export default defineComponent({
+  components: {
+    VueNumberRollPlus,
+  },
   props: {
     count: {
-      type: Object,
-      default: {},
+      type: Array as PropType<Count[]>,
+      default: () => [],
     },
     height: {
       type: [Number, String],
       default: 50,
     },
   },
-  components: {
-    VueNumberRollPlus
-  },
-});
+})
 </script>
 
 <style lang="scss" scoped>
@@ -64,13 +70,13 @@ export default defineComponent({
     position: relative;
     border: none;
 
-    .icon-people{
+    .icon-people {
       position: absolute;
       bottom: -8px;
       right: -8px;
       opacity: 0.3;
       transform: rotate(-25deg);
-      transition: all .2s;
+      transition: all 0.2s;
     }
 
     .warp {
@@ -91,10 +97,9 @@ export default defineComponent({
     }
   }
 
-  .card-panel:hover .icon-people{
-      bottom: 0;
-      right: 0;
-    }
-
+  .card-panel:hover .icon-people {
+    bottom: 0;
+    right: 0;
+  }
 }
 </style>

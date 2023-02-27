@@ -35,4 +35,4 @@ const tableData1 = [
     address: 'No. 189, Grove St, Los Angeles',
   },
 ]
-export { tableData1 };
+export { tableData1 }

@@ -1,8 +1,8 @@
 type Option = {
-  deg: number,
-  size: number,
-  ratio: number,
-  text: string,
+  deg: number
+  size: number
+  ratio: number
+  text: string
   color: string
 }
 const options = {
@@ -10,7 +10,7 @@ const options = {
   size: 30,
   ratio: 0,
   text: 'Peng_Xiao_Shuai',
-  color: '#999'
+  color: '#999',
 }
 
 interface styles {
@@ -38,15 +38,15 @@ export function create(option?: Option) {
   // 创建dome
   const canvas = document.createElement('canvas')
   const dpr = window.devicePixelRatio || 1
-  const cw = options.size * 6;
-  const ch = options.size * 4;
-  canvas.width = cw * dpr;
-  canvas.height = ch * dpr;
+  const cw = options.size * 6
+  const ch = options.size * 4
+  canvas.width = cw * dpr
+  canvas.height = ch * dpr
 
   // 获取实例
   const ctx = canvas.getContext('2d')
   if (!ctx) {
-    console.error('canvas 实例获取失败');
+    console.error('canvas 实例获取失败')
     return
   }
   // 绘制背景
@@ -55,20 +55,28 @@ export function create(option?: Option) {
   ctx.save()
   // 旋转文字
   ctx.translate(cw / 2, ch / 2)
-  ctx.rotate(Math.PI / 180 * options.deg);
-  ctx.font = (options.size) + "px 黑体";
+  ctx.rotate((Math.PI / 180) * options.deg)
+  ctx.font = options.size + 'px 黑体'
   ctx.fillStyle = options.color
-  ctx.fillText(options.text, -ctx.measureText(options.text).width / 2, options.size / 2)
-  ctx.translate(-(cw / 2), -(ch / 2));
+  ctx.fillText(
+    options.text,
+    -ctx.measureText(options.text).width / 2,
+    options.size / 2
+  )
+  ctx.translate(-(cw / 2), -(ch / 2))
 
   // 创建div
   const div = document.createElement('div')
   document.getElementsByTagName('body')[0].append(div)
   // 添加样式
   let d: string
-  for (d in divStyles) (div.style as CSSStyleDeclaration & {[s:string]: string})[d] = divStyles[d]
+  for (d in divStyles)
+    (div.style as CSSStyleDeclaration & { [s: string]: string })[d] =
+      divStyles[d]
 
-  div.style.background = `rgba(0,0,0,${options.ratio / 100}) url(${canvas.toDataURL('image/png')}) left top repeat`;
+  div.style.background = `rgba(0,0,0,${
+    options.ratio / 100
+  }) url(${canvas.toDataURL('image/png')}) left top repeat`
   div.setAttribute('id', 'watermark')
 }
 // 绘制线

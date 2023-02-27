@@ -8,9 +8,9 @@
 <script>
 export default {
   methods: {
-    handleNewError () {
+    handleNewError() {
       console.log(a)
-    }
-  }
+    },
+  },
 }
 </script>

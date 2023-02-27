@@ -23,7 +23,7 @@
 
         <template #tip>
           <div class="el-upload__tip">
-            {{ !tipLabel ? "支持格式" + suffixStr[fileType] : tipLabel }}
+            {{ !tipLabel ? '支持格式' + suffixStr[fileType] : tipLabel }}
           </div>
         </template>
       </el-upload>
@@ -42,7 +42,7 @@
             style="width: 100px"
             :src="item"
             :preview-src-list="[item]"
-          ></el-image>
+          />
         </div>
       </template>
 
@@ -62,20 +62,20 @@
 
       <template v-if="imgArr.length != 0 && fileType == 2">
         <!-- <div
-          class="item"
-          v-for="(item, index) in imgArr"
-          :key="index"
-        >
-          <i class="el-icon-circle-close position" @click="Remove(index)"></i>
-          <video
-            :src="item"
-            style="width: 100px;height: 100px;"
-            class="avatar video-avatar"
-            controls="controls"
+            class="item"
+            v-for="(item, index) in imgArr"
+            :key="index"
           >
-            您的浏览器不支持视频播放
-          </video>
-        </div> -->
+            <i class="el-icon-circle-close position" @click="Remove(index)"></i>
+            <video
+              :src="item"
+              style="width: 100px;height: 100px;"
+              class="avatar video-avatar"
+              controls="controls"
+            >
+              您的浏览器不支持视频播放
+            </video>
+          </div> -->
       </template>
 
       <el-progress
@@ -84,7 +84,7 @@
         :width="100"
         :percentage="uploadPercent"
         style="margin-top: 7px"
-      ></el-progress>
+      />
     </div>
   </div>
 </template>
@@ -100,31 +100,31 @@ import { media } from '@/api/other'
 const ENV = import.meta.env
 
 export default {
-  name: 'uploadFile',
+  name: 'UploadFile',
   props: {
     modelValue: String,
     limit: {
       default: 1,
-      type: Number
+      type: Number,
     },
     tipLabel: {
       default: '支持格式jpg、jpeg、png',
-      type: String
+      type: String,
     },
     // 上传类型
     fileType: {
       //0 图片 1视频 2文件
       default: 0,
-      type: [Number, String]
+      type: [Number, String],
     },
     type: {
       default: 0,
-      type: [Number, String]
+      type: [Number, String],
     },
     // 大小
     fileSize: {
       type: Number,
-      default: () => 50
+      default: () => 50,
     },
     disabled: {
       type: Boolean,
@@ -133,10 +133,15 @@ export default {
     // 格式
     suffixStr: {
       type: [Array, String],
-      default: () => ['jpg、jpeg、png', 'mp4、ogg、flv、avi、wmv、rmvb、mov', 'pdf、txt、doc、docx、excel、ppt']
+      default: () => [
+        'jpg、jpeg、png',
+        'mp4、ogg、flv、avi、wmv、rmvb、mov',
+        'pdf、txt、doc、docx、excel、ppt',
+      ],
     },
   },
-  data () {
+  emits: ['update:modelValue'],
+  data() {
     return {
       icon: '',
       imgArr: [],
@@ -149,32 +154,56 @@ export default {
       percentFlag: false,
 
       multiple: false,
-      uploadUrl: ENV.VITE_BASE_URL + media
+      uploadUrl: ENV.VITE_BASE_URL + media,
     }
   },
-  emits: ['update:modelValue'],
+  watch: {
+    modelValue: {
+      handler(val) {
+        // console.log('传过来的数据' + typeof val, val);
+        if (typeof val === 'string' && val) {
+          this.flieEcho(val)
+
+          // 切割
+          if (val != '') {
+            this.imgArr = val.split(',')
+
+            for (let i of this.imgArr) {
+              this.flieEcho(i)
+            }
+          }
+          // console.log('string转数组', this.imgArr);
+        } else {
+          this.imgArr = []
+          if (this.imgArr.length == 0 && this.$refs.upload) {
+            this.$refs.upload.uploadFiles = []
+          }
+        }
+      },
+      immediate: true,
+    },
+  },
   methods: {
-    onError (err, file) {
+    onError(err, file) {
       console.log(err, file)
       this.$message({
         message: '上传失败',
-        type: 'danger'
+        type: 'danger',
       })
 
       this.percentFlag = false
 
       this.icon = ''
-
     },
     // 上传时
-    onProgress (event, file) {
+    onProgress(event, file) {
       this.icon = 'el-icon-loading'
       this.uploadPercent = Number(file.percentage.toFixed(2))
       this.percentFlag = true
       // console.log(this.uploadPercent, file.percentage);
     },
     // 上传前
-    beforeUpload (file) {
+    beforeUpload(file) {
       if (this.imgArr.length >= this.limit) {
         this.$message.warning('超出最大上传数量' + this.limit + '！')
 
@@ -188,15 +217,24 @@ export default {
       if (fileSize != '' && file.size / 1024 / 1024 >= fileSize) {
         this.$message({
           message: '文件大小不能超过' + this.fileSize + 'MB',
-          type: 'warning'
+          type: 'warning',
         })
         return false
       }
 
-      let last = this.fileType != 2 ? file.type.lastIndexOf('/') : file.name.lastIndexOf('.')
-      let suffix = this.fileType != 2 ? file.type.substr(last + 1, file.type.length) : file.name.substr(last + 1, file.name.length)
+      let last =
+        this.fileType != 2
+          ? file.type.lastIndexOf('/')
+          : file.name.lastIndexOf('.')
+      let suffix =
+        this.fileType != 2
+          ? file.type.substr(last + 1, file.type.length)
+          : file.name.substr(last + 1, file.name.length)
 
-      let suffixStr = typeof (this.suffixStr) == 'object' ? this.suffixStr[this.fileType] : this.suffixStr
+      let suffixStr =
+        typeof this.suffixStr == 'object'
+          ? this.suffixStr[this.fileType]
+          : this.suffixStr
 
       console.log(suffixStr, suffixStr.match(suffix))
 
@@ -208,9 +246,8 @@ export default {
       }
     },
     // 上传成功
-    handleSuccess (file) {
+    handleSuccess(file) {
       if (file.code == 200) {
-
         // 关闭进度条
         this.uploadPercent = 100
         setTimeout(() => {
@@ -234,21 +271,20 @@ export default {
       }
     },
     // 超出数量
-    onExceed (fileList) {
+    onExceed(_fileList) {
       // console.log(this.$refs.upload.uploadFiles, this.imgArr);
       this.$message.warning('超出最大上传数量' + this.limit + '！')
     },
     // 文件删除
-    onRemove (file, files, e) {
-      let nameArr = this.imgArr.map(_ => {
+    onRemove(file, _files, _e) {
+      let nameArr = this.imgArr.map((_) => {
         return _.substr(_.lastIndexOf('/') + 1, _.length)
       })
       this.imgArr.splice(nameArr.indexOf(file.name), 1)
       this.$emit('update:value', this.imgArr.join(','))
-
     },
     // 删除
-    Remove (index) {
+    Remove(index) {
       // fileDelete(this.nameArr[index])
       // .then(res => {
       // console.log('删除文件', res);
@@ -269,52 +305,26 @@ export default {
       // }
       // })
     },
-    flieEcho (url) {
+    flieEcho(url) {
       if (this.fileType != 2) return
 
       let name = url.substr(url.lastIndexOf('/') + 1, url.length)
 
       this.$nextTick(() => {
-        this.$refs.upload.uploadFiles = reactive([{
-          name: name,
-          percentage: 100,
-          status: "success",
-        }])
+        this.$refs.upload.uploadFiles = reactive([
+          {
+            name: name,
+            percentage: 100,
+            status: 'success',
+          },
+        ])
       })
     },
-    clearFiles () {
+    clearFiles() {
       // this.$refs.uploads.clearFiles();
-    }
+    },
   },
-  watch: {
-    modelValue: {
-      handler (val, oldVal) {
-        // console.log('传过来的数据' + typeof val, val);
-        if (typeof val === 'string' && val) {
-
-          this.flieEcho(val)
-
-          // 切割
-          if (val != '') {
-            this.imgArr = val.split(',')
-
-            for (let i of this.imgArr) {
-              this.flieEcho(i)
-            }
-
-          }
-          // console.log('string转数组', this.imgArr);
-        } else {
-          this.imgArr = []
-          if (this.imgArr.length == 0 && this.$refs.upload) {
-            this.$refs.upload.uploadFiles = []
-          }
-        }
-      },
-      immediate: true
-    }
-  }
-};
+}
 </script>
 
 <style scoped>

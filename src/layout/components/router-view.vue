@@ -14,18 +14,18 @@ import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 
 export default defineComponent({
-  setup () {
+  setup() {
     let Store = useStore()
     let route = useRoute()
-    let caches = computed(() => Store.state.user.tags.map(item => item.name))
+    let caches = computed(() => Store.state.user.tags.map((item) => item.name))
     let key = computed(() => {
       return route.path
     })
 
     return {
       key,
-      caches
+      caches,
     }
-  }
+  },
 })
 </script>

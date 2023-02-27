@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
     <el-card :shadow="defaultData.cardShadow">
-      <view-name></view-name>
+      <view-name />
       <div class="icons">
         <!-- <div v-for="(item, index) in icons" :key="index">
-          <i :class="[defaultData.iconfont, item.icon]"></i>
-          <div class="iconName">{{ item.name }}</div>
-        </div> -->
+            <i :class="[defaultData.iconfont, item.icon]"></i>
+            <div class="iconName">{{ item.name }}</div>
+          </div> -->
       </div>
     </el-card>
   </div>
@@ -14,9 +14,6 @@
 
 <script>
 export default {
-  name: "interlink",
-};
+  name: 'Interlink',
+}
 </script>
-
-<style scoped lang='scss'>
-</style>

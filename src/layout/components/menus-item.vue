@@ -1,6 +1,6 @@
 <template>
   <div v-if="!item.hidden" :class="{ _submenu: collapse }">
-    <el-submenu
+    <el-sub-menu
       :index="item.name"
       v-if="item.children && item.children.length > 1"
     >
@@ -18,7 +18,7 @@
             {{
               item.meta && item.meta.locale
                 ? t(item.meta && item.meta.locale)
-                : (item.meta && item.meta.title) || "null"
+                : (item.meta && item.meta.title) || 'null'
             }}
           </span>
         </div>
@@ -29,8 +29,8 @@
         :key="each.name"
         :item="each"
         :count="count + 1"
-      ></menusItem>
-    </el-submenu>
+      />
+    </el-sub-menu>
 
     <!-- 二级菜单下有菜单的情况下显示 -->
     <el-menu-item
@@ -90,31 +90,31 @@
 </template>
 
 <script>
-import { defineComponent } from "vue"
+import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
-  name: 'menusItem',
+  name: 'MenusItem',
   props: {
     item: {
       type: Object,
-      default: () => { },
+      default: () => {},
     },
     index: {
       type: [Number, String],
-      default: 0
+      default: 0,
     },
     // 组件层次
     count: {
       type: Number,
-      default: 1
+      default: 1,
     },
     collapse: {
       type: Boolean,
-      default: true
+      default: true,
     },
   },
-  setup (props, context) {
+  setup() {
     const { t } = useI18n()
 
     const text = (e) => {
@@ -130,12 +130,12 @@ export default defineComponent({
     }
 
     return {
-      text
+      text,
       //   parentIdx,
       //   getIndex
     }
-  }
-});
+  },
+})
 </script>
 
 <style scoped>

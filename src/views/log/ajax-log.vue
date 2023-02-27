@@ -9,12 +9,11 @@
 import { logAjax } from '@/api/other'
 export default {
   methods: {
-    handleNewError () {
-      logAjax()
-        .then(res => {
-          console.log(res)
-        })
-    }
-  }
+    handleNewError() {
+      logAjax().then((res) => {
+        console.log(res)
+      })
+    },
+  },
 }
 </script>

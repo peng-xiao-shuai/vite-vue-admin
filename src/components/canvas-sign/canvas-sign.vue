@@ -14,15 +14,15 @@
     ></canvas>
 
     <!-- <el-dialog title="签名图片" v-model="isDialog" width="300">
-      <div>
-        <el-image
-          style="width: 100%; height: auto; border: 1px solid #ccc"
-          :preview-src-list="[baseUrl]"
-          :src="baseUrl"
-          fit="cover"
-        ></el-image>
-      </div>
-    </el-dialog> -->
+        <div>
+          <el-image
+            style="width: 100%; height: auto; border: 1px solid #ccc"
+            :preview-src-list="[baseUrl]"
+            :src="baseUrl"
+            fit="cover"
+          ></el-image>
+        </div>
+      </el-dialog> -->
     <slot name="default" :ctx="ctxRef">
       <el-button type="primary" @click="handleClear">清除画布</el-button>
       <el-button type="primary" @click="handleCreateImg">生成图片</el-button>
@@ -31,8 +31,8 @@
 </template>
 
 <script lang="ts">
-import { ElMessage } from "element-plus";
-import { defineComponent, ref, nextTick } from "vue";
+import { ElMessage } from 'element-plus'
+import { defineComponent, ref, nextTick } from 'vue'
 export default defineComponent({
   props: {
     modelValue: String,
@@ -46,68 +46,71 @@ export default defineComponent({
     // 背景颜色
     signBgColor: String,
   },
-  emits: ["update:modelValue", "success"],
+  emits: ['update:modelValue', 'success'],
   setup(props, context) {
     // 获取canvas dom
-    let can: HTMLCanvasElement | any, ctx: CanvasRenderingContext2D, cw: number, ch: number;
-    let ctxRef: {value: CanvasRenderingContext2D | null} = ref(null);
-    const baseUrl = ref("");
-    const isDialog = ref<boolean>(false);
-    const id = "sign" + new Date().getTime();
+    let can: HTMLCanvasElement | any,
+      ctx: CanvasRenderingContext2D,
+      cw: number,
+      ch: number
+    let ctxRef: { value: CanvasRenderingContext2D | null } = ref(null)
+    const baseUrl = ref('')
+    const isDialog = ref<boolean>(false)
+    const id = 'sign' + new Date().getTime()
 
     nextTick(() => {
-      can = document.getElementById(id);
+      can = document.getElementById(id)
 
       if (!can) return
 
-      cw = can.offsetWidth;
-      ch = can.offsetHeight;
-      can.width = cw;
-      can.height = ch;
-      ctx = can.getContext("2d") as CanvasRenderingContext2D;
-      ctxRef.value = ctx;
+      cw = can.offsetWidth
+      ch = can.offsetHeight
+      can.width = cw
+      can.height = ch
+      ctx = can.getContext('2d') as CanvasRenderingContext2D
+      ctxRef.value = ctx
 
-      ctx.fillStyle = props.signColor || "#fff";
-      ctx.fillRect(0, 0, cw, cw);
-      ctx.save();
+      ctx.fillStyle = props.signColor || '#fff'
+      ctx.fillRect(0, 0, cw, cw)
+      ctx.save()
 
-      ctx.strokeStyle = props.signBgColor || "#000";
-      ctx.lineWidth = 1;
-    });
+      ctx.strokeStyle = props.signBgColor || '#000'
+      ctx.lineWidth = 1
+    })
 
-    const status = ref<boolean>(false);
+    const status = ref<boolean>(false)
     // 鼠标按下
     const handleDown = (e: MouseEvent) => {
       // 激活绘制
-      ctx.beginPath();
-      ctx.moveTo(e.offsetX, e.offsetY);
+      ctx.beginPath()
+      ctx.moveTo(e.offsetX, e.offsetY)
 
-      status.value = true;
-    };
+      status.value = true
+    }
 
     const handleMove = (e: MouseEvent) => {
       if (status.value) {
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.stroke();
+        ctx.lineTo(e.offsetX, e.offsetY)
+        ctx.stroke()
       }
-    };
+    }
 
     const handleUp = () => {
-      status.value = false;
-    };
+      status.value = false
+    }
 
     const handleClear = () => {
-      ctx.clearRect(0, 0, cw, ch);
-    };
+      ctx.clearRect(0, 0, cw, ch)
+    }
     const handleCreateImg = () => {
-      baseUrl.value = can.toDataURL("image/jpeg");
+      baseUrl.value = can.toDataURL('image/jpeg')
       if (baseUrl.value) {
-        ElMessage.success("生成图片成功！");
+        ElMessage.success('生成图片成功！')
         // isDialog.value = true
-        context.emit("update:modelValue", baseUrl.value);
-        context.emit("success", baseUrl.value);
+        context.emit('update:modelValue', baseUrl.value)
+        context.emit('success', baseUrl.value)
       }
-    };
+    }
 
     return {
       handleDown,
@@ -120,7 +123,7 @@ export default defineComponent({
       ctxRef,
       baseUrl,
       isDialog,
-    };
+    }
   },
-});
+})
 </script>
