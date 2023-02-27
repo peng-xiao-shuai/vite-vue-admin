@@ -1,0 +1,6 @@
+dist
+node_modules
+README.md
+pnpm-lock.yaml
+auto-imports.d.ts
+components.d.ts
