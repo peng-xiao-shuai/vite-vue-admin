@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 5px 20px 0 10px" class="navs">
+  <div style="padding: 0 15px" class="navs">
     <div class="left">
       <i
         :class="[
@@ -11,7 +11,7 @@
         @click="handleCollapse"
       >
       </i>
-      <el-breadcrumb separator="/">
+      <el-breadcrumb separator="/" class="_flex _flex-align-center">
         <transition-group name="list">
           <el-breadcrumb-item
             :to="{ path: item.path }"
@@ -19,10 +19,10 @@
             :key="index"
           >
             <el-dropdown v-if="item.children && item.children.length">
-              <span class="dropdown-span">
+              <div class="dropdown-div _flex _flex-align-center">
                 {{ item.meta.locale ? t(item.meta.locale) : item.meta.title }}
                 <el-icon><el-icon-arrow-down /></el-icon>
-              </span>
+              </div>
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item
@@ -134,18 +134,18 @@ export default {
   .left {
     display: flex;
     align-items: center;
-    .dropdown-span {
+    .dropdown-div {
       transition: all 0.4s;
+      outline: none;
       &:hover {
-        color: var(--color-primary);
+        color: var(--el-color-primary);
       }
     }
     > div {
       margin: 0 10px;
     }
     i {
-      font-size: 16px;
-      margin: 0 5px;
+      font-size: 18px;
       transition: all 0.4s;
     }
     i.el-icon-arrow-down {

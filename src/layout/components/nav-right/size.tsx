@@ -17,16 +17,12 @@ export default defineComponent({
         label: 'default',
       },
       {
-        value: 'medium',
-        label: 'medium',
+        value: 'large',
+        label: 'large',
       },
       {
         value: 'small',
         label: 'small',
-      },
-      {
-        value: 'mini',
-        label: 'mini',
       },
     ]
 

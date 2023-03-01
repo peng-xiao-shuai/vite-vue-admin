@@ -61,62 +61,26 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .element::-webkit-scrollbar {
   width: 0 !important;
 }
 .menus {
-  min-width: 65px;
   overflow: hidden;
   min-height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
   transition: width 0.3s;
-}
 
-.clear {
-  min-width: 65px;
-  height: 100vh;
-}
+  :deep(.el-menu) {
+    border: none;
+  }
 
-.menus .viteIcon {
-  font-size: 16px;
-  // color: $--menus-submenu-title-color;
-  border-radius: 50%;
-  padding: 5px;
-}
-
-.el-menu {
-  border: none !important;
-  box-sizing: border-box;
-}
-.el-menu > div {
-  border: none !important;
-}
-
-.el-submenu .el-menu-item {
-  border: none !important;
-  box-sizing: border-box;
-  // background: $--menus-children-background !important;
-  color: #ccc;
-  overflow: hidden;
-  padding-right: 20px !important;
-}
-// 菜单背景色
-.el-menu-item,
-.el-submenu__title,
-.menus {
-  overflow: hidden;
-  // background: $--menus-background !important;
-}
-
-.el-menu-item a {
-  display: inline-block;
-  width: 100%;
-  // color: $--menus-submenu-title-color;
-  text-overflow: ellipsis;
-  overflow-x: hidden;
-  text-decoration: none;
+  :deep(.el-menu--collapse) {
+    .el-icon.el-sub-menu__icon-arrow {
+      display: none;
+    }
+  }
 }
 </style>

@@ -6,15 +6,9 @@
     >
       <!-- 二级菜单有的情况下显示 -->
       <template #title>
-        <div
-          :style="{
-            overflowX: collapse ? 'visible' : 'hidden',
-            width: '100%',
-            textOverflow: 'ellipsis',
-          }"
-        >
+        <div class="sub-menu-title">
           <i :class="[item.meta.icon, defaultData.iconfont]"></i>
-          <span class="metaTitle" v-show="!collapse || count !== 1">
+          <span class="meta-title" v-show="!collapse || count !== 1">
             {{
               item.meta && item.meta.locale
                 ? t(item.meta && item.meta.locale)
@@ -62,7 +56,7 @@
           ]"
         ></i>
 
-        <span class="metaTitle">
+        <span class="meta-title" v-show="!collapse || count !== 1">
           {{ text(item) }}
         </span>
       </a>
@@ -71,7 +65,6 @@
       <router-link
         v-else
         :to="{ name: (item.children && item.children[0].name) || item.name }"
-        :style="{ overflowX: collapse ? 'visible' : 'hidden' }"
       >
         <i
           :class="[
@@ -138,12 +131,33 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-._submenu > li :deep() .el-submenu__icon-arrow {
-  display: none;
+<style scoped lang="scss">
+.el-menu-item {
+  overflow-x: hidden;
+  a {
+    display: inline;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    color: var(--el-text-color-primary);
+    text-decoration: none;
+  }
 }
 
-.metaTitle {
+.el-sub-menu.is-active > .el-sub-menu__title > .sub-menu-title {
+  // overflowX: collapse ? 'visible' : 'hidden',
+  width: 100%;
+  text-overflow: ellipsis;
+  i,
+  span {
+    color: var(--el-color-primary);
+  }
+}
+.meta-title {
+  display: inline;
+  overflow-x: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
   margin-left: 6px;
 }
 </style>

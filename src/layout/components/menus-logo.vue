@@ -64,7 +64,6 @@ export default {
   height: 50px;
   overflow: hidden;
   border-bottom: 2px solid #f7f8f8;
-  background: var(--menu-logo-background);
 }
 .logo-link {
   display: flex;
@@ -82,6 +81,6 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-weight: bold;
-  color: var(--menu-logo-color);
+  color: var(--el-color-primary);
 }
 </style>

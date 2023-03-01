@@ -1,11 +1,6 @@
 <template>
-  <el-drawer
-    title="全局配置"
-    :model-value="drawer"
-    size="500px"
-    @close="handleClose"
-  >
-    <template #title>
+  <el-drawer :model-value="drawer" size="500px" @close="handleClose">
+    <template #header>
       <slot name="title">
         <div style="display: flex; align-items: center">
           <div style="margin-right: 20px">全局配置</div>
@@ -61,22 +56,6 @@
         </div>
       </div>
 
-      <!-- 菜单颜色 -->
-      <div>
-        <p class="config-title" data-label="菜单颜色"></p>
-        <div
-          class="config-item"
-          v-for="(item, index) in settingKeys.menuColor"
-          :key="index"
-        >
-          <label>{{ item.label }}</label>
-          <el-color-picker
-            v-model="settings.menuColors[item.key]"
-            @change="handleMenuColor($event, item.key)"
-          />
-        </div>
-      </div>
-
       <!-- 全局水印 -->
       <div>
         <WaterMark />
@@ -91,7 +70,6 @@ import { ElMessageBox } from 'element-plus'
 import { reactive } from 'vue'
 import { useStore } from 'vuex'
 import { getLightColor } from '@/utils/theme'
-import { toLine } from '@/utils/str-convert'
 import WaterMark from './components/watermark'
 
 const store = useStore()
@@ -141,7 +119,7 @@ const handleThemeColor = (color, key) => {
     })
   }
 
-  let colorKey = '--color-' + key
+  let colorKey = '--el-color-' + key
   setTheme(Tcolors, colorKey, color, 'themeColors')
 
   // 修改:root样式
@@ -157,7 +135,7 @@ const handleThemeColor = (color, key) => {
   // 设置不同透明度颜色
   for (let i in new Array(10).fill(10)) {
     if (i % 2 == 1) {
-      let colorKey = '--color-' + key + '-light-' + i
+      let colorKey = '--el-color-' + key + '-light-' + i
       setTheme(
         Lcolors,
         colorKey,
@@ -168,24 +146,9 @@ const handleThemeColor = (color, key) => {
   }
 }
 
-// 菜单颜色修改
-const handleMenuColor = (color, key) => {
-  store.commit('setMenuColor', {
-    key,
-    val: color,
-  })
-  // 菜单颜色
-  const menuColors = JSON.parse(
-    window.localStorage.getItem('menuColors') || '{}'
-  )
-  const colorKey = '--menu-' + toLine(key)
-
-  setTheme(menuColors, colorKey, color, 'menuColors')
-}
-
 /** 修改root样式 并且存储本地
  * @param {object} v Lcolors
- * @param {string} ckey --color-' + key + '-light-' + i
+ * @param {string} ckey --el-color-' + key + '-light-' + i
  * @param {string} cval red
  * @param {string} key themeLightColors
  */

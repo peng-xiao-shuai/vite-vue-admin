@@ -9,7 +9,7 @@
       <div>
         <transition-group name="tags">
           <div
-            v-for="item in tags"
+            v-for="(item, index) in tags"
             :key="item.name"
             :class="['tag', { active: currentName == item.name }]"
             :style="currentName == item.name ? { background: themeColor } : {}"
@@ -17,20 +17,27 @@
             <div @click="navTo(item)">
               {{ item?.meta?.locale ? t(item.meta.locale) : item?.meta?.title }}
             </div>
-            <el-icon><el-icon-close /></el-icon>
+            <i
+              v-if="!item.remove"
+              class="el-icon el-icon-close"
+              @click.stop="remove(index)"
+              ><el-icon-close
+            /></i>
           </div>
         </transition-group>
       </div>
 
       <!-- 右侧操作 -->
       <div>
-        <span class="tag" @click="dropdownChange('refresh')">
-          <span class="el-icon-refresh-right"></span>
-        </span>
+        <el-icon class="tag" @click="dropdownChange('refresh')"
+          ><refresh-right
+        /></el-icon>
+        <i
+          :class="['tag el-icon vitequanping', defaultData.iconfont]"
+          @click="handleFull"
+        ></i>
         <el-dropdown trigger="click">
-          <span class="tag">
-            <span class="el-icon-arrow-down"></span>
-          </span>
+          <el-icon class="tag"><arrow-down /></el-icon>
           <template #dropdown>
             <el-dropdown-item
               v-for="item in dropdownList"
@@ -46,10 +53,6 @@
             </el-dropdown-item>
           </template>
         </el-dropdown>
-        <span
-          :class="['tag', 'vitequanping', defaultData.iconfont]"
-          @click="handleFull"
-        ></span>
       </div>
     </el-scrollbar>
   </div>
@@ -280,7 +283,7 @@ export default defineComponent({
 
 <style lang="scss">
 .tags {
-  padding: 7px 10px;
+  padding: 7px 15px;
   border-top: 2px solid #f7f8f8;
   display: flex;
 
@@ -300,13 +303,23 @@ export default defineComponent({
     background: #fff;
     border-radius: 5px;
     border: 1px solid #ccc;
-    margin-right: 5px;
     display: flex;
     align-items: center;
     font-size: 12px;
     position: relative;
     box-sizing: border-box;
     transition: all 0.3s;
+    color: #999;
+    margin-right: 5px;
+
+    &.el-icon {
+      width: 25px;
+      padding: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
 
     div {
       line-height: 25px;
@@ -316,31 +329,30 @@ export default defineComponent({
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
     a {
       text-decoration: none;
       color: #333;
     }
-    span {
-      transition: all 0.3s;
-    }
-    i {
+
+    .el-icon-close {
       color: #ccc;
       transition: all 0.3s;
       margin-left: 5px;
       padding: 1px;
       border-radius: 50%;
-      transform: scale(0.7);
       font-size: 10px;
     }
+
     .el-icon-close:hover {
-      background: #acacac;
+      background: #ccc;
       color: #fff;
     }
   }
 
   .tag:hover {
-    color: var(--color-primary);
-    border-color: var(--color-primary);
+    color: var(--el-color-primary);
+    border-color: var(--el-color-primary);
   }
 
   .tag::after {
@@ -365,6 +377,7 @@ export default defineComponent({
 
     .el-icon-close:hover {
       background: #fff;
+      color: var(--el-color-primary);
     }
 
     a {
@@ -381,6 +394,7 @@ export default defineComponent({
     to {
       transform: rotate(0deg);
     }
+
     from {
       transform: rotate(-360deg);
     }

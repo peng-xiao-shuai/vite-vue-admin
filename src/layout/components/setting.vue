@@ -74,7 +74,7 @@ const handleClick = () => {
   border-radius: 5px 0 0 5px;
   position: fixed;
   right: 0;
-  background: var(--color-primary);
+  background: var(--el-color-primary);
   color: #fff;
   display: flex;
   align-items: center;

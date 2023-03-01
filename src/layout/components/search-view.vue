@@ -153,7 +153,7 @@ const navTo = (item: Arr) => {
     text-align: center;
     width: 100%;
     margin: 0 0 10px;
-    color: var(--color-primary);
+    color: var(--el-color-primary);
     font-weight: bold;
   }
 
@@ -166,7 +166,7 @@ const navTo = (item: Arr) => {
       padding: 0px 5px;
       height: 18px;
       line-height: 18px;
-      background: var(--color-primary);
+      background: var(--el-color-primary);
       border-radius: 2px;
       color: #fff;
       margin: 0 3px;
@@ -177,13 +177,13 @@ const navTo = (item: Arr) => {
 .menu-item {
   display: flex;
   color: #444;
-  transition: all 0.2s;
-  border-left: 0px solid var(--color-primary);
+  transition: all 0.1s;
+  border-left: 0px solid var(--el-color-primary);
 
   &:hover {
     background: #f5f7fa;
-    color: var(--color-primary);
-    border-left: 4px solid var(--color-primary);
+    color: var(--el-color-primary);
+    border-left-width: 4px;
   }
 
   i {
