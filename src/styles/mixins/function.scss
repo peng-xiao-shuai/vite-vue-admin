@@ -1,9 +1,0 @@
-/* 颜色调用函数
-------------------------------- */
-@function set-menus-color($key) {
-	@return var(--menu-#{$key});
-}
-
-@function set-color($key) {
-	@return var(--color-#{$key});
-}
