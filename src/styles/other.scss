@@ -146,3 +146,34 @@
 .router-link-active {
   color: var(--el-color-primary);
 }
+
+._word-break {
+	word-break: break-all
+}
+._flex {
+	display: flex;
+}
+
+._flex-wrap {
+	flex-wrap: wrap;
+}
+._flex-space-between {
+	justify-content: space-between;
+}
+._flex-space-around {
+	justify-content: space-around;
+}
+._flex-justify-center {
+	justify-content: center;
+}
+._flex-align-center {
+	align-items: center;
+}
+._flex-center {
+	justify-content: center;
+	align-content: center;
+}
+._flex-center-between {
+	justify-content: space-between;
+	align-items: center;
+}
