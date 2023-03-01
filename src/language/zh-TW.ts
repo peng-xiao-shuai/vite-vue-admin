@@ -50,7 +50,7 @@ export default {
   'full.screen': '全屏',
 
   default: '默認',
-  medium: '中等',
+  large: '大號',
   small: '小號',
   mini: '迷你',
 

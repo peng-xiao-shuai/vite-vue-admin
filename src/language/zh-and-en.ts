@@ -49,7 +49,7 @@ export default {
   'full.screen': '全屏',
 
   default: '默认',
-  medium: '中等',
+  large: '大号',
   small: '小号',
   mini: '迷你',
 
