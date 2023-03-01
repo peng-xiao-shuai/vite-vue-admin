@@ -1,10 +1,8 @@
 import {
   themeColor as themeColorInterface,
   drawerSetting,
-  menuColors,
   waterMarkType,
 } from '@/utils/interface'
-import { toHump } from '@/utils/str-convert'
 // 主题颜色
 const themeColor: themeColorInterface = {
   primary: '#AD49FF',
@@ -45,19 +43,6 @@ const waterMark: waterMarkType = JSON.parse(
   window.localStorage.getItem('waterMark') || '{}'
 )
 
-// 菜单颜色
-// 先删除掉 --menu-。在将 kebab-case 转 驼峰
-const menuColorStore: menuColors = JSON.parse(
-  window.localStorage.getItem('menuColors')?.replace(/\-\-\w*\-/g, '') || '{}'
-)
-const menuColor: menuColors | { [s: string]: string } = {}
-
-for (const i in menuColorStore) {
-  document.documentElement.style.setProperty('--menu-' + i, menuColorStore[i])
-  menuColor[toHump(i)] = menuColorStore[i]
-}
-// console.log(menuColor);
-
 export type defaultDataType = {
   name: string
   themeColor: themeColorInterface
@@ -66,7 +51,6 @@ export type defaultDataType = {
   cardShadow: string
   locale: string
   localeSelect: { value: string; label: string }[]
-  menuColors: menuColors
   waterMark: waterMarkType
   settings: drawerSetting
 }
@@ -96,20 +80,6 @@ export default {
       label: 'English',
     },
   ],
-  // 菜单颜色配置
-  menuColors: Object.assign(
-    {
-      menuBackground: '#fff',
-      itemHoverBackground: 'rgb(228, 230, 255)',
-      itemHoverColor: '#AD49FF',
-      childrenBackground: 'rgb(244, 244, 252)',
-      childrenHoverBackground: 'rgb(220, 223, 255)',
-      submenuTitleColor: '#fff',
-      logoColor: '#AD49FF',
-      logoBackground: '#fff',
-    },
-    menuColor
-  ),
   // 全局水印
   waterMark: Object.assign(
     {

@@ -9,15 +9,6 @@ $--el-color-info: #909399 !default;
 $--el-color-warning: #e6a23c !default;
 $--el-color-danger: #f56c6c !default;
 
-$--menu-menu-background: #fff;
-$--menu-item-hover-background: rgb(228, 230, 255);
-$--menu-item-hover-color: #AD49FF;
-$--menu-children-background: rgb(244, 244, 252);
-$--menu-children-hover-background: rgb(220, 223, 255);
-$--menu-submenu-title-color: #000;
-$--menu-logo: #AD49FF;
-$--menu-logo-background: #fff;
-
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
   $colors: (
     'primary': (
@@ -37,15 +28,3 @@ $--menu-logo-background: #fff;
     ),
   ),
 );
-
-:root {
-  --menu-menu-background: #{$--menu-menu-background};
-	--menu-item-hover-background: #{$--menu-item-hover-background};
-	--menu-item-hover-color: #{$--menu-item-hover-color};
-	--menu-children-background: #{$--menu-children-background};
-	--menu-children-hover-background: #{$--menu-children-hover-background};
-	--menu-submenu-title-color: #{$--menu-submenu-title-color};
-
-	--menu-logo-color: #{$--menu-logo};
-	--menu-logo-background: #{$--menu-logo-background};
-}
