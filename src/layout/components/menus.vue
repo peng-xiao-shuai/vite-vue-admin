@@ -71,9 +71,10 @@ export default defineComponent({
   position: fixed;
   left: 0;
   top: 0;
-  transition: width 0.3s;
-
+  // transition: width 0.3s;
   :deep(.el-menu) {
+    background: var(--el-bg-color-overlay);
+    transition: var(--el-transition-duration);
     border: none;
   }
 

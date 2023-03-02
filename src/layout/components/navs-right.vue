@@ -13,6 +13,9 @@
     <size />
     <!-- 全屏 -->
     <full-screen />
+
+    <dark />
+
     <!-- 用户 -->
     <div class="item">
       <el-dropdown class="avatar-container" trigger="hover">
@@ -26,25 +29,15 @@
         </div>
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
-            <!-- <el-dropdown-item>
-                <span
-                  span
-                  @click="dialogVisible = !dialogVisible"
-                  style="display: block"
-                  >{{ t("update") }} {{ t("password") }}</span
-                >
-              </el-dropdown-item> -->
             <router-link class="inlineBlock" to="/">
-              <el-dropdown-item style="text-align: center">
+              <el-dropdown-item class="_flex-center">
                 {{ t('home') }}
               </el-dropdown-item>
             </router-link>
-            <el-dropdown-item divided>
-              <span
-                @click="logout"
-                style="display: block; text-align: center"
-                >{{ t('exit') }}</span
-              >
+            <el-dropdown-item class="_flex-center" divided>
+              <div class="_flex _flex-center" @click="logout">
+                {{ t('exit') }}
+              </div>
             </el-dropdown-item>
             <el-dropdown-item divided>
               <a
@@ -53,6 +46,7 @@
                   display: block;
                   text-decoration: none;
                   text-align: center;
+                  color: var(--el-color-primary);
                 "
                 >{{ 'GitHub' }}</a
               >
@@ -61,89 +55,6 @@
         </template>
       </el-dropdown>
     </div>
-    <el-dialog
-      title="修改我的密码"
-      v-model="dialogVisible"
-      width="40%"
-      @close="close"
-    >
-      <el-form
-        :model="admin"
-        ref="adminForm"
-        label-width="100px"
-        :rules="loginRules"
-      >
-        <el-form-item label="用户名：" prop="username">
-          <el-input v-model="admin.username" style="width: 100%" />
-        </el-form-item>
-        <el-form-item label="旧密码：" prop="oldPassword">
-          <el-input
-            name="password"
-            :type="pwdType"
-            v-model="admin.oldPassword"
-            autoComplete="on"
-            placeholder="请输入旧密码"
-            style="width: 100%"
-          >
-            <template #suffix>
-              <i
-                :class="[
-                  pwdType == 'password' ? 'vitebiyan' : 'viteyanjing',
-                  defaultData.iconfont,
-                ]"
-                @click="pwdType = pwdType == 'password' ? 'text' : 'password'"
-              >
-              </i>
-            </template>
-            <!-- <span slot="suffix" @click="showPwd">
-                <svg-icon icon-class="eye" class="color-main"></svg-icon>
-              </span> -->
-          </el-input>
-        </el-form-item>
-        <el-form-item label="新密码：" prop="newPassword">
-          <el-input
-            name="password"
-            :type="pwdType"
-            v-model="admin.newPassword"
-            autoComplete="on"
-            placeholder="请输入新密码："
-            style="width: 100%"
-          >
-            <template #suffix>
-              <i
-                :class="[
-                  pwdType == 'password' ? 'vitebiyan' : 'viteyanjing',
-                  defaultData.iconfont,
-                ]"
-                @click="pwdType = pwdType == 'password' ? 'text' : 'password'"
-              >
-              </i>
-            </template>
-            <!-- <span slot="suffix" @click="showPwd">
-                <svg-icon icon-class="eye" class="color-main"></svg-icon>
-              </span> -->
-          </el-input>
-        </el-form-item>
-        <!-- <el-form-item label="确认密码：" prop="isPassword">
-            <el-input
-              name="password"
-              :type="pwdType"
-              v-model="isPassword"
-              autoComplete="on"
-              placeholder="请输入确认密码"
-              style="width: 100%"
-            >
-            </el-input>
-          </el-form-item> -->
-
-        <el-form-item>
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="handleDialogConfirm()"
-            >确 定</el-button
-          >
-        </el-form-item>
-      </el-form>
-    </el-dialog>
   </div>
 </template>
 
@@ -156,9 +67,8 @@ import search from './nav-right/seacrh'
 import language from './nav-right/language.vue'
 import bug from './nav-right/bug'
 import fullScreen from './nav-right/full-screen'
+import dark from './nav-right/dark'
 import size from './nav-right/size'
-
-import { ElMessage, ElMessageBox } from 'element-plus'
 
 export default defineComponent({
   components: {
@@ -167,6 +77,7 @@ export default defineComponent({
     bug,
     fullScreen,
     size,
+    dark,
   },
   setup() {
     let Store = useStore()
@@ -200,39 +111,6 @@ export default defineComponent({
     function close() {
       dialogVisible.value = false
     }
-    function handleDialogConfirm() {
-      adminForm.value.validate((valid: boolean) => {
-        if (valid) {
-          ElMessageBox.confirm('是否确认修改密码?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning',
-          }).then(() => {
-            // updatePassword(admin).then((res: any) => {
-            //   if (res.code == "502") {
-            //     ElMessage({
-            //       message: res.message,
-            //       type: "warning",
-            //     });
-            //   } else if (res.code == "200") {
-            //     dialogVisible.value = false;
-            //     ElMessage({
-            //       message: "修改成功！",
-            //       type: "success",
-            //     });
-            //     logout();
-            //   }
-            // });
-          })
-        } else {
-          ElMessage({
-            message: '请完善信息',
-            type: 'warning',
-          })
-          return false
-        }
-      })
-    }
 
     return {
       icon,
@@ -244,7 +122,6 @@ export default defineComponent({
 
       close,
       logout,
-      handleDialogConfirm,
     }
   },
 })
@@ -257,6 +134,17 @@ export default defineComponent({
   .item {
     display: flex;
     align-items: center;
+    margin-right: 5px;
+    &:last-of-type {
+      margin-right: 0;
+    }
+    &:deep(.el-input__inner) {
+      border: none !important;
+      padding-left: 0 !important;
+    }
+    &:deep(.el-select) {
+      border-bottom: 1px solid #ccc !important;
+    }
     .icon {
       width: 35px;
       height: 35px;
@@ -266,7 +154,6 @@ export default defineComponent({
     .viteIcon {
       font-size: 26px;
       color: #666;
-      margin-right: 10px;
     }
     .viteIcon:focus,
     &:focus {
@@ -288,11 +175,11 @@ export default defineComponent({
     }
 
     .viteIcon:hover {
-      border-radius: 3px;
+      border-radius: 5px;
       background: #fff;
-      transition: all 0.6s;
-      // border-color: var(--menus-item-hover-color);
-      // color: var(--menus-item-hover-color);
+      transition: all 1s;
+      border-color: var(--el-color-primary);
+      color: var(--el-color-primary);
     }
 
     .searchSelect {
@@ -333,15 +220,5 @@ export default defineComponent({
 .inlineBlock {
   text-decoration: none;
   color: #000;
-}
-</style>
-
-<style scoped>
-.item ::v-deep() .el-input__inner {
-  border: none !important;
-  padding-left: 0 !important;
-}
-.item ::v-deep() .el-select {
-  border-bottom: 1px solid #ccc !important;
 }
 </style>

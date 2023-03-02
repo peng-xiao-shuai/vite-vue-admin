@@ -33,17 +33,15 @@ export default defineComponent({
     return () => (
       <div class="item">
         <el-tooltip content={t('full.screen')} placement="bottom">
-          <div class="item">
-            <i
-              class={[
-                defaultData.iconfont,
-                !isRfs.value ? 'vitefullScreen' : 'vitecancel-full-screen',
-              ]}
-              onClick={() => {
-                click()
-              }}
-            ></i>
-          </div>
+          <i
+            class={[
+              defaultData.iconfont,
+              !isRfs.value ? 'vitefullScreen' : 'vitecancel-full-screen',
+            ]}
+            onClick={() => {
+              click()
+            }}
+          ></i>
         </el-tooltip>
       </div>
     )

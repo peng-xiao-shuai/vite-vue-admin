@@ -74,7 +74,7 @@
             defaultData.iconfont,
           ]"
         ></i>
-        <span class="metaTitle" v-show="!collapse || count !== 1">
+        <span class="meta-title" v-show="!collapse || count !== 1">
           {{ text(item) }}
         </span>
       </router-link>
@@ -142,6 +142,9 @@ export default defineComponent({
     color: var(--el-text-color-primary);
     text-decoration: none;
   }
+}
+:deep(.el-sub-menu__title) {
+  transition: inherit;
 }
 
 .el-sub-menu.is-active > .el-sub-menu__title > .sub-menu-title {

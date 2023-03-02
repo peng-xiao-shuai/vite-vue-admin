@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { Component, createApp } from 'vue'
 import { Store } from 'vuex'
 import { Router, RouteLocationNormalizedLoaded } from 'vue-router'
 import App from './App.vue'
@@ -12,8 +12,11 @@ import directive from './directives/directive'
 // 工具类
 import { parseTime } from '@/utils/parse-time'
 
+// css
+import './styles/index.scss'
 import ElementPlus from 'element-plus'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import * as ElementIcon from '@element-plus/icons'
 import powerfulTable from 'el-plus-powerful-table-ts/es'
 
 // i18n
@@ -45,9 +48,6 @@ import defaultData, { defaultDataType } from './config/default-data'
 import { debounce, throttle } from '@/config/debounce-throttle'
 import { permissionFun } from '@/config/roles-permission'
 
-// css
-import './styles/index.scss'
-
 import { mockXHR } from '../mock/index'
 // if (
 //   import.meta.env.VITE_MOCK === "true"
@@ -76,7 +76,7 @@ app.mixin({
 })
 
 // 判断语言
-const locale = defaultData.locale === 'zh-CN' ? cn : en
+const locale = defaultData.navSetting.locale === 'zh-CN' ? cn : en
 
 app
   .use(router)
@@ -95,6 +95,13 @@ app
 // app.component("svg-icon", SvgIcon);
 app.component('UploadFile', uploadFile)
 app.component('ViewName', viewName)
+for (const key in ElementIcon) {
+  app.component(
+    (ElementIcon as { [s: string]: Component })[key].name || key,
+    (ElementIcon as { [s: string]: Component })[key]
+  )
+}
+console.log(ElementIcon)
 
 directive(app)
 

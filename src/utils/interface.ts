@@ -3,12 +3,12 @@
  */
 
 // powerful-table 自定义事件
-export interface handle {
+export interface Handle {
   row: any
   index: number
 }
 
-export interface themeColor {
+export interface ThemeColor {
   primary: string
   success: string
   info: string
@@ -26,7 +26,7 @@ export interface themeColor {
  * @param defaultMenu 默认菜单展开
  * @param grayMode 灰度模式
  */
-export interface drawerSetting {
+export interface DrawerSetting {
   isLogo: number
   isTagsView: number
   fixed: number
@@ -35,33 +35,9 @@ export interface drawerSetting {
   grayMode: number
   [s: string]: number
 }
-/**
- * 菜单颜色
- * @param menuBackground 菜单背景颜色
- * @param itemHoverBackground 悬浮背景颜色
- * @param itemHoverColor 悬浮文字颜色
- * @param childrenBackground 下级菜单颜色
- * @param childrenHoverBackground 下级菜单悬浮背景颜色
- * @param submenuTitleColor 菜单文字颜色
- * @param logo logo文字颜色
- * @param logoBackground logo背景颜色
- */
-
-export interface menuColors {
-  // 菜单颜色
-  menuBackground: string
-  itemHoverBackground: string
-  itemHoverColor: string
-  childrenBackground: string
-  childrenHoverBackground: string
-  submenuTitleColor: string
-  logoColor: string
-  logoBackground: string
-  [s: string]: string
-}
 
 // 全局错误拦截
-export interface log {
+export interface Log {
   url: string
   info?: string
   time: string | null
@@ -70,7 +46,7 @@ export interface log {
   type: string
 }
 
-export interface waterMarkType {
+export interface WaterMarkType {
   switch: number
   text: string
   ratio: number
@@ -78,4 +54,10 @@ export interface waterMarkType {
   deg: number
   size: number
   [s: string]: string | number
+}
+
+export interface NavSettingType {
+  dark: boolean
+  size: string
+  [s: string]: string | boolean
 }

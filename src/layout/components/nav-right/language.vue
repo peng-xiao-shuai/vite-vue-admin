@@ -1,13 +1,11 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
 import defaultData from '@/config/default-data'
 import { SETLOCALE } from '@/language'
 
 export default defineComponent({
   setup() {
-    const store = useStore()
-    let locale = defaultData.locale
+    const navSetting = defaultData.navSetting
     // 可选语言
     const localeSelect = defaultData.localeSelect
 
@@ -37,18 +35,18 @@ export default defineComponent({
                   <div
                     style={{
                       color:
-                        locale == item.value
-                          ? store.getters.getThemeColor
+                        navSetting.locale == item.value
+                          ? 'var(--el-color-primary)'
                           : '#666',
                     }}
                   >
                     <i
                       class="language_r"
                       style={
-                        locale == item.value
+                        navSetting.locale == item.value
                           ? {
-                              borderColor: store.getters.getThemeColor,
-                              background: store.getters.getThemeColor,
+                              borderColor: 'var(--el-color-primary)',
+                              background: 'var(--el-color-primary)',
                             }
                           : {}
                       }
@@ -69,7 +67,7 @@ export default defineComponent({
           <div
             class={[
               defaultData.iconfont,
-              locale == 'en-US' ? 'vitelanguage2' : 'vitelanguage2',
+              navSetting.locale == 'en-US' ? 'vitelanguage2' : 'vitelanguage2',
             ]}
           ></div>
         </el-dropdown>

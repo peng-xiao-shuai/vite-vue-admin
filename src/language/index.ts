@@ -93,7 +93,7 @@ export function SETLOCALE(lang: string) {
 //注册i8n实例并引入语言文件
 const i18n = createI18n({
   legacy: false,
-  locale: defaultData.locale,
+  locale: defaultData.navSetting.locale,
   messages: getLangAll(),
 })
 

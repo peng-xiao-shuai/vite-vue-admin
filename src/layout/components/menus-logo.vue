@@ -63,7 +63,9 @@ export default {
   width: 100%;
   height: 50px;
   overflow: hidden;
-  border-bottom: 2px solid #f7f8f8;
+  border-bottom: 2px solid var(--el-border-color);
+  background: var(--el-bg-color-overlay);
+  transition: var(--el-transition-duration);
 }
 .logo-link {
   display: flex;

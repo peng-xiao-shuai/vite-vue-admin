@@ -47,6 +47,7 @@ export default {
   search: '搜索',
   'search.menus': '搜索菜单',
   'full.screen': '全屏',
+  'light/dark': '光/暗',
 
   default: '默认',
   large: '大号',

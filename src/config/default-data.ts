@@ -1,10 +1,12 @@
 import {
-  themeColor as themeColorInterface,
-  drawerSetting,
-  waterMarkType,
+  ThemeColor,
+  DrawerSetting,
+  WaterMarkType,
+  NavSettingType,
 } from '@/utils/interface'
+import { getStorage } from '@/utils/index'
 // 主题颜色
-const themeColor: themeColorInterface = {
+const themeColor: ThemeColor = {
   primary: '#AD49FF',
   success: '#67c23a',
   info: '#909399',
@@ -12,12 +14,7 @@ const themeColor: themeColorInterface = {
   danger: '#f56c6c',
 }
 
-const Tcolors: { [s: string]: string } = JSON.parse(
-  window.localStorage.getItem('themeColors') || '{}'
-)
-const Lcolors: { [s: string]: string } = JSON.parse(
-  window.localStorage.getItem('themeLightColors') || '{}'
-)
+const Tcolors: { [s: string]: string } = getStorage('themeColors') || '{}'
 Object.keys(Tcolors).forEach((item: string) => {
   document.documentElement.style.setProperty(item, Tcolors[item])
   const last = item.lastIndexOf('-')
@@ -30,29 +27,20 @@ Object.keys(Tcolors).forEach((item: string) => {
   }
 })
 
-// 设置颜色
-Object.keys(Lcolors).forEach((item: string) => {
-  document.documentElement.style.setProperty(item, Lcolors[item])
-})
-
-const locale: string = window.localStorage.getItem('locale') || 'zh-CN'
-const settings: drawerSetting = JSON.parse(
-  window.localStorage.getItem('settings') || '{}'
-)
-const waterMark: waterMarkType = JSON.parse(
-  window.localStorage.getItem('waterMark') || '{}'
-)
+const settings: DrawerSetting = getStorage('settings')
+const waterMark: WaterMarkType = getStorage('waterMark')
+const navSetting: NavSettingType = getStorage('navSetting')
 
 export type defaultDataType = {
   name: string
-  themeColor: themeColorInterface
+  themeColor: ThemeColor
   iconfont: string
   tabsName: string
   cardShadow: string
-  locale: string
   localeSelect: { value: string; label: string }[]
-  waterMark: waterMarkType
-  settings: drawerSetting
+  waterMark: WaterMarkType
+  settings: DrawerSetting
+  navSetting: NavSettingType
 }
 
 export default {
@@ -64,8 +52,6 @@ export default {
   tabsName: 'title',
   // 卡片阴影
   cardShadow: 'hover',
-  // 默认语言
-  locale,
   localeSelect: [
     {
       value: 'zh-CN',
@@ -80,6 +66,14 @@ export default {
       label: 'English',
     },
   ],
+  navSetting: Object.assign(
+    {
+      // 默认语言
+      locale: 'zh-CN',
+      size: 'default',
+    },
+    navSetting
+  ),
   // 全局水印
   waterMark: Object.assign(
     {

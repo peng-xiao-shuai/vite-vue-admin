@@ -1,14 +1,12 @@
-import { defineComponent, ref, getCurrentInstance } from 'vue'
-import { useStore } from 'vuex'
-import Cookies from 'js-cookie'
+import { defineComponent } from 'vue'
+import { useI18n } from 'vue-i18n'
 import defaultData from '@/config/default-data'
 import { ElMessage } from 'element-plus'
 
 export default defineComponent({
   setup() {
-    const store = useStore()
-    const { proxy } = getCurrentInstance() as any
-    const size = ref(Cookies.get('size') || 'small')
+    const { t } = useI18n()
+    const navSetting = defaultData.navSetting
 
     type SizeSelect = { value: string; label: string }
     const sizeSelect: SizeSelect[] = [
@@ -28,8 +26,8 @@ export default defineComponent({
 
     // 修改组件大小
     const setSize = (e: string) => {
-      Cookies.set('size', e)
-      size.value = e
+      navSetting.size = e
+      localStorage.setItem('navSetting', JSON.stringify(navSetting))
       ElMessage.success('修改成功！即将刷新网页')
       setTimeout(() => {
         window.location.reload()
@@ -50,23 +48,23 @@ export default defineComponent({
                   <div
                     style={{
                       color:
-                        size.value == item.value
-                          ? store.getters.getThemeColor
+                        navSetting.size == item.value
+                          ? 'var(--el-color-primary)'
                           : '#666',
                     }}
                   >
                     <i
                       class="language_r"
                       style={
-                        size.value == item.value
+                        navSetting.size == item.value
                           ? {
-                              borderColor: store.getters.getThemeColor,
-                              background: store.getters.getThemeColor,
+                              borderColor: 'var(--el-color-primary)',
+                              background: 'var(--el-color-primary)',
                             }
                           : {}
                       }
                     ></i>
-                    {proxy.t(item.label)}
+                    {t(item.label)}
                   </div>
                 </el-dropdown-item>
               )

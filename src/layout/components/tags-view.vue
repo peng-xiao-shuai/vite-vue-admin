@@ -284,7 +284,8 @@ export default defineComponent({
 <style lang="scss">
 .tags {
   padding: 7px 15px;
-  border-top: 2px solid #f7f8f8;
+  border-top: 2px solid var(--el-border-color);
+  transition: var(--el-transition-duration);
   display: flex;
 
   .el-scrollbar__view {
@@ -313,8 +314,9 @@ export default defineComponent({
     margin-right: 5px;
 
     &.el-icon {
-      width: 25px;
+      width: 30px;
       padding: 0;
+      font-size: 14px;
     }
 
     &:last-child {

@@ -146,15 +146,17 @@ export default defineComponent({
       position: -webkit-sticky;
       position: sticky;
       z-index: 6;
-      background: #fff;
+      background: var(--el-bg-color-overlay);
+      transition: var(--el-transition-duration);
       // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .view {
       width: 100%;
-      background: #eff1f4;
+      background: var(--el-fill-color);
+      transition: var(--el-transition-duration);
       box-sizing: border-box;
-      padding: 20px;
+      padding: 15px;
       overflow: hidden;
       position: relative;
 

@@ -23,7 +23,7 @@ export default defineComponent({
           }
           placement="bottom"
         >
-          <div class={['item', { isBug: store.getters.getBugNumber !== 0 }]}>
+          <div class={[{ isBug: store.getters.getBugNumber !== 0 }]}>
             <i
               class={[defaultData.iconfont, 'vitebug']}
               onClick={() => handleNavTo('/log/add-log')}
