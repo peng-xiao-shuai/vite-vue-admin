@@ -14,7 +14,7 @@ const themeColor: ThemeColor = {
   danger: '#f56c6c',
 }
 
-const Tcolors: { [s: string]: string } = getStorage('themeColors') || '{}'
+const Tcolors: { [s: string]: string } = getStorage('themeColors')
 Object.keys(Tcolors).forEach((item: string) => {
   document.documentElement.style.setProperty(item, Tcolors[item])
   const last = item.lastIndexOf('-')
