@@ -5,19 +5,20 @@ import '@kangc/v-md-editor/lib/style/base-editor.css'
 import VMdPreview from '@kangc/v-md-editor/lib/preview'
 
 // github主题
-import _githubTheme from '@kangc/v-md-editor/lib/theme/github.js'
-import '@kangc/v-md-editor/lib/theme/style/github.css'
+// import _githubTheme from '@kangc/v-md-editor/lib/theme/github.js'
+// import '@kangc/v-md-editor/lib/theme/style/github.css'
 
 // vuepress主题
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
 import '@kangc/v-md-editor/lib/theme/style/vuepress.css'
 
-import Prism from 'prismjs'
-VMdEditor.use(vuepressTheme, {
-  Prism,
-})
-VMdPreview.use(vuepressTheme, {
-  Prism,
+import('prismjs').then((Prism) => {
+  VMdEditor.use(vuepressTheme, {
+    Prism,
+  })
+  VMdPreview.use(vuepressTheme, {
+    Prism,
+  })
 })
 
 // 语言
@@ -25,15 +26,17 @@ VMdPreview.use(vuepressTheme, {
 // VMdEditor.lang.use('en-US', enUS);
 
 // katex
-import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn'
-VMdEditor.use(createKatexPlugin())
-VMdPreview.use(createKatexPlugin())
+import('@kangc/v-md-editor/lib/plugins/katex/cdn').then((module) => {
+  VMdEditor.use(module.default())
+  VMdPreview.use(module.default())
+})
 
 // 表情
-import createEmojiPlugin from '@kangc/v-md-editor/lib/plugins/emoji/index'
 import '@kangc/v-md-editor/lib/plugins/emoji/emoji.css'
-VMdEditor.use(createEmojiPlugin())
-VMdPreview.use(createEmojiPlugin())
+import('@kangc/v-md-editor/lib/plugins/emoji/index').then((module) => {
+  VMdEditor.use(module.default())
+  VMdPreview.use(module.default())
+})
 
 // 流程图
 // import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn';
@@ -42,15 +45,17 @@ VMdPreview.use(createEmojiPlugin())
 // VMdPreview.use(createMermaidPlugin());
 
 // 任务列表
-import createTodoListPlugin from '@kangc/v-md-editor/lib/plugins/todo-list/index'
 import '@kangc/v-md-editor/lib/plugins/todo-list/todo-list.css'
-VMdEditor.use(createTodoListPlugin())
-VMdPreview.use(createTodoListPlugin())
+import('@kangc/v-md-editor/lib/plugins/todo-list/index').then((module) => {
+  VMdEditor.use(module.default())
+  VMdPreview.use(module.default())
+})
 
 // 快速复制
-import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index'
 import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css'
-VMdEditor.use(createCopyCodePlugin())
-VMdPreview.use(createCopyCodePlugin())
+import('@kangc/v-md-editor/lib/plugins/copy-code/index').then((module) => {
+  VMdEditor.use(module.default())
+  VMdPreview.use(module.default())
+})
 
 export { VMdEditor, VMdPreview }
