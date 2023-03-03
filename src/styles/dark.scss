@@ -1,15 +1,10 @@
-
-/* 定义初始颜色
-------------------------------- */
-$--el-color-whites: #ffffff !default;
-$--el-color-blacks: #000000 !default;
-$--el-color-primary: #AD49FF !default;
+$--el-color-primary: #8139bc !default;
 $--el-color-success: #67c23a !default;
 $--el-color-info: #909399 !default;
 $--el-color-warning: #e6a23c !default;
 $--el-color-danger: #f56c6c !default;
 
-@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+@forward "element-plus/theme-chalk/src/dark/var.scss" with (
   $colors: (
     'primary': (
       'base': $--el-color-primary,
@@ -27,9 +22,4 @@ $--el-color-danger: #f56c6c !default;
       'base': $--el-color-info,
     ),
   ),
-  $menu: (
-    'hover-bg-color': var(--el-color-primary-light-7)
-  )
 );
-
-@use './dark.scss';

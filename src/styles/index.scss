@@ -1,5 +1,5 @@
 // 暗黑模块
-@use "element-plus/theme-chalk/dark/css-vars.css";
+@use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
 @use './iconfont.css';
 @use './common/transition.scss';
 @use './other.scss';
