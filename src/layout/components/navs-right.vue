@@ -19,7 +19,7 @@
     <!-- 用户 -->
     <div class="item">
       <el-dropdown class="avatar-container" trigger="hover">
-        <div class="icon">
+        <div class="header-icon">
           <img
             :src="icon"
             alt=""
@@ -67,7 +67,7 @@ import search from './nav-right/seacrh'
 import language from './nav-right/language.vue'
 import bug from './nav-right/bug'
 import fullScreen from './nav-right/full-screen'
-import dark from './nav-right/dark'
+import dark from './nav-right/dark.vue'
 import size from './nav-right/size'
 
 export default defineComponent({
@@ -135,6 +135,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     margin-right: 5px;
+    cursor: pointer;
     &:last-of-type {
       margin-right: 0;
     }
@@ -145,23 +146,26 @@ export default defineComponent({
     &:deep(.el-select) {
       border-bottom: 1px solid #ccc !important;
     }
-    .icon {
+    .header-icon {
       width: 35px;
       height: 35px;
       display: flex;
       align-items: flex-end;
     }
-    .viteIcon {
-      font-size: 26px;
-      color: #666;
-    }
+
     .viteIcon:focus,
+    .header-icon:focus,
     &:focus {
       outline: 0;
     }
 
+    i,
     .viteIcon {
-      font-size: 20px;
+      color: var(--el-text-color-regular);
+    }
+
+    .viteIcon {
+      font-size: 26px;
       padding: 5px;
       border: 1px solid rgba(0, 0, 0, 0);
       position: sticky;
@@ -172,12 +176,12 @@ export default defineComponent({
       align-items: center;
       box-sizing: border-box;
       font-size: 18px;
+      transition: var(--el-transition-duration);
     }
 
     .viteIcon:hover {
       border-radius: 5px;
-      background: #fff;
-      transition: all 1s;
+      // background: var(--el-fill-color-dark);
       border-color: var(--el-color-primary);
       color: var(--el-color-primary);
     }
@@ -190,29 +194,38 @@ export default defineComponent({
     position: relative;
 
     .viteIcon {
-      transition: all 0.4s;
+      transition: var(--el-transition-duration);
       color: #fff;
-      border-radius: 3px;
+      background: var(--el-color-danger);
+      font-weight: bold;
       overflow: hidden;
+      font-size: 20px;
+      border-radius: 5px;
     }
-    .viteIcon:hover {
-      transition: all 0.4s;
-      border-radius: 3px;
-      border-color: rgba(0, 0, 0, 0);
-      color: #fff;
+    &:hover {
+      .viteIcon {
+        color: #fff;
+        border-color: transparent;
+        background: var(--el-color-danger-light-3);
+      }
+      .bugNum {
+        background: var(--el-color-danger-light-3);
+      }
     }
 
     .bugNum {
+      transition: var(--el-transition-duration);
       position: absolute;
-      top: -3px;
-      right: 6px;
+      top: -2px;
+      right: -4px;
       width: 7px;
       height: 7px;
       text-align: center;
       line-height: 10px;
       display: inline-block;
+      background: var(--el-color-danger);
       border-radius: 50%;
-      border: 2px solid #fff;
+      border: 1.5px solid #fafafa;
     }
   }
 }

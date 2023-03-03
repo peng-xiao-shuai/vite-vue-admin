@@ -63,7 +63,7 @@ export default {
   width: 100%;
   height: 50px;
   overflow: hidden;
-  border-bottom: 2px solid var(--el-border-color);
+  border-bottom: 1px solid var(--el-border-color);
   background: var(--el-bg-color-overlay);
   transition: var(--el-transition-duration);
 }

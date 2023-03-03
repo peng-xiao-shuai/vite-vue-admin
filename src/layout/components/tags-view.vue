@@ -12,7 +12,6 @@
             v-for="(item, index) in tags"
             :key="item.name"
             :class="['tag', { active: currentName == item.name }]"
-            :style="currentName == item.name ? { background: themeColor } : {}"
           >
             <div @click="navTo(item)">
               {{ item?.meta?.locale ? t(item.meta.locale) : item?.meta?.title }}
@@ -284,7 +283,7 @@ export default defineComponent({
 <style lang="scss">
 .tags {
   padding: 7px 15px;
-  border-top: 2px solid var(--el-border-color);
+  border-top: 1px solid var(--el-border-color);
   transition: var(--el-transition-duration);
   display: flex;
 
@@ -301,9 +300,8 @@ export default defineComponent({
     cursor: pointer;
     padding: 4px 8px;
     height: 25px;
-    background: #fff;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--el-border-color);
     display: flex;
     align-items: center;
     font-size: 12px;
@@ -347,8 +345,8 @@ export default defineComponent({
     }
 
     .el-icon-close:hover {
-      background: #ccc;
-      color: #fff;
+      background: var(--el-fill-color);
+      color: var(--el-color-primary);
     }
   }
 
@@ -372,6 +370,7 @@ export default defineComponent({
     transition: all 0.2s;
     border-radius: 5px;
     border-color: rgba(0, 0, 0, 0);
+    background: var(--el-color-primary);
 
     i {
       color: #fff;

@@ -1,7 +1,6 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
 import defaultData from '@/config/default-data'
-import { SETLOCALE } from '@/language'
 
 export default defineComponent({
   setup() {
@@ -11,7 +10,9 @@ export default defineComponent({
 
     const setLocale = (val: string) => {
       if (val) {
-        SETLOCALE(val)
+        navSetting.locale = val
+        localStorage.setItem('navSetting', JSON.stringify(navSetting))
+        location.reload()
       }
     }
 

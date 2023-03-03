@@ -7,7 +7,6 @@
           defaultData.iconfont,
           collapse ? 'collapse' : '',
         ]"
-        :style="{ color: themeColor }"
         @click="handleCollapse"
       >
       </i>
@@ -135,7 +134,7 @@ export default {
     display: flex;
     align-items: center;
     .dropdown-div {
-      transition: all 0.4s;
+      transition: var(--el-transition-duration);
       outline: none;
       &:hover {
         color: var(--el-color-primary);
@@ -144,9 +143,10 @@ export default {
     > div {
       margin: 0 10px;
     }
-    i {
+    i.vitecaidan {
       font-size: 18px;
-      transition: all 0.4s;
+      transition: var(--el-transition-duration);
+      color: var(--el-color-primary);
     }
     i.el-icon-arrow-down {
       font-size: 12px;

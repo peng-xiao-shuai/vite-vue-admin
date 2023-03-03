@@ -144,7 +144,7 @@ export default defineComponent({
   }
 }
 :deep(.el-sub-menu__title) {
-  transition: inherit;
+  transition: var(--el-transition-duration);
 }
 
 .el-sub-menu.is-active > .el-sub-menu__title > .sub-menu-title {

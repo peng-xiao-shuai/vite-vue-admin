@@ -71,8 +71,12 @@ export default defineComponent({
   position: fixed;
   left: 0;
   top: 0;
+  :deep(.el-scrollbar__view) {
+    height: 100%;
+  }
   // transition: width 0.3s;
   :deep(.el-menu) {
+    height: 100%;
     background: var(--el-bg-color-overlay);
     transition: var(--el-transition-duration);
     border: none;
