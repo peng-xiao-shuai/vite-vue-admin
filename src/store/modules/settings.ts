@@ -2,18 +2,16 @@ import config from '@/config/default-data'
 import { create, remove } from '@/utils/watermark'
 import { nextTick } from 'vue'
 import {
-  drawerSetting,
-  themeColor,
-  log,
-  menuColors,
-  waterMarkType,
+  DrawerSetting,
+  ThemeColor,
+  Log,
+  WaterMarkType,
 } from '@/utils/interface'
 export interface SettingsState {
-  themeColor: themeColor
-  errorLog: log[]
-  drawerSetting: drawerSetting
-  menuColors: menuColors
-  waterMark: waterMarkType
+  themeColor: ThemeColor
+  errorLog: Log[]
+  drawerSetting: DrawerSetting
+  waterMark: WaterMarkType
 }
 
 // 初始化，是否灰度模式
@@ -25,7 +23,6 @@ const state: SettingsState = {
   themeColor: config.themeColor,
   errorLog: [],
   drawerSetting: config.settings,
-  menuColors: config.menuColors,
   waterMark: config.waterMark,
 }
 // 添加水印
@@ -34,7 +31,7 @@ nextTick(function () {
 })
 
 const mutations = {
-  setErrorLog(state: SettingsState, val: log) {
+  setErrorLog(state: SettingsState, val: Log) {
     state.errorLog.push(val)
   },
   // 修改主题颜色
@@ -44,14 +41,6 @@ const mutations = {
   ) {
     state.themeColor[key] = val
     console.log(state.themeColor[key], val)
-  },
-  // 修改菜单
-  setMenuColor(
-    state: SettingsState,
-    { key, val }: { val: string; key: string }
-  ) {
-    state.menuColors[key] = val
-    console.log(state.menuColors, { key, val })
   },
   // 用于修改非颜色属性
   setDrawerSetting(
