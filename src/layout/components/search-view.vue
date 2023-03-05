@@ -20,11 +20,11 @@
       </div>
     </div>
 
-    <!-- 220px = wrap的高度（150） + warp的下外边距（50） + view的padding（20 * 2） -->
+    <!-- 220px = wrap的高度（150） + warp的下外边距（50） -->
     <el-card
       :shadow="defaultData.cardShadow"
       body-style="padding: 0;height: 100%"
-      style="border: none; height: calc(100% - 240px)"
+      style="border: none; height: calc(100% - 150px - 50px)"
     >
       <el-scrollbar>
         <el-empty
