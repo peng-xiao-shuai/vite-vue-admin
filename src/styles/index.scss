@@ -3,3 +3,7 @@
 @use './iconfont.css';
 @use './common/transition.scss';
 @use './other.scss';
+
+:root {
+  --system-padding: 15px;
+}

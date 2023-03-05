@@ -20,6 +20,9 @@
   background-color: rgba(144, 147, 153, 0.5);
 }
 
+*:focus-visible {
+  outline: none;
+}
 // 顶部加载样式
 #nprogress {
   pointer-events: none;
@@ -72,13 +75,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: var(--system-padding);
 }
 
 .screenForm {
   display: flex;
   // justify-content:space-between;
-  margin-bottom: 15px;
+  margin-bottom: var(--system-padding);
 }
 .screenForm:last-child {
   margin: 0;
@@ -87,7 +90,9 @@
 .screenForm .el-form-item {
   margin: 0;
 }
-
+.pointer {
+  cursor: pointer;
+}
 // 提示语
 .tipBox {
   padding: 0px 16px;
