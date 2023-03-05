@@ -2,7 +2,6 @@ import { Component, createApp } from 'vue'
 import { Store } from 'vuex'
 import { Router, RouteLocationNormalizedLoaded } from 'vue-router'
 import App from './App.vue'
-import Cookies from 'js-cookie'
 import router from './router/index'
 import store, { State } from './store'
 import type { UserInfo } from './store/modules/user'
@@ -15,7 +14,6 @@ import { parseTime } from '@/utils/parse-time'
 // css
 import './styles/index.scss'
 import ElementPlus from 'element-plus'
-import { ElMessage, ElMessageBox } from 'element-plus'
 import * as ElementIcon from '@element-plus/icons'
 import powerfulTable from 'el-plus-powerful-table-ts/es'
 
@@ -60,8 +58,6 @@ if ((import.meta as any).env.MODE !== 'development') {
 }
 
 const app = createApp(App)
-app.provide('$message', ElMessage)
-app.provide('messageBox', ElMessageBox)
 
 app.mixin({
   computed: {
@@ -83,7 +79,7 @@ app
   .use(store)
   .use(powerfulTable)
   .use(ElementPlus, {
-    size: Cookies.get('size') || 'small',
+    size: defaultData.navSetting.size || 'small',
     zIndex: 3000,
     locale,
   })

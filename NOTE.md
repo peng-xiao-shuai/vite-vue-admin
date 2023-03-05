@@ -149,27 +149,27 @@ return withId(() =>
 ```
 <hr>
 
-### Vite 主题颜色修改 
+### Vite 主题颜色修改
 ``` scss
 // 定义变量
-$--color-primary: #409eff !default;
+$--el-color-primary: #409eff !default;
 
 div{
-  color: var(--color-primary)!important;
+  color: var(--el-color-primary)!important;
 }
 // 挂载到 root 上
 :root{
-   color: #{$--color-primary};
+   color: #{$--el-color-primary};
 }
 ```
 
 **Js 修改样式**
 ```js
-document.documentElement.style.setProperty('--color-primary', 'red')
+document.documentElement.style.setProperty('--el-color-primary', 'red')
 ```
 <hr>
 
-### Vite 使用TSX 
+### Vite 使用TSX
 1. 安装
 ```js
 yarn add @vitejs/plugin-vue-jsx
@@ -202,7 +202,7 @@ npm install @vitejs/plugin-vue-jsx -D
 ```
 
 3. 使用
-(1) 新建**.tsx 
+(1) 新建**.tsx
 ```js
 // index.tsx
 export default definedComponents({
@@ -315,7 +315,7 @@ export default definedComponents({
 ```js
 export default definedComponents({
   setup(props){
-    
+
     // 只有点击时执行
     const a = ()=>{
 
