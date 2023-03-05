@@ -31,7 +31,7 @@
         id="view"
         v-press-key:s="() => $throttle(() => (useSearch = true), 100)"
         :style="{
-          minHeight: `calc(100% - ${store.isTagsView ? '91px' : '50px'})`,
+          height: `calc(100% - ${store.isTagsView ? '91px' : '50px'})`,
         }"
       >
         <setting />
@@ -41,7 +41,8 @@
         </transition>
 
         <transition name="searchView">
-          <div
+          <el-scrollbar
+            style="height: 100%"
             v-show="!useSearch"
             v-press-key:escape="() => $throttle(() => (useSearch = false), 100)"
           >
@@ -52,7 +53,7 @@
               frameborder="0"
               v-bind="meta.iframeData"
             ></iframe>
-          </div>
+          </el-scrollbar>
         </transition>
       </div>
     </div>
@@ -138,8 +139,9 @@ export default defineComponent({
     // flex: 1;
     position: relative;
     right: 0;
+    max-height: 100vh;
     // overflow: hidden;
-    transition: all 0.3s;
+    transition: var(--el-transition-duration);
 
     .top {
       width: 100%;
@@ -156,13 +158,13 @@ export default defineComponent({
       background: var(--el-fill-color);
       transition: var(--el-transition-duration);
       box-sizing: border-box;
-      padding: 15px;
+      padding: var(--system-padding);
       overflow: hidden;
       position: relative;
 
       .search-view {
-        height: 100%;
-        width: calc(100% - 40px);
+        height: calc(100% - var(--system-padding) * 2);
+        width: calc(100% - var(--system-padding) * 2);
         position: absolute;
       }
     }
