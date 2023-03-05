@@ -1,153 +1,146 @@
 <template>
-  <div>
-    <div class="grid">
-      <div class="eachDiv eachDiv1">
-        <panel-group :count="count" :height="90" />
-        <el-card :shadow="defaultData.cardShadow">
-          <!-- eachDiv 原有高度 - panel-group高度 - panel-group(margin) - card(padding) -->
-          <HomeEcharts
-            :isSlot="true"
-            echartsId="chart"
-            :height="550 - 90 - 20 - 40"
-            :colors="colors"
-            :information="chart.value"
-            :title="t('user.login.line')"
-            types="line"
-          >
-            <template #default>
-              <!-- 版块切换 -->
-              <div class="typeSwitch">
-                <div
-                  v-for="(item, index) in count"
-                  :key="'switch' + index"
-                  :style="{
-                    background: current == index ? 'var(--color-primary)' : '',
-                    transition: 'all .2s',
-                  }"
-                  :class="{ 's-active': current == index }"
-                  @click="typeSwitch(index)"
-                >
-                  {{ t(item.locale) }}
-                </div>
-              </div>
-            </template>
-
-            <template #lineColor>
-              <!-- 线段颜色 -->
-              <div class="lineColor">
-                <div v-for="item in userLineColor.value" :key="item.color">
-                  <i :style="{ background: item.color }"></i>
-                  <span>{{ item.name }}</span>
-                </div>
-              </div>
-            </template>
-
-            <template #timeSwiper>
-              <!-- 时间段切换 -->
-              <div class="timeDropdown">
-                <el-dropdown @command="command">
-                  <span class="el-dropdown-link">
-                    {{ findTime
-                    }}<i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                  <template #dropdown>
-                    <el-dropdown-menu>
-                      <el-dropdown-item command="Month">Month</el-dropdown-item>
-                      <el-dropdown-item command="Fifteen"
-                        >Fifteen</el-dropdown-item
-                      >
-                      <el-dropdown-item command="Seven">Seven</el-dropdown-item>
-                    </el-dropdown-menu>
-                  </template>
-                </el-dropdown>
-              </div>
-            </template>
-          </HomeEcharts>
-        </el-card>
-      </div>
-
-      <div class="eachDiv eachDiv2">
-        <div class="moneyGrid">
-          <el-card :shadow="defaultData.cardShadow" class="eachDiv">
-            <!-- icon -->
-            <div class="viteIconBg">
-              <i :class="[defaultData.iconfont,'vitehome-daymoney']"></i>
-            </div>
-            <!-- text -->
-            <div class="text">
-              <div class="money">￥{{ earnings.value.dayMoney }}</div>
-              <span class="title">{{ t("day.income") }}</span>
-            </div>
-            <!-- 上升 -->
-            <div class="increase">
-              <i class="el-icon-top" style="color:  var(--color-primary)"
-                >{{ earnings.value.dayPercentage }}%</i
+  <div class="grid">
+    <div class="eachDiv eachDiv1">
+      <panel-group :count="count" :height="90" />
+      <el-card :shadow="defaultData.cardShadow">
+        <!-- eachDiv 原有高度 - panel-group高度 - panel-group(margin) - card(padding) -->
+        <HomeEcharts
+          :isSlot="true"
+          echartsId="chart"
+          :height="550 - 90 - 20 - 40"
+          :colors="colors"
+          :information="chart.value"
+          :title="t('user.login.line')"
+          types="line"
+        >
+          <template #default>
+            <!-- 版块切换 -->
+            <div class="typeSwitch">
+              <div
+                v-for="(item, index) in count"
+                :key="'switch' + index"
+                :class="[{ 'switch-active': current == index }, 'switch']"
+                @click="typeSwitch(index)"
               >
+                {{ t(item.locale) }}
+              </div>
             </div>
-          </el-card>
+          </template>
 
-          <el-card :shadow="defaultData.cardShadow" class="eachDiv">
-            <!-- icon -->
-            <div class="viteIconBg yellow">
-              <i :class="[defaultData.iconfont,'vitehome-zongshouyi']"></i>
+          <template #lineColor>
+            <!-- 线段颜色 -->
+            <div class="lineColor">
+              <div v-for="item in userLineColor.value" :key="item.color">
+                <i :style="{ background: item.color }"></i>
+                <span>{{ item.name }}</span>
+              </div>
             </div>
-            <!-- text -->
-            <div class="text">
-              <div class="money">￥{{ earnings.value.totalMoney }}</div>
-              <span class="title">{{ t("total.income") }}</span>
-            </div>
-            <!-- 上升 -->
-            <div class="increase">
-              <i class="el-icon-top" style="color: var(--color-primary)"
-                >{{ earnings.value.totalPercentage }}%</i
-              >
-            </div>
-          </el-card>
+          </template>
 
-          <el-card
-            :shadow="defaultData.cardShadow"
-            :body-style="{ padding: '20px' }"
-            class="eachDiv eachDiv-3"
-          >
-            <HomeEcharts
-              echartsId="earnings"
-              :height="550 - 170 - 20 - 40"
-              :colors="colors"
-              :information="earnings.chart"
-              types="line"
-              :title="t('income.line')"
-            ></HomeEcharts>
-          </el-card>
-        </div>
-      </div>
-      <div class="eachDiv eachDiv3">
-        <el-card :shadow="defaultData.cardShadow">
-          <div class="echartsBox">
-            <div class="un-handle-layout">
-              <HomeEcharts
-                echartsId="pageviewData"
-                :height="310 - 40"
-                :colors="colors"
-                :information="pageviewData.value"
-                types="homeCake"
-                :title="t('page.view.pillar')"
-              ></HomeEcharts>
+          <template #timeSwiper>
+            <!-- 时间段切换 -->
+            <div class="timeDropdown">
+              <el-dropdown @command="command">
+                <span class="el-dropdown-link pointer">
+                  {{ findTime
+                  }}<el-icon class="el-icon--right"><ArrowDown /></el-icon>
+                </span>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item command="Month">Month</el-dropdown-item>
+                    <el-dropdown-item command="Fifteen"
+                      >Fifteen</el-dropdown-item
+                    >
+                    <el-dropdown-item command="Seven">Seven</el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
             </div>
+          </template>
+        </HomeEcharts>
+      </el-card>
+    </div>
+
+    <div class="eachDiv eachDiv2">
+      <div class="moneyGrid">
+        <el-card :shadow="defaultData.cardShadow" class="eachDiv">
+          <!-- icon -->
+          <div class="viteIconBg">
+            <i :class="[defaultData.iconfont, 'vitehome-daymoney']"></i>
+          </div>
+          <!-- text -->
+          <div class="text">
+            <div class="money">￥{{ earnings.value.dayMoney }}</div>
+            <span class="title">{{ t('day.income') }}</span>
+          </div>
+          <!-- 上升 -->
+          <div class="increase">
+            <el-icon style="color: var(--el-color-primary)"
+              ><el-icon-top
+            /></el-icon>
           </div>
         </el-card>
-      </div>
-      <div class="eachDiv eachDiv4">
-        <el-card :shadow="defaultData.cardShadow">
-          <h3
-            style="
-              margin: 0 0 10px 0;
-              display: flex;
-              justify-content: space-between;
-            "
-          >
-            <span>{{ t("commit.list") }}</span>
 
-            <!-- <router-link
+        <el-card :shadow="defaultData.cardShadow" class="eachDiv">
+          <!-- icon -->
+          <div class="viteIconBg yellow">
+            <i :class="[defaultData.iconfont, 'vitehome-zongshouyi']"></i>
+          </div>
+          <!-- text -->
+          <div class="text">
+            <div class="money">￥{{ earnings.value.totalMoney }}</div>
+            <span class="title">{{ t('total.income') }}</span>
+          </div>
+          <!-- 上升 -->
+          <div class="increase">
+            <el-icon style="color: var(--el-color-primary)"><Top /></el-icon>
+          </div>
+        </el-card>
+
+        <el-card
+          :shadow="defaultData.cardShadow"
+          :body-style="{ padding: '20px' }"
+          class="eachDiv eachDiv-3"
+        >
+          <HomeEcharts
+            echartsId="earnings"
+            :height="550 - 170 - 20 - 40"
+            :colors="colors"
+            :information="earnings.chart"
+            types="line"
+            :title="t('income.line')"
+          />
+        </el-card>
+      </div>
+    </div>
+    <div class="eachDiv eachDiv3">
+      <el-card :shadow="defaultData.cardShadow">
+        <div class="echartsBox">
+          <div class="un-handle-layout">
+            <HomeEcharts
+              echartsId="pageviewData"
+              :height="310 - 40"
+              :colors="colors"
+              :information="pageviewData.value"
+              types="homeCake"
+              :title="t('page.view.pillar')"
+            />
+          </div>
+        </div>
+      </el-card>
+    </div>
+    <div class="eachDiv eachDiv4">
+      <el-card :shadow="defaultData.cardShadow">
+        <h3
+          style="
+            margin: 0 0 10px 0;
+            display: flex;
+            justify-content: space-between;
+          "
+        >
+          <span>{{ t('commit.list') }}</span>
+
+          <!-- <router-link
               :to="{ name: 'submitList' }"
               :style="{
                 color: themeColor,
@@ -156,35 +149,27 @@
               }"
               >查看全部</router-link
             > -->
-          </h3>
-          <el-scrollbar
-            style="
-              height: calc(100% - 40px);
-              width: 100%;
-              box-sizing: border-box;
-            "
-          >
-            <powerful-table
-              :isSelect="false"
-              :isPagination="false"
-              :list="list.value"
-              :header="tbConfig"
-            ></powerful-table>
-          </el-scrollbar>
-        </el-card>
-      </div>
+        </h3>
+        <powerful-table
+          :isSelect="false"
+          :isPagination="false"
+          :list="list.value"
+          :header="tableHeader"
+        />
+      </el-card>
     </div>
   </div>
 </template>
 
-<script lang='ts'>
-import HomeEcharts from "@/components/easy-echart/index.vue";
-import PanelGroup from "./components/PanelGroup.vue";
-import lineBarEcharts from "./components/lineBarEcharts.vue";
+<script lang="ts">
+import { ArrowDown, Top } from '@element-plus/icons'
+import HomeEcharts from '@/components/easy-echart/index.vue'
+import PanelGroup from './components/PanelGroup.vue'
+// import lineBarEcharts from './components/lineBarEcharts.vue'
 
-import { useStore } from "vuex";
-import * as echarts from "echarts";
-import "vue3-number-roll-plus/main.css"
+import { useStore } from 'vuex'
+import * as echarts from 'echarts'
+import 'vue3-number-roll-plus/main.css'
 
 import {
   pageviewChart,
@@ -192,21 +177,23 @@ import {
   earningsFun,
   chartFun,
   tableFun,
-} from "@/api/home";
-import { defineComponent, reactive, ref } from "vue";
-import { header } from "./indexData";
+} from '@/api/home'
+import { defineComponent, reactive, ref } from 'vue'
+import { header, Count } from './indexData'
 
 export default defineComponent({
-  name: "home",
+  name: 'Home',
   components: {
     HomeEcharts,
     PanelGroup,
-    lineBarEcharts
+    ArrowDown,
+    Top,
+    // lineBarEcharts,
   },
   setup() {
     // 曲线图颜色
     type ChartColor = {
-      opacity: number,
+      opacity: number
       color: any
     }
     const chartColor: ChartColor[] = [
@@ -219,7 +206,7 @@ export default defineComponent({
           },
           {
             offset: 1,
-            color: "rgba(255, 255, 255,0)",
+            color: 'rgba(255, 255, 255,0)',
           },
         ]),
       },
@@ -228,178 +215,170 @@ export default defineComponent({
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
           {
             offset: 0,
-            color: "#55bcff",
+            color: '#55bcff',
           },
           {
             offset: 1,
-            color: "rgba(255, 255, 255,0)",
+            color: 'rgba(255, 255, 255,0)',
           },
         ]),
       },
-    ];
+    ]
     // 曲线图线段颜色
     const colors: string[] = [
       useStore().state.settings.themeColor.primary,
-      "#55bcff",
-      "#F6A829",
-      "#646cff",
-    ];
+      '#55bcff',
+      '#F6A829',
+      '#646cff',
+    ]
 
-    type Count = {
-      icon: string;
-      title: string;
-      value: string;
-      locale: string;
-      key: string;
-      color: any;
-    }
     let count = reactive<Count[]>([
       {
-        icon: "vitehome-user",
-        title: "用户",
-        value: "",
-        locale: "user",
-        key: "users",
-        color: useStore().state.settings.themeColor.primary,
+        icon: 'vitehome-user',
+        title: '用户',
+        value: '',
+        locale: 'user',
+        key: 'users',
+        color: 'var(--el-color-primary)',
       },
       {
-        icon: "vitehome-wengzhang",
-        title: "文章",
-        value: "",
-        locale: "article",
-        key: "shoppings",
-        color: "#55bcff",
+        icon: 'vitehome-wengzhang',
+        title: '文章',
+        value: '',
+        locale: 'article',
+        key: 'shoppings',
+        color: '#55bcff',
       },
       {
-        icon: "vitehome-liulanliang",
-        title: "浏览量",
-        value: "",
-        locale: "page.view",
-        key: "pageview",
-        color: "#646cff ",
+        icon: 'vitehome-liulanliang',
+        title: '浏览量',
+        value: '',
+        locale: 'page.view',
+        key: 'pageview',
+        color: '#646cff ',
       },
       {
-        icon: "vitehome-done",
-        title: "已提交",
-        value: "",
-        key: "done",
-        locale: "commit",
-        color: "#F6A829 ",
+        icon: 'vitehome-done',
+        title: '已提交',
+        value: '',
+        key: 'done',
+        locale: 'commit',
+        color: '#F6A829 ',
       },
-    ]);
-    let chart = reactive({ value: {} });
-    let pageviewData = reactive({ value: {} });
+    ])
+    let chart = reactive({ value: {} })
+    let pageviewData = reactive({ value: {} })
 
     // 自定义线段颜色
-    type UserLineColor = {value: {name: string, color: string}[]}
-    let userLineColor: UserLineColor = reactive({ value: [] });
+    type UserLineColor = { value: { name: string; color: string }[] }
+    let userLineColor: UserLineColor = reactive({ value: [] })
 
-    let current = ref(0);
+    let current = ref(0)
     interface Earnings {
       value: {
-        dayMoney: number|string,
-        dayPercentage: number|string,
-        totalMoney: number|string,
-        totalPercentage: number|string
-      },
+        dayMoney: number | string
+        dayPercentage: number | string
+        totalMoney: number | string
+        totalPercentage: number | string
+      }
       chart: {}
     }
-    let earnings = reactive<Earnings>({ 
+    let earnings = reactive<Earnings>({
       value: {
         dayMoney: '',
         dayPercentage: '',
         totalMoney: '',
         totalPercentage: '',
-      }, 
-      chart: {} 
-    });
+      },
+      chart: {},
+    })
 
     // 表格相关
     let listQuery = reactive({
       pageSize: 3,
       pageNum: 1,
-    });
-    let list = reactive({ value: [] });
-    let tbConfig = reactive(header);
+    })
+    let list = reactive({ value: [] })
+    let tableHeader = reactive(header)
     // end
 
-    let findTime = ref("Seven");
+    let findTime = ref('Seven')
 
     function typeSwitch(i: number) {
-      current.value = i;
+      current.value = i
 
-      handleChart(i);
+      handleChart(i)
     }
 
     function command(e: string) {
-      handleChart(current.value, e);
+      handleChart(current.value, e)
     }
 
     // 浏览量
     function handlePageview() {
       pageviewChart().then((res) => {
-        pageviewData.value = res.data;
-      });
+        pageviewData.value = res.data
+      })
     }
-    function handleChart(status: number | string, period: string = "Seven") {
-      findTime.value = period;
+    function handleChart(status: number, period = 'Seven') {
+      findTime.value = period
 
-      userLineColor.value = [];
+      userLineColor.value = []
       chartFun({ status, period }).then((res) => {
         res.data.homeDateInfoResult.forEach((item: any, index: number) => {
-          item.areaStyle = chartColor[index];
+          item.areaStyle = chartColor[index]
 
           userLineColor.value.push({
             name: item.name,
             color: colors[index],
-          });
-        });
-        chart.value = res.data;
-      });
+          })
+        })
+        chart.value = res.data
+      })
     }
     function handleCount() {
       countFun().then((res) => {
         count.forEach((i: Count) => {
-          i.value = res.data[i.key];
-        });
-      });
+          i.value = res.data[i.key]
+        })
+      })
     }
 
     // 收益
     function handleEarnings() {
       earningsFun().then((res) => {
-        earnings.value = res.data.money;
+        earnings.value = res.data.money
 
         res.data.chart.homeDateInfoResult.forEach(
           (item: any, index: number) => {
-            item.areaStyle = chartColor[index];
+            item.areaStyle = chartColor[index]
           }
-        );
-        earnings.chart = res.data.chart;
+        )
+        earnings.chart = res.data.chart
         // console.log(earnings);
-      });
+      })
     }
 
     // 提交信息
     function handleGetTable(e?: {
-      pageNum: number | string;
-      pageSize: number | string;
+      pageNum: number | string
+      pageSize: number | string
     }) {
-      Object.assign(listQuery, e ? e : {});
+      Object.assign(listQuery, e ? e : {})
       tableFun(listQuery).then((res) => {
-        list.value = res.data.list;
-      });
+        list.value = res.data.list
+      })
     }
-    handleGetTable();
+    handleGetTable()
 
     // 统计
-    handleCount();
+    handleCount()
 
-    handleChart(0);
+    handleChart(0)
 
-    handlePageview();
+    handlePageview()
 
-    handleEarnings();
+    handleEarnings()
 
     return {
       count,
@@ -408,7 +387,7 @@ export default defineComponent({
       earnings,
       colors,
       list,
-      tbConfig,
+      tableHeader,
       current,
       userLineColor,
       findTime,
@@ -416,9 +395,9 @@ export default defineComponent({
       handleGetTable,
       typeSwitch,
       command,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>
@@ -445,10 +424,13 @@ export default defineComponent({
       > div {
         flex: 1;
         text-align: center;
+        color: var(--el-text-color-regular);
+        background: var(--el-fill-color);
       }
 
-      .s-active {
-        color: #fff !important;
+      .switch-active {
+        background: var(--el-color-primary);
+        color: #fff;
       }
     }
 
@@ -483,7 +465,7 @@ export default defineComponent({
       border-radius: 25px;
       height: 25px;
       font-size: 14px;
-      background: #eff1f4;
+      background: var(--el-fill-color);
     }
   }
 
@@ -525,6 +507,7 @@ export default defineComponent({
 
       .eachDiv {
         width: 100%;
+        box-sizing: border-box;
 
         :deep() .el-card {
           height: 100%;
@@ -549,7 +532,7 @@ export default defineComponent({
           text-align: center;
 
           .money {
-            color: rgb(49, 53, 129);
+            color: var(--el-color-primary-dark-2);
             font-size: 22px;
             font-weight: bold;
           }
@@ -569,8 +552,8 @@ export default defineComponent({
           height: 60px;
           background: linear-gradient(
             to top,
-            rgba(100, 108, 255),
-            rgb(167, 170, 255)
+            var(--el-color-primary),
+            var(--el-color-primary-light-7)
           );
           border-radius: 50%;
           display: flex;
@@ -588,111 +571,6 @@ export default defineComponent({
         }
       }
     }
-  }
-}
-</style>
-
-<style scoped>
-.app-container {
-  margin-top: 40px;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-.total-layout {
-  margin-top: 20px;
-}
-
-.total-frame {
-  border: 1px solid #dcdfe6;
-  padding: 20px;
-  height: 100px;
-}
-
-.total-icon {
-  color: #409eff;
-  width: 60px;
-  height: 60px;
-}
-
-.total-title {
-  position: relative;
-  font-size: 16px;
-  color: #909399;
-  left: 70px;
-  top: -50px;
-}
-
-.total-value {
-  position: relative;
-  font-size: 18px;
-  color: #606266;
-  left: 70px;
-  top: -40px;
-}
-
-.layout-title {
-  color: #606266;
-  padding: 15px 20px;
-  background: #f2f6fc;
-  font-weight: bold;
-}
-
-.un-handle-content {
-  padding: 20px 40px;
-}
-
-.un-handle-item {
-  border-bottom: 1px solid #ebeef5;
-  padding: 10px;
-}
-
-.overview-layout {
-  margin-top: 20px;
-}
-
-.overview-item-value {
-  font-size: 24px;
-  text-align: center;
-}
-
-.overview-item-title {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.out-border {
-  border: 1px solid #dcdfe6;
-}
-
-.statistics-layout {
-  border: 1px solid #dcdfe6;
-}
-
-.mine-layout {
-  position: absolute;
-  right: 140px;
-  top: 107px;
-  width: 250px;
-  height: 235px;
-}
-
-.address-content {
-  padding: 20px;
-  font-size: 18px;
-}
-
-.chart-wrapper {
-  height: 280px;
-  background: #fff;
-  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.05);
-  padding: 16px 16px 0;
-  margin-bottom: 32px;
-}
-
-@media (max-width: 1024px) {
-  .chart-wrapper {
-    padding: 8px;
   }
 }
 </style>
