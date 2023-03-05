@@ -196,7 +196,7 @@ export default defineComponent({
         },
       }
 
-      series.data = props.information.horizontalList.map((item, index) => {
+      series.data = props.information.horizontalList.map((item) => {
         let each = {
           value: item.value,
           name: item.name,
@@ -264,7 +264,7 @@ export default defineComponent({
         },
       }
 
-      series.data = props.information.horizontalList.map((item, index) => {
+      series.data = props.information.horizontalList.map((item) => {
         let each = {
           value: item.value,
           name: item.name,
@@ -311,7 +311,7 @@ export default defineComponent({
   line-height: 30px;
   font-size: 18px;
   font-weight: bold;
-  color: #333;
+  color: var(--el-text-color-primary);
 }
 
 .topOperate {
