@@ -245,7 +245,7 @@ export default defineComponent({
         itemStyle: {
           borderRadius: 10,
           borderColor: '#fff',
-          borderWidth: 10,
+          borderWidth: 1,
         },
         label: {
           show: false,
@@ -286,7 +286,7 @@ export default defineComponent({
           backgroundColor: 'rgb(228, 230, 255)',
           borderRadius: 5,
           padding: [25, 15, 25, 15],
-          icon: 'pin',
+          // icon: 'pin',
         },
         title: {
           // text: this.title,
