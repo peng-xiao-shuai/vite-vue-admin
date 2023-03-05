@@ -147,7 +147,8 @@ export default defineComponent({
   transition: var(--el-transition-duration);
 }
 
-.el-sub-menu.is-active > .el-sub-menu__title > .sub-menu-title {
+.el-sub-menu.is-active > .el-sub-menu__title > .sub-menu-title,
+.el-menu-item.is-active {
   // overflowX: collapse ? 'visible' : 'hidden',
   width: 100%;
   text-overflow: ellipsis;
