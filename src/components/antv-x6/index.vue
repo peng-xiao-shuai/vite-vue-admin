@@ -2,51 +2,56 @@
   <!-- <el-card class="filter-container" :shadow="defaultData.cardShadow"> -->
   <div style="width: 100%" id="container"></div>
 
-  <el-dialog
-    :title="currentForm.value.id ? '修改' : '添加'"
-    v-model="isDialog"
-    @close="close"
-  >
-    <el-form
-      :model="currentForm.value"
-      :rules="rules"
-      ref="updateForm"
-      label-position="top"
-      style="padding: 0 20px 20px"
-      class="Dform"
+  <div class="antv-x6-dialog">
+    <el-dialog
+      width="350px"
+      :title="currentForm.id ? '修改' : '添加'"
+      v-model="isDialog"
+      @close="close"
+      class="dialog-box"
+      align-center
     >
-      <el-form-item
-        v-if="currentForm.value.parentName"
-        label="上级城市名称"
-        prop="parentName"
+      <el-form
+        :model="currentForm"
+        :rules="rules"
+        ref="updateForm"
+        label-position="top"
+        size="default"
       >
-        <el-input
-          disabled
-          v-model="currentForm.value.parentName"
-          placeholder="请输入上级城市名称"
-        />
-      </el-form-item>
+        <el-form-item
+          v-if="currentForm.parentName"
+          label="上级城市名称"
+          prop="parentName"
+        >
+          <el-input
+            disabled
+            v-model="currentForm.parentName"
+            placeholder="请输入上级城市名称"
+          />
+        </el-form-item>
 
-      <el-form-item label="城市名称" prop="name">
-        <el-input
-          v-model="currentForm.value.name"
-          placeholder="请输入城市名称"
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">提交</el-button>
-      </el-form-item>
-    </el-form>
-  </el-dialog>
+        <el-form-item label="城市名称" prop="name">
+          <el-input v-model="currentForm.name" placeholder="请输入城市名称" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button type="primary" size="default" @click="onSubmit"
+          >提交</el-button
+        >
+      </template>
+    </el-dialog>
+  </div>
   <!-- </el-card> -->
 </template>
 
-<script>
-import { defineComponent, ref, nextTick, inject, reactive } from 'vue'
-import { Graph } from '@antv/x6'
+<script lang="ts">
+import { defineComponent, ref, nextTick, reactive } from 'vue'
+import { Graph, Cell } from '@antv/x6'
+import { ElMessage, ElForm } from 'element-plus'
 import { AntvX6 } from '@/api/other'
+import { getStorage } from '@/utils'
 // import "@antv/x6-vue-shape"
-import { u_graph, addNode, addEdge } from './uiils'
+import { u_graph, addNode, addEdge, FormData } from './uiils'
 let nodeId = 13
 export default defineComponent({
   props: {
@@ -57,46 +62,40 @@ export default defineComponent({
   },
   setup() {
     const isDialog = ref(false)
-    let message = inject('$message')
     // x6 实例
-    let graph = null
+    let graph: Graph | null = null
     // 节点实例 节点点击时需要
-    let currentCell = null
-
-    const nodesPosition = {}
-
-    let updateForm = ref(null)
-    let currentForm = reactive({
-      value: {
-        name: '',
-        parentId: 0,
-        jsonStr: JSON.stringify({ x: 0, y: 0 }),
-      },
+    let currentCell: Cell | null = null
+    const nodesPosition: Indexes = {}
+    const updateForm = ref<InstanceType<typeof ElForm> | null>(null)
+    const currentForm: FormData = reactive({
+      name: '',
+      parentId: '0',
+      jsonStr: JSON.stringify({ x: 0, y: 0 }),
     })
 
     // 获取数据
-    const getlist = (parentId = 0, _cell) => {
+    const getList = (parentId = '0', _cell?: Cell) => {
       AntvX6({ parentId }).then((res) => {
-        res.data.forEach((item) => {
+        res.data.forEach((item: FormData) => {
           const node = addNode(graph, item)
 
           // parentId != 0 添加链接桩
-          if (parentId != 0) {
+          if (parentId != '0') {
             // 添加为子节点
-            _cell.addChild(node)
+            _cell!.addChild(node)
             // 添加边
-            addEdge(graph, parentId, item.id)
-
-            _cell.setAttrs({ isAjax: true })
+            addEdge(graph!, parentId, String(item.id!))
           }
         })
+        _cell && (_cell?.setAttrs as any)({ isAjax: true })
       })
     }
 
     nextTick(() => {
-      graph = new Graph(u_graph(document.getElementById('container')))
-      // console.log(graph)
-      getlist()
+      graph = new Graph(u_graph(document.getElementById('container')!))
+      getList()
+      // https://x6.antv.vision/zh/docs/tutorial/intermediate/events
       // 悬浮显示删除线
       graph.on('edge:mouseenter', ({ edge }) => {
         edge.addTools([
@@ -117,7 +116,7 @@ export default defineComponent({
       graph.on('edge:removed', ({ edge, options }) => {
         console.log(options.ui)
         if (options.ui) {
-          message.success('删除连接线！id为' + edge.id)
+          ElMessage.success('删除连接线！id为' + edge.id)
           return
         }
       })
@@ -127,12 +126,12 @@ export default defineComponent({
         // 添加一级城市 无上级id
         isDialog.value = true
 
-        currentForm.value.jsonStr = JSON.stringify({ x, y })
+        currentForm.jsonStr = JSON.stringify({ x, y })
       })
 
       // 节点点击
       graph.on('node:click', ({ cell }) => {
-        Object.assign(currentForm.value, cell.attrs.currentForm || {})
+        Object.assign(currentForm, cell.attrs!.currentForm || {})
         currentCell = cell
         isDialog.value = true
       })
@@ -183,20 +182,20 @@ export default defineComponent({
                   },
                 },
               ],
-              onClick({ cell }) {
-                console.log(cell)
-                if (!cell.attrs.isAjax) {
-                  getlist(cell.id, cell)
+              onClick({ cell }: { cell: Cell }) {
+                if (!cell.attrs!.isAjax) {
+                  getList(cell.id, cell)
                 } else {
-                  cell.children.forEach((item) => {
-                    if (cell.attrs.isHide) {
+                  cell.children!.forEach((item) => {
+                    if (cell.attrs!.isHide) {
                       item.hide()
                     } else {
                       item.show()
                     }
                   })
 
-                  cell.setAttrs({ isHide: !cell.attrs.isHide })
+                  cell &&
+                    (cell?.setAttrs as any)({ isHide: !cell.attrs!.isHide })
                 }
               },
             },
@@ -240,8 +239,8 @@ export default defineComponent({
           //       isDialog.value = true
           //       position = cell.attrs.position
 
-          //       currentForm.value.parentId = cell.attrs.currentForm.id
-          //       currentForm.value.parentName = cell.attrs.currentForm.name
+          //       currentForm.parentId = cell.attrs.currentForm.id
+          //       currentForm.parentName = cell.attrs.currentForm.name
           //     },
           //   },
           // },
@@ -251,11 +250,11 @@ export default defineComponent({
             args: {
               x: 0,
               y: 0,
-              offset: { x: node.attrs.width, y: 10 },
+              offset: { x: node.attrs!.width, y: 10 },
               onClick() {
                 setTimeout(() => {
-                  message.success('删除成功！')
-                  graph.removeNode(node.id)
+                  ElMessage.success('删除成功！')
+                  graph!.removeNode(node.id)
                 }, 200)
               },
             },
@@ -273,32 +272,29 @@ export default defineComponent({
         nodesPosition[node.id] = node.position()
 
         // 存储用户 移动位置
-        window.localStorage.setItem(
+        localStorage.setItem(
           'nodesPosition',
           JSON.stringify(
-            Object.assign(
-              JSON.parse(window.localStorage.getItem('nodesPosition')) || {},
-              nodesPosition
-            )
+            Object.assign(getStorage('nodesPosition'), nodesPosition)
           )
         )
       })
     })
 
     // 关闭回调
-    const close = (status) => {
+    const close = (status: string) => {
       if (status === 'add') {
         // console.log(graph, Node, Cell)
         // 添加节点
-        addNode(graph, currentForm.value)
+        addNode(graph, currentForm)
       } else if (status === 'update') {
         // 修改名称
-        currentCell.setAttrs({ label: { text: currentForm.value.name } })
+        currentCell!.setAttrs({ label: { text: currentForm.name } })
       }
 
       // 还原
       setTimeout(() => {
-        currentForm.value = reactive({
+        Object.assign(currentForm, {
           name: '',
           parentId: 0,
           jsonStr: JSON.stringify({ x: 0, y: 0 }),
@@ -307,19 +303,19 @@ export default defineComponent({
     }
 
     const onSubmit = () => {
-      updateForm.value.validate((valid) => {
+      updateForm.value!.validate((valid) => {
         if (valid) {
-          if (currentForm.value.id) {
+          if (currentForm.id) {
             setTimeout(() => {
-              message.success('修改成功')
+              ElMessage.success('修改成功')
               close('update')
             }, 200)
           } else {
             setTimeout(() => {
               ++nodeId
-              message.success('添加成功')
+              ElMessage.success('添加成功')
               // id 需要后端添加成功后返回
-              currentForm.value.id = nodeId
+              currentForm.id = nodeId
               close('add')
             }, 200)
           }
@@ -329,7 +325,7 @@ export default defineComponent({
             isDialog.value = false
           }, 200)
         } else {
-          // message.error("验证失败");
+          // ElMessage.error("验证失败");
           return false
         }
       })
@@ -363,3 +359,11 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.antv-x6-dialog :deep(.dialog-box) {
+  .el-dialog__body {
+    padding: 0px var(--el-dialog-padding-primary);
+  }
+}
+</style>

@@ -17,7 +17,7 @@ export const getLogList = (params: logList) =>
     params,
   })
 
-export const AntvX6 = (params: { parentId: number }) =>
+export const AntvX6 = (params: { parentId: string }) =>
   request({
     url: 'antvx6/list',
     method: 'get',

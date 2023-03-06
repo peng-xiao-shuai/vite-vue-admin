@@ -12,7 +12,7 @@ const positions: { [s: string | number]: { x: number; y: number } } =
  * @param {*} mapContainer 小地图id
  * @returns
  */
-export function u_graph(container: HTMLElement, _mapContainer: HTMLElement) {
+export function u_graph(container: HTMLElement, _mapContainer?: HTMLElement) {
   return {
     // 滚动
     // scroller: {
@@ -24,7 +24,7 @@ export function u_graph(container: HTMLElement, _mapContainer: HTMLElement) {
     //   container: _mapContainer,
     // },
     container: container,
-    width: '100%',
+    width: 1000,
     height: 700,
     grid: true,
     connecting: {
@@ -55,24 +55,22 @@ export function u_graph(container: HTMLElement, _mapContainer: HTMLElement) {
 
         return true
       },
-      validateEdge({ edge }: { edge: Edge }) {
+      validateEdge({ edge }: { edge: Edge }): boolean {
         const target = edge.getTargetNode()
         const source = edge.getSourceNode()
 
         // 为null 拦截
-        if (!source) return
+        if (!source) return false
 
         source.addChild(target)
         // 绑定上级
-        return setTimeout(() => {
-          ElMessage.success(
-            '绑定成功！id为' +
-              target?.id +
-              '名称为' +
-              (target && target.attrs && target.attrs.currentForm.name)
-          )
-          return true
-        })
+        ElMessage.success(
+          '绑定成功！id为' +
+            target?.id +
+            '名称为' +
+            (target && target.attrs && target.attrs.currentForm.name)
+        )
+        return true
       },
 
       connector: {
@@ -143,7 +141,6 @@ export const groups = {
  * @param {object} currentForm
  * @param {object} position
  */
-
 export function addNode(graph: any, currentForm: any) {
   const width =
     currentForm.name.length * 10 < 80 ? 80 : currentForm.name.length * 10
@@ -233,4 +230,12 @@ export function addEdge(graph: Graph, sourceId: string, targetId: string) {
       },
     },
   })
+}
+
+export type FormData = {
+  name: string
+  parentId: string
+  jsonStr: string
+  parentName?: string
+  id?: number
 }
