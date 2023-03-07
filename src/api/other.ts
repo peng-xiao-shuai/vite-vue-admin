@@ -25,4 +25,4 @@ export const AntvX6 = (params: { parentId: string }) =>
   })
 
 // 上传媒体
-export const media = 'api/minio/upload'
+export const media = 'minio/upload'

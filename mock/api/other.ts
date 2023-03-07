@@ -38,4 +38,17 @@ export default [
       }
     },
   },
+  {
+    url: 'minio/upload',
+    type: 'post',
+    response: () => {
+      return {
+        code: 200,
+        data: {
+          url: 'http://www.aiiup.cn/uploads/20190821/1-1Z115223503326.jpg',
+          name: '花瓶.jpg',
+        },
+      }
+    },
+  },
 ]
