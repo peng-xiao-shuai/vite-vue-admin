@@ -7,7 +7,7 @@
     @mouseup="handleUp"
     @click="handleClick"
   >
-    <el-icon><el-icon-arrow-left /></el-icon>
+    <el-icon><arrow-left /></el-icon>
   </div>
   <update-drawer v-model:drawer="drawer" />
 </template>

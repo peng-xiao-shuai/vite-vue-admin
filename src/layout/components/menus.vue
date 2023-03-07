@@ -18,6 +18,9 @@
         mode="vertical"
         :default-active="menuActive"
         class="el-menu-vertical-demo"
+        @select="() => {}"
+        @open="() => {}"
+        @close="() => {}"
       >
         <menus-item
           :index="Number(index) + 1"

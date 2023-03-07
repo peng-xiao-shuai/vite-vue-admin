@@ -20,7 +20,7 @@
               v-if="!item.remove"
               class="el-icon el-icon-close"
               @click.stop="remove(index)"
-              ><el-icon-close
+              ><Close
             /></i>
           </div>
         </transition-group>
