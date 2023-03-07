@@ -1,8 +1,11 @@
+@use 'element-plus/dist/index.css';
 // 暗黑模块
 @use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
+@use "element-plus/theme-chalk/src/common/var.scss" as *;
 @use './iconfont.css';
 @use './common/transition.scss';
 @use './other.scss';
+@use './loading.scss';
 
 :root {
   --system-padding: 15px;
