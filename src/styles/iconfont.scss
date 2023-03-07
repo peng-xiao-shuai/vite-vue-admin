@@ -8,7 +8,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-i[class^='vite'] {
+i[class*=vite] {
   font-family: "viteIcon" !important;
   font-size: 16px;
   font-style: normal;
