@@ -1,173 +1,185 @@
 <template>
-  <div class="app-container">
-    <el-select
-      filterable
-      remote
-      :remote-method="remoteMethod"
-      v-model="iconValue"
-      placeholder="请选择图标"
-      @change="change"
-      :style="style"
-    >
-      <template #prefix>
-        <div :style="{ color: themeColor }">
-          <i :class="[defaultData.iconfont, iconValue]"></i>
-        </div>
-      </template>
-      <div
-        class="icons"
-        :style="{
-          'grid-template-columns': `repeat(${columnNumber || 8}, 1fr)`,
-        }"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.icon"
-          :label="item.name"
-          :value="item.icon"
-        >
-          <div class="item">
-            <i :class="[defaultData.iconfont, item.icon]"></i>
-            <div class="iconName">{{ item.name }}</div>
-          </div>
-        </el-option>
+  <el-select
+    v-model="iconValue"
+    filterable
+    remote
+    reserve-keyword
+    clearable
+    placeholder="请选择图标"
+    :remote-method="remoteMethod"
+    :loading="loading"
+    @change="(val: string) => emits('update:icon', val)"
+  >
+    <template #prefix>
+      <div class="prefix _flex _flex-center">
+        <i :class="['el-icon', iconValue]">
+          <component v-if="type === 'element' && iconValue" :is="iconValue" />
+        </i>
       </div>
-    </el-select>
+    </template>
+    <div
+      class="icons"
+      :style="{
+        width: '750px',
+        'grid-template-columns': `repeat(${columnNumber || 7}, 1fr)`,
+        ...optionStyle,
+      }"
+    >
+      <el-option
+        v-for="item in options"
+        :key="item.name"
+        :label="item.name"
+        :value="item.name"
+      >
+        <div class="item _flex _flex-center _flex-wrap">
+          <template v-if="type == 'element'">
+            <el-icon>
+              <component :is="item.component" />
+            </el-icon>
+            <span class="_word-break">{{ item.name }}</span>
+          </template>
 
-    <!-- <el-card :shadow="defaultData.cardShadow">
-        <div class="operate-container">
-          <div>
-            <i :class="[defaultData.iconfont,'vitei']" style="margin-right: 5px"></i>
-            <span>图标</span>
-          </div>
+          <template v-else>
+            <i :class="[item.name]"></i>
+            <span class="_word-break">{{ item.name }}</span>
+          </template>
         </div>
-        <div class="icons">
-          <div v-for="(item, index) in icons" :key="index">
-            <i :class="[defaultData.iconfont, item.icon]"></i>
-            <div class="iconName">{{ item.name }}</div>
-          </div>
-        </div>
-      </el-card> -->
-  </div>
+      </el-option>
+    </div>
+  </el-select>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue'
-import icon from '@/styles/iconfont.css'
+<script lang="ts" setup>
+import { ref, watchEffect, watch, shallowRef } from 'vue'
+import type { Component } from 'vue'
+import axios from 'axios'
 
-export default defineComponent({
-  name: 'Icons',
-  props: {
-    /**
-     * 一排多少个
-     */
-    columnNumber: Number,
-    icon: {
-      type: String,
-      default: '',
-    },
-    /**
-     * 样式
-     */
-    style: {
-      type: Object,
-      default: () => {
-        return {
-          width: '100%',
-        }
-      },
-    },
-  },
-  emits: ['update:icon'],
-  setup(props, { emit }) {
-    // 获取所有的 class名
-    const array = [...icon.matchAll(/\.(\w|\-)*\:/g)].map((item: string) => {
-      return item[0].substr(1, item[0].length).slice(0, -1)
-    })
+const props = defineProps<{
+  columnNumber?: number
+  icon: string | Component
+  optionStyle?: object
+  type?: 'icon-font' | 'element'
+}>()
 
-    const iconValue = ref<string>('')
-    watchEffect(() => {
-      if (props.icon != '') {
-        iconValue.value = props.icon
-        console.log(props.icon)
-      }
-    })
+const emits = defineEmits(['update:icon'])
 
-    // 获取所有 名称 并且合并
-    const icons = [
-      ...icon.matchAll(/\/\*(\s)(\w*|[^\x00-\xff]*)(\s)\*\//g),
-    ].map((item: string[], index: number) => ({
-      name: item[2],
-      icon: array[index],
-    }))
-
-    interface icon {
-      name: string
-      icon: string
-    }
-
-    const options = ref<icon[]>(icons)
-
-    const change = (e: string) => {
-      emit('update:icon', e)
-    }
-
-    // 搜索
-    const remoteMethod = (e: string) => {
-      options.value = icons.filter(
-        (_: icon) => _.icon.indexOf(e) !== -1 || _.name.indexOf(e) !== -1
-      )
-    }
-
-    return {
-      options,
-      iconValue,
-      change,
-      remoteMethod,
-    }
-  },
+const loading = ref(true)
+const options = shallowRef<{ name: string; component?: Component }[]>([])
+let cacheIconFont: { name: string }[] = []
+let cacheIconSvg: { name: string; component: Component }[] = []
+const iconValue = ref<string | Component>('')
+watchEffect(() => {
+  if (props.icon) {
+    iconValue.value = props.icon
+  }
 })
+
+const getIconFonts = async () => {
+  axios
+    .get('https://at.alicdn.com/t/c/font_2351447_xw9ezbg0kb.css')
+    .then((res) => {
+      // 获取所有的 字体图标
+      cacheIconFont = [...res.data.matchAll(/([\w|\-|\d]+):before/g)].map(
+        (item: string[]) => ({
+          name: item[1],
+        })
+      )
+      options.value = [...cacheIconFont]
+      loading.value = false
+    })
+}
+
+const getElementIcon = async () => {
+  import('@element-plus/icons').then((res) => {
+    for (const i in res) {
+      cacheIconSvg.push({
+        name: (res[i] as Component).name!,
+        component: res[i] as Component,
+      })
+    }
+    options.value = [...cacheIconSvg]
+
+    loading.value = false
+  })
+}
+
+watch(
+  () => props.type,
+  (val) => {
+    if (val == 'icon-font' || !val) {
+      getIconFonts()
+    } else {
+      getElementIcon()
+    }
+  },
+  {
+    immediate: true,
+  }
+)
+
+// 搜索
+const remoteMethod = (str: string) => {
+  options.value = (
+    props.type == 'element' ? cacheIconSvg : cacheIconFont
+  ).filter((icon) => icon.name.indexOf(str) !== -1)
+}
 </script>
 
 <style lang="scss" scoped>
-.operate-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.prefix {
+  color: var(--el-color-primary);
+  .el-icon {
+    font-size: 18px;
+  }
 }
 .icons {
   padding: 5px 10px;
   display: grid;
   grid-row-gap: 5px;
   grid-column-gap: 5px;
-  :deep() .el-select-dropdown__item {
+  :deep(.el-select-dropdown__item) {
     height: auto;
     line-height: auto;
     padding: 0;
   }
+  :deep(.selected) {
+    .item {
+      font-weight: 400;
+      border: 1px solid var(--el-color-primary);
+      color: var(--el-color-primary);
+      box-shadow: 0 0 2px 0 var(--el-color-primary);
+    }
+  }
   .item {
     text-align: center;
-    border: 1px solid rgba(0, 0, 0, 0);
-    color: #999;
+    border: 1px solid var(--el-border-color-lighter);
+    color: var(--el-text-color-secondary);
     border-radius: 5px;
-    height: 60px;
-    transition: all 0.4s;
+    transition: var(--el-transition-duration);
     padding: 5px 10px;
+    height: 80px;
 
-    .viteIcon {
-      font-size: 20px;
+    i {
+      font-size: 24px;
     }
-    .iconName {
-      // margin-top: 10px;
+
+    .el-icon {
+      margin: 4px 0;
+    }
+
+    > span {
+      display: inline-block;
+      width: 100%;
+      white-space: break-spaces;
+      line-height: 1;
       font-size: 12px;
     }
   }
 
   .item:hover {
-    border: 1px solid var(--color-primary);
-    color: var(--color-primary);
-    box-shadow: 0 0 2px 0 var(--color-primary);
+    border: 1px solid var(--el-color-primary);
+    color: var(--el-color-primary);
+    box-shadow: 0 0 2px 0 var(--el-color-primary);
   }
 }
 </style>
