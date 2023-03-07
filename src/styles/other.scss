@@ -37,12 +37,6 @@
   }
 }
 
-.i-icon:hover {
-  border: 1px solid var(--el-color-primary);
-  color: var(--el-color-primary);
-  box-shadow: 0 0 2px 0 var(--el-color-primary);
-}
-
 // 富文本层级
 .tox-tinymce-aux {
   z-index: 6666 !important;
