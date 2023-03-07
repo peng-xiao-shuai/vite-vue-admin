@@ -1,7 +1,7 @@
 import TYPE from '../type/userType'
 import Cookies from 'js-cookie'
 import { getUser, login } from '@/api/logins'
-import router, { addRouter as asyncRouter, Routers } from '@/router/index'
+import router, { addRouter, Routers } from '@/router/index'
 import { RouteRecordRaw } from 'vue-router'
 import type { Store } from 'vuex'
 
@@ -38,7 +38,7 @@ function menusFilter(menus: rolesValueItemType[]) {
     }
   })
 
-  const asyncrouter = asyncRouter
+  const asyncRoute = addRouter
     .map((item: Routers) => {
       const each = addRouterFun(levelOne, item)
       // 拦截接口数据隐藏的菜单
@@ -59,15 +59,15 @@ function menusFilter(menus: rolesValueItemType[]) {
     })
     .filter((item) => item) as Routers[]
 
-  _sort(asyncrouter)
+  _sort(asyncRoute)
 
-  asyncrouter.map((item: Routers) => router.addRoute(item as RouteRecordRaw))
+  asyncRoute.map((item: Routers) => router.addRoute(item as RouteRecordRaw))
 
-  // console.log('排序好的一级',asyncrouter);
+  // console.log('排序好的一级',asyncRoute);
 
   // 此处用等于的话 会导致watch监听不到的问题
   router.options.routes
-    .concat(asyncrouter as RouteRecordRaw[])
+    .concat(asyncRoute as RouteRecordRaw[])
     .forEach((item) => state.menus.push(item))
 }
 // 排序
@@ -211,14 +211,16 @@ const actions = {
 
   // 获取用户信息
   userInfo(store: Store<UserState>) {
-    return new Promise((resolve) => {
-      getUser({ token: state.vToken }).then(async (res: any) => {
-        store.commit(TYPE.LOGIN_THEN, res.data)
-
-        menusFilter(res.data.menus)
-
-        resolve(state.menus)
-      })
+    return new Promise((resolve, reject) => {
+      getUser({ token: state.vToken })
+        .then(async (res: any) => {
+          store.commit(TYPE.LOGIN_THEN, res.data)
+          menusFilter(res.data.menus)
+          resolve(state.menus)
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   },
 
