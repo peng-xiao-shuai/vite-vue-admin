@@ -42,6 +42,7 @@
 import { ref, shallowRef, shallowReactive } from 'vue'
 import type { Component } from 'vue'
 import iconSelect from '@/components/icon-select/index.vue'
+import defaultData from '@/config/default-data'
 import axios from 'axios'
 
 const iconValue = ref('')
@@ -50,14 +51,12 @@ const svgValue = shallowRef<Component | string>('StarFilled')
 const iconSvg: { [s: string]: Component } = shallowReactive({})
 
 const getIconFonts = async () => {
-  axios
-    .get('https://at.alicdn.com/t/c/font_2351447_xw9ezbg0kb.css')
-    .then((res) => {
-      // 获取所有的 字体图标
-      iconFont.value = [...res.data.matchAll(/([\w|\-|\d]+):before/g)].map(
-        (item: string[]) => item[1]
-      )
-    })
+  axios.get(defaultData.iconFontUrl).then((res) => {
+    // 获取所有的 字体图标
+    iconFont.value = [...res.data.matchAll(/([\w|\-|\d]+):before/g)].map(
+      (item: string[]) => item[1]
+    )
+  })
 }
 
 const getElementIcon = () => {

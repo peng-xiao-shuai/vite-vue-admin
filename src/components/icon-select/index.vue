@@ -52,6 +52,7 @@
 <script lang="ts" setup>
 import { ref, watchEffect, watch, shallowRef } from 'vue'
 import type { Component } from 'vue'
+import defaultData from '@/config/default-data'
 import axios from 'axios'
 
 const props = defineProps<{
@@ -75,18 +76,16 @@ watchEffect(() => {
 })
 
 const getIconFonts = async () => {
-  axios
-    .get('https://at.alicdn.com/t/c/font_2351447_xw9ezbg0kb.css')
-    .then((res) => {
-      // 获取所有的 字体图标
-      cacheIconFont = [...res.data.matchAll(/([\w|\-|\d]+):before/g)].map(
-        (item: string[]) => ({
-          name: item[1],
-        })
-      )
-      options.value = [...cacheIconFont]
-      loading.value = false
-    })
+  axios.get(defaultData.iconFontUrl).then((res) => {
+    // 获取所有的 字体图标
+    cacheIconFont = [...res.data.matchAll(/([\w|\-|\d]+):before/g)].map(
+      (item: string[]) => ({
+        name: item[1],
+      })
+    )
+    options.value = [...cacheIconFont]
+    loading.value = false
+  })
 }
 
 const getElementIcon = async () => {

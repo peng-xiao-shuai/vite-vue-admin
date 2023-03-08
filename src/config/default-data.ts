@@ -31,9 +31,10 @@ const settings: DrawerSetting = getStorage('settings')
 const waterMark: WaterMarkType = getStorage('waterMark')
 const navSetting: NavSettingType = getStorage('navSetting')
 
-export type defaultDataType = {
+export type DefaultDataType = {
   name: string
   themeColor: ThemeColor
+  iconFontUrl: string
   iconfont: string
   tabsName: string
   cardShadow: string
@@ -42,9 +43,9 @@ export type defaultDataType = {
   settings: DrawerSetting
   navSetting: NavSettingType
 }
-
-export default {
+const defaultDataType: DefaultDataType = {
   name: 'Vite-Vue-Admin',
+  iconFontUrl: 'https://at.alicdn.com/t/c/font_2351447_87ez6z9w08e.css',
   themeColor,
   // icon图标类型
   iconfont: 'viteIcon',
@@ -99,3 +100,5 @@ export default {
     settings
   ),
 }
+
+export default defaultDataType
