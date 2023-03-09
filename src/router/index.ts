@@ -165,16 +165,6 @@ export const addRouter: Routers[] = [
         },
       },
       {
-        path: 'map',
-        name: 'map',
-        component: () => import('@/views/modules/map/index.vue'),
-        meta: {
-          title: '地图',
-          locale: 'map',
-          icon: 'viteviteZJ-ditu',
-        },
-      },
-      {
         path: 'sign',
         name: 'sign',
         component: () => import('@/views/modules/sign/sign.vue'),
@@ -182,6 +172,49 @@ export const addRouter: Routers[] = [
           title: '签名',
           locale: 'sign',
           icon: 'viteviteZJ-sign',
+        },
+      },
+    ],
+  },
+  {
+    path: '/maps',
+    name: 'maps',
+    redirect: '/maps/ali-map-fence',
+    component: layOut,
+    meta: {
+      title: '地图',
+      locale: 'map',
+      icon: 'viteviteZJ-ditu',
+    },
+    children: [
+      {
+        path: 'ali-map-fence',
+        name: 'ali-map-fence',
+        component: () => import('@/views/maps/ali-map-fence.vue'),
+        meta: {
+          title: '高德电子围栏',
+          locale: 'A.map.fence',
+          icon: 'vitefence',
+        },
+      },
+      {
+        path: 'ali-map',
+        name: 'ali-map',
+        component: () => import('@/views/maps/ali-map.vue'),
+        meta: {
+          title: '高德地图选点',
+          locale: 'A.map.select.position',
+          icon: 'viteAmap',
+        },
+      },
+      {
+        path: 'qq-map',
+        name: 'qq-map',
+        component: () => import('@/views/maps/qq-map.vue'),
+        meta: {
+          title: '腾讯地图选点',
+          locale: 'Tencent.map.select.position',
+          icon: 'vitecompass',
         },
       },
     ],
@@ -240,7 +273,7 @@ export const addRouter: Routers[] = [
               {
                 path: 'much-menu-three-one',
                 name: 'much-menu-three-one',
-                component: () => import('@/views/modules/map/index.vue'),
+                component: () => import('@/views/maps/qq-map.vue'),
                 meta: {
                   title: '地图',
                   locale: 'map',
