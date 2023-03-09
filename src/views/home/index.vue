@@ -75,9 +75,7 @@
           </div>
           <!-- 上升 -->
           <div class="increase">
-            <el-icon style="color: var(--el-color-primary)"
-              ><el-icon-top
-            /></el-icon>
+            <el-icon style="color: var(--el-color-primary)"><Top /></el-icon>
           </div>
         </el-card>
 
