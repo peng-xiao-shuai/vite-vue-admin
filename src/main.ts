@@ -42,7 +42,7 @@ import uploadFile from './components/upload-file/index.vue'
 import viewName from './components/view-name/view-name.vue'
 
 // 全局静态配置
-import defaultData, { defaultDataType } from './config/default-data'
+import defaultData, { DefaultDataType } from './config/default-data'
 import { debounce, throttle } from '@/config/debounce-throttle'
 import { permissionFun } from '@/config/roles-permission'
 
@@ -50,6 +50,10 @@ import { mockXHR } from '../mock/index'
 // if (
 //   import.meta.env.VITE_MOCK === "true"
 // ) {
+/**
+ * mock 会存在请求不到高德jsapi的地图数据问题。请在 8364行添加
+ * this.custom.xhr.responseType = this.responseType
+ */
 mockXHR()
 // }
 
@@ -109,7 +113,7 @@ declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     themeColor: string
     t: (str: string) => string
-    defaultData: defaultDataType // 这里可以用$Api具体的类型代替any
+    defaultData: DefaultDataType // 这里可以用$Api具体的类型代替any
     $debounce: Function
     $throttle: Function
     $permission: Function

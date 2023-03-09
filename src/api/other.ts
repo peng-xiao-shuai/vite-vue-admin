@@ -24,5 +24,12 @@ export const AntvX6 = (params: { parentId: string }) =>
     params,
   })
 
+export const fenceList = <T>(name?: string) =>
+  request.get<T>('fence/list', {
+    params: {
+      name,
+    },
+  })
+
 // 上传媒体
 export const media = 'minio/upload'
