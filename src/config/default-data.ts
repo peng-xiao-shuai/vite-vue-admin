@@ -37,7 +37,7 @@ export type DefaultDataType = {
   iconFontUrl: string
   iconfont: string
   tabsName: string
-  cardShadow: string
+  cardShadow: 'hover' | 'always' | 'never'
   localeSelect: { value: string; label: string }[]
   waterMark: WaterMarkType
   settings: DrawerSetting

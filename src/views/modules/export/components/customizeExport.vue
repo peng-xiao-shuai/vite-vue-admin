@@ -18,7 +18,7 @@
     <div style="font-size: 13px; color: var(--el-color-info)"></div>
   </div>
   <div>
-    <el-form :inline="true" :model="formInline1" size="mini">
+    <el-form :inline="true" :model="formInline1" size="small">
       <el-form-item label="副标题：">
         <el-input v-model="formInline1.subtitle" placeholder="副标题" />
       </el-form-item>
@@ -55,7 +55,7 @@
         <el-button-group>
           <!-- TODO 导入功能 -->
           <!-- <el-button type="primary" icon="el-icon-bottom" size="mini">导入</el-button> -->
-          <el-button type="primary" icon="files" size="mini" @click="export1"
+          <el-button type="primary" icon="files" size="small" @click="export1"
             >导出</el-button
           >
         </el-button-group>
@@ -98,7 +98,7 @@
     </div>
     <el-button-group>
       <!-- <el-button type="primary" icon="el-icon-bottom" size="mini">导入</el-button> -->
-      <el-button type="primary" icon="files" size="mini" @click="export3"
+      <el-button type="primary" icon="files" size="small" @click="export3"
         >多表导出</el-button
       >
     </el-button-group>
@@ -128,7 +128,7 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { header, lists } from './indexData'
 import { ref, reactive, defineComponent, toRefs, onMounted } from 'vue'
 import { exportExcelSheet } from '@/utils/export'
