@@ -20,10 +20,7 @@
   <div>
     <el-form :inline="true" :model="formInline1" size="mini">
       <el-form-item label="副标题：">
-        <el-input
-          v-model="formInline1.subtitle"
-          placeholder="副标题"
-        ></el-input>
+        <el-input v-model="formInline1.subtitle" placeholder="副标题" />
       </el-form-item>
       <el-form-item label="对其方式：">
         <el-select
@@ -31,9 +28,9 @@
           placeholder="对其方式"
           style="width: 100px"
         >
-          <el-option label="靠左" value="left"></el-option>
-          <el-option label="居中" value="center"></el-option>
-          <el-option label="靠右" value="right"></el-option>
+          <el-option label="靠左" value="left" />
+          <el-option label="居中" value="center" />
+          <el-option label="靠右" value="right" />
         </el-select>
       </el-form-item>
       <el-form-item label="边框：">
@@ -58,11 +55,7 @@
         <el-button-group>
           <!-- TODO 导入功能 -->
           <!-- <el-button type="primary" icon="el-icon-bottom" size="mini">导入</el-button> -->
-          <el-button
-            type="primary"
-            icon="el-icon-top"
-            size="mini"
-            @click="export1"
+          <el-button type="primary" icon="top" size="mini" @click="export1"
             >导出</el-button
           >
         </el-button-group>
@@ -108,9 +101,9 @@
           placeholder="对其方式"
           style="width: 100px"
         >
-          <el-option label="靠左" value="left"></el-option>
-          <el-option label="居中" value="center"></el-option>
-          <el-option label="靠右" value="right"></el-option>
+          <el-option label="靠左" value="left" />
+          <el-option label="居中" value="center" />
+          <el-option label="靠右" value="right" />
         </el-select>
       </el-form-item>
       <el-form-item label="边框：">
@@ -149,7 +142,7 @@
               content="是否在合计数字后面显示单位，该单位来源于表头label设置在英文小括号”()“中的文本内容"
             >
               <template #reference>
-                <i class="el-icon-question"></i>
+                <el-icon><Question /></el-icon>
               </template>
             </el-popover>
             ：
@@ -175,7 +168,7 @@
             style="width: 100px"
             v-model="formInline2.sumText"
             placeholder="请输入"
-          ></el-input>
+          />
         </el-form-item>
 
         <el-form-item label="无数据文本内容：">
@@ -183,17 +176,13 @@
             style="width: 100px"
             v-model="formInline2.emptyText"
             placeholder="请输入"
-          ></el-input>
+          />
         </el-form-item>
       </template>
       <el-form-item>
         <el-button-group>
           <!-- <el-button type="primary" icon="el-icon-bottom" size="mini">导入</el-button> -->
-          <el-button
-            type="primary"
-            icon="el-icon-top"
-            size="mini"
-            @click="export2"
+          <el-button type="primary" icon="top" size="mini" @click="export2"
             >导出</el-button
           >
         </el-button-group>
@@ -264,7 +253,7 @@
     </div>
     <el-button-group>
       <!-- <el-button type="primary" icon="el-icon-bottom" size="mini">导入</el-button> -->
-      <el-button type="primary" icon="el-icon-top" size="mini" @click="export3"
+      <el-button type="primary" icon="top" size="mini" @click="export3"
         >多表导出</el-button
       >
     </el-button-group>
@@ -290,138 +279,129 @@
       </div>
     </div>
 
-    <powerful-table :list="list" :header="config" :isPagination="false">
-    </powerful-table>
+    <powerful-table :list="list" :header="config" :isPagination="false" />
   </div>
 </template>
 
-<script lang='ts'>
-import { header, lists } from "./indexData";
-import {
-  ref,
-  reactive,
-  defineComponent,
-  inject,
-  nextTick,
-  toRefs,
-  onMounted,
-} from "vue";
-import { exportExcelSheet } from "@/utils/export";
-import { tableData1, tableData2 } from "./indexData";
+<script lang="ts">
+import { header, lists } from './indexData'
+import { ref, reactive, defineComponent, toRefs, onMounted } from 'vue'
+import { exportExcelSheet } from '@/utils/export'
+import { tableData1, tableData2 } from './indexData'
 
 export default defineComponent({
-  name: "icons",
+  name: 'CustomizeExport',
   components: {},
   setup() {
-    const multipleTable = ref();
+    const multipleTable = ref()
     const state = reactive({
       tableData1: tableData1,
       formInline1: {
-        subtitle: "XXX系统",
-        align: "center",
+        subtitle: 'XXX系统',
+        align: 'center',
         border: true,
         autoWidth: true,
         stripe: false,
       },
       tableData2: tableData2,
       formInline2: {
-        align: "center",
+        align: 'center',
         border: true,
         autoWidth: true,
         stripe: false,
         showSummary: true,
         showUnit: true,
         sumToFixed: 2,
-        sumText: "Total Cost",
-        emptyText: "-",
+        sumText: 'Total Cost',
+        emptyText: '-',
       },
-      sums: [""],
-    });
+      sums: [''],
+    })
 
-    let list = ref(lists);
-    let config = reactive(header);
+    let list = ref(lists)
+    let config = reactive(header)
     const export1 = () => {
       const exportData = [
         {
-          header: ["Date", "Name", "Address"],
-          prop: ["date", "name", "address"],
+          header: ['Date', 'Name', 'Address'],
+          prop: ['date', 'name', 'address'],
           list: state.tableData1,
           multiHeader: [state.formInline1.subtitle],
         },
-      ];
+      ]
       exportExcelSheet(exportData, {
         border: state.formInline1.border,
         autoWidth: state.formInline1.autoWidth,
         align: state.formInline1.align,
         stripe: state.formInline1.stripe,
-      });
-    };
+      })
+    }
     const export2 = () => {
       const exportData = [
         {
           // header: ["Date", "Name", "State", "City", "Address", "Zip"],
-          prop: ["date", "name", "state", "city", "address", "money", "zip"],
+          prop: ['date', 'name', 'state', 'city', 'address', 'money', 'zip'],
           list: state.tableData2,
           multiHeader: [
-            "Date",
-            "Delivery Info",
-            "Name",
-            "Address Info",
-            "State",
-            "City",
-            "Address",
-            "Money(RMB)",
-            "Zip",
+            'Date',
+            'Delivery Info',
+            'Name',
+            'Address Info',
+            'State',
+            'City',
+            'Address',
+            'Money(RMB)',
+            'Zip',
           ],
           merges: [
-            "A1:A3",
-            "B1:F1",
-            "B2:B3",
-            "C2:F2",
-            "C3:C3",
-            "D3:D3",
-            "E3:E3",
-            "F3:F3",
-            "G3:G3",
+            'A1:A3',
+            'B1:F1',
+            'B2:B3',
+            'C2:F2',
+            'C3:C3',
+            'D3:D3',
+            'E3:E3',
+            'F3:F3',
+            'G3:G3',
           ],
           showSummary: state.formInline2.showSummary,
           summaryList: state.sums,
         },
-      ];
+      ]
       exportExcelSheet(exportData, {
         border: state.formInline2.border,
         autoWidth: state.formInline2.autoWidth,
         align: state.formInline2.align,
         stripe: state.formInline2.stripe,
-      });
-    };
+      })
+    }
     const export3 = () => {
       const exportData = [
         {
           // header: ["Date", "Name", "State", "City", "Address", "Zip"],
-          prop: ["date", "name", "state", "city", "address", "money", "zip"],
+          prop: ['date', 'name', 'state', 'city', 'address', 'money', 'zip'],
           list: state.tableData2,
           multiHeader: [
-            "Date",
-            "Delivery Info",
-            "Name",
-            "Address Info",
-            "State",
-            "City",
-            "Address",
-            "Money(RMB)",
-            "Zip",
+            'Date',
+            'Delivery Info',
+            'Name',
+            'Address Info',
+            'State',
+            'City',
+            'Address',
+            'Money(RMB)',
+            'Zip',
           ],
           merges: [
-            "A1:A3",
-            "B1:F1",
-            "B2:B3",
-            "C2:F2",
-            "C3:C3",
-            "D3:D3",
-            "E3:E3",
-            "F3:F3",
-            "G3:G3",
+            'A1:A3',
+            'B1:F1',
+            'B2:B3',
+            'C2:F2',
+            'C3:C3',
+            'D3:D3',
+            'E3:E3',
+            'F3:F3',
+            'G3:G3',
           ],
           border: state.formInline2.border,
           autoWidth: state.formInline2.autoWidth,
@@ -431,8 +411,8 @@ export default defineComponent({
           summaryList: state.sums,
         },
         {
-          header: ["Date", "Name", "Address"],
-          prop: ["date", "name", "address"],
+          header: ['Date', 'Name', 'Address'],
+          prop: ['date', 'name', 'address'],
           list: state.tableData1,
           multiHeader: [state.formInline1.subtitle],
           border: state.formInline1.border,
@@ -440,46 +420,46 @@ export default defineComponent({
           align: state.formInline1.align,
           stripe: state.formInline1.stripe,
         },
-      ];
-      exportExcelSheet(exportData, { fileName: "多表导出" });
-    };
+      ]
+      exportExcelSheet(exportData, { fileName: '多表导出' })
+    }
     const getSummaries = (param: any) => {
       // console.log(param);
-      const { columns, data } = param;
-      const sums: string[] = [];
+      const { columns, data } = param
+      const sums: string[] = []
       columns.forEach((column: any, index: number) => {
         if (index === 0) {
-          sums[index] = state.formInline2.sumText;
-          return;
+          sums[index] = state.formInline2.sumText
+          return
         }
         var substr = state.formInline2.showUnit
           ? column.label.substring(
-              column.label.indexOf("(") + 1,
-              column.label.indexOf(")")
+              column.label.indexOf('(') + 1,
+              column.label.indexOf(')')
             )
-          : "";
-        const values = data.map((item: any) => Number(item[column.property]));
+          : ''
+        const values = data.map((item: any) => Number(item[column.property]))
         if (!values.every((value: any) => isNaN(value))) {
           sums[index] = values.reduce((prev: any, curr: any) => {
-            const value = Number(curr);
+            const value = Number(curr)
             if (!isNaN(value)) {
-              return prev + curr;
+              return prev + curr
             } else {
-              return prev;
+              return prev
             }
-          }, 0);
+          }, 0)
           sums[index] =
             Number(sums[index]).toFixed(state.formInline2.sumToFixed || 2) +
-            " " +
-            substr;
+            ' ' +
+            substr
         } else {
-          sums[index] = state.formInline2.emptyText;
+          sums[index] = state.formInline2.emptyText
         }
-      });
-      state.sums = sums;
-      return sums;
-    };
-    onMounted(() => {});
+      })
+      state.sums = sums
+      return sums
+    }
+    onMounted(() => {})
     return {
       list,
       config,
@@ -490,12 +470,12 @@ export default defineComponent({
       export3,
       getSummaries,
       ...toRefs(state),
-    };
+    }
   },
-});
+})
 </script>
 
-<style scoped lang='scss'>
+<style lang="scss" scoped>
 .tipBox {
   font-size: 15px !important;
 
