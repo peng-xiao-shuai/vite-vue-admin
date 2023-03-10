@@ -9,7 +9,7 @@
       <p>{{ defaultData.name }}</p>
       <el-input placeholder="搜索页面（路径或者名称）" v-model="searchValue">
         <template #suffix>
-          <el-icon style="margin-right: 5px"><el-icon-search /></el-icon>
+          <el-icon style="margin-right: 5px"><Search /></el-icon>
         </template>
       </el-input>
 

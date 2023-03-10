@@ -59,5 +59,14 @@ export interface WaterMarkType {
 export interface NavSettingType {
   dark: boolean
   size: string
+  locale: string
   [s: string]: string | boolean
+}
+
+// 类型保护
+export function isType<T extends Indexes>(
+  pet: T | keyof any,
+  k?: string | number
+): pet is T {
+  return (k && (<T>pet)[k]) !== undefined
 }

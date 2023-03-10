@@ -17,12 +17,19 @@ export const getLogList = (params: logList) =>
     params,
   })
 
-export const AntvX6 = (params: { parentId: number }) =>
+export const AntvX6 = (params: { parentId: string }) =>
   request({
     url: 'antvx6/list',
     method: 'get',
     params,
   })
 
+export const fenceList = <T>(name?: string) =>
+  request.get<T>('fence/list', {
+    params: {
+      name,
+    },
+  })
+
 // 上传媒体
-export const media = 'api/minio/upload'
+export const media = 'minio/upload'

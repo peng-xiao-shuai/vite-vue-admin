@@ -1,16 +1,16 @@
 import { nextTick } from 'vue'
-import loadingCss from '@/styles/loading.scss?inline'
+// import loadingCss from '@/styles/loading.scss'
 
 // 定义方法
 export const NextLoading = {
   // 载入 css
-  setCss: () => {
-    const link = document.createElement('link')
-    link.rel = 'stylesheet'
-    ;(link.href as any) = loadingCss
-    link.crossOrigin = 'anonymous'
-    document.getElementsByTagName('head')[0].appendChild(link)
-  },
+  // setCss: () => {
+  //   const link = document.createElement('link')
+  //   link.rel = 'stylesheet'
+  //   ;(link.href as any) = loadingCss
+  //   link.crossOrigin = 'anonymous'
+  //   document.getElementsByTagName('head')[0].appendChild(link)
+  // },
   // 创建 loading
   start: () => {
     const bodys: HTMLElement = document.body

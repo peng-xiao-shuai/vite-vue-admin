@@ -20,23 +20,24 @@ export default defineConfig({
       // 指定symbolId格式
       symbolId: 'icon-[dir]-[name]',
     }),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [
-        ElementPlusResolver({
-          // importStyle: 'sass',
-        }),
-      ],
-    }),
-    ElementPlus({
-      useSource: true,
-    }),
+    // AutoImport({
+    //   resolvers: [ElementPlusResolver()],
+    // }),
+    // Components({
+    //   resolvers: [
+    //     ElementPlusResolver({
+    //       // importStyle: 'sass',
+    //     }),
+    //   ],
+    // }),
+    // ElementPlus({
+    //   useSource: true,
+    // }),
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, 'src'),
+      '#': path.resolve(__dirname, 'typings'),
       'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
     },
   },

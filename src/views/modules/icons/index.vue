@@ -3,54 +3,76 @@
     <el-card :shadow="defaultData.cardShadow">
       <view-name />
 
-      <div class="operate-container">
-        <icon-select v-model:icon="iconVal" />
-      </div>
+      <icon-select v-model:icon="iconValue" />
+
+      <div class="tipBox">字体图标</div>
 
       <div class="icons">
-        <div class="i-icon" v-for="(item, index) in icons" :key="index">
-          <i :class="[defaultData.iconfont, item.icon]"></i>
-          <div class="iconName">{{ item.name }}</div>
+        <div
+          class="i-icon _flex _flex-center _flex-wrap"
+          v-for="item in iconFont"
+          :key="item"
+        >
+          <i :class="item"></i>
+          <div class="iconName _word-break">{{ item }}</div>
+        </div>
+      </div>
+      <div style="margin-bottom: 20px"></div>
+      <icon-select v-model:icon="svgValue" type="element" />
+
+      <div class="tipBox">ElementPlus 图标</div>
+
+      <div class="icons">
+        <div
+          class="i-icon _flex _flex-center _flex-wrap"
+          v-for="(item, index) in iconSvg"
+          :key="index"
+        >
+          <el-icon>
+            <component :is="item" />
+          </el-icon>
+          <div class="iconName _word-break">{{ item.name }}</div>
         </div>
       </div>
     </el-card>
   </div>
 </template>
 
-<script lang="ts">
-import { ref, defineComponent } from 'vue'
+<script lang="ts" setup>
+import { ref, shallowRef, shallowReactive } from 'vue'
+import type { Component } from 'vue'
 import iconSelect from '@/components/icon-select/index.vue'
-import icon from '@/styles/iconfont.css?inline'
+import defaultData from '@/config/default-data'
+import axios from 'axios'
 
-export default defineComponent({
+const iconValue = ref('')
+let iconFont = shallowRef<string[]>([])
+const svgValue = shallowRef<Component | string>('StarFilled')
+const iconSvg: { [s: string]: Component } = shallowReactive({})
+
+const getIconFonts = async () => {
+  axios.get(defaultData.iconFontUrl).then((res) => {
+    // 获取所有的 字体图标
+    iconFont.value = [...res.data.matchAll(/([\w|\-|\d]+):before/g)].map(
+      (item: string[]) => item[1]
+    )
+  })
+}
+
+const getElementIcon = () => {
+  import('@element-plus/icons').then((res) => {
+    Object.assign(iconSvg, res)
+  })
+}
+
+getElementIcon()
+getIconFonts()
+</script>
+
+<script lang="ts">
+export default {
   name: 'Icons',
-  components: {
-    iconSelect,
-  },
-  setup() {
-    // 获取所有的 class名
-    const array = [...icon.matchAll(/\.(\w|\-)*\:/g)].map((item: string[]) => {
-      return item[0].substr(1, item[0].length).slice(0, -1)
-    })
-
-    // 获取所有 名称 并且合并
-    const icons = [
-      ...icon.matchAll(/\/\*(\s)(\w*|[^\x00-\xff]*)(\s)\*\//g),
-    ].map((item: string[], index: number) => ({
-      name: item[2],
-      icon: array[index],
-    }))
-
-    console.log(icons)
-
-    const iconVal = ref('')
-
-    return {
-      icons,
-      iconVal,
-    }
-  },
-})
+}
 </script>
 
 <style lang="scss" scoped>
@@ -60,25 +82,36 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
 }
+
 .icons {
   display: grid;
-  grid-row-gap: 20px;
-  grid-column-gap: 20px;
-  grid-template-columns: repeat(13, 1fr);
+  grid-row-gap: var(--system-padding);
+  grid-column-gap: var(--system-padding);
+  grid-template-columns: repeat(10, 1fr);
+
   .i-icon {
     text-align: center;
-    border: 1px solid rgba(0, 0, 0, 0);
-    color: #666;
+    border: 1px solid var(--el-border-color-lighter);
+    color: var(--el-text-color-regular);
     border-radius: 5px;
-    transition: all 0.4s;
-    padding: 5px 0;
+    transition: var(--el-transition-duration);
+    padding: 5px;
+    height: 80px;
 
-    .viteIcon {
+    &:hover {
+      color: var(--el-color-primary);
+      border-color: var(--el-color-primary);
+      box-shadow: 0 0 2px 0 var(--el-color-primary);
+    }
+
+    i {
       font-size: 28px;
     }
+
     .iconName {
       margin-top: 10px;
-      font-size: 15px;
+      font-size: 13px;
+      width: 100%;
     }
   }
 }

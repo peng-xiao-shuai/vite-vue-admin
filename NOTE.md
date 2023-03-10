@@ -334,3 +334,37 @@ export default definedComponents({
 ### Vite 使用svg-icon
 
 [文档](https://github.com/anncwb/vite-plugin-svg-icons/blob/main/README.zh_CN.md)
+
+- **对于上传图片报错**
+- - [request.upload.addEventListener is not a function](https://imgser.wangyeyixia.com/aHR0cHM6Ly9waWFuc2hlbi5jb20vaW1hZ2VzLzEwLzI4Y2FjMjFmZjJiMGZmNDkxY2M4ZDYyYTg4MGRmOTVhLnBuZw%3D%3D.png?w=700&webp=1)
+- - [原文链接](https://www.likecs.com/show-203515081.html)
+``` js
+// node_modules/mockjs/dist/mock.js 
+function handle(event) {
+    // 同步属性 NativeXMLHttpRequest => MockXMLHttpRequest
+    for (var i = 0; i < XHR_RESPONSE_PROPERTIES.length; i++) {
+        try {
+            that[XHR_RESPONSE_PROPERTIES[i]] = xhr[XHR_RESPONSE_PROPERTIES[i]]
+        } catch (e) {}
+    }
+    // 触发 MockXMLHttpRequest 上的同名事件
+    that.dispatchEvent(new Event(event.type /*, false, false, that*/ ))
+}
+
+MockXMLHttpRequest.prototype.upload = createNativeXMLHttpRequest().upload // 8307 添加此行
+
+// 如果未找到匹配的数据模板，则采用原生 XHR 发送请求。
+...
+```
+- **下载成功打不开**
+- - [解决方案](https://blog.csdn.net/m0_71182944/article/details/127161279)
+``` js
+// node_modules/mockjs/dist/mock.js 
+// 原生 XHR
+if (!this.match) {
+    // 8364行添加
+    this.custom.xhr.responseType = this.responseType
+    this.custom.xhr.send(data)
+    return
+}
+```

@@ -18,6 +18,9 @@ export default {
   'markdown.preview': 'md預覽',
   'antv-x6': '圖形編輯',
   map: '地圖',
+  'A.map.fence': '高德地圖電子圍欄',
+  'A.map.select.position': '高德地圖選點',
+  'Tencent.map.select.position': '騰訊地圖選點',
   icon: '圖標',
   sign: '簽名',
 

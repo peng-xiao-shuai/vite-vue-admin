@@ -1,16 +1,16 @@
 import axios from 'axios'
 import store from '../store/index'
 import { getLangAll } from '@/language/index'
-import configDefault from '@/config/default-data'
+import defaultDefault from '@/config/default-data'
 import { ElMessage } from 'element-plus'
 import { parseTime } from './parse-time'
-import { log } from '@/utils/interface'
+import { Log } from '@/utils/interface'
 import type { UserInfo } from '@/store/modules/user'
 
 const ENV = (import.meta as any).env
 
 function addBug(error: string, info?: string) {
-  const data: log = {
+  const data: Log = {
     url: window.location.href,
     info,
     error,
@@ -93,7 +93,8 @@ service.interceptors.response.use(
   },
   (error) => {
     // 获取当前语言
-    const locales: { [s: string]: string } = getLangAll()[configDefault.locale]
+    const locales: { [s: string]: string } =
+      getLangAll()[defaultDefault.navSetting.locale]
     try {
       switch (error.response.status) {
         case 500:
