@@ -20,10 +20,7 @@
   <div>
     <el-form :inline="true" :model="formInline1" size="mini">
       <el-form-item label="副标题：">
-        <el-input
-          v-model="formInline1.subtitle"
-          placeholder="副标题"
-        ></el-input>
+        <el-input v-model="formInline1.subtitle" placeholder="副标题" />
       </el-form-item>
       <el-form-item label="对其方式：">
         <el-select
@@ -31,9 +28,9 @@
           placeholder="对其方式"
           style="width: 100px"
         >
-          <el-option label="靠左" value="left"></el-option>
-          <el-option label="居中" value="center"></el-option>
-          <el-option label="靠右" value="right"></el-option>
+          <el-option label="靠左" value="left" />
+          <el-option label="居中" value="center" />
+          <el-option label="靠右" value="right" />
         </el-select>
       </el-form-item>
       <el-form-item label="边框：">
@@ -58,7 +55,7 @@
         <el-button-group>
           <!-- TODO 导入功能 -->
           <!-- <el-button type="primary" icon="el-icon-bottom" size="mini">导入</el-button> -->
-          <el-button type="primary" icon="Files" size="mini" @click="export1"
+          <el-button type="primary" icon="files" size="mini" @click="export1"
             >导出</el-button
           >
         </el-button-group>
@@ -101,7 +98,7 @@
     </div>
     <el-button-group>
       <!-- <el-button type="primary" icon="el-icon-bottom" size="mini">导入</el-button> -->
-      <el-button type="primary" icon="Files" size="mini" @click="export3"
+      <el-button type="primary" icon="files" size="mini" @click="export3"
         >多表导出</el-button
       >
     </el-button-group>
@@ -127,28 +124,19 @@
       </div>
     </div>
 
-    <powerful-table :list="list" :header="config" :isPagination="false">
-    </powerful-table>
+    <powerful-table :list="list" :header="config" :isPagination="false" />
   </div>
 </template>
 
 <script lang='ts'>
 import { header, lists } from './indexData'
-import {
-  ref,
-  reactive,
-  defineComponent,
-  inject,
-  nextTick,
-  toRefs,
-  onMounted,
-} from 'vue'
+import { ref, reactive, defineComponent, toRefs, onMounted } from 'vue'
 import { exportExcelSheet } from '@/utils/export'
-import { tableData1, tableData2 } from './indexData'
+import { tableData1 } from './indexData'
+import type { ExportData } from '@/utils/export/exportType'
 import multipleHeadersExport from './multipleHeadersExport.vue'
 
 export default defineComponent({
-  name: 'icons',
   components: { multipleHeadersExport },
   setup() {
     const multipleTable = ref()
@@ -182,7 +170,7 @@ export default defineComponent({
       })
     }
     const export3 = () => {
-      const exportData = [
+      const exportData: ExportData[] = [
         {
           header: ['Date', 'Name', 'Address'],
           prop: ['date', 'name', 'address'],
@@ -195,7 +183,6 @@ export default defineComponent({
         },
         {
           header: ['Date', 'Name', 'Address'],
-          prop: ['date', 'name', 'address'],
           list: state.tableData1,
           multiHeader: [state.formInline1.subtitle],
           border: state.formInline1.border,
@@ -220,15 +207,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang='scss'>
+<style lang="scss" scoped>
 .tipBox {
   font-size: 15px !important;
-
-  .code {
-    border-radius: 5px;
-    padding: 0 5px;
-    color: #666;
-    background: #ddd;
-  }
 }
 </style>

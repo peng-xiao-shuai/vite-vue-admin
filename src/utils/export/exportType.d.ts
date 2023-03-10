@@ -24,7 +24,7 @@ export interface ExportConfigData extends CommonConfigData {
 // 数据参数类型
 export interface ExportData extends CommonConfigData {
   header?: string[]
-  prop: string[]
+  prop?: string[]
   list: any[]
   multiHeader?: string[]
   sheetName?: string
