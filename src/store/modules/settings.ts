@@ -40,7 +40,6 @@ const mutations = {
     { key, val }: { val: string; key: string }
   ) {
     state.themeColor[key] = val
-    console.log(state.themeColor[key], val)
   },
   // 用于修改非颜色属性
   setDrawerSetting(
@@ -63,7 +62,7 @@ const mutations = {
 
   // 不走本地缓存 主要用于 非全局配置栏目修改全局配置的数据
   // 因为全局配置栏目数据每次改变都会走本地缓存
-  setSetting(state: SettingsState, { val, key }: { val: number; key: string }) {
+  setSetting(state: SettingsState, { val, key }: { val: any; key: string }) {
     state.drawerSetting[key] = val
   },
 }

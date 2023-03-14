@@ -58,7 +58,7 @@ export interface WaterMarkType {
 
 export interface NavSettingType {
   dark: boolean
-  size: string
+  size: '' | 'default' | 'small' | 'large'
   locale: string
   [s: string]: string | boolean
 }
