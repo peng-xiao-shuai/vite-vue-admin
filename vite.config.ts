@@ -5,7 +5,6 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import ElementPlus from 'unplugin-element-plus/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 import path from 'path'
@@ -20,19 +19,17 @@ export default defineConfig({
       // 指定symbolId格式
       symbolId: 'icon-[dir]-[name]',
     }),
-    // AutoImport({
-    //   resolvers: [ElementPlusResolver()],
-    // }),
-    // Components({
-    //   resolvers: [
-    //     ElementPlusResolver({
-    //       // importStyle: 'sass',
-    //     }),
-    //   ],
-    // }),
-    // ElementPlus({
-    //   useSource: true,
-    // }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/],
+      resolvers: [
+        ElementPlusResolver({
+          importStyle: 'sass',
+        }),
+      ],
+    }),
   ],
   resolve: {
     alias: {
@@ -67,7 +64,7 @@ export default defineConfig({
       overlay: false,
     },
     // host: "localhost",
-    port: 3001,
+    port: 3002,
     // 是否自动在浏览器打开
     open: false,
     // 是否开启 https

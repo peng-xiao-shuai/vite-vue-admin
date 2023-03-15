@@ -2,9 +2,10 @@
   "include": ["src/*", "src/**/*.vue", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.ts", "mock/*", "typings"],
   "exclude": [
     "node_modules",
+    "./typings/amap.js"
   ],
   "compilerOptions": {
-    "types": ["vite/client"],
+    "types": ["vite/client", "./components"],
     "paths": {
       "@/*": ["./src/*"],
       "#/*": ["./typings/*"]
