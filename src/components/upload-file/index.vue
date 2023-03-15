@@ -42,7 +42,7 @@
         <template v-if="$slots.file">
           <slot name="file" :file="file"></slot>
         </template>
-        <div class="file" v-else>
+        <div class="file _flex _flex-center" v-else>
           <el-icon class="position pointer" @click="handleRemove(file)">
             <CircleClose />
           </el-icon>
@@ -81,13 +81,13 @@
 
 <script lang="ts" setup>
 import { nextTick, watch, ref, reactive } from 'vue'
-import {
+import type {
   ElUpload,
-  ElMessage,
   UploadFile,
   UploadRawFile,
   UploadUserFile,
 } from 'element-plus/es'
+import { ElMessage } from 'element-plus/es'
 import { media } from '@/api/other'
 import {
   CircleClose,
