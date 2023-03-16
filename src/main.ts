@@ -13,9 +13,8 @@ import { parseTime } from '@/utils/parse-time'
 
 // css
 import './styles/index.scss'
-// import ElementPlus from 'element-plus'
 import * as ElementIcon from '@element-plus/icons'
-import powerfulTable from './es'
+import powerfulTable from 'el-plus-powerful-table-ts/es'
 
 // i18n
 import VueI18n from './language'
