@@ -1,297 +1,274 @@
 <template>
-	<div class="app-container">
-		<el-card class="filter-container" :style="{ marginBottom: '20px' }" :shadow="defaultData.cardShadow">
-			<div class="operate-container">
-				<div>
-					<i class="el-icon-search"></i>
-					<span>筛选搜索</span>
-				</div>
-				<div>
-					<el-button style="float: right" type="primary" @click="getList()">
-						查询搜索
-					</el-button>
-					<el-button style="float: right; margin-right: 15px" @click="handleResetSearch()">
-						重置
-					</el-button>
-				</div>
-			</div>
-			<div style="margin-top: 15px">
-				<el-form :inline="true" :model="powerfulTabledata.listQuery">
-					<div class="screenForm">
-						<el-form-item label="书名：">
-							<el-input v-model="powerfulTabledata.listQuery.name" placeholder="请输入书名" style="width: 80%"
-								clearable></el-input>
-						</el-form-item>
-						<el-form-item label="书类型：" prop="types">
-							<el-select v-model="powerfulTabledata.listQuery.types" placeholder="请选择">
-								<el-option v-for="item in selectMenuList" :key="item.value" :label="item.label"
-									:value="item.value">
-								</el-option>
-							</el-select>
-						</el-form-item>
-					</div>
-				</el-form>
-			</div>
-		</el-card>
+  <div class="app-container">
+    <el-card
+      class="filter-container"
+      :style="{ marginBottom: '20px' }"
+      :shadow="defaultData.cardShadow"
+    >
+      <div class="operate-container">
+        <div class="_flex _flex-align-center">
+          <el-icon><Search /></el-icon>
+          <span>筛选搜索</span>
+        </div>
+        <div>
+          <el-button style="float: right" type="primary" @click="getList()">
+            查询搜索
+          </el-button>
+          <el-button
+            style="float: right; margin-right: 15px"
+            @click="handleResetSearch()"
+          >
+            重置
+          </el-button>
+        </div>
+      </div>
+      <div style="margin-top: 15px">
+        <el-form :inline="true" :model="powerfulTableData.listQuery">
+          <div class="screenForm">
+            <el-form-item label="书名：">
+              <el-input
+                v-model="powerfulTableData.listQuery.name"
+                placeholder="请输入书名"
+                style="width: 80%"
+                clearable
+              />
+            </el-form-item>
+            <el-form-item label="书类型：" prop="types">
+              <el-select
+                v-model="powerfulTableData.listQuery.types"
+                placeholder="请选择"
+              >
+                <el-option
+                  v-for="item in selectMenuList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+          </div>
+        </el-form>
+      </div>
+    </el-card>
 
-		<el-card :shadow="defaultData.cardShadow">
-			<div class="operate-container">
-				<div>
-					<i class="el-icon-tickets"></i>
-					<span>数据列表</span>
-				</div>
+    <el-card :shadow="defaultData.cardShadow">
+      <div class="operate-container">
+        <div class="_flex _flex-align-center">
+          <el-icon style="font-size: 18px"><Tickets /></el-icon>
+          <div>数据列表</div>
+        </div>
 
-				<div>
-					<el-button type="primary" class="btn-add" @click="handleAddMenu()" size="mini">
-						添加
-					</el-button>
-				</div>
-			</div>
-			<div>
-				<powerful-table ref="Table" :list="powerfulTabledata.list" :header="powerfulTabledata.header"
-					:isSelect="true" :total="powerfulTabledata.total" :tableName="'Table'" :operateData="operateData"
-					:selectData="selectData.value" @batchOperate="handleBatchChange" @sizeChange="getList"
-					@switchChange="handleSwitchChange" @update="handleUpdate" @remove="handleDelete"
-					@sortCustom="handleSortCustom">
-				</powerful-table>
-			</div>
-		</el-card>
-		<!-- 编辑区 -->
-		<update v-model:dialog="isDialog" v-model:currentForm="currentForm.value" :selectMenuList="selectMenuList"
-			@refresh="refresh"></update>
-	</div>
+        <div>
+          <el-button
+            type="primary"
+            class="btn-add"
+            @click="() => (isDialog = true)"
+          >
+            添加
+          </el-button>
+        </div>
+      </div>
+      <powerful-table
+        ref="Table"
+        :list="powerfulTableData.list"
+        :header="header"
+        :isSelect="true"
+        :tableName="'Table'"
+        :operateData="operateData"
+        :selectData="selectData"
+        :pagination-property="{
+          total: powerfulTableData.total,
+        }"
+        @size-change="getList"
+        @sort-custom="handleSortCustom"
+        @component-event="handleComponentChange"
+        @batch-operate="handleBatchChange"
+        @btn-click="handleBtnClick"
+      />
+      <!--
+          @update="handleUpdate"
+          @remove="handleDelete" -->
+    </el-card>
+    <!-- 编辑区 -->
+    <Update
+      v-model:dialog="isDialog"
+      v-model:currentForm="currentForm"
+      :selectMenuList="selectMenuList"
+      @refresh="refresh"
+    />
+  </div>
 </template>
 
-<script lang='ts'>
-	import {
-		tableFun,
-		bookListsDelete
-	} from "@/api/modules/table";
-	import {
-		header
-	} from "./indexData";
-	import {
-		ref,
-		reactive,
-		defineComponent,
-		shallowReactive
-	} from "vue";
+<script lang="ts">
+import { Search, Tickets } from '@element-plus/icons'
+import { tableFun, bookListsDelete } from '@/api/modules/table'
+import { useData } from './indexData'
+import { defineComponent } from 'vue'
 
-	// 组件
-	import update from "./components/update.vue";
-	import { ElMessage } from 'element-plus';
+// 组件
+import Update from './components/update.vue'
+import { ElMessage } from 'element-plus'
+import { Handlers } from 'el-plus-powerful-table-ts'
 
-	export default defineComponent({
-		name: "modulesTable",
-		components: {
-			update,
-		},
-		setup() {
-			let selectData = shallowReactive({
-				value: []
-			});
+export default defineComponent({
+  name: 'ModulesTable',
+  components: {
+    Update,
+    Search,
+    Tickets,
+  },
+  setup() {
+    const {
+      selectData,
+      header,
+      powerfulTableData,
+      selectMenuList,
+      operateData,
+      isDialog,
+      currentForm,
+    } = useData()
 
-			let selectMenuList = shallowReactive([{
-					value: 0,
-					label: "玄幻"
-				},
-				{
-					value: 1,
-					label: "都市"
-				},
-				{
-					value: 2,
-					label: "真实"
-				},
-			]);
-			// 批量操作
-			let operateData = {
-				value: 0,
-				operates: [{
-						label: "推荐",
-						value: 0,
-					},
-					{
-						label: "取消推荐",
-						value: 1,
-					},
-					{
-						label: "删除",
-						value: 2,
-					},
-				],
-			};
+    const getList = (e?: {
+      params?: { pageNum: number | string; pageSize: number | string }
+      select?: []
+    }) => {
+      // 获取选中
+      selectData.value = e?.select || []
 
-			interface powerfultable {
-				listQuery: query;
-				total: number;
-				header: any[];
-				list: any[];
-			}
+      if (e?.params) {
+        Object.assign(powerfulTableData.listQuery, e.params)
+        console.log(powerfulTableData.listQuery, e.params)
+      }
 
-			interface query {
-				pageNum: number;
-				pageSize: number;
-				types: string;
-				name: string;
-				[propName: string]: string | number;
-			}
+      tableFun(powerfulTableData.listQuery).then((response) => {
+        powerfulTableData.list = response.data.list
+        powerfulTableData.total = response.data.total
+      })
+    }
+    getList()
 
-			const powerfulTabledata = reactive < powerfultable > ({
-				listQuery: {
-					pageNum: 1,
-					pageSize: 10,
-					types: "",
-					name: "",
-				},
-				header: header,
-				total: 0,
-				list: [],
-			});
+    const handleSortCustom: Handlers['sort-custom'] = (e) => {
+      powerfulTableData.listQuery[e.prop] = e.order
+      getList()
+    }
+    const handleComponentChange: Handlers['component-event'] = (payload) => {
+      switch (payload.componentName) {
+        case 'switch':
+          console.log(payload)
 
-			// 编辑区显隐
-			let isDialog = ref(false);
-			// 编辑区当前数据
-			let currentForm = reactive({
-				value: {}
-			});
+          powerfulTableData.list[payload.index || 0] = payload.row
+          ElMessage.success('修改成功')
+          break
+      }
+    }
+    const handleBatchChange: Handlers['batch-operate'] = ({ ids, item }) => {
+      switch (item.value) {
+        case 0:
+        case 1:
+          powerfulTableData.list.forEach((each: any, _index: number) => {
+            if (ids.indexOf(each.id) !== -1) {
+              if (item.value === 0) {
+                each.recommend = 1
+              } else {
+                each.recommend = 0
+              }
+            }
+          })
+          ElMessage.success('修改成功')
 
-			const handleAddMenu = () => {
-				isDialog.value = true;
-			};
-			const getList = (
-				e ? : {
-					pageNum: number | string;
-					pageSize: number | string;
-				},
-				selectArr ? : any
-			) => {
-				// 获取选中
-				selectData.value = selectArr ? selectArr : [];
+          break
+        case 2:
+          _delete(ids as number[])
+          break
+      }
+    }
 
-				Object.assign(powerfulTabledata.listQuery, e ? e : {});
-				tableFun(powerfulTabledata.listQuery).then((response) => {
-					powerfulTabledata.list = response.data.list;
-					powerfulTabledata.total = response.data.total;
-				});
-			};
-			getList();
+    const handleBtnClick: Handlers['btn-click'] = ({ params, row }) => {
+      switch (params) {
+        case 'update':
+          isDialog.value = true
+          const _Row = { ...row }
+          _Row.image = [
+            {
+              url: row.image,
+              name: 'book.jpg',
+            },
+          ]
+          Object.assign(currentForm, _Row)
+          break
+        case 'delete':
+          _delete([row.id])
+          break
+      }
+    }
 
-			const handleSortCustom = (e: any) => {
-				console.log("远程搜索", e);
-				powerfulTabledata.listQuery[e.prop] = e.order;
-				getList();
-			};
-			const handleSwitchChange = (row: any, index: number) => {
-				powerfulTabledata.list[index] = row;
-				ElMessage.success("修改成功");
-			};
-			const handleUpdate = (row: any, index: number) => {
-				isDialog.value = true;
+    const _delete = (ids: number[]) => {
+      bookListsDelete(ids).then(() => {
+        ElMessage.success('删除成功')
+        getList()
+      })
+    }
 
-				currentForm.value = reactive(JSON.parse(JSON.stringify(row)));
-			};
+    // 重置
+    const handleResetSearch = () => {
+      Object.keys(powerfulTableData.listQuery).forEach(
+        (item: any, _index: number) => {
+          let arr = ['pageNum', 'pageSize']
+          if (arr.indexOf(item) == -1) {
+            powerfulTableData.listQuery[item] = ''
+          }
+        }
+      )
+    }
 
-			const handleBatchChange = ({
-				ids,
-				item
-			}: {
-				ids: number[],
-				item: {label: string, value: number}
-			}) => {
-				switch (item.value) {
-					case 0:
-					case 1:
-						powerfulTabledata.list.forEach((each: any, index: number) => {
-							if (ids.indexOf(each.id) !== -1) {
-								if (item.value === 0) {
-									each.recommend = 1;
-								} else {
-									each.recommend = 0;
-								}
-							}
-						});
-						ElMessage.success("修改成功");
+    const refresh = (from: any) => {
+      // 添加修改
+      if (from.id) {
+        let index = powerfulTableData.list
+          .map((item: any) => item.id)
+          .indexOf(from.id)
 
-						break;
-					case 2:
-						_delete(ids);
-						break;
-				}
-			};
+        from.image = from.image[0].url
+        powerfulTableData.list[index] = from
+      } else {
+        powerfulTableData.list.push({
+          ...from,
+          image: from.image[0].url,
+          id: powerfulTableData.list[powerfulTableData.list.length - 1].id + 1,
+          iconfont: 'vitehome-liulanliang',
+          href: 'https://gitee.com/abc1612565136/vite-admin',
+        })
+      }
+    }
 
-			const handleDelete = ({row, index}: {row: any, index: number}) => {
-				_delete([row.id]);	
-			};
+    return {
+      // 变量
+      operateData,
+      isDialog,
+      currentForm,
+      selectData,
+      selectMenuList,
+      powerfulTableData,
+      header,
 
-			const _delete = (ids: number[]) => {
-				bookListsDelete(ids)
-				.then(() =>{
-					ElMessage.success("删除成功");
-					getList()
-				})
-
-			};
-
-			const handleResetSearch = () => {
-				Object.keys(powerfulTabledata.listQuery).forEach(
-					(item: any, index: number) => {
-						let arr = ["pageNum", "pageSize"];
-						if (arr.indexOf(item) == -1) {
-							powerfulTabledata.listQuery[item] = "";
-						}
-					}
-				);
-			};
-
-			const refresh = (from: any) => {
-				console.log(from, "refresh");
-				// 添加修改
-				if (from.id) {
-					let index = powerfulTabledata.list
-						.map((item: any) => item.id)
-						.indexOf(from.id);
-					powerfulTabledata.list[index] = from;
-				} else {
-					powerfulTabledata.list.push({
-						...from,
-						id: powerfulTabledata.list[powerfulTabledata.list.length - 1].id + 1,
-						iconfont: "vitehome-liulanliang",
-						href: "https://gitee.com/abc1612565136/vite-admin",
-					});
-					console.log(powerfulTabledata.list);
-				}
-			};
-
-			return {
-				// 变量
-				operateData,
-				isDialog,
-				currentForm,
-				selectData,
-				selectMenuList,
-				powerfulTabledata,
-
-				// 方法
-				handleResetSearch,
-				handleAddMenu,
-				refresh,
-				getList,
-				handleSwitchChange,
-				handleBatchChange,
-				handleUpdate,
-				handleDelete,
-				handleSortCustom,
-			};
-		},
-	});
+      // 方法
+      handleResetSearch,
+      handleBtnClick,
+      refresh,
+      getList,
+      handleComponentChange,
+      handleBatchChange,
+      handleSortCustom,
+    }
+  },
+})
 </script>
 
 <style scoped>
-	.operate-container {
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
+.operate-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 </style>
