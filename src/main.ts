@@ -13,9 +13,9 @@ import { parseTime } from '@/utils/parse-time'
 
 // css
 import './styles/index.scss'
-import ElementPlus from 'element-plus'
+// import ElementPlus from 'element-plus'
 import * as ElementIcon from '@element-plus/icons'
-import powerfulTable from 'el-plus-powerful-table-ts/es'
+import powerfulTable from './es'
 
 // i18n
 import VueI18n from './language'
@@ -23,9 +23,7 @@ import { useI18n } from 'vue-i18n'
 
 // 国际化
 import 'dayjs/locale/zh-cn'
-import cn from 'element-plus/lib/locale/lang/zh-cn'
 import 'dayjs/locale/en'
-import en from 'element-plus/lib/locale/lang/en'
 
 // 路由守卫
 import './permission'
@@ -45,7 +43,6 @@ import viewName from './components/view-name/view-name.vue'
 import defaultData, { DefaultDataType } from './config/default-data'
 import { debounce, throttle } from '@/config/debounce-throttle'
 import { permissionFun } from '@/config/roles-permission'
-
 import { mockXHR } from '../mock/index'
 // if (
 //   import.meta.env.VITE_MOCK === "true"
@@ -75,18 +72,10 @@ app.mixin({
   },
 })
 
-// 判断语言
-const locale = defaultData.navSetting.locale === 'zh-CN' ? cn : en
-
 app
   .use(router)
   .use(store)
   .use(powerfulTable)
-  .use(ElementPlus, {
-    size: defaultData.navSetting.size || 'small',
-    zIndex: 3000,
-    locale,
-  })
   .use(VueI18n)
   .use(VMdEditor)
   .use(VMdPreview)
