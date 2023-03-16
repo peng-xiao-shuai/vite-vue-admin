@@ -1,7 +1,6 @@
-@use 'element-plus/dist/index.css';
+@use 'el-plus-powerful-table-ts/es/style.css';
 // 暗黑模块
 @use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
-@use "element-plus/theme-chalk/src/common/var.scss" as *;
 @use './iconfont.scss';
 @use './common/transition.scss';
 @use './other.scss';
