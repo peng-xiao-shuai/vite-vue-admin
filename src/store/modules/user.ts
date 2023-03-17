@@ -2,7 +2,7 @@ import TYPE from '../type/userType'
 import Cookies from 'js-cookie'
 import { getUser, login } from '@/api/logins'
 import router, { addRouter, Routers } from '@/router/index'
-import { RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw, RouteRecordName } from 'vue-router'
 import type { Store } from 'vuex'
 
 type rolesValueItemType = {
@@ -155,7 +155,7 @@ export type UserInfo = {
 
 export type Tags = {
   path: string
-  name?: string
+  name?: RouteRecordName | null
   meta?: {
     title: string
     icon?: string

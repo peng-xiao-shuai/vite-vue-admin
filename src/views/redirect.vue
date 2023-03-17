@@ -8,10 +8,10 @@ export default {
     let route = useRoute()
     const { params, query } = route
 
-    console.log(route)
+    console.log(params, query, route)
     router.replace({
       name: params.__name,
-      params,
+      params: JSON.parse(params.params),
       query,
     })
 

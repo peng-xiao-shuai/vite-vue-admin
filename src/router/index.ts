@@ -61,7 +61,7 @@ const routes: Routers[] = [
     ],
   },
   {
-    path: '/redirect',
+    path: '/redirect/:__name/:params',
     name: 'redirect',
     hidden: true,
     component: () => import('@/views/redirect.vue'),
