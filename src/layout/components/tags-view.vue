@@ -10,7 +10,7 @@
         <transition-group name="tags">
           <div
             v-for="(item, index) in tags"
-            :key="item.name"
+            :key="index"
             :class="['tag', { active: currentName == item.name }]"
           >
             <div @click="navTo(item)">
@@ -161,14 +161,14 @@ export default defineComponent({
     function remove(i: number) {
       if (tags.value[i].name === currentName.value) {
         router.push({
-          name: tags.value[i - 1].name,
+          name: tags.value[i - 1].name!,
           params: tags.value[i - 1].params,
           query: tags.value[i - 1].query,
         })
         setTimeout(() => {
           // i 为开始删除的下标，1 为删除的个数
           store.dispatch('tagsActions', { removeIndex: [i, 1] })
-        }, 50)
+        }, 100)
       } else {
         store.dispatch('tagsActions', { removeIndex: [i, 1] })
       }
@@ -180,7 +180,7 @@ export default defineComponent({
         router.replace({
           name: 'redirect',
           params: {
-            ...item.params,
+            params: JSON.stringify(item.params),
             __name: item.name as string,
           },
           query: item.query,
@@ -189,7 +189,7 @@ export default defineComponent({
         return
       } else {
         router.push({
-          name: item.name,
+          name: item.name!,
           params: {
             ...item.params,
           },
@@ -202,7 +202,7 @@ export default defineComponent({
     const dropdownDisabled = (e: string) => {
       const currentIndex = tags.value
         .map((item) => item.name)
-        .indexOf(currentName.value as string)
+        .indexOf(currentName.value)
       let disabled = false
       switch (e) {
         case 'closeLeft':
@@ -219,12 +219,12 @@ export default defineComponent({
     const dropdownChange = (e: string) => {
       const currentIndex = tags.value
         .map((item) => item.name)
-        .indexOf(currentName.value as string)
+        .indexOf(currentName.value)
       const { path, name, query, params } = route
 
       switch (e) {
         case 'refresh':
-          navTo({ path, name: name as string, params, query })
+          navTo({ path, name: name, params, query })
           break
         case 'closeLeft':
           store.dispatch('tagsActions', { removeIndex: [1, currentIndex - 1] })
