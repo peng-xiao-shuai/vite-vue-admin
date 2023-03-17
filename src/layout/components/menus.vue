@@ -40,7 +40,7 @@
 import menusLogo from './menus-logo.vue'
 import menusItem from './menus-item.vue'
 import { useRoute } from 'vue-router'
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ComputedRef } from 'vue'
 
 export default defineComponent({
   name: 'Menus',
@@ -56,7 +56,7 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute()
-    const menuActive = computed(() => route.name)
+    const menuActive = computed(() => route.name) as  ComputedRef<string | undefined>
     return {
       menuActive,
     }

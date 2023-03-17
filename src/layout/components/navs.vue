@@ -22,27 +22,28 @@
                 {{ item.meta.locale ? t(item.meta.locale) : item.meta.title }}
                 <el-icon><el-icon-arrow-down /></el-icon>
               </div>
+
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item
-                    v-for="each in item.children"
-                    :key="each.name"
-                    :to="item.redirect || item.path"
-                  >
-                    <router-link
-                      :to="each.redirect || each.path"
-                      class="router-link"
+                  <template v-for="each in item.children" :key="each.name" >
+                    <el-dropdown-item
+                      v-if="(each.children && each.children.length && each.redirect) || !each.children"
                     >
-                      {{
-                        each.meta.locale ? t(each.meta.locale) : each.meta.title
-                      }}
-                    </router-link>
-                  </el-dropdown-item>
+                      <router-link
+                        :to="each.redirect ? each.redirect : {name: each.name}"
+                        class="router-link"
+                      >
+                        {{
+                          each.meta.locale ? t(each.meta.locale) : each.meta.title
+                        }}
+                      </router-link>
+                    </el-dropdown-item>
+                  </template>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
 
-            <router-link v-else :to="item.redirect || item.path">{{
+            <router-link v-else :to="{name: item.name}">{{
               item.meta.locale ? t(item.meta.locale) : item.meta.title
             }}</router-link>
           </el-breadcrumb-item>
@@ -118,6 +119,9 @@ export default {
     return {
       matched,
       handleCollapse,
+      a: (item) => {
+        console.log(item)
+      }
     }
   },
 }
