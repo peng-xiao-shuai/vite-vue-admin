@@ -2,14 +2,14 @@
   <div>
     <div class="app-container">
       <el-col :span="12">
-        <!-- <div style="background: var(--color-primary);"> -->
+        <!-- <div style="background: var(--el-color-primary);"> -->
         <img :src="img_404" alt="404" class="img-style" />
         <!-- </div> -->
       </el-col>
       <el-col :span="12">
         <div style="margin-left: 50px; margin-top: 40px">
           <h1 class="color-main">OOPS!</h1>
-          <h2 style="color: var(--color-primary)">
+          <h2 style="color: var(--el-color-primary)">
             {{ t('Sorry,.it.got.lost.by.accident') }}
           </h2>
           <div style="color: #909399; font-size: 14px">
