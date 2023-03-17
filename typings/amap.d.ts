@@ -59,6 +59,23 @@ declare global {
       getCurrentPosition: (callback: GeolocationCallBack) => void
       getCityInfo: (callback: GeolocationCallBack) => void
     }
+
+    export class Geocoder {
+      constructor(
+        opts?: Partial<{
+          city: string
+          radius: number
+          lang: string
+          batc: boolean
+          extensions: string
+        }>
+      )
+
+      getAddress: (
+        location: AMap.LngLat,
+        callback: (status: string, result: any) => void
+      ) => void
+    }
   }
 }
 export {}
