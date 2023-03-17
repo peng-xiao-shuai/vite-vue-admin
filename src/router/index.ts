@@ -273,7 +273,7 @@ export const addRouter: Routers[] = [
               {
                 path: 'much-menu-three-one',
                 name: 'much-menu-three-one',
-                component: () => import('@/views/maps/qq-map.vue'),
+                component: () => import('@/views/maps/ali-map.vue'),
                 meta: {
                   title: '地图',
                   locale: 'map',
