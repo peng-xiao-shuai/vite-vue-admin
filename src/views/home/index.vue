@@ -4,24 +4,13 @@
       <panel-group :count="count" :height="90" />
       <el-card :shadow="defaultData.cardShadow">
         <!-- eachDiv 原有高度 - panel-group高度 - panel-group(margin) - card(padding) -->
-        <HomeEcharts
-          :isSlot="true"
-          echartsId="chart"
-          :height="550 - 90 - 20 - 40"
-          :colors="colors"
-          :information="chart.value"
-          :title="t('user.login.line')"
-          types="line"
-        >
+        <HomeEcharts :isSlot="true" echartsId="chart" :height="550 - 90 - 20 - 40" :colors="colors"
+          :information="chart.value" :title="t('user.login.line')" types="line">
           <template #default>
             <!-- 版块切换 -->
             <div class="typeSwitch">
-              <div
-                v-for="(item, index) in count"
-                :key="'switch' + index"
-                :class="[{ 'switch-active': current == index }, 'switch']"
-                @click="typeSwitch(index)"
-              >
+              <div v-for="(item, index) in count" :key="'switch' + index"
+                :class="[{ 'switch-active': current == index }, 'switch']" @click="typeSwitch(index)">
                 {{ t(item.locale) }}
               </div>
             </div>
@@ -40,17 +29,17 @@
           <template #timeSwiper>
             <!-- 时间段切换 -->
             <div class="timeDropdown">
-              <el-dropdown @command="command">
+              <el-dropdown @command="(e: string) => handleChart(current, e)">
                 <span class="el-dropdown-link pointer">
                   {{ findTime
-                  }}<el-icon class="el-icon--right"><ArrowDown /></el-icon>
+                  }}<el-icon class="el-icon--right">
+                    <ArrowDown />
+                  </el-icon>
                 </span>
                 <template #dropdown>
                   <el-dropdown-menu>
                     <el-dropdown-item command="Month">Month</el-dropdown-item>
-                    <el-dropdown-item command="Fifteen"
-                      >Fifteen</el-dropdown-item
-                    >
+                    <el-dropdown-item command="Fifteen">Fifteen</el-dropdown-item>
                     <el-dropdown-item command="Seven">Seven</el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
@@ -75,7 +64,9 @@
           </div>
           <!-- 上升 -->
           <div class="increase">
-            <el-icon style="color: var(--el-color-primary)"><Top /></el-icon>
+            <el-icon style="color: var(--el-color-primary)">
+              <Top />
+            </el-icon>
           </div>
         </el-card>
 
@@ -91,23 +82,15 @@
           </div>
           <!-- 上升 -->
           <div class="increase">
-            <el-icon style="color: var(--el-color-primary)"><Top /></el-icon>
+            <el-icon style="color: var(--el-color-primary)">
+              <Top />
+            </el-icon>
           </div>
         </el-card>
 
-        <el-card
-          :shadow="defaultData.cardShadow"
-          :body-style="{ padding: '20px' }"
-          class="eachDiv eachDiv-3"
-        >
-          <HomeEcharts
-            echartsId="earnings"
-            :height="550 - 170 - 20 - 40"
-            :colors="colors"
-            :information="earnings.chart"
-            types="line"
-            :title="t('income.line')"
-          />
+        <el-card :shadow="defaultData.cardShadow" :body-style="{ padding: '20px' }" class="eachDiv eachDiv-3">
+          <HomeEcharts echartsId="earnings" :height="550 - 170 - 20 - 40" :colors="colors" :information="earnings.chart"
+            types="line" :title="t('income.line')" />
         </el-card>
       </div>
     </div>
@@ -115,287 +98,56 @@
       <el-card :shadow="defaultData.cardShadow">
         <div class="echartsBox">
           <div class="un-handle-layout">
-            <HomeEcharts
-              echartsId="pageviewData"
-              :height="310 - 40"
-              :colors="colors"
-              :information="pageviewData.value"
-              types="homeCake"
-              :title="t('page.view.pillar')"
-            />
+            <HomeEcharts echartsId="pageViewData" :height="310 - 40" :colors="colors" :information="pageViewData.value"
+              types="homeCake" :title="t('page.view.pillar')" />
           </div>
         </div>
       </el-card>
     </div>
     <div class="eachDiv eachDiv4">
       <el-card :shadow="defaultData.cardShadow">
-        <h3
-          style="
-            margin: 0 0 10px 0;
-            display: flex;
-            justify-content: space-between;
-          "
-        >
+        <h3 style="
+              margin: 0 0 10px 0;
+              display: flex;
+              justify-content: space-between;
+            ">
           <span>{{ t('commit.list') }}</span>
-
-          <!-- <router-link
-              :to="{ name: 'submitList' }"
-              :style="{
-                color: themeColor,
-                fontSize: '14px',
-                textDecoration: 'none',
-              }"
-              >查看全部</router-link
-            > -->
         </h3>
-        <powerful-table
-          :isSelect="false"
-          :isPagination="false"
-          :list="list.value"
-          :header="tableHeader"
-        />
+        <powerful-table :isSelect="false" :isPagination="false" :list="list" :header="tableHeader" />
       </el-card>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup name="Home">
 import { ArrowDown, Top } from '@element-plus/icons'
 import HomeEcharts from '@/components/easy-echart/index.vue'
 import PanelGroup from './components/PanelGroup.vue'
-// import lineBarEcharts from './components/lineBarEcharts.vue'
-
-import { useStore } from 'vuex'
-import * as echarts from 'echarts'
 import 'vue3-number-roll-plus/main.css'
+import { useEchart, useTableData } from './indexData'
+const {
+  colors,
+  count,
+  chart,
+  userLineColor,
+  current,
+  earnings,
+  findTime,
+  pageViewData,
+  handleChart,
+} = useEchart()
 
-import {
-  pageviewChart,
-  countFun,
-  earningsFun,
-  chartFun,
-  tableFun,
-} from '@/api/home'
-import { defineComponent, reactive, ref } from 'vue'
-import { header, Count } from './indexData'
+const {
+  list,
+  tableHeader,
+  handleGetTable
+} = useTableData()
 
-export default defineComponent({
-  name: 'Home',
-  components: {
-    HomeEcharts,
-    PanelGroup,
-    ArrowDown,
-    Top,
-    // lineBarEcharts,
-  },
-  setup() {
-    // 曲线图颜色
-    type ChartColor = {
-      opacity: number
-      color: any
-    }
-    const chartColor: ChartColor[] = [
-      {
-        opacity: 0.4,
-        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          {
-            offset: 0,
-            color: useStore().state.settings.themeColor.primary,
-          },
-          {
-            offset: 1,
-            color: 'rgba(255, 255, 255,0)',
-          },
-        ]),
-      },
-      {
-        opacity: 0.4,
-        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          {
-            offset: 0,
-            color: '#55bcff',
-          },
-          {
-            offset: 1,
-            color: 'rgba(255, 255, 255,0)',
-          },
-        ]),
-      },
-    ]
-    // 曲线图线段颜色
-    const colors: string[] = [
-      useStore().state.settings.themeColor.primary,
-      '#55bcff',
-      '#F6A829',
-      '#646cff',
-    ]
+const typeSwitch = (i: number) => {
+  current.value = i
 
-    let count = reactive<Count[]>([
-      {
-        icon: 'vitehome-user',
-        title: '用户',
-        value: '',
-        locale: 'user',
-        key: 'users',
-        color: 'var(--el-color-primary)',
-      },
-      {
-        icon: 'vitehome-wengzhang',
-        title: '文章',
-        value: '',
-        locale: 'article',
-        key: 'shoppings',
-        color: '#55bcff',
-      },
-      {
-        icon: 'vitehome-liulanliang',
-        title: '浏览量',
-        value: '',
-        locale: 'page.view',
-        key: 'pageview',
-        color: '#646cff ',
-      },
-      {
-        icon: 'vitehome-done',
-        title: '已提交',
-        value: '',
-        key: 'done',
-        locale: 'commit',
-        color: '#F6A829 ',
-      },
-    ])
-    let chart = reactive({ value: {} })
-    let pageviewData = reactive({ value: {} })
-
-    // 自定义线段颜色
-    type UserLineColor = { value: { name: string; color: string }[] }
-    let userLineColor: UserLineColor = reactive({ value: [] })
-
-    let current = ref(0)
-    interface Earnings {
-      value: {
-        dayMoney: number | string
-        dayPercentage: number | string
-        totalMoney: number | string
-        totalPercentage: number | string
-      }
-      chart: {}
-    }
-    let earnings = reactive<Earnings>({
-      value: {
-        dayMoney: '',
-        dayPercentage: '',
-        totalMoney: '',
-        totalPercentage: '',
-      },
-      chart: {},
-    })
-
-    // 表格相关
-    let listQuery = reactive({
-      pageSize: 3,
-      pageNum: 1,
-    })
-    let list = reactive({ value: [] })
-    let tableHeader = reactive(header)
-    // end
-
-    let findTime = ref('Seven')
-
-    function typeSwitch(i: number) {
-      current.value = i
-
-      handleChart(i)
-    }
-
-    function command(e: string) {
-      handleChart(current.value, e)
-    }
-
-    // 浏览量
-    function handlePageview() {
-      pageviewChart().then((res) => {
-        pageviewData.value = res.data
-      })
-    }
-    function handleChart(status: number, period = 'Seven') {
-      findTime.value = period
-
-      userLineColor.value = []
-      chartFun({ status, period }).then((res) => {
-        res.data.homeDateInfoResult.forEach((item: any, index: number) => {
-          item.areaStyle = chartColor[index]
-
-          userLineColor.value.push({
-            name: item.name,
-            color: colors[index],
-          })
-        })
-        chart.value = res.data
-      })
-    }
-    function handleCount() {
-      countFun().then((res) => {
-        count.forEach((i: Count) => {
-          i.value = res.data[i.key]
-        })
-      })
-    }
-
-    // 收益
-    function handleEarnings() {
-      earningsFun().then((res) => {
-        earnings.value = res.data.money
-
-        res.data.chart.homeDateInfoResult.forEach(
-          (item: any, index: number) => {
-            item.areaStyle = chartColor[index]
-          }
-        )
-        earnings.chart = res.data.chart
-        // console.log(earnings);
-      })
-    }
-
-    // 提交信息
-    function handleGetTable(e?: {
-      pageNum: number | string
-      pageSize: number | string
-    }) {
-      Object.assign(listQuery, e ? e : {})
-      tableFun(listQuery).then((res) => {
-        list.value = res.data.list
-      })
-    }
-    handleGetTable()
-
-    // 统计
-    handleCount()
-
-    handleChart(0)
-
-    handlePageview()
-
-    handleEarnings()
-
-    return {
-      count,
-      chart,
-      pageviewData,
-      earnings,
-      colors,
-      list,
-      tableHeader,
-      current,
-      userLineColor,
-      findTime,
-
-      handleGetTable,
-      typeSwitch,
-      command,
-    }
-  },
-})
+  handleChart(i)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -405,6 +157,7 @@ export default defineComponent({
   grid-template-rows: 550px 310px;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
+
   .eachDiv1 {
     grid-column-start: 1;
     grid-column-end: 4;
@@ -419,7 +172,7 @@ export default defineComponent({
       overflow: hidden;
       background: #eff1f4;
 
-      > div {
+      >div {
         flex: 1;
         text-align: center;
         color: var(--el-text-color-regular);
@@ -436,13 +189,13 @@ export default defineComponent({
       display: flex;
       align-items: center;
 
-      > div {
+      >div {
         margin-right: 10px;
         display: flex;
         align-items: center;
       }
 
-      > div:last-child {
+      >div:last-child {
         margin: 0;
       }
 
@@ -479,13 +232,14 @@ export default defineComponent({
     :deep(.el-card) {
       height: 310px;
 
-      > .el-card__body {
+      >.el-card__body {
         height: 100%;
         box-sizing: border-box;
       }
     }
   }
-  > .eachDiv {
+
+  >.eachDiv {
     width: 100%;
     // background: #fff;
 
@@ -548,11 +302,9 @@ export default defineComponent({
         .viteIconBg {
           width: 60px;
           height: 60px;
-          background: linear-gradient(
-            to top,
-            var(--el-color-primary),
-            var(--el-color-primary-light-7)
-          );
+          background: linear-gradient(to top,
+              var(--el-color-primary),
+              var(--el-color-primary-light-7));
           border-radius: 50%;
           display: flex;
           align-items: center;
