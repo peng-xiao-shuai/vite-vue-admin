@@ -527,7 +527,6 @@ export const useAMapFence = (
       item.destroy()
     })
     compilations.texts = []
-    compilations.map?.destroy()
   }
 
   useDestroy(name!, unmounted)
