@@ -16,7 +16,6 @@ import { NextLoading } from '@/utils/loading' // progress bar
  * @param {boolean} breadcrumb 是否不展示在 “面包屑”组件上展示
  * @param {number} sort 动态添加排序
  */
-
 export interface Routers {
   path: string
   component: DefineComponent | Function
@@ -243,6 +242,7 @@ export const addRouter: Routers[] = [
       {
         path: 'much-menu-two',
         name: 'much-menu-two',
+        redirect: '/much-router/much-menu-two/much-menu-two-one',
         component: much,
         meta: {
           title: '二级菜单(二)',
