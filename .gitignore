@@ -3,7 +3,6 @@ node_modules
 dist
 dist-ssr
 *.local
-.vscode
 public/logo.zip
 components.d.ts
 auto-imports.d.ts
