@@ -18,7 +18,7 @@
               class="btn-add"
               @click="backUp()"
               size="small"
-              v-show="upParent.value.length > 0"
+              v-show="upParent.length > 0"
             >
               <i class="el-icon-back"></i>返回上级
             </el-button>
@@ -131,12 +131,9 @@ const handleBtnClick: Handlers['btn-click'] = ({ params, row }) => {
 }
 
 const handleShowNextLevel = (row: RowType ) => {
-  upParent.value.push([row])
-  console.log(upParent);
+  upParent.value.push(row)
 
-
-  allList.value = upParent.value[upParent.value.length - 1]
-
+  allList.value = [upParent.value[upParent.value.length - 1]]
   parentId.value = row.id
 
   getList()
@@ -168,8 +165,8 @@ const refreshMenu = () => {
 
 const backUp = () => {
   powerfulTableData.listQuery.pageNum = 1
-  parentId.value = upParent.value[upParent.value.length - 1][0].parentId
-  allList.value = upParent.value[upParent.value.length - 1]
+  parentId.value = upParent.value[upParent.value.length - 1].parentId
+  allList.value = [upParent.value[upParent.value.length - 1]]
   upParent.value.splice(upParent.value.length - 1, 1)
 
   getList()

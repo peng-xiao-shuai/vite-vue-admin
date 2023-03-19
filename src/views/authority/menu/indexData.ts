@@ -149,9 +149,10 @@ export const useData = <Row = any>() => {
 
   const parentId = ref(0)
   // 存储上级信息
-  const upParent = reactive({ value: [] })
+  const upParent = ref<RowType[]>([])
   // 渲染的菜单
-  const allList = reactive({ value: [] })
+  const allList = ref<RowType[]>([])
+  // const allList = reactive({ value: [] })
 
   // 编辑区显隐
   const isDialog = ref(false)
