@@ -17,8 +17,8 @@
               type="primary"
               class="btn-add"
               @click="backUp()"
-              size="mini"
-              v-show="upParent.value.length > 1"
+              size="small"
+              v-show="upParent.value.length > 0"
             >
               <i class="el-icon-back"></i>返回上级
             </el-button>
@@ -27,7 +27,7 @@
             type="primary"
             class="btn-add"
             @click="handleAddMenu()"
-            size="mini"
+            size="small"
           >
             添加
           </el-button>
@@ -36,171 +36,150 @@
       <div>
         <powerful-table
           ref="menuTable"
-          :list="list.value"
-          :header="config"
+          :list="powerfulTableData.list"
+          :header="header"
           :isSelect="false"
-          :total="total"
+          :pagination-property="{
+            total: powerfulTableData.total,
+          }"
           :tableName="'menuTable'"
-          @sizeChange="getList"
-          @switchChange="handleHiddenChange"
-          @query="handleShowNextLevel"
-          @update="handleUpdate"
-          @remove="handleDelete"
+          @size-change="getList"
+          @sort-custom="handleSortCustom"
+          @component-event="handleComponentChange"
+          @btn-click="handleBtnClick"
         >
         </powerful-table>
       </div>
     </el-card>
     <!-- 编辑区 -->
-    <update
+    <!-- update
       v-model:dialog="isDialog"
       v-model:currentFrom="currentFrom.value"
       :selectMenuList="allList.value"
       @refresh="getList"
-    ></update>
+    ></update>< -->
   </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import {
   fetchList,
   deleteMenu,
   updateMenu,
 } from "@/api/ums/menu"
-import { header } from "./indexData.ts"
-import { ref, reactive, defineComponent, getCurrentInstance } from 'vue'
-
+import { useData, RowType } from './indexData'
 // 组件
-import update from './components/update.vue'
+import Update from './components/update.vue'
 import { useRouter } from "vue-router"
 import { useStore } from "vuex"
+import { Handlers } from 'el-plus-powerful-table-ts'
+import { ElMessage } from 'element-plus'
 
-const menusArr = [{ id: 0, title: '无上级菜单' }]
+const {
+    header,
+    powerfulTableData,
+    currentForm,
+    parentId,
+    upParent,
+    allList,
+    isDialog
+  } = useData()
 
-export default defineComponent({
-  components: {
-    update
-  },
-  setup () {
-    const {proxy} = getCurrentInstance()
-    const router = useRouter()
-    const store = useStore()
+const store = useStore()
+const router = useRouter()
 
-    let list = reactive({ value: [] })
-    // 渲染的菜单
-    let allList = reactive({ value: [] })
+const getList = () => {
+  fetchList(parentId.value, powerfulTableData.listQuery).then((res) => {
+    powerfulTableData.list = res.data.list
+    powerfulTableData.total = res.data.total
+  })
+}
 
-    let total = ref(0)
-    let config = reactive(header)
-    let listQuery = reactive({
-      pageNum: 1,
-      pageSize: 10,
-    })
+getList()
 
-    let parentId = ref(0)
-    // 存储上级信息
-    let upParent = reactive({ value: [] })
+const handleSortCustom: Handlers['sort-custom'] = (e) => {
+  powerfulTableData.listQuery[e.prop] = e.order
+  getList()
+}
 
-    // 编辑区显隐
-    let isDialog = ref(false)
-    // 编辑区当前数据
-    let currentFrom = reactive({ value: {} })
-
-    getList()
-
-    function handleAddMenu () {
-      isDialog.value = true
-      currentFrom.value = { parentId: parentId.value, hidden: 0, sort: 0 }
-    }
-    function getList (e) {
-      if (parentId.value == 0) {
-        upParent.value = [menusArr]
-        allList.value = menusArr
+const handleComponentChange: Handlers['component-event'] = (payload) => {
+  switch (payload.componentName) {
+    // 停用事件
+    case 'switch':
+      const e = payload.row
+      if (store.state.user.userInfo.id == e.id && e.status === 0) {
+        ElMessage.error('你的账号已被停用！')
       }
-
-      Object.assign(listQuery, e ? e : listQuery)
-      fetchList(parentId.value, listQuery).then((res) => {
-        list.value = reactive(res.data.list)
-        total.value = res.data.total
-      })
-    }
-    function handleHiddenChange (row) {
-      updateMenu(row).then((response) => {
-        proxy.$message({
-          message: "修改成功",
-          type: "success",
-          duration: 1000,
-        })
-      })
-    }
-    function handleShowNextLevel ({ row, index }) {
-      upParent.value.push([row])
-
-      allList.value = upParent.value[upParent.value.length - 1]
-
-      parentId.value = row.id
-
-      getList()
-    }
-    function backUp () {
-      listQuery.pageNum = 1
-      parentId.value = upParent.value[upParent.value.length - 1][0].parentId
-      allList.value = upParent.value[upParent.value.length - 1]
-      upParent.value.splice(upParent.value.length - 1, 1)
-
-      getList()
-    }
-    function handleUpdate ({ row, index }) {
-      isDialog.value = true
-
-      currentFrom.value = reactive(JSON.parse(JSON.stringify(row)))
-      // console.log(currentFrom);
-    }
-    function handleDelete ({ row, index }) {
-      deleteMenu([row.id]).then((response) => {
-        proxy.$message({
-          message: "删除成功",
-          type: "success",
-          duration: 1000,
-        })
-        getList()
-      })
-    }
-
-    // 刷新菜单
-    const refreshMenu = () => {
-      router.getRoutes().forEach((item) => {
-        if (item.meta && item.meta.id) {
-          router.removeRoute(item.name)
-        }
-      })
-
-      store.dispatch('userInfo')
-    }
-
-    return {
-      // 变量
-      list,
-      total,
-      config,
-      listQuery,
-      parentId,
-      upParent,
-      isDialog,
-      currentFrom,
-      allList,
-
-      // 方法
-      handleAddMenu,
-      getList,
-      backUp,
-      handleHiddenChange,
-      handleShowNextLevel,
-      handleUpdate,
-      handleDelete,
-      refreshMenu
-    }
+      break
   }
-});
+}
+
+const handleBtnClick: Handlers['btn-click'] = ({ params, row }) => {
+  console.log(params, row);
+  switch (params) {
+    case 'query':
+    // switchs.role = true;
+    handleShowNextLevel(row)
+      break
+    case 'update':
+    handleUpdate(row)
+      break
+    case 'remove':
+      handleDelete(row)
+      break
+  }
+}
+
+const handleShowNextLevel = (row: RowType ) => {
+  upParent.value.push([row])
+  console.log(upParent);
+
+
+  allList.value = upParent.value[upParent.value.length - 1]
+
+  parentId.value = row.id
+
+  getList()
+}
+
+
+const handleUpdate = (row: RowType ) => {
+  isDialog.value = true
+  Object.assign(currentForm, JSON.parse(JSON.stringify(row)))
+  // console.log(currentFrom);
+}
+
+const handleDelete = (row: RowType) => {
+  deleteMenu([row.id]).then((response) => {
+    ElMessage.success('删除成功！')
+    getList()
+  })
+}
+
+// 刷新菜单
+const refreshMenu = () => {
+  router.getRoutes().forEach((item: any) => {
+    if (item.meta && item.meta.id) {
+      router.removeRoute(item.name)
+    }
+  })
+  store.dispatch('userInfo')
+}
+
+const backUp = () => {
+  powerfulTableData.listQuery.pageNum = 1
+  parentId.value = upParent.value[upParent.value.length - 1][0].parentId
+  allList.value = upParent.value[upParent.value.length - 1]
+  upParent.value.splice(upParent.value.length - 1, 1)
+
+  getList()
+}
+
+const handleAddMenu = () => {
+  isDialog.value = true
+  let row = { parentId: parentId.value, hidden: 0, sort: 0 }
+  Object.assign(currentForm, JSON.parse(JSON.stringify(row)))
+}
 </script>
 
 <style scoped>

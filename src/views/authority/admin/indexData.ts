@@ -1,4 +1,19 @@
+/*
+ * @Description:
+ * @Author: chenle
+ * @Date: 2023-03-06 09:44:20
+ * @LastEditors: chenle
+ * @LastEditTime: 2023-03-19 15:55:54
+ */
+import store from '@/store'
+import { ref, markRaw, reactive } from 'vue'
 import { ElMessage } from "element-plus";
+import { setData } from 'el-plus-powerful-table-ts/es'
+import { Edit, Remove } from '@element-plus/icons'
+import type {
+  PowerfulTableHeader,
+  PowerfulTableOperateData,
+} from 'el-plus-powerful-table-ts'
 
 export type RowType = {
   icon: string,
@@ -9,70 +24,129 @@ export type RowType = {
   createTime?: string
 }
 
-export const header = [{
-	label: '编号', //显示的标题
-	minWidth: '80', //对应列的最小宽度
-	sortable: true, //排序
-	props: [{
-		prop: 'id',
-	}],
-}, {
-	label: '帐号', //显示的名称
-	overflowTooltip: true,
-	props: [{
-		prop: 'username',
-	}],
-}, {
-	label: '角色', //显示的名称
-	props: [{
-		type: 'slot',
-		slotName: 'roles',
-	}],
-}, {
-	label: '是否启用', //显示的名称
-	props: [{
-		prop: 'status',
-		type: 'switch',
-		data: {
-			beforeFunction: (row: RowType) => {
-				if (row.id == 1) {
-					ElMessage.warning('不允许停用！')
-				}
+interface PowerfulTableData {
+  list: RowType[],
+  header: any[],
+  total: number,
+  listQuery: {
+    pageNum: number,
+    pageSize: number,
+    username?: string
+  }
+}
 
-				return  row.id == 1 ? false : true
-			}
-		}
-	}],
-}, {
-	label: '添加时间', //显示的名称
-	props: [{
-		prop: 'createTime',
-	}],
-}, {
-	label: '操作', //显示的标题
-	minWidth: '180px',
-	props: [{
-		type: 'btn',
-		data: [{
-			tip: '分配角色',
-			type: 'primary',
-			icon: 'el-icon-user',
-			emit: 'occupyOne'
-		}, 
-		// {
-		// 	tip: '编辑',
-		// 	type: 'warning',
-		// 	icon: 'el-icon-edit-outline',
-		// 	emit: 'update'
-		// }, 
-		{
-			tip: '删除',
-			type: 'danger',
-			icon: 'el-icon-delete',
-			emit: 'remove',
-			showBtn: (row: RowType) => {
-				return row.id == 1 ? false : true
-			}
-		}],
-	}]
-}]
+const defaultData = {
+  icon: "",
+  id: -1,
+  roles: [],
+  username: "",
+  status: -1,
+  createTime: ""
+}
+
+export const useData = <Row = any>() => {
+  const header: PowerfulTableHeader<Row>[] = [{
+    label: '编号', //显示的标题
+    minWidth: '80', //对应列的最小宽度
+    sortable: true, //排序
+    props: [{
+      prop: 'id',
+    }],
+  }, {
+    label: '帐号', //显示的名称
+    overflowTooltip: true,
+    props: [{
+      prop: 'username',
+    }],
+  }, {
+    label: '角色', //显示的名称
+    props: [{
+      type: 'slot',
+      prop: '',
+      slotName: 'roles',
+    }],
+  }, {
+    label: '是否启用', //显示的名称
+    props: [{
+      prop: 'status',
+      type: 'switch',
+      data: setData<'switch'>({
+        property: (row: any) => {
+          return {
+            activeColor: store.getters.getThemeColor,
+            inactiveValue: 0,
+            activeValue: 1,
+            beforeChange: () => {
+              if (row.id == 1) {
+                ElMessage.warning('不允许停用！')
+              }
+              return true
+            }
+          }
+        }
+      })
+
+    }],
+  }, {
+    label: '添加时间', //显示的名称
+    props: [{
+      prop: 'createTime',
+    }],
+  }, {
+    label: '操作', //显示的标题
+    minWidth: '180px',
+    props: [{
+      type: 'btn',
+      prop: '',
+      data: setData<'btn'>([
+        {
+          text: '分配角色',
+          params: 'occupyOne',
+          property: {
+            type: 'primary',
+            icon: markRaw(Edit),
+          }
+        },
+        {
+          text: '删除',
+          params: 'remove',
+          property: {
+            type: 'danger',
+            icon: markRaw(Remove),
+          },
+        },
+      ]),
+    }],
+  }]
+
+  // 弹窗开关
+  const switchs = reactive({
+    role: false,
+    edit: false
+  })
+
+  const powerfulTableData: PowerfulTableData = reactive({
+    list: [],
+    header: header,
+    total: 0,
+    listQuery: {
+      pageNum: 1,
+      pageSize: 10,
+      username: ''
+    }
+  })
+
+  // row 数据
+  const currentForm = ref<RowType>({ ...defaultData })
+
+  // 角色列表
+  const roleLists = ref<{ label: string, value: string }[]>([])
+
+  return {
+    header,
+    switchs,
+    powerfulTableData,
+    currentForm,
+    roleLists,
+  }
+}
