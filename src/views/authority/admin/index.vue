@@ -45,14 +45,15 @@
         <powerful-table
           ref="menuTable"
           :list="powerfulTableData.list"
-          :header="powerfulTableData.header"
+          :header="header"
           :isSelect="false"
-          :total="powerfulTableData.total"
           :tableName="'menuTable'"
-          @sizeChange="getList"
-          @switchChange="handleStatusChange"
-          @occupyOne="({row}) => {switchs.role = true; currentForm = JSON.parse(JSON.stringify(row))}"
-          @remove="remove"
+          :pagination-property="{
+            total: powerfulTableData.total,
+          }"
+          @size-change="getList"
+          @component-event="handleComponentChange"
+          @btn-click="handleBtnClick"
         >
           <template #roles={row}>
             <el-tag v-for="item in row.roles" :key='item' style="margin-right: 5px">
@@ -91,44 +92,20 @@
 import { getUserList, userRemove } from '@/api/logins'
 import { getRoleList } from '@/api/ums/role';
 import { reactive, ref, getCurrentInstance } from 'vue'
-import { header, RowType } from './indexData'
+import { useData, RowType } from './indexData'
 import { useStore } from 'vuex';
+import { Handlers } from 'el-plus-powerful-table-ts'
+import { ElMessage } from 'element-plus'
+
+const {
+    header,
+    switchs,
+    powerfulTableData,
+    currentForm,
+    roleLists
+  } = useData()
 
 const store = useStore()
-const { proxy } = getCurrentInstance() as any
-
-// 弹窗开关
-const switchs = reactive({
-  role: false,
-  edit: false
-})
-
-// row 数据
-const currentForm = ref<RowType|{}>({})
-
-type PowerfulTableData = {
-  list: RowType[],
-  header: any[],
-  total: number,
-  listQuery: {
-    pageNum: number,
-    pageSize: number,
-    username?: string
-  }
-}
-const powerfulTableData = reactive<PowerfulTableData>({
-  list: [],
-  header: header,
-  total: 0,
-  listQuery: {
-    pageNum: 1,
-    pageSize: 10,
-    username: ''
-  }
-})
-
-// 角色列表
-const roleLists = ref<{label: string, value: string}[]>([])
 
 // 获取用户列表
 const getList = () => {
@@ -150,19 +127,37 @@ const getRole = () => {
 getRole()
 getList()
 
-const remove = ({row}: {row: RowType}) => {
-  userRemove({ids: [row.id]})
-  .then(res => {
-    proxy.$message.success('删除成功！')
-    getList()
-  })
+const handleComponentChange: Handlers['component-event'] = (payload) => {
+  switch (payload.componentName) {
+    // 停用事件
+    case 'switch':
+      const e = payload.row
+      if (store.state.user.userInfo.id == e.id && e.status === 0) {
+        ElMessage.error('你的账号已被停用！')
+      }
+      break
+  }
 }
 
-// 停用事件
-const handleStatusChange = (e: RowType) => {
-  if (store.state.user.userInfo.id == e.id && e.status === 0) {
-    proxy.$message.error('你的账号已被停用！')
+const handleBtnClick: Handlers['btn-click'] = ({ params, row }) => {
+  console.log(row);
+  switch (params) {
+    case 'occupyOne':
+    switchs.role = true;
+    Object.assign(currentForm, JSON.parse(JSON.stringify(row)))
+      break
+    case 'remove':
+      remove(row)
+      break
   }
+}
+
+const remove = (row: RowType) => {
+  userRemove({ids: [row.id]})
+  .then(res => {
+    ElMessage.success('删除成功！')
+    getList()
+  })
 }
 
 // 分配菜单
@@ -172,7 +167,6 @@ const handleAddRole = () => {
     if (item.id == (currentForm.value as RowType).id) {
       item = currentForm.value as RowType
     }
-
     return item
   })
 }

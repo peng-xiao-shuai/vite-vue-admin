@@ -35,7 +35,7 @@
         <el-input v-model="currentFrom.name"></el-input>
       </el-form-item>
       <el-form-item label="前端图标：" prop="icon">
-        <icon-select v-model:icon="currentFrom.icon"></icon-select>
+        <!-- <icon-select v-model:icon="currentFrom.icon"></icon-select> -->
       </el-form-item>
       <el-form-item label="是否显示：">
         <el-radio-group v-model="currentFrom.hidden" v-if="dialog">
@@ -58,7 +58,7 @@
 
 <script>
 import { updateMenu } from '@/api/ums/menu'
-import iconSelect from "@/components/icon-select/index.vue";
+// import iconSelect from "@/components/icon-select/index.vue";
 
 const defaultMenu = {
   title: '',
@@ -71,7 +71,7 @@ const defaultMenu = {
 export default {
   name: "MenuDetail",
   components: {
-    iconSelect
+    // iconSelect
   },
   props: {
     dialog: {
