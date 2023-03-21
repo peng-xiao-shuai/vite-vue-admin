@@ -3,7 +3,6 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
@@ -19,10 +18,11 @@ export default defineConfig({
       // 指定symbolId格式
       symbolId: 'icon-[dir]-[name]',
     }),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
     Components({
+      globs: [
+        'src/components/*.{vue|tsx}',
+        'src/views/**/components/*.{vue|tsx}',
+      ],
       include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/],
       resolvers: [
         ElementPlusResolver({
