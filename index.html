@@ -6,9 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>vite-vue-admin</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" />
-		<script type="module" crossorigin src="/vite-vue-admin/assets/index.39723eb2.js"></script>
-		<link rel="modulepreload" href="/vite-vue-admin/assets/vendor.f934f7ac.js">
-		<link rel="stylesheet" href="/vite-vue-admin/assets/index.7045f6b0.css">
+		<script type="module" crossorigin src="/vite-vue-admin/assets/index-22d7fef2.js"></script>
+		<link rel="stylesheet" href="/vite-vue-admin/assets/index-4800e650.css">
 	</head>
 	<body>
 		<div id="app">
@@ -16,8 +15,7 @@
 			<p id="loadingText" style="text-align: center;font-weight: bold;font-size: 30px;font-family: '微软雅黑';color: #AD49FF;">Vite-Vue-Admin</p>
 		</div>
 		<!-- 腾讯地图 -->
-		<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=753BZ-JEZ62-YPUUO-CWXAM-ZZMG3-AGFZZ">
-		</script>
+		<!-- <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=753BZ-JEZ62-YPUUO-CWXAM-ZZMG3-AGFZZ"></script> -->
 		<script async src="https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js"></script>
 		<!-- katex 公式解析 -->
 		<script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
@@ -27,7 +25,11 @@
 		
 	</body>
 </html>
-
+<script>
+  window._AMapSecurityConfig = {
+    securityJsCode: 'e47cfc8787f2276a6113dd6d550512c2',
+  }
+</script>
 <script type="text/javascript">
 	if (localStorage.getItem("themeColors")) {
 		document.getElementById('loadingText').style.color = localStorage.getItem("themeColors").split(`"`)[3]
