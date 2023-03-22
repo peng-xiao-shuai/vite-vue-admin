@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import viteCompression from 'vite-plugin-compression'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
@@ -29,6 +30,9 @@ export default defineConfig({
           importStyle: 'sass',
         }),
       ],
+    }),
+    viteCompression({
+      threshold: 1024000, // 对大于 1mb 的文件进行压缩
     }),
   ],
   resolve: {
