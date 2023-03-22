@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { User, Lock } from '@element-plus/icons'
+import { User, Lock } from '@element-plus/icons-vue'
 import { ElForm, ElMessage } from 'element-plus'
 import { reactive, ref } from 'vue'
 defineProps<{

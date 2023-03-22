@@ -13,7 +13,7 @@ import { parseTime } from '@/utils/parse-time'
 
 // css
 import './styles/index.scss'
-import * as ElementIcon from '@element-plus/icons'
+import * as ElementIcon from '@element-plus/icons-vue'
 import powerfulTable from 'el-plus-powerful-table-ts/es'
 
 // i18n

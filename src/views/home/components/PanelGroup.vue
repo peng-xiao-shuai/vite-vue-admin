@@ -20,7 +20,6 @@
               isSemicolon
               background="rgba(0,0,0,0)"
             />
-            <!-- <digit-roll :start-val="0" :end-val="i.value || 0" :duration="1000" class="num" /> -->
           </div>
           <div :class="['icon-people', defaultData.iconfont, item.icon]"></div>
         </el-card>

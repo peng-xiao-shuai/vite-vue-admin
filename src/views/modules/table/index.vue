@@ -100,7 +100,7 @@
 </template>
 
 <script lang="ts">
-import { Search, Tickets } from '@element-plus/icons'
+import { Search, Tickets } from '@element-plus/icons-vue'
 import { tableFun, bookListsDelete } from '@/api/modules/table'
 import { useData } from './indexData'
 import { defineComponent } from 'vue'

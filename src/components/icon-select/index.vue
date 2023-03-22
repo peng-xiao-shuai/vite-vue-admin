@@ -89,7 +89,7 @@ const getIconFonts = async () => {
 }
 
 const getElementIcon = async () => {
-  import('@element-plus/icons').then((res) => {
+  import('@element-plus/icons-vue').then((res) => {
     for (const i in res) {
       cacheIconSvg.push({
         name: (res[i] as Component).name!,

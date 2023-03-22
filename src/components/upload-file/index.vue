@@ -94,7 +94,7 @@ import {
   DocumentChecked,
   Plus,
   Loading,
-} from '@element-plus/icons'
+} from '@element-plus/icons-vue'
 
 const ENV = import.meta.env
 

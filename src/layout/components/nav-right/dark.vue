@@ -1,7 +1,7 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
 import { useToggle, useDark } from '@vueuse/core'
-import { Moon, Sunny } from '@element-plus/icons'
+import { Moon, Sunny } from '@element-plus/icons-vue'
 import { useI18n } from 'vue-i18n'
 
 export default defineComponent({

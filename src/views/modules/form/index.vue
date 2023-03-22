@@ -72,7 +72,7 @@ export default defineComponent({
   },
   data() {
     return {
-      locale: this.defaultData.locale == 'en-US' ? zhEn : zhCn,
+      locale: this.defaultData.navSetting.locale == 'en-US' ? zhEn : zhCn,
       ruleForm: {
         name: '',
         region: '',

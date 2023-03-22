@@ -125,7 +125,7 @@
 <script lang="ts" setup>
 import { reactive, ref, nextTick } from 'vue'
 import uploadFile from '@/components/upload-file/index.vue'
-import { Delete } from '@element-plus/icons'
+import { Delete } from '@element-plus/icons-vue'
 
 let currentFrom = reactive({
   image: [

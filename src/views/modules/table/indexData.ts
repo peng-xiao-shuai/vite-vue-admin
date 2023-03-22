@@ -5,7 +5,7 @@ import type {
   PowerfulTableHeader,
   PowerfulTableOperateData,
 } from 'el-plus-powerful-table-ts'
-import { Edit, Remove } from '@element-plus/icons'
+import { Edit, Remove } from '@element-plus/icons-vue'
 interface PowerfulTableData {
   listQuery: Query
   total: number

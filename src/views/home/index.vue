@@ -4,13 +4,24 @@
       <panel-group :count="count" :height="90" />
       <el-card :shadow="defaultData.cardShadow">
         <!-- eachDiv 原有高度 - panel-group高度 - panel-group(margin) - card(padding) -->
-        <HomeEcharts :isSlot="true" echartsId="chart" :height="550 - 90 - 20 - 40" :colors="colors"
-          :information="chart.value" :title="t('user.login.line')" types="line">
+        <HomeEcharts
+          :isSlot="true"
+          echartsId="chart"
+          :height="550 - 90 - 20 - 40"
+          :colors="colors"
+          :information="chart.value"
+          :title="t('user.login.line')"
+          types="line"
+        >
           <template #default>
             <!-- 版块切换 -->
             <div class="typeSwitch">
-              <div v-for="(item, index) in count" :key="'switch' + index"
-                :class="[{ 'switch-active': current == index }, 'switch']" @click="typeSwitch(index)">
+              <div
+                v-for="(item, index) in count"
+                :key="'switch' + index"
+                :class="[{ 'switch-active': current == index }, 'switch']"
+                @click="typeSwitch(index)"
+              >
                 {{ t(item.locale) }}
               </div>
             </div>
@@ -39,7 +50,9 @@
                 <template #dropdown>
                   <el-dropdown-menu>
                     <el-dropdown-item command="Month">Month</el-dropdown-item>
-                    <el-dropdown-item command="Fifteen">Fifteen</el-dropdown-item>
+                    <el-dropdown-item command="Fifteen"
+                      >Fifteen</el-dropdown-item
+                    >
                     <el-dropdown-item command="Seven">Seven</el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
@@ -88,9 +101,19 @@
           </div>
         </el-card>
 
-        <el-card :shadow="defaultData.cardShadow" :body-style="{ padding: '20px' }" class="eachDiv eachDiv-3">
-          <HomeEcharts echartsId="earnings" :height="550 - 170 - 20 - 40" :colors="colors" :information="earnings.chart"
-            types="line" :title="t('income.line')" />
+        <el-card
+          :shadow="defaultData.cardShadow"
+          :body-style="{ padding: '20px' }"
+          class="eachDiv eachDiv-3"
+        >
+          <HomeEcharts
+            echartsId="earnings"
+            :height="550 - 170 - 20 - 40"
+            :colors="colors"
+            :information="earnings.chart"
+            types="line"
+            :title="t('income.line')"
+          />
         </el-card>
       </div>
     </div>
@@ -98,29 +121,42 @@
       <el-card :shadow="defaultData.cardShadow">
         <div class="echartsBox">
           <div class="un-handle-layout">
-            <HomeEcharts echartsId="pageViewData" :height="310 - 40" :colors="colors" :information="pageViewData.value"
-              types="homeCake" :title="t('page.view.pillar')" />
+            <HomeEcharts
+              echartsId="pageViewData"
+              :height="310 - 40"
+              :colors="colors"
+              :information="pageViewData.value"
+              types="homeCake"
+              :title="t('page.view.pillar')"
+            />
           </div>
         </div>
       </el-card>
     </div>
     <div class="eachDiv eachDiv4">
       <el-card :shadow="defaultData.cardShadow">
-        <h3 style="
-              margin: 0 0 10px 0;
-              display: flex;
-              justify-content: space-between;
-            ">
+        <h3
+          style="
+            margin: 0 0 10px 0;
+            display: flex;
+            justify-content: space-between;
+          "
+        >
           <span>{{ t('commit.list') }}</span>
         </h3>
-        <powerful-table :isSelect="false" :isPagination="false" :list="list" :header="tableHeader" />
+        <powerful-table
+          :isSelect="false"
+          :isPagination="false"
+          :list="list"
+          :header="tableHeader"
+        />
       </el-card>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup name="Home">
-import { ArrowDown, Top } from '@element-plus/icons'
+import { ArrowDown, Top } from '@element-plus/icons-vue'
 import HomeEcharts from '@/components/easy-echart/index.vue'
 import PanelGroup from './components/PanelGroup.vue'
 import 'vue3-number-roll-plus/main.css'
@@ -137,11 +173,7 @@ const {
   handleChart,
 } = useEchart()
 
-const {
-  list,
-  tableHeader,
-  handleGetTable
-} = useTableData()
+const { list, tableHeader, handleGetTable } = useTableData()
 
 const typeSwitch = (i: number) => {
   current.value = i
@@ -172,7 +204,7 @@ const typeSwitch = (i: number) => {
       overflow: hidden;
       background: #eff1f4;
 
-      >div {
+      > div {
         flex: 1;
         text-align: center;
         color: var(--el-text-color-regular);
@@ -189,13 +221,13 @@ const typeSwitch = (i: number) => {
       display: flex;
       align-items: center;
 
-      >div {
+      > div {
         margin-right: 10px;
         display: flex;
         align-items: center;
       }
 
-      >div:last-child {
+      > div:last-child {
         margin: 0;
       }
 
@@ -232,14 +264,14 @@ const typeSwitch = (i: number) => {
     :deep(.el-card) {
       height: 310px;
 
-      >.el-card__body {
+      > .el-card__body {
         height: 100%;
         box-sizing: border-box;
       }
     }
   }
 
-  >.eachDiv {
+  > .eachDiv {
     width: 100%;
     // background: #fff;
 
@@ -302,9 +334,11 @@ const typeSwitch = (i: number) => {
         .viteIconBg {
           width: 60px;
           height: 60px;
-          background: linear-gradient(to top,
-              var(--el-color-primary),
-              var(--el-color-primary-light-7));
+          background: linear-gradient(
+            to top,
+            var(--el-color-primary),
+            var(--el-color-primary-light-7)
+          );
           border-radius: 50%;
           display: flex;
           align-items: center;

@@ -60,7 +60,7 @@ const getIconFonts = async () => {
 }
 
 const getElementIcon = () => {
-  import('@element-plus/icons').then((res) => {
+  import('@element-plus/icons-vue').then((res) => {
     Object.assign(iconSvg, res)
   })
 }
