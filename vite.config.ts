@@ -54,24 +54,15 @@ export default defineConfig({
     __VUE_I18N_FULL_INSTALL__: false,
     __INTLIFY_PROD_DEVTOOLS__: false,
   },
-  // base: "/",
-  // 控制台打印
-  // logLevel: "silent",
   build: {
     chunkSizeWarningLimit: 1024,
-    // rollupOptions: {
-    //   external: ["src/*"],
-    // },
   },
   server: {
     hmr: {
       overlay: false,
     },
-    // host: "localhost",
     port: 3002,
-    // 是否自动在浏览器打开
     open: false,
-    // 是否开启 https
     https: false,
     proxy: {
       //   '/api': {
