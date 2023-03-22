@@ -1,16 +1,33 @@
 {
-  "include": ["src/*", "src/**/*.vue", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.ts", "mock/*", "typings"],
+  "include": [
+    "src/*",
+    "src/**/*.vue",
+    "src/**/*.tsx",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "mock/*",
+    "vite.config.ts",
+    "typings"
+  ],
   "exclude": [
     "node_modules",
-    "./typings/amap.js"
+    "dist",
+    "**/*.js"
   ],
   "compilerOptions": {
-    "types": ["vite/client", "./components"],
+    "types": [
+      "vite/client",
+      "./components"
+    ],
     "paths": {
-      "@/*": ["./src/*"],
-      "#/*": ["./typings/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "#/*": [
+        "./typings/*"
+      ]
     },
-    "outDir": "./",
+    "baseUrl": ".",
     // typeRoots option has been previously configured
     // 以严格模式解析
     "downlevelIteration": true,
@@ -22,19 +39,20 @@
     //   "jsxFactory": "h",
     // 允许从没有设置默认导出的模块中默认导入
     "allowSyntheticDefaultImports": true,
-    // 启用装饰器
-    "experimentalDecorators": true,
     "strictFunctionTypes": false,
     // 允许编译javascript文件
     "allowJs": true,
     // 采用的模块系统
     "module": "esnext",
     // 编译输出目标 ES 版本
-    "target": "es5",
+    "target": "esnext",
     // 在表达式和声明上有隐含的any类型时报错
     "noImplicitAny": true,
     "moduleResolution": "Node",
-    "lib": ["dom", "es5", "es6", "es2017", "es2015.promise"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "sourceMap": true,
     "pretty": true
   }

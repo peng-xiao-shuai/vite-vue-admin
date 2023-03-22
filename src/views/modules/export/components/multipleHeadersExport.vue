@@ -5,16 +5,16 @@
       （多级表头，合计）
     </div>
   </div>
-  <el-form :inline="true" :model="formInline2" size="mini">
+  <el-form :inline="true" :model="formInline2">
     <el-form-item label="对其方式：">
       <el-select
         v-model="formInline2.align"
         placeholder="对其方式"
         style="width: 100px"
       >
-        <el-option label="靠左" value="left"></el-option>
-        <el-option label="居中" value="center"></el-option>
-        <el-option label="靠右" value="right"></el-option>
+        <el-option label="靠左" value="left" />
+        <el-option label="居中" value="center" />
+        <el-option label="靠右" value="right" />
       </el-select>
     </el-form-item>
     <el-form-item label="边框：">
@@ -79,7 +79,7 @@
           style="width: 100px"
           v-model="formInline2.sumText"
           placeholder="请输入"
-        ></el-input>
+        />
       </el-form-item>
 
       <el-form-item label="无数据文本内容：">
@@ -87,15 +87,13 @@
           style="width: 100px"
           v-model="formInline2.emptyText"
           placeholder="请输入"
-        ></el-input>
+        />
       </el-form-item>
     </template>
     <el-form-item>
       <el-button-group>
         <!-- <el-button type="primary" icon="el-icon-bottom" size="mini">导入</el-button> -->
-        <el-button type="primary" icon="Files" size="mini" @click="export2"
-          >导出</el-button
-        >
+        <el-button type="primary" icon="Files" @click="export2">导出</el-button>
       </el-button-group>
     </el-form-item>
   </el-form>
@@ -179,7 +177,7 @@
   </el-table>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, reactive, toRefs, onMounted } from 'vue'
 import { exportExcelSheet } from '@/utils/export'
 import { tableData2 } from './indexData'
@@ -285,5 +283,4 @@ export default defineComponent({
   },
 })
 </script>
-<style scoped lang='scss'>
-</style>
+<style scoped lang="scss"></style>

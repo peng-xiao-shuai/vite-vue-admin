@@ -1,5 +1,5 @@
 import { State } from './index'
-import { log } from '@/utils/interface'
+import { Log } from '@/utils/interface'
 
 const getters = {
   getToken: (state: State) => {
@@ -16,7 +16,7 @@ const getters = {
   },
   getBugNumber: (state: State) => {
     return state.settings.errorLog.filter(
-      (item: log) => item.type === 'Bug' || item.type === 'Ajax'
+      (item: Log) => item.type === 'Bug' || item.type === 'Ajax'
     ).length
   },
   getBugs: (state: State) => {

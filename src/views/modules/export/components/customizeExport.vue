@@ -152,7 +152,7 @@ export default defineComponent({
     })
 
     let list = ref(lists)
-    let config = reactive(header)
+    let config = ref(header)
     const export1 = () => {
       const exportData = [
         {

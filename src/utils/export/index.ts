@@ -64,7 +64,7 @@ export function exportExcelSheet(
      */
     function getDatas(eItem: ExportData) {
       const list: any[] = []
-      list.push(...formatJson(eItem.prop, eItem.list))
+      list.push(...formatJson(eItem.prop!, eItem.list))
       if (eItem.showSummary) {
         const summaryList: any[] = []
         summaryList.push(...(eItem.summaryList || []))

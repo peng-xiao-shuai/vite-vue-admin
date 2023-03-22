@@ -7,7 +7,6 @@
       width="350px"
       :title="currentForm.id ? '修改' : '添加'"
       v-model="isDialog"
-      @close="close"
       class="dialog-box"
       align-center
     >

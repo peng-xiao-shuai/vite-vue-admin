@@ -1,3 +1,5 @@
+import { PowerfulTableHeader } from 'el-plus-powerful-table-ts'
+
 const tableData1 = [
   {
     date: '2016-05-03',
@@ -102,7 +104,7 @@ const tableData2 = [
   },
 ]
 
-const header = [
+const header: PowerfulTableHeader[] = [
   {
     label: '参数', //显示的名称
     width: '200px',
