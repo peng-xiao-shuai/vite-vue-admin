@@ -240,13 +240,13 @@ const handleRemove = (item: List, index: number) => {
 }
 
 const getList = (name?: string) => {
-  fenceList<List[]>(name).then((res) => {
+  fenceList<{ data: List[] }>(name).then((res) => {
     // 销毁多边形
-    if (res.data.length) {
+    if (res.data.data.length) {
       unmounted()
     }
 
-    dataList.value = res.data.map((item) => ({
+    dataList.value = res.data.data.map((item) => ({
       ...item,
       fencePath: item.fencePath,
     }))

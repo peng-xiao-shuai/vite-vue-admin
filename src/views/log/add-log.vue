@@ -74,8 +74,8 @@ export default defineComponent({
     const getList = (e?: { pageSize: number; pageNum: number }) => {
       Object.assign(listQuery, e ? e : {})
       getLogList(listQuery).then((res) => {
-        list.value = res.data.list
-        total.value = res.data.total
+        list.value = res.data.data.list
+        total.value = res.data.data.total
       })
     }
     getList()

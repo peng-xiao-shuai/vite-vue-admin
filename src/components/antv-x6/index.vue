@@ -76,7 +76,7 @@ export default defineComponent({
     // 获取数据
     const getList = (parentId = '0', _cell?: Cell) => {
       AntvX6({ parentId }).then((res) => {
-        res.data.forEach((item: FormData) => {
+        res.data.data.forEach((item: FormData) => {
           const node = addNode(graph, item)
 
           // parentId != 0 添加链接桩

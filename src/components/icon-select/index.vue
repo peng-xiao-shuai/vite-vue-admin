@@ -78,7 +78,7 @@ watchEffect(() => {
 const getIconFonts = async () => {
   axios.get(defaultData.iconFontUrl).then((res) => {
     // 获取所有的 字体图标
-    cacheIconFont = [...res.data.matchAll(/([\w|\-|\d]+):before/g)].map(
+    cacheIconFont = [...res.data.data.matchAll(/([\w|\-|\d]+):before/g)].map(
       (item: string[]) => ({
         name: item[1],
       })

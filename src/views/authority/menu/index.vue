@@ -92,8 +92,8 @@ const router = useRouter()
 
 const getList = () => {
   fetchList(parentId.value, powerfulTableData.listQuery).then((res) => {
-    powerfulTableData.list = res.data.list
-    powerfulTableData.total = res.data.total
+    powerfulTableData.list = res.data.data.list
+    powerfulTableData.total = res.data.data.total
   })
 }
 

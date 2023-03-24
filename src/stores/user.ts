@@ -73,10 +73,10 @@ export const useUserStore = defineStore('user', () => {
     return new Promise<Res>((resolve, reject) => {
       login<Res>(user)
         .then((res: any) => {
-          vToken.value = res.data.tokenHead + res.data.token
-          Cookies.set('vToken', res.data.tokenHead + res.data.token)
+          vToken.value = res.data.data.tokenHead + res.data.data.token
+          Cookies.set('vToken', res.data.data.tokenHead + res.data.data.token)
           router.push({ path: '/' })
-          resolve(res)
+          resolve(res.data)
         })
         .catch((err: { data: string }) => {
           reject(err.data)
@@ -94,7 +94,7 @@ export const useUserStore = defineStore('user', () => {
           // 清空菜单
           menus.value = []
           Object.assign(userInfo, res.data)
-          menusFilter(res.data.menus)
+          menusFilter(res.data.data.menus)
           resolve(menus.value)
         })
         .catch((err) => {

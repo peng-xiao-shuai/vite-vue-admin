@@ -109,7 +109,7 @@ export const useTableData = () => {
   }) {
     Object.assign(listQuery, e ? e : {})
     tableFun(listQuery).then((res) => {
-      list.value = res.data.list
+      list.value = res.data.data.list
     })
   }
   handleGetTable()
@@ -236,7 +236,7 @@ export const useEchart = () => {
 
     userLineColor.value = []
     chartFun({ status, period }).then((res) => {
-      res.data.homeDateInfoResult.forEach((item: any, index: number) => {
+      res.data.data.homeDateInfoResult.forEach((item: any, index: number) => {
         item.areaStyle = chartColor[index]
 
         userLineColor.value.push({
@@ -258,12 +258,14 @@ export const useEchart = () => {
   // 收益
   function handleEarnings() {
     earningsFun().then((res) => {
-      earnings.value = res.data.money
+      earnings.value = res.data.data.money
 
-      res.data.chart.homeDateInfoResult.forEach((item: any, index: number) => {
-        item.areaStyle = chartColor[index]
-      })
-      earnings.chart = res.data.chart
+      res.data.data.chart.homeDateInfoResult.forEach(
+        (item: any, index: number) => {
+          item.areaStyle = chartColor[index]
+        }
+      )
+      earnings.chart = res.data.data.chart
       // console.log(earnings);
     })
   }

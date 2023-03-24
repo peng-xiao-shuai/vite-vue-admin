@@ -70,7 +70,7 @@ export default defineComponent({
 
     function handleChart(status: number | string, _period = 'Seven') {
       lineFun().then((res) => {
-        res.data.homeDateInfoResult.forEach((item: any, index: number) => {
+        res.data.data.homeDateInfoResult.forEach((item: any, index: number) => {
           item.areaStyle = chartColor[index]
 
           userLineColor.value.push({

@@ -115,15 +115,15 @@ const userStore = useUserStore()
 // 获取用户列表
 const getList = () => {
   getUserList(powerfulTableData.listQuery).then((res) => {
-    powerfulTableData.list = res.data.list
-    powerfulTableData.total = res.data.total
+    powerfulTableData.list = res.data.data.list
+    powerfulTableData.total = res.data.data.total
   })
 }
 
 // 获取角色列表
 const getRole = () => {
   getRoleList({ pageNum: 1, pageSize: 100 }).then((res) => {
-    roleLists.value = res.data.list
+    roleLists.value = res.data.data.list
   })
 }
 

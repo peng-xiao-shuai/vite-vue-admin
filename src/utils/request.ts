@@ -72,20 +72,7 @@ service.interceptors.response.use(
 
       // });
       case 200:
-        if (ENV.VITE_MOCK === 'true') {
-          // console.log(response.data);
-          return response.data
-        }
-
-        if (
-          response.headers['content-type'] &&
-          response.headers['content-type'].indexOf('application/json') != -1
-        ) {
-          return response.data
-        } else {
-          return response
-        }
-
+        return response
       default:
         ElMessage({ message: response.data.message, type: 'error' })
         addBug(response.data.message, code)
