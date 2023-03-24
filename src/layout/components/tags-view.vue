@@ -58,10 +58,10 @@
 </template>
 
 <script lang="ts">
-import { useStore } from 'vuex'
 import { computed, defineComponent } from 'vue'
 import { useRoute, useRouter, RouteLocationNormalizedLoaded } from 'vue-router'
-import type { Tags } from '@/store/modules/user'
+import { Tags, useUserStore } from '@/stores'
+import type { Routers } from '@/router'
 import screenFull from 'screenfull'
 import { ElMessage } from 'element-plus'
 
@@ -73,10 +73,6 @@ export default defineComponent({
     },
   },
   setup() {
-    let store = useStore()
-    let route = useRoute()
-    let router = useRouter()
-
     type DropdownList = {
       title: string
       locale: string
@@ -85,6 +81,10 @@ export default defineComponent({
       style?: {}
       divided?: boolean
     }
+    const userStore = useUserStore()
+    const route = useRoute()
+    const router = useRouter()
+
     // 静态数据
     const dropdownList: DropdownList[] = [
       {
@@ -131,9 +131,9 @@ export default defineComponent({
         icon: 'el-icon-minus',
       },
     ]
-    let tags = computed<Tags[]>(() => store.state.user.tags)
+    const tags = computed<Tags[]>(() => userStore.tags)
     // 当前路由name
-    let currentName = computed(() => {
+    const currentName = computed(() => {
       let isExist =
         tags.value.filter((item) => item.name == route.name).length > 0
           ? true
@@ -142,23 +142,23 @@ export default defineComponent({
       return route.name
     })
 
-    function addTag(val: RouteLocationNormalizedLoaded, isExist: boolean) {
+    const addTag = (val: RouteLocationNormalizedLoaded, isExist: boolean) => {
       let matched = val.matched[val.matched.length - 1]
-      let to = {
+      let to: Tags = {
         path: matched.path,
         name: matched.name,
-        meta: matched.meta,
+        meta: matched.meta as Routers['meta'],
         query: val.query,
         params: val.params,
       }
 
       if (!isExist && val.name !== 'redirect' && val.name !== '404') {
         // console.log(to)
-        store.commit('tagsCommit', { to })
+        userStore.tagsOperate({ to })
       }
     }
 
-    function remove(i: number) {
+    const remove = (i: number) => {
       if (tags.value[i].name === currentName.value) {
         router.push({
           name: tags.value[i - 1].name!,
@@ -167,14 +167,14 @@ export default defineComponent({
         })
         setTimeout(() => {
           // i 为开始删除的下标，1 为删除的个数
-          store.dispatch('tagsActions', { removeIndex: [i, 1] })
+          userStore.tagsOperate({ removeIndex: [i, 1] })
         }, 100)
       } else {
-        store.dispatch('tagsActions', { removeIndex: [i, 1] })
+        userStore.tagsOperate({ removeIndex: [i, 1] })
       }
     }
 
-    function navTo(item: Tags) {
+    const navTo = (item: Tags) => {
       if (item.name === currentName.value) {
         // 手动重定向页面到 '/redirect' 页面
         router.replace({
@@ -227,10 +227,10 @@ export default defineComponent({
           navTo({ path, name: name, params, query })
           break
         case 'closeLeft':
-          store.dispatch('tagsActions', { removeIndex: [1, currentIndex - 1] })
+          userStore.tagsOperate({ removeIndex: [1, currentIndex - 1] })
           break
         case 'closeRight':
-          store.dispatch('tagsActions', {
+          userStore.tagsOperate({
             removeIndex: [
               currentIndex + 1,
               tags.value.length - currentIndex - 1,
@@ -243,13 +243,15 @@ export default defineComponent({
           })
           setTimeout(() => {
             // i 为开始删除的下标，1 为删除的个数
-            store.dispatch('tagsActions', {
+            userStore.tagsOperate({
               removeIndex: [1, tags.value.length - 1],
             })
           }, 50)
           break
         case 'closeOther':
-          store.dispatch('tagsActions', { name: currentName.value })
+          userStore.tagsOperate({
+            name: currentName.value as string | undefined,
+          })
           break
       }
     }

@@ -1,4 +1,3 @@
-import store from '@/store'
 import { ref, markRaw, reactive } from 'vue'
 import { setData } from 'el-plus-powerful-table-ts/es'
 import type {
@@ -103,11 +102,6 @@ export const useData = <Row = any>() => {
           type: 'rate',
           data: setData<'rate'>({
             property: {
-              colors: [
-                store.getters.getThemeColor,
-                store.getters.getThemeColor,
-                store.getters.getThemeColor,
-              ],
               max: 5,
               allowHalf: true,
             },
@@ -124,7 +118,6 @@ export const useData = <Row = any>() => {
           type: 'switch',
           data: setData<'switch'>({
             property: {
-              activeColor: store.getters.getThemeColor,
               inactiveValue: 0,
               activeValue: 1,
             },

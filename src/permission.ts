@@ -1,5 +1,5 @@
 import router from './router/index'
-import store from './store'
+import { useUserStore } from '@/stores/index'
 import NProgress from 'nprogress' // progress bar
 // import 'nprogress/nprogress.css' // progress bar style
 
@@ -10,6 +10,7 @@ NProgress.configure({ showSpinner: false })
 const notRedirect = ['/login'] // 不重定向白名单
 
 router.beforeEach(async (to, _from) => {
+  const userStore = useUserStore()
   NProgress.start()
   // 拦截 baseUrl 路径
   if (
@@ -27,9 +28,9 @@ router.beforeEach(async (to, _from) => {
   // 1.2 判断是否在重定向的白名单
   // 1.2.1 重定向到登录页
   // 1.2.2 留在当前页
-  if (store.getters.getToken) {
-    if (store.getters.getMenus.length == 0) {
-      const isGetUser = await store.dispatch('userInfo')
+  if (userStore.vToken) {
+    if (userStore.menus.length == 0) {
+      const isGetUser = await userStore.userInfoRequest()
       if (isGetUser) return { ...to, replace: true }
       else return '/login'
     } else return true

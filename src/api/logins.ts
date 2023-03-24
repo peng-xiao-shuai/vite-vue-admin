@@ -5,12 +5,7 @@ import request from '@/utils/request'
  * @param data
  * @returns
  */
-export const login = (data: any) =>
-  request({
-    url: 'admin/login',
-    method: 'post',
-    data,
-  })
+export const login = <T>(data: any) => request.post<T>('admin/login', data)
 
 /**
  * 获取用户信息

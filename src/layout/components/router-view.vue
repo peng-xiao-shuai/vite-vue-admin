@@ -10,15 +10,15 @@
 
 <script>
 import { defineComponent, computed } from 'vue'
-import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
+import { useUserStore } from '@/stores'
 
 export default defineComponent({
   setup() {
-    let Store = useStore()
-    let route = useRoute()
-    let caches = computed(() => Store.state.user.tags.map((item) => item.name))
-    let key = computed(() => {
+    const userStore = useUserStore()
+    const route = useRoute()
+    const caches = computed(() => userStore.tags.map((item) => item.name))
+    const key = computed(() => {
       return route.path
     })
 

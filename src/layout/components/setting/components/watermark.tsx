@@ -1,13 +1,13 @@
+import { useSettingStore } from '@/stores'
 import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
 
 export default defineComponent({
   setup(_props) {
-    const store = useStore()
-    const settings = store.state.settings
+    const settingStore = useSettingStore()
+    const settings = settingStore
 
     const handleSetWaterMark = (val: number | string, key: string) => {
-      store.commit('setWaterMark', { key, val })
+      settingStore.setWaterMark({ key, val })
     }
 
     return () => (

@@ -1,11 +1,11 @@
 import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import defaultData from '@/config/default-data'
+import { useSettingStore } from '@/stores'
 
 export default defineComponent({
   setup(_props) {
-    const store = useStore()
+    const settingStore = useSettingStore()
     const router = useRouter()
     const handleNavTo = (e: string) => {
       router.push({
@@ -17,13 +17,13 @@ export default defineComponent({
       <div class="item">
         <el-tooltip
           content={
-            store.getters.getBugNumber === 0
+            settingStore.getBugNumber === 0
               ? '没有日志或异常'
-              : 'Bug / ' + store.getters.getBugNumber
+              : 'Bug / ' + settingStore.getBugNumber
           }
           placement="bottom"
         >
-          <div class={[{ isBug: store.getters.getBugNumber !== 0 }]}>
+          <div class={[{ isBug: settingStore.getBugNumber !== 0 }]}>
             <i
               class={[defaultData.iconfont, 'vitebug']}
               onClick={() => handleNavTo('/log/add-log')}

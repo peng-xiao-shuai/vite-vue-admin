@@ -1,10 +1,10 @@
-import { useStore } from 'vuex'
 import { reactive } from 'vue'
 import { parseTime } from '@/utils/parse-time'
 import type {
   PowerfulTableHeader,
   PowerfulTableOperateData,
 } from 'el-plus-powerful-table-ts'
+import { useSettingStore, useUserStore } from '@/stores'
 
 export const useData = <Row = any>() => {
   const header: PowerfulTableHeader<Row>[] = [
@@ -71,8 +71,9 @@ export const useData = <Row = any>() => {
       },
     ],
   })
-  const store = useStore()
-  const sList = store.getters.getBugs
+  const settingStore = useSettingStore()
+  const userStore = useUserStore()
+  const sList = settingStore.errorLog
 
   const addQuery = reactive({
     url: '',
@@ -80,7 +81,7 @@ export const useData = <Row = any>() => {
     error: '',
     // 手动添加的type 为 info
     type: 'Info',
-    name: store.state.user.userInfo.username,
+    name: userStore.userInfo.username,
     time: parseTime(new Date()),
   })
   const listQuery = reactive({

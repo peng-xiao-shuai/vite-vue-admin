@@ -1,12 +1,13 @@
-import store from '@/store/index'
+import { useUserStore } from '@/stores/index'
 
 /**
  * @param {string|string[]} val 权限值
  * @param all 是否全部匹配
  */
 export const permissionFun = (val: string[] | string, all = false) => {
+  const userStore = useUserStore()
   // 获取当前用户权限
-  const roles = store.getters.getUserInfo.roles
+  const roles = userStore.userInfo.roles
 
   if (!roles || !val) {
     throw new Error(`roles 或 val 不能为空`)

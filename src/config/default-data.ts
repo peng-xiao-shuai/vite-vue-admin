@@ -21,8 +21,9 @@ Object.keys(Tcolors).forEach((item: string) => {
   themeColor[item.substr(last + 1)] = Tcolors[item]
 
   if (item.substr(last + 1) === 'primary') {
-    import('@/store/index').then(({ default: store }) => {
-      store.commit('setThemeColor', { key: 'primary', val: themeColor.primary })
+    import('@/stores/index').then(({ useSettingStore }) => {
+      const setting = useSettingStore()
+      setting.themeColor['primary'] = themeColor.primary
     })
   }
 })

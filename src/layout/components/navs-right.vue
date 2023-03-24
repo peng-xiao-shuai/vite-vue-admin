@@ -60,7 +60,6 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, computed } from 'vue'
-import { useStore } from 'vuex'
 // import { updatePassword } from "@/api/logins";
 
 import search from './nav-right/seacrh'
@@ -69,6 +68,7 @@ import bug from './nav-right/bug'
 import fullScreen from './nav-right/full-screen'
 import dark from './nav-right/dark.vue'
 import size from './nav-right/size'
+import { useUserStore } from '@/stores'
 
 export default defineComponent({
   components: {
@@ -80,16 +80,14 @@ export default defineComponent({
     dark,
   },
   setup() {
-    let Store = useStore()
-
+    const userStore = useUserStore()
     // 账号头像
-    let icon = computed(() => Store.state.user.userInfo.icon)
+    const icon = computed(() => userStore.userInfo.icon)
+    const dialogVisible = ref(false)
+    const pwdType = ref('password')
+    const adminForm = ref<any | null>(null)
 
-    let dialogVisible = ref(false)
-    let pwdType = ref('password')
-    let adminForm = ref<any | null>(null)
-
-    let loginRules = ref({
+    const loginRules = ref({
       username: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
       oldPassword: [
         { required: true, trigger: 'blur', message: '请输入旧密码' },
@@ -98,17 +96,17 @@ export default defineComponent({
         { required: true, trigger: 'blur', message: '请输入新密码' },
       ],
     })
-    let admin = reactive({
+    const admin = reactive({
       username: '',
       oldPassword: '',
       newPassword: '',
     })
 
-    function logout() {
-      Store.dispatch('outLogin')
+    const logout = () => {
+      userStore.outLogin()
     }
 
-    function close() {
+    const close = () => {
       dialogVisible.value = false
     }
 

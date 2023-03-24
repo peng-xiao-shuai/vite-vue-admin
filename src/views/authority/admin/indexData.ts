@@ -5,15 +5,12 @@
  * @LastEditors: chenle
  * @LastEditTime: 2023-03-19 15:55:54
  */
-import store from '@/store'
+import { useSettingStore } from '@/stores'
 import { ref, markRaw, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { setData } from 'el-plus-powerful-table-ts/es'
 import { Edit, Remove } from '@element-plus/icons-vue'
-import type {
-  PowerfulTableHeader,
-  PowerfulTableOperateData,
-} from 'el-plus-powerful-table-ts'
+import type { PowerfulTableHeader } from 'el-plus-powerful-table-ts'
 
 export type RowType = {
   icon: string
@@ -45,6 +42,7 @@ const defaultData = {
 }
 
 export const useData = <Row = any>() => {
+  const settingStore = useSettingStore()
   const header: PowerfulTableHeader<Row>[] = [
     {
       label: '编号', //显示的标题
@@ -84,7 +82,7 @@ export const useData = <Row = any>() => {
           data: setData<'switch'>({
             property: (row: any) => {
               return {
-                activeColor: store.getters.getThemeColor,
+                activeColor: settingStore.themeColor['primary'],
                 inactiveValue: 0,
                 activeValue: 1,
                 beforeChange: () => {

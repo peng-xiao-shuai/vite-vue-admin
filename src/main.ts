@@ -1,10 +1,9 @@
 import { Component, createApp } from 'vue'
-import { Store } from 'vuex'
 import { Router, RouteLocationNormalizedLoaded } from 'vue-router'
 import App from './App.vue'
 import router from './router/index'
-import store, { State } from './store'
-import type { UserInfo } from './store/modules/user'
+import { createPinia } from 'pinia'
+import { useSettingStore, useUserStore } from '@/stores/index'
 
 // 指令
 import directive from './directives/directive'
@@ -66,14 +65,14 @@ app.mixin({
       return t
     },
     themeColor() {
-      return store.getters.getThemeColor
+      return useSettingStore().themeColor.primary
     },
   },
 })
 
 app
   .use(router)
-  .use(store)
+  .use(createPinia())
   .use(powerfulTable)
   .use(VueI18n)
   .use(VMdEditor)
@@ -105,7 +104,6 @@ declare module '@vue/runtime-core' {
     $debounce: Function
     $throttle: Function
     $permission: Function
-    $store: Store<State>
     $router: Router
     $route: RouteLocationNormalizedLoaded
   }
@@ -129,10 +127,10 @@ app.config.errorHandler = (error: string, vm: any, info: string) => {
     error,
     // 手动添加的type 为 info
     type: 'Bug',
-    name: (store.state.user.userInfo as UserInfo).username,
+    name: useUserStore().userInfo.username,
     time: parseTime(new Date()),
   }
-  store.commit('setErrorLog', data)
+  useSettingStore().errorLog.push(data)
 }
 
 // 全局挂载

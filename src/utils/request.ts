@@ -1,25 +1,25 @@
 import axios from 'axios'
-import store from '../store/index'
 import { getLangAll } from '@/language/index'
 import defaultDefault from '@/config/default-data'
 import { ElMessage } from 'element-plus'
 import { parseTime } from './parse-time'
 import { Log } from '@/utils/interface'
-import type { UserInfo } from '@/store/modules/user'
-
+import { useUserStore, useSettingStore } from '@/stores'
 const ENV = (import.meta as any).env
 
 function addBug(error: string, info?: string) {
+  const userStore = useUserStore()
+  const settingStore = useSettingStore()
   const data: Log = {
     url: window.location.href,
     info,
     error,
     // 手动添加的type 为 info
     type: 'Ajax',
-    name: (store.state.user.userInfo as UserInfo).username,
+    name: userStore.userInfo.username,
     time: parseTime(new Date()),
   }
-  store.commit('setErrorLog', data)
+  settingStore.errorLog.push(data)
 }
 
 const service = axios.create({
@@ -31,9 +31,10 @@ service.defaults.headers['content-type'] = 'application/json'
 
 service.interceptors.request.use(
   (config) => {
+    const userStore = useUserStore()
     // 在发送请求之前做些什么
-    if (store.getters.getToken) {
-      config.headers['Authorization'] = store.getters.getToken
+    if (userStore.vToken) {
+      config.headers['Authorization'] = userStore.vToken
     }
 
     return config

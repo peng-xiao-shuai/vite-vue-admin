@@ -65,12 +65,12 @@
 </template>
 
 <script>
+import { useSettingStore } from '@/stores'
 import { ArrowDown as ElIconArrowDown } from '@element-plus/icons-vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 import navsRight from './navs-right.vue'
-import { useStore } from 'vuex'
 
 export default {
   components: {
@@ -84,7 +84,7 @@ export default {
     },
   },
   setup(props) {
-    const store = useStore()
+    const settingStore = useSettingStore()
     let route = useRoute()
     let matched = []
     matched = computed(() => {
@@ -99,10 +99,7 @@ export default {
     })
 
     const handleCollapse = () => {
-      store.commit('setSetting', {
-        val: props.collapse ? 0 : 1,
-        key: 'defaultMenu',
-      })
+      settingStore.drawerSetting['defaultMenu'] = props.collapse ? 0 : 1
     }
 
     window.addEventListener('beforeunload', function () {

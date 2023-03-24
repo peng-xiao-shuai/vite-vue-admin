@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import { DefineComponent } from 'vue'
 
 // console.log(router)
 import layOut from '@/layout/index.vue'
@@ -16,21 +15,17 @@ import { NextLoading } from '@/utils/loading' // progress bar
  * @param {boolean} breadcrumb 是否不展示在 “面包屑”组件上展示
  * @param {number} sort 动态添加排序
  */
-export interface Routers {
-  path: string
-  component: DefineComponent | Function
-  name?: string
-  redirect?: string
-  meta?: {
+export type Routers = RouteRecordRaw & {
+  meta: {
     title: string
-    icon: string
+    icon?: string
+    id?: number | string
     locale?: string
     breadcrumb?: boolean
     url?: string
     iframeUrl?: string
     iframeData?: any
   }
-  children?: Routers[]
   hidden?: boolean
   // 动态添加
   sort?: number
@@ -64,6 +59,9 @@ const routes: Routers[] = [
     path: '/redirect/:__name/:params',
     name: 'redirect',
     hidden: true,
+    meta: {
+      title: '刷新页面',
+    },
     component: () => import('@/views/redirect.vue'),
   },
   {
@@ -576,6 +574,9 @@ export const addRouter: Routers[] = [
     name: '404',
     component: () => import('../views/404.vue'),
     hidden: true,
+    meta: {
+      title: '404',
+    },
   },
 ]
 

@@ -1,5 +1,5 @@
 import { Graph, Shape, Edge } from '@antv/x6'
-import store from '@/store/index'
+import { useSettingStore } from '@/stores/index'
 import { ElMessage } from 'element-plus'
 
 // 获取缓存的xy轴
@@ -142,6 +142,7 @@ export const groups = {
  * @param {object} position
  */
 export function addNode(graph: any, currentForm: any) {
+  const settingStore = useSettingStore()
   const width =
     currentForm.name.length * 10 < 80 ? 80 : currentForm.name.length * 10
   const jsonStr = JSON.parse(currentForm.jsonStr)
@@ -187,11 +188,11 @@ export function addNode(graph: any, currentForm: any) {
       body: {
         rx: 10,
         ry: 10,
-        stroke: store.getters.getThemeColor, // 边框颜色
+        stroke: settingStore.themeColor.primary, // 边框颜色
       },
       label: {
         text: currentForm.name,
-        fill: store.getters.getThemeColor,
+        fill: settingStore.themeColor.primary,
         fontSize: 16,
         fontWeight: 'bold',
       },

@@ -66,13 +66,12 @@
 
 <script setup>
 import { ElMessageBox } from 'element-plus'
-
+import { useSettingStore } from '@/stores'
 import { reactive } from 'vue'
-import { useStore } from 'vuex'
 import { getLightColor } from '@/utils/theme'
 import WaterMark from './components/watermark'
 
-const store = useStore()
+const settingStore = useSettingStore()
 const _props = defineProps({
   drawer: {
     type: Boolean,
@@ -81,7 +80,7 @@ const _props = defineProps({
 })
 const emit = defineEmits(['update:drawer'])
 
-const themeColor = store.state.settings.themeColor
+const themeColor = settingStore.themeColor
 
 // 恢复默认主题
 const defaultSet = () => {
@@ -113,10 +112,7 @@ const handleThemeColor = (color, key) => {
   )
 
   if (key === 'primary') {
-    store.commit('setThemeColor', {
-      key: 'primary',
-      val: color,
-    })
+    settingStore.themeColor['primary'] = color
   }
 
   let colorKey = '--el-color-' + key
@@ -161,7 +157,7 @@ function setTheme(v, ckey, cval, key) {
 const handleClose = () => {
   emit('update:drawer', false)
 }
-const settings = store.state.settings
+const settings = settingStore
 const settingKeys = reactive({
   show_hide: [
     {
@@ -252,9 +248,9 @@ const settingKeys = reactive({
   ],
 })
 
-// 修改 vuex setting
+// 修改 setting
 const handleUpdateSetting = (val, key) => {
-  store.commit('setDrawerSetting', {
+  settings.setDrawerSetting({
     val,
     key,
   })

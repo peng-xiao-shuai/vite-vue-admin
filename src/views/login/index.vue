@@ -64,13 +64,13 @@
 // import dragVerifyImgChip from '@/components/drag-verify-img/index.vue'
 // import t2 from '@/assets/t2.png'
 import { ref, reactive, onMounted } from 'vue'
-import { useStore } from 'vuex'
 import Language from '@/layout/components/nav-right/language.vue'
 import Dark from '@/layout/components/nav-right/dark.vue'
 import ComponentSize from '@/layout/components/nav-right/size'
 import LoginForm, { type FormData } from './components/login-form.vue'
+import { useUserStore } from '@/stores'
 
-let store = useStore()
+let userStore = useUserStore()
 
 const imgObj = reactive({
   isPassing: false,
@@ -81,14 +81,14 @@ let loading = ref(false)
 
 onMounted(() => {
   // 登录页清楚token
-  store.dispatch('outLogin')
+  userStore.outLogin()
 })
 
 // 成功回调
 const passcallback = (formData: FormData) => {
   loading.value = true
-  store
-    .dispatch('loginAction', formData)
+  userStore
+    .loginRequest(formData)
     .then((res) => {
       if (res.code === 200) {
         loading.value = false

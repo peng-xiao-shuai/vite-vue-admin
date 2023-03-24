@@ -1,10 +1,6 @@
-import store from '@/store'
 import { ref, markRaw, reactive } from 'vue'
 import { setData } from 'el-plus-powerful-table-ts/es'
-import type {
-  PowerfulTableHeader,
-  PowerfulTableOperateData,
-} from 'el-plus-powerful-table-ts'
+import type { PowerfulTableHeader } from 'el-plus-powerful-table-ts'
 import { View, Edit, Remove } from '@element-plus/icons-vue'
 
 export type RowType = {
@@ -107,7 +103,6 @@ export const useData = <Row = any>() => {
             property: {
               activeValue: 1,
               inactiveValue: 0,
-              activeColor: store.getters.getThemeColor,
               inactiveText: '隐',
               activeText: '显',
             },

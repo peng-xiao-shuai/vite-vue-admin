@@ -63,19 +63,15 @@
 import { defineComponent, ref } from 'vue'
 import { useData } from './indexData'
 import { getLogList } from '@/api/other'
-import { useStore } from 'vuex'
+import { useSettingStore } from '@/stores'
 
 export default defineComponent({
   setup() {
     const { header, operateData, sList, addQuery, listQuery } = useData()
-    const store = useStore()
+    const settingStore = useSettingStore()
     const total = ref(0)
     const list = ref([])
-    type E = {
-      pageSize: number
-      pageNum: number
-    }
-    const getList = (e?: E) => {
+    const getList = (e?: { pageSize: number; pageNum: number }) => {
       Object.assign(listQuery, e ? e : {})
       getLogList(listQuery).then((res) => {
         list.value = res.data.list
@@ -87,7 +83,7 @@ export default defineComponent({
       console.log('上传')
     }
     const addLog = () => {
-      store.commit('setErrorLog', JSON.parse(JSON.stringify(addQuery)))
+      settingStore.errorLog.push(JSON.parse(JSON.stringify(addQuery)))
     }
 
     return {

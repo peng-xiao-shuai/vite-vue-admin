@@ -80,7 +80,7 @@ import SearchView from './components/search-view.vue'
 import setting from './components/setting.vue'
 
 import { computed, defineComponent, ref } from 'vue'
-import { useStore } from 'vuex'
+import { useSettingStore } from '@/stores/index'
 import { useRoute } from 'vue-router'
 import { useSearch } from '@/hooks/states'
 import defaultData from '@/config/default-data'
@@ -97,19 +97,18 @@ export default defineComponent({
     setting,
   },
   setup() {
-    const store = useStore()
-    const drawerSetting = store.state.settings.drawerSetting
+    const settingStore = useSettingStore()
+    const drawerSetting = settingStore.drawerSetting
     const route = useRoute()
     const collapse = computed(() => !!drawerSetting.defaultMenu)
     const meta = computed(() => route.meta)
     const locale = ref(defaultData.navSetting.locale === 'zh-CN' ? cn : en)
 
     const isCollapse = (e: boolean) => {
-      store.commit('setSetting', { val: e, key: 'defaultMenu' })
+      settingStore.drawerSetting['defaultMenu'] = e ? 1 : 0
     }
 
     return {
-      store,
       drawerSetting,
       collapse,
       isCollapse,

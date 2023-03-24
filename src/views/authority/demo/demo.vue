@@ -9,17 +9,17 @@
       >
       <el-button-group style="float: right">
         <el-button
-          :type="checket == 'admin' ? 'primary' : 'default'"
+          :type="roles.includes('admin') ? 'primary' : 'default'"
           @click="switchUser('admin')"
           >admin</el-button
         >
         <el-button
-          :type="checket == 'ordinary' ? 'primary' : 'default'"
+          :type="roles.includes('ordinary') ? 'primary' : 'default'"
           @click="switchUser('ordinary')"
           >ordinary</el-button
         >
         <el-button
-          :type="checket == 'test' ? 'primary' : 'default'"
+          :type="roles.includes('test') ? 'primary' : 'default'"
           @click="switchUser('test')"
           >test</el-button
         >
@@ -139,22 +139,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { useUserStore } from '@/stores'
+import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 export default defineComponent({
-  setup(props, { emit }) {
+  setup() {
     const router = useRouter()
-    const store = useStore()
-    const checket = store.state.user.userInfo?.name || ref('admin')
+    const userStore = useUserStore()
+    const roles = ref<string | string[]>(userStore.userInfo?.roles || 'admin')
 
-    const userInfo = (e: string) => store.state.user.userInfo[e]
+    const userInfo = (e: keyof typeof userStore.userInfo) =>
+      userStore.userInfo[e]
     // key 值 用于刷新页面
     const key = ref(0)
     const switchUser = (val: string) => {
-      checket.value = val
-      store.commit('setToken', val + '-token')
-      store.commit('tagsRefresh')
+      roles.value = val
+      userStore.vToken = val + '-token'
+      userStore.tags.splice(1)
 
       // 清除路由
       router.getRoutes().forEach((item) => {
@@ -163,7 +164,7 @@ export default defineComponent({
         }
       })
 
-      store.dispatch('userInfo').then(() => {
+      userStore.userInfoRequest().then(() => {
         // 更改key刷新dom
         key.value += 1
       })
@@ -171,7 +172,7 @@ export default defineComponent({
 
     return {
       key,
-      checket,
+      roles,
       userInfo,
       switchUser,
     }

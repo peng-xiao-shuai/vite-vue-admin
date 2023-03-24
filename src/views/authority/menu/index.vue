@@ -3,7 +3,14 @@
     <el-card :shadow="defaultData.cardShadow">
       <!-- 注意 -->
       <div class="tipBox warning" style="margin-top: 0">
-        <p>修改、删除 菜单并不会直接改变侧边栏。需要重新调用接口。<span class="active" @click='refreshMenu'>点击</span> 刷新侧边栏</p>
+        <p>
+          修改、删除 菜单并不会直接改变侧边栏。需要重新调用接口。<span
+            class="active"
+            @click="refreshMenu"
+            >点击</span
+          >
+          刷新侧边栏
+        </p>
       </div>
       <div class="operate-container">
         <div>
@@ -47,8 +54,7 @@
           @sort-custom="handleSortCustom"
           @component-event="handleComponentChange"
           @btn-click="handleBtnClick"
-        >
-        </powerful-table>
+        />
       </div>
     </el-card>
     <!-- 编辑区 -->
@@ -62,30 +68,26 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  fetchList,
-  deleteMenu,
-  updateMenu,
-} from "@/api/ums/menu"
+import { fetchList, deleteMenu, updateMenu } from '@/api/ums/menu'
 import { useData, RowType } from './indexData'
 // 组件
-import Update from './components/update.vue'
-import { useRouter } from "vue-router"
-import { useStore } from "vuex"
+// import Update from './components/update.vue'
+import { useRouter } from 'vue-router'
 import { Handlers } from 'el-plus-powerful-table-ts'
 import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/stores'
 
 const {
-    header,
-    powerfulTableData,
-    currentForm,
-    parentId,
-    upParent,
-    allList,
-    isDialog
-  } = useData()
+  header,
+  powerfulTableData,
+  currentForm,
+  parentId,
+  upParent,
+  allList,
+  isDialog,
+} = useData()
 
-const store = useStore()
+const userStore = useUserStore()
 const router = useRouter()
 
 const getList = () => {
@@ -107,7 +109,7 @@ const handleComponentChange: Handlers['component-event'] = (payload) => {
     // 停用事件
     case 'switch':
       const e = payload.row
-      if (store.state.user.userInfo.id == e.id && e.status === 0) {
+      if (userStore.userInfo.id == e.id && e.status === 0) {
         ElMessage.error('你的账号已被停用！')
       }
       break
@@ -115,14 +117,14 @@ const handleComponentChange: Handlers['component-event'] = (payload) => {
 }
 
 const handleBtnClick: Handlers['btn-click'] = ({ params, row }) => {
-  console.log(params, row);
+  console.log(params, row)
   switch (params) {
     case 'query':
-    // switchs.role = true;
-    handleShowNextLevel(row)
+      // switchs.role = true;
+      handleShowNextLevel(row)
       break
     case 'update':
-    handleUpdate(row)
+      handleUpdate(row)
       break
     case 'remove':
       handleDelete(row)
@@ -130,7 +132,7 @@ const handleBtnClick: Handlers['btn-click'] = ({ params, row }) => {
   }
 }
 
-const handleShowNextLevel = (row: RowType ) => {
+const handleShowNextLevel = (row: RowType) => {
   upParent.value.push(row)
 
   allList.value = [upParent.value[upParent.value.length - 1]]
@@ -139,15 +141,14 @@ const handleShowNextLevel = (row: RowType ) => {
   getList()
 }
 
-
-const handleUpdate = (row: RowType ) => {
+const handleUpdate = (row: RowType) => {
   isDialog.value = true
   Object.assign(currentForm, JSON.parse(JSON.stringify(row)))
   // console.log(currentFrom);
 }
 
 const handleDelete = (row: RowType) => {
-  deleteMenu([row.id]).then((response) => {
+  deleteMenu([row.id]).then(() => {
     ElMessage.success('删除成功！')
     getList()
   })
@@ -160,7 +161,7 @@ const refreshMenu = () => {
       router.removeRoute(item.name)
     }
   })
-  store.dispatch('userInfo')
+  userStore.userInfoRequest()
 }
 
 const backUp = () => {

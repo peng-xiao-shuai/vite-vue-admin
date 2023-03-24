@@ -6,20 +6,20 @@
  */
 
 import type { App } from 'vue'
-import store from '@/store/index'
+import { useUserStore } from '@/stores/index'
 
 /**
  * @param {string|string[]} bind.value 权限值
  * @param {} all 参数传递给指令 例如 v-permission:all
  */
-
 export default function permission(app: App) {
+  const userStore = useUserStore()
   app.directive('permission', (el, bind) => {
     // 是否需要全部满足
     const all = bind.arg
 
     // 获取当前用户权限
-    const roles = store.getters.getUserInfo.roles
+    const roles = userStore.userInfo.roles
 
     if (!roles || !bind.value) {
       throw new Error(`roles 或 bind.value 不能为空`)

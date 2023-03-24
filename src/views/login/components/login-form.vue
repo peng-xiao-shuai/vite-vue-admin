@@ -63,7 +63,7 @@ const emit = defineEmits<{
 }>()
 const loginForm: FormData = reactive({
   username: 'admin',
-  password: 123456,
+  password: '123456',
 })
 // const loginRules = {
 //   username: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
@@ -93,7 +93,7 @@ const handleLogin = () => {
 <script lang="ts">
 export interface FormData {
   username: string
-  password: number | ''
+  password: string
 }
 </script>
 

@@ -1,6 +1,5 @@
 import type { PowerfulTableHeader } from 'el-plus-powerful-table-ts'
 import { reactive, ref } from 'vue'
-import { useStore } from 'vuex'
 import * as echarts from 'echarts'
 import {
   pageviewChart,
@@ -9,6 +8,7 @@ import {
   chartFun,
   tableFun,
 } from '@/api/home'
+import { useSettingStore } from '@/stores'
 const header: PowerfulTableHeader[] = [
   {
     label: '姓名', //显示的名称
@@ -94,12 +94,12 @@ export type Count = {
 
 export const useTableData = () => {
   // 表格相关
-  let listQuery = reactive({
+  const listQuery = reactive({
     pageSize: 3,
     pageNum: 1,
   })
-  let list = ref([])
-  let tableHeader =
+  const list = ref([])
+  const tableHeader =
     ref<PowerfulTableHeader<(typeof list.value)[number]>[]>(header)
 
   // 提交信息
@@ -117,7 +117,7 @@ export const useTableData = () => {
     listQuery,
     list,
     tableHeader,
-    handleGetTable
+    handleGetTable,
   }
 }
 
@@ -137,13 +137,14 @@ export const useEchart = () => {
     }
     chart: {}
   }
+  const settingStore = useSettingStore()
   const chartColor: ChartColor[] = [
     {
       opacity: 0.4,
       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
         {
           offset: 0,
-          color: useStore().state.settings.themeColor.primary,
+          color: settingStore.themeColor.primary,
         },
         {
           offset: 1,
@@ -167,7 +168,7 @@ export const useEchart = () => {
   ]
   // 曲线图线段颜色
   const colors: string[] = [
-    useStore().state.settings.themeColor.primary,
+    settingStore.themeColor.primary,
     '#55bcff',
     '#F6A829',
     '#646cff',
@@ -222,7 +223,7 @@ export const useEchart = () => {
     chart: {},
   })
   const findTime = ref('Seven')
-  let pageViewData = reactive({ value: {} })
+  const pageViewData = reactive({ value: {} })
 
   // 浏览量
   function handlePageView() {

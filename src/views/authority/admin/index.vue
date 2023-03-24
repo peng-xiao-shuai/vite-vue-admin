@@ -1,45 +1,56 @@
 <template>
   <div class="app-container">
-    <el-card class="filter-container" :style="{ marginBottom: '20px' }" :shadow="defaultData.cardShadow">
-			<div class="operate-container">
-				<div>
-					<i class="el-icon-search"></i>
-					<span>筛选搜索</span>
-				</div>
-				<div>
-					<el-button style="float: right" type="primary" @click="getList()">
-						查询搜索
-					</el-button>
-					<el-button style="float: right; margin-right: 15px" @click="handleResetSearch()">
-						重置
-					</el-button>
-				</div>
-			</div>
-			<div style="margin-top: 15px">
-				<el-form :inline="true" :model="powerfulTableData.listQuery">
-					<div class="screenForm">
-						<el-form-item label="名称：">
-							<el-input v-model="powerfulTableData.listQuery.username" placeholder="请输入账号名" style="width: 80%"
-								clearable></el-input>
-						</el-form-item>
-					</div>
-				</el-form>
-			</div>
-		</el-card>
+    <el-card
+      class="filter-container"
+      :style="{ marginBottom: '20px' }"
+      :shadow="defaultData.cardShadow"
+    >
+      <div class="operate-container">
+        <div>
+          <i class="el-icon-search"></i>
+          <span>筛选搜索</span>
+        </div>
+        <div>
+          <el-button style="float: right" type="primary" @click="getList()">
+            查询搜索
+          </el-button>
+          <el-button
+            style="float: right; margin-right: 15px"
+            @click="handleResetSearch()"
+          >
+            重置
+          </el-button>
+        </div>
+      </div>
+      <div style="margin-top: 15px">
+        <el-form :inline="true" :model="powerfulTableData.listQuery">
+          <div class="screenForm">
+            <el-form-item label="名称：">
+              <el-input
+                v-model="powerfulTableData.listQuery.username"
+                placeholder="请输入账号名"
+                style="width: 80%"
+                clearable
+              />
+            </el-form-item>
+          </div>
+        </el-form>
+      </div>
+    </el-card>
 
     <el-card :shadow="defaultData.cardShadow">
       <div class="operate-container">
-				<div>
-					<i class="el-icon-tickets"></i>
-					<span>数据列表</span>
-				</div>
+        <div>
+          <i class="el-icon-tickets"></i>
+          <span>数据列表</span>
+        </div>
 
-				<!-- <div>
+        <!-- <div>
 					<el-button type="primary" class="btn-add">
 						添加
 					</el-button>
 				</div> -->
-			</div>
+      </div>
 
       <div>
         <powerful-table
@@ -55,9 +66,13 @@
           @component-event="handleComponentChange"
           @btn-click="handleBtnClick"
         >
-          <template #roles={row}>
-            <el-tag v-for="item in row.roles" :key='item' style="margin-right: 5px">
-              {{roleLists.filter((i) => i.value == item)[0]?.label}}
+          <template #roles="{ row }">
+            <el-tag
+              v-for="item in row.roles"
+              :key="item"
+              style="margin-right: 5px"
+            >
+              {{ roleLists.filter((i) => i.value == item)[0]?.label }}
             </el-tag>
           </template>
         </powerful-table>
@@ -76,41 +91,30 @@
           :key="item.value"
           :label="item.label"
           :value="item.value"
-        >
-        </el-option>
+        />
       </el-select>
-      <template #footer class="dialog-footer">
+      <template #footer>
         <el-button @click="switchs.role = false">取 消</el-button>
-        <el-button type="primary" @click="handleAddRole()"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="handleAddRole()">确 定</el-button>
       </template>
     </el-dialog>
   </div>
 </template>
 <script lang="ts" setup>
 import { getUserList, userRemove } from '@/api/logins'
-import { getRoleList } from '@/api/ums/role';
-import { reactive, ref, getCurrentInstance } from 'vue'
+import { getRoleList } from '@/api/ums/role'
 import { useData, RowType } from './indexData'
-import { useStore } from 'vuex';
 import { Handlers } from 'el-plus-powerful-table-ts'
 import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/stores'
 
-const {
-    header,
-    switchs,
-    powerfulTableData,
-    currentForm,
-    roleLists
-  } = useData()
+const { header, switchs, powerfulTableData, currentForm, roleLists } = useData()
 
-const store = useStore()
+const userStore = useUserStore()
 
 // 获取用户列表
 const getList = () => {
-  getUserList(powerfulTableData.listQuery)
-  .then(res => {
+  getUserList(powerfulTableData.listQuery).then((res) => {
     powerfulTableData.list = res.data.list
     powerfulTableData.total = res.data.total
   })
@@ -118,8 +122,7 @@ const getList = () => {
 
 // 获取角色列表
 const getRole = () => {
-  getRoleList({ pageNum: 1, pageSize: 100 })
-  .then(res => {
+  getRoleList({ pageNum: 1, pageSize: 100 }).then((res) => {
     roleLists.value = res.data.list
   })
 }
@@ -132,7 +135,7 @@ const handleComponentChange: Handlers['component-event'] = (payload) => {
     // 停用事件
     case 'switch':
       const e = payload.row
-      if (store.state.user.userInfo.id == e.id && e.status === 0) {
+      if (userStore.userInfo.id == e.id && e.status === 0) {
         ElMessage.error('你的账号已被停用！')
       }
       break
@@ -140,11 +143,11 @@ const handleComponentChange: Handlers['component-event'] = (payload) => {
 }
 
 const handleBtnClick: Handlers['btn-click'] = ({ params, row }) => {
-  console.log(row);
+  console.log(row)
   switch (params) {
     case 'occupyOne':
-    switchs.role = true;
-    Object.assign(currentForm, JSON.parse(JSON.stringify(row)))
+      switchs.role = true
+      Object.assign(currentForm, JSON.parse(JSON.stringify(row)))
       break
     case 'remove':
       remove(row)
@@ -153,8 +156,7 @@ const handleBtnClick: Handlers['btn-click'] = ({ params, row }) => {
 }
 
 const remove = (row: RowType) => {
-  userRemove({ids: [row.id]})
-  .then(res => {
+  userRemove({ ids: [row.id] }).then(() => {
     ElMessage.success('删除成功！')
     getList()
   })
@@ -163,7 +165,7 @@ const remove = (row: RowType) => {
 // 分配菜单
 const handleAddRole = () => {
   switchs.role = false
-  powerfulTableData.list = powerfulTableData.list.map((item:RowType) => {
+  powerfulTableData.list = powerfulTableData.list.map((item: RowType) => {
     if (item.id == (currentForm.value as RowType).id) {
       item = currentForm.value as RowType
     }
@@ -173,13 +175,12 @@ const handleAddRole = () => {
 
 // 重置
 const handleResetSearch = () => {
-  Object.keys(powerfulTableData.listQuery).forEach(
-    (item: any) => {
-      let arr = ["pageNum", "pageSize"];
-      if (arr.indexOf(item) == -1) {
-        (powerfulTableData.listQuery as {[s:string]: string|number})[item] = "";
-      }
+  Object.keys(powerfulTableData.listQuery).forEach((item: any) => {
+    let arr = ['pageNum', 'pageSize']
+    if (arr.indexOf(item) == -1) {
+      ;(powerfulTableData.listQuery as { [s: string]: string | number })[item] =
+        ''
     }
-  );
-};
+  })
+}
 </script>

@@ -50,7 +50,7 @@
               <div class="path">
                 <span v-for="(str, idx) in item.locales" :key="idx"
                   >{{ str && t(str) }}
-                  {{ idx == item.locales.length - 1 ? '' : '/ ' }}</span
+                  {{ idx == item.locales!.length - 1 ? '' : '/ ' }}</span
                 >
               </div>
 
@@ -68,11 +68,11 @@
 <script lang="ts" setup>
 import { useSearch } from '@/hooks/states'
 import { ref, watch } from 'vue'
-import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { Routers } from '@/router/index'
-const Store = useStore()
+import { useUserStore } from '@/stores'
+const userStore = useUserStore()
 const router = useRouter()
 const route = useRoute()
 const { t } = useI18n()
@@ -85,7 +85,7 @@ watch(
   }
 )
 
-type Arr = Routers & { locales: string[] }
+type Arr = Routers & { locales?: string[] }
 
 const searchMenusFun = (arr: Arr[], menu: Arr[], superior?: Arr) => {
   arr.forEach((each: Arr) => {
@@ -113,7 +113,7 @@ const searchMenusFun = (arr: Arr[], menu: Arr[], superior?: Arr) => {
   return menu
 }
 
-let menus = searchMenusFun(Store.state.user.menus, [])
+const menus = searchMenusFun(userStore.menus, [])
 
 // 筛选菜单 在页面上循环
 const funMenu = () => {

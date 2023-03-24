@@ -2,15 +2,10 @@
   <div
     class="menus"
     :style="{
-      width: !collapse
-        ? '65px'
-        : ($store.state.settings.drawerSetting.leftMargin || 200) + 'px',
+      width: !collapse ? '65px' : (drawerSetting.leftMargin || 200) + 'px',
     }"
   >
-    <menus-logo
-      :collapse="collapse"
-      v-if="$store.state.settings.drawerSetting.isLogo"
-    />
+    <menus-logo :collapse="collapse" v-if="drawerSetting.isLogo" />
 
     <el-scrollbar style="height: calc(100vh - 50px)">
       <el-menu
@@ -25,7 +20,7 @@
         <menus-item
           :index="Number(index) + 1"
           :collapse="!collapse"
-          v-for="(item, index) in $store.state.user.menus"
+          v-for="(item, index) in menus"
           :key="item.name"
           :item="item"
           :count="1"
@@ -41,6 +36,7 @@ import menusLogo from './menus-logo.vue'
 import menusItem from './menus-item.vue'
 import { useRoute } from 'vue-router'
 import { defineComponent, computed, ComputedRef } from 'vue'
+import { useSettingStore, useUserStore } from '@/stores'
 
 export default defineComponent({
   name: 'Menus',
@@ -55,9 +51,17 @@ export default defineComponent({
     },
   },
   setup() {
+    const settingStore = useSettingStore()
+    const userStore = useUserStore()
     const route = useRoute()
-    const menuActive = computed(() => route.name) as  ComputedRef<string | undefined>
+    const drawerSetting = computed(() => settingStore.drawerSetting)
+    const menus = computed(() => userStore.menus)
+    const menuActive = computed(() => route.name) as ComputedRef<
+      string | undefined
+    >
     return {
+      menus,
+      drawerSetting,
       menuActive,
     }
   },
