@@ -11,7 +11,7 @@ export type RowType = {
   name: string
   parentId: number
   sort?: number
-  title?: string
+  title: string
 }
 
 interface PowerfulTableData {
@@ -27,7 +27,7 @@ interface Query {
   [propName: string]: string | number
 }
 
-const defaultData = {
+export const defaultData = {
   hidden: 1,
   icon: '',
   id: 0,
@@ -167,14 +167,13 @@ export const useData = <Row = any>() => {
   })
 
   // 编辑区当前数据
-  const currentForm = ref<RowType>({ ...defaultData })
+  const currentForm: RowType = reactive({ ...defaultData })
 
   const parentId = ref(0)
   // 存储上级信息
   const upParent = ref<RowType[]>([])
   // 渲染的菜单
-  const allList = ref<RowType[]>([])
-  // const allList = reactive({ value: [] })
+  const allList = ref<{ id: number | string; title: string }[]>([])
 
   // 编辑区显隐
   const isDialog = ref(false)

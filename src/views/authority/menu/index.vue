@@ -24,18 +24,12 @@
               type="primary"
               class="btn-add"
               @click="backUp()"
-              size="small"
               v-show="upParent.length > 0"
             >
               <i class="el-icon-back"></i>返回上级
             </el-button>
           </transition>
-          <el-button
-            type="primary"
-            class="btn-add"
-            @click="handleAddMenu()"
-            size="small"
-          >
+          <el-button type="primary" class="btn-add" @click="handleAddMenu()">
             添加
           </el-button>
         </div>
@@ -58,20 +52,20 @@
       </div>
     </el-card>
     <!-- 编辑区 -->
-    <!-- update
+    <Update
       v-model:dialog="isDialog"
-      v-model:currentFrom="currentFrom.value"
-      :selectMenuList="allList.value"
+      v-model:currentForm="currentForm"
+      :selectMenuList="allList"
       @refresh="getList"
-    ></update>< -->
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { fetchList, deleteMenu, updateMenu } from '@/api/ums/menu'
+import { fetchList, deleteMenu } from '@/api/ums/menu'
 import { useData, RowType } from './indexData'
 // 组件
-// import Update from './components/update.vue'
+import Update from './components/update.vue'
 import { useRouter } from 'vue-router'
 import { Handlers } from 'el-plus-powerful-table-ts'
 import { ElMessage } from 'element-plus'
@@ -175,8 +169,20 @@ const backUp = () => {
 
 const handleAddMenu = () => {
   isDialog.value = true
-  let row = { parentId: parentId.value, hidden: 0, sort: 0 }
-  Object.assign(currentForm, JSON.parse(JSON.stringify(row)))
+  allList.value = allList.value.length
+    ? allList.value
+    : [
+        {
+          id: currentForm.parentId || 0,
+          title: currentForm.title || '无上级菜单',
+        },
+      ]
+
+  Object.assign(currentForm, {
+    parentId: parentId.value,
+    hidden: 0,
+    sort: 0,
+  })
 }
 </script>
 
