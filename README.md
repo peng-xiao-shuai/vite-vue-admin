@@ -1,53 +1,15 @@
-# Vite-Vue-Admin
 <div align="center">
-	<img style="width:100px;" object-fit='cover' src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBH
-ZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjAuMSwgU1ZHIEV4cG9y
-dCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8
-c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDov
-L3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3
-LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94
-PSIwIDAgNDEwIDQwNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAw
-IDAgNDEwIDQwNDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlw
-ZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOnVybCgjTGF5ZXJfMV8pO30KCS5z
-dDF7ZmlsbDp1cmwoI0xheWVyX2NvcHlfMV8pO30KPC9zdHlsZT4KPHRpdGxl
-PmxvZ28tc3ZnPC90aXRsZT4KPGxpbmVhckdyYWRpZW50IGlkPSJMYXllcl8x
-XyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIxMDcuMDQ2
-MyIgeTE9IjQ0Ny40MDM4IiB4Mj0iMzM2LjA0NjMiIHkyPSIxMzYuNDAzOCIg
-Z3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAtMSAwIDQwNikiPgoJ
-PHN0b3AgIG9mZnNldD0iMCIgc3R5bGU9InN0b3AtY29sb3I6IzQxRDFGRiIv
-PgoJPHN0b3AgIG9mZnNldD0iMSIgc3R5bGU9InN0b3AtY29sb3I6I0JEMzRG
-RSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8cGF0aCBpZD0iTGF5ZXIiIGNsYXNz
-PSJzdDAiIGQ9Ik0zOTkuNiw1OS41bC0xODQsMzI5Yy0zLjgsNi44LTEzLjYs
-Ni44LTE3LjQsMC4xTDEwLjYsNTkuNkM2LjQsNTIuMiwxMi43LDQzLjMsMjEs
-NDQuOGwxNDUuNiwyNS40CgljMCwwLDcuNCwyLjIsOS43LDkuN0MxNzguNiw4
-Ny4zLDIwMywxNzQsMjAzLDE3NGMxLjIsMC4yLDIuNCwwLjIsMy42LDBjMCww
-LDI2LjMtODgsMjguMy05NC4xUzI0Myw3MiwyNDMsNzJsMTQ2LjEtMjcuMgoJ
-QzM5Ny40LDQzLjMsNDAzLjgsNTIuMSwzOTkuNiw1OS41eiIvPgo8bGluZWFy
-R3JhZGllbnQgaWQ9IkxheWVyX2NvcHlfMV8iIGdyYWRpZW50VW5pdHM9InVz
-ZXJTcGFjZU9uVXNlIiB4MT0iMjAzLjkzNzQiIHkxPSIzNTcuMDgwNyIgeDI9
-IjIzNi44NDk0IiB5Mj0iMTMxLjMwOTciIGdyYWRpZW50VHJhbnNmb3JtPSJt
-YXRyaXgoMSAwIDAgLTEgMCA0MDYpIj4KCTxzdG9wICBvZmZzZXQ9IjAiIHN0
-eWxlPSJzdG9wLWNvbG9yOiNGRkVBODMiLz4KCTxzdG9wICBvZmZzZXQ9Ijgu
-Mjk5OTk5ZS0wMiIgc3R5bGU9InN0b3AtY29sb3I6I0ZGREQzNSIvPgoJPHN0
-b3AgIG9mZnNldD0iMSIgc3R5bGU9InN0b3AtY29sb3I6I0ZGQTgwMCIvPgo8
-L2xpbmVhckdyYWRpZW50Pgo8cGF0aCBpZD0iTGF5ZXJfY29weSIgY2xhc3M9
-InN0MSIgZD0iTTMxMi44LDUwLjNjMCwwLTczLjUsMTMuNC03NiwxNGMtMi40
-LDAuNi0yLjgsMS42LTUuOSwxMS4yYy0yLjQsNy42LTI0LjUsOTAtMjUuOSw5
-MAoJcy0yMS43LTc4LjctMjUuOC04OS44Yy00LjEtMTEtMy42LTEyLjEtNi40
-LTEzYy0yLjgtMC44LTY5LjctMTMuMi03Ni4yLTEzLjlzLTcuOCwzLjctNy4z
-LDcuOGMwLDAsNC4xLDAuNyw0LjIsMC44bDExMS4yLDI0OC4xCgljMi45LDQu
-Nyw0LjEsNC40LDYuOCwwLjFsMTA1LTI0Ny40bDQuMi0wLjdDMzIxLjYsNTQu
-MiwzMTYuMiw0OS43LDMxMi44LDUwLjN6Ii8+Cjwvc3ZnPgo=">
+	<img style="width:100px;" object-fit='cover' src="./src/assets/logo.svg">
 	<p>&nbsp;</p>
 	<p align="center">
       <a href="https://vitejs.dev/" target="_blank">
-		    <img src="https://img.shields.io/badge/vite-%3E2.3.0-yellow" alt="vite">
+		    <img src="https://img.shields.io/badge/vite-%3E4.1.0-violet" alt="vite">
 		</a>
 	    <a href="https://v3.vuejs.org/" target="_blank">
-	        <img src="https://img.shields.io/badge/vue.js-vue3.1.x-green" alt="vue">
+	        <img src="https://img.shields.io/badge/vue.js-vue3.2.x-success" alt="vue">
 	    </a>
 	    <a href="https://element-plus.gitee.io/#/zh-CN/component/changelog" target="_blank">
-	        <img src="https://img.shields.io/badge/element--plus-%3E1.0.0-blue" alt="element plus">
+	        <img src="https://img.shields.io/badge/element--plus-%3E2.3.0-blue" alt="element plus">
 	    </a>
 		<a href="https://www.tslang.cn/" target="_blank">
          <img src="https://img.shields.io/badge/typescript-%3E4.0.0-blue" alt="typescript">
@@ -57,25 +19,37 @@ MiwzMTYuMiw0OS43LDMxMi44LDUwLjN6Ii8+Cjwvc3ZnPgo=">
 		</a>
 	</p>
 	<p>&nbsp;</p>
+  <h1>Vite-Vue-Admin</h1>
 </div>
 
 **English** | [简体中文](./README.zh-CN.md)
 
+## Docs and Preview
+
+[Docs link](https://peng-xiao-shuai.github.io/vite-vue-admin-docs/)
+<br >
+[Demo](https://peng-xiao-shuai.github.io/vite-vue-admin/)
+
+
 ## introduce
+`Vite-Vue-Admin` Is a front-end management template，It is implemented based on `Vite4.x`,` Vue3.x`, `Vue-router4.x`, `Pinia`, `Element-plus`, `TypeScript`. It uses the latest front-end technology stack, built-in `vue-i18n` internationalization solution, dynamic routing, Secondary development of the table component,`antd-x6`，Refined typical business model, provides a wealth of functional components, it can help you quickly build enterprise-level back-end product prototype. It can also be used as an example to learn mainstream technologies such as Vue3, Vite, Ts, etc.
 
-**configuration**
+**major dispositions**
 
-- vue3.X
-- vuex@4
-- vue-router@4
-- vite@2
-- typescript
-- mock
+- [Pnpm](https://pnpm.io/)
+- [Vite](https://vitejs.dev/)
+- [Vue](https://vuejs.org/)
+- [Pinia](https://pinia.vuejs.org/)
+- [Vue-router](https://router.vuejs.org/)
+- [Typescript](https://www.tslang.cn/docs/home.html)
+- [Axios.js](http://axios-js.com)
+- [Mock.js](http://mockjs.com/)
+- [Element-plus](https://element-plus.org/en-US/)
 
 **Built-in element-plus Two development Encapsulation**
 
 - `upload-file` (File Upload，Support specified file format,File size)
-- `powerful-table` (Multi-function form component)[Documentation readme](https://gitee.com/abc1612565136/powerful-table/blob/master/README.md)
+- `powerful-table` (Multi-function form component)[Documentation readme](https://peng-xiao-shuai.github.io/vite-vue-admin-docs/zh-CN/component/powerful-table-doc.html)
 
 ## Project settings
 
@@ -99,56 +73,32 @@ mockXHR()
 ### Install dependencies,
 
 ```bash
-$ yarn
+pnpm install
 ```
 
-or
-
-```
-$ npm install
-```
-
-> Recommended Use yarn , **[yarn Installation and common commands](http://liqingsong.cc/article/detail/9)** 。
-
-### Compiles and hot-reloads for development
+## package.json command introduce
 
 ```bash
-$ yarn dev
+pnpm dev # project running
+pnpm build # Project forming
+pnpm tsc # Check code type
+pnpm preview # Project preview
+pnpm clean:cache # clear cache
+pnpm clean:modules # clear node_modules folder
+pnpm lint:lint-staged # Verify the code format at commit time
+pnpm prepare # init husky
 ```
 
-or
+## How to Contribute
+Welcome to join us! Ask an `Issue` or submit a `Pull Request`.
 
-```
-$ npm run dev
-```
+Pull Request:
 
-### Compiles and minifies for production
-
-```bash
-$ yarn build
-```
-
-or
-
-```
-$ npm run build
-```
-
-### Preview production build products locally
-
-```bash
-$ yarn preview
-```
-
-or
-
-```
-$ npm run preview
-```
-
-## contribute
-
-If you think this project helped you, please help click `Star`
+1. Fork code!
+2. Create your own branch: `git checkout -b feat/xxxx`
+3. Submit your changes: `git commit -am 'feat: add xxxxx'`
+4. Push your branch: `git push origin feat/xxxx`
+5. submit `pull request`
 
 ## Git Contribution submission specification
 
@@ -170,24 +120,26 @@ If you think this project helped you, please help click `Star`
 
 ## plan （2021-3-30）
 
-- [x] Component menu > File Upload
-- [x] Component menu > Tencent map
-- [x] Component menu > Graphic editing
-- [x] Component menu > sign
-- [x] Internationalized multilingual
-- [x] Chart menu
-- [x] Icon menu
-- [x] Global `el-button(el-**)` size
-- [x] Global theme color modification
-- [x] Added log menu Capture interface error as well as errorHandler
-- [x] Common configuration
-- [x] use JSX/TSX /src/layout/components/nav-right
-- [x] markdown Editor (support formulas, emoticons, flowcharts...)
-- [x] Permission test menu
-- [ ] Use MD5 encryption to store the login password locally
-- [ ] excel Import and Export
-- [ ] directive drucken, directive kopieren
-- [x] Global directive
-- [x] Global watermark
+- [x] File Upload
+- [x] Tencent map (remove)
+- [x] Amap selected points
+- [x] Amap electronic fence
+- [x] graphic edit (Antd-x6)
+- [x] signature
+- [x] select icon
+- [x] Internationalized multilanguage (i18n)
+- [x] tablet menu
+- [x] Added log menu to catch interface errors as well `errorHandler`
+- [x] Global common configuration (component size, theme color, watermark, etc.)
+- [x] `markdown` Editor (support formulas, emoticons, flow charts...)
+- [x] Permission Test Menu (Permission instruction)
+- [ ] The login password is stored locally using MD5 encryption
+- [x] `excel` import and export
+- [ ] Print instruction, copy instruction
+- [x] Global instruction
 
 **Other functions can be `issues` propose**
+
+## contribute
+
+If you think this project helped you, please help click `Star`
