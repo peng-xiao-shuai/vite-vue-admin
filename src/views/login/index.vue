@@ -19,19 +19,19 @@
     <svg
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
-      width="1300"
-      height="1300"
+      :width="radius * 2"
+      :height="radius * 2"
     >
       <circle
-        :cx="1300 / 2"
-        :cy="1300 / 2"
-        :r="1300 / 2"
+        :cx="radius"
+        :cy="radius"
+        :r="radius"
         fill="var(--el-color-primary)"
       />
       <circle
-        :cx="1300 / 2"
-        :cy="1300 / 2"
-        :r="1290 / 2"
+        :cx="radius"
+        :cy="radius"
+        :r="radius - 5"
         fill="var(--el-color-primary)"
         stroke="var(--el-color-primary-light-8)"
         stroke-width="3"
@@ -63,7 +63,7 @@
 <script lang="ts" setup>
 // import dragVerifyImgChip from '@/components/drag-verify-img/index.vue'
 // import t2 from '@/assets/t2.png'
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import Language from '@/layout/components/nav-right/language.vue'
 import Dark from '@/layout/components/nav-right/dark.vue'
 import ComponentSize from '@/layout/components/nav-right/size'
@@ -76,6 +76,8 @@ const imgObj = reactive({
   isPassing: false,
   isDialog: false,
 })
+
+const radius = ref(window.innerWidth / 2)
 
 let loading = ref(false)
 
@@ -100,6 +102,14 @@ const passcallback = (formData: FormData) => {
       imgObj.isPassing = false
     })
 }
+
+const listener = () => {
+  radius.value = window.innerWidth / 2
+}
+window.addEventListener('resize', listener)
+onUnmounted(() => {
+  window.removeEventListener('resize', listener)
+})
 </script>
 
 <style scoped lang="scss">
@@ -116,7 +126,7 @@ const passcallback = (formData: FormData) => {
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translate(calc(50vw - 50%), -50%);
+    transform: translate(50%, -50%);
   }
 
   &-form-box {
@@ -233,6 +243,22 @@ const passcallback = (formData: FormData) => {
         font-weight: bold;
         color: var(--el-color-primary);
       }
+    }
+  }
+}
+
+@media screen and (width <=1500px) {
+  .login {
+    &-form-box {
+      width: 70vw;
+    }
+  }
+}
+
+@media screen and (width <=1300px) {
+  .login {
+    &-form-box {
+      width: 80vw;
     }
   }
 }
