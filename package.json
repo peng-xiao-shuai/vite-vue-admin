@@ -2,7 +2,7 @@
   "name": "vite-vue-admin",
   "version": "1.0.0",
   "scripts": {
-    "dev": "vite --base=/ --force",
+    "dev": "vite --base=/",
     "tsc": "vue-tsc --noEmit --skipLibCheck",
     "build": "vite build --base=/",
     "gitBuild": "vite build --base=/vite-vue-admin/",
