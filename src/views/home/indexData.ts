@@ -228,7 +228,7 @@ export const useEchart = () => {
   // 浏览量
   function handlePageView() {
     pageviewChart().then((res) => {
-      pageViewData.value = res.data
+      pageViewData.value = res.data.data
     })
   }
   function handleChart(status: number, period = 'Seven') {
@@ -244,7 +244,7 @@ export const useEchart = () => {
           color: colors[index],
         })
       })
-      chart.value = res.data
+      chart.value = res.data.data
     })
   }
   function handleCount() {

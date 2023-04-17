@@ -19,7 +19,10 @@
               <div
                 v-for="(item, index) in count"
                 :key="'switch' + index"
-                :class="[{ 'switch-active': current == index }, 'switch']"
+                :class="[
+                  { 'switch-active': current == index },
+                  'switch pointer',
+                ]"
                 @click="typeSwitch(index)"
               >
                 {{ t(item.locale) }}
@@ -173,7 +176,7 @@ const {
   handleChart,
 } = useEchart()
 
-const { list, tableHeader, handleGetTable } = useTableData()
+const { list, tableHeader } = useTableData()
 
 const typeSwitch = (i: number) => {
   current.value = i
