@@ -12,11 +12,8 @@ export const login = <T>(data: any) => request.post<T>('admin/login', data)
  * @param params
  * @returns
  */
-export const getUser = (params?: any) =>
-  request({
-    url: 'admin/info',
-    params,
-  })
+export const getUser = <T>(params?: any) =>
+  request.get<T>('admin/info', { params })
 
 /**
  * 获取用户列表

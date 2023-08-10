@@ -25,3 +25,4 @@ declare module 'file-saver'
 declare module 'exceljs/dist/exceljs'
 
 declare type Indexes = { [s: string | number]: any }
+declare type RequestRes<T> = { data: T; code: number }

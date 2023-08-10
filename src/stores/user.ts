@@ -4,6 +4,7 @@ import { getUser, login } from '@/api/logins'
 import router, { addRouter, Routers } from '@/router/index'
 import { reactive, ref } from 'vue'
 import { RouteRecordName } from 'vue-router'
+import { tokenValue } from 'mock/data/list'
 
 // 后端接口返回的路由表数据
 type rolesValueItemType = {
@@ -63,25 +64,26 @@ export const useUserStore = defineStore('user', () => {
     },
   ])
 
-  type Res = { data: { tokenHead: string; token: string }; code: number }
   type User = { username: string; password: string }
   /**
    * 登录
    * @param {User} user 用户信息
    */
   const loginRequest = (user: User) => {
-    return new Promise<Res>((resolve, reject) => {
-      login<Res>(user)
-        .then((res: any) => {
-          vToken.value = res.data.data.tokenHead + res.data.data.token
-          Cookies.set('vToken', res.data.data.tokenHead + res.data.data.token)
-          router.push({ path: '/' })
-          resolve(res.data)
-        })
-        .catch((err: { data: string }) => {
-          reject(err.data)
-        })
-    })
+    return new Promise<RequestRes<{ tokenHead: string; token: string }>>(
+      (resolve, reject) => {
+        login<RequestRes<{ tokenHead: string; token: string }>>(user)
+          .then((res: any) => {
+            vToken.value = res.data.data.tokenHead + res.data.data.token
+            Cookies.set('vToken', res.data.data.tokenHead + res.data.data.token)
+            router.push({ path: '/' })
+            resolve(res.data)
+          })
+          .catch((err: { data: string }) => {
+            reject(err.data)
+          })
+      }
+    )
   }
 
   /**
@@ -89,11 +91,12 @@ export const useUserStore = defineStore('user', () => {
    */
   const userInfoRequest = () => {
     return new Promise<typeof menus.value>((resolve, reject) => {
-      getUser({ token: vToken.value })
-        .then(async (res: any) => {
+      getUser<RequestRes<tokenValue>>({ token: vToken.value })
+        .then((res) => {
           // 清空菜单
           menus.value = []
-          Object.assign(userInfo, res.data)
+
+          Object.assign(userInfo, res.data.data)
           menusFilter(res.data.data.menus)
           resolve(menus.value)
         })
