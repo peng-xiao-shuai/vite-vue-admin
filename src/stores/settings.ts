@@ -13,6 +13,7 @@ nextTick(function () {
   config.waterMark.switch && create(config.waterMark)
 })
 export const useSettingStore = defineStore('setting', () => {
+  const isSearch = ref(false)
   const themeColor = reactive(config.themeColor)
   const errorLog = ref<Log[]>([])
   const drawerSetting = reactive(config.settings)
@@ -43,6 +44,7 @@ export const useSettingStore = defineStore('setting', () => {
   }
 
   return {
+    isSearch,
     themeColor,
     errorLog,
     getBugNumber,
