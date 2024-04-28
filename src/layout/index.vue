@@ -84,8 +84,8 @@ import { useSettingStore } from '@/stores/index'
 import { useRoute } from 'vue-router'
 import { useSearch } from '@/hooks/states'
 import defaultData from '@/config/default-data'
-import cn from 'element-plus/lib/locale/lang/zh-cn'
-import en from 'element-plus/lib/locale/lang/en'
+import cn from 'element-plus/es/locale/lang/zh-cn'
+import en from 'element-plus/es/locale/lang/en'
 
 export default defineComponent({
   components: {
