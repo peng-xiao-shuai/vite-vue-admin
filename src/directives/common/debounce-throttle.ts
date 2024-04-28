@@ -26,17 +26,21 @@ export function debounce(app: App) {
       ] = binding.value
       let timer: any
       // 只执行一次
-      let only = true
+      let debounceOnly = true
 
       el.addEventListener('click', () => {
         // 是否立即执行
-        if (immediate && only) {
-          only = false
+        if (immediate && debounceOnly) {
+          debounceOnly = false
           callback(...arg)
         }
 
         if (timer) clearTimeout(timer)
         timer = setTimeout(() => {
+          if (!debounceOnly) {
+            debounceOnly = true
+            return
+          }
           callback(...arg)
         }, time)
       })
