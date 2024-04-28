@@ -39,19 +39,32 @@ export default function copy(app: App) {
           throw new Error(`value 不能为空`)
         }
 
-        // 创建dom
-        const input = document.createElement('input')
-        document.body.appendChild(input)
-        input.setAttribute('value', val)
-        // 选中文本
-        input.select()
-        if (document.execCommand('copy')) {
+        // 兼容低版本不存在 navigator.clipboard 情况
+        if (navigator.clipboard && navigator.permissions) {
+          navigator.clipboard
+            .writeText(val)
+            .then(() => {
+              callback()
+            })
+            .catch((err) => {
+              console.error('Unable to copy text to clipboard', err)
+            })
+        } else {
+          // 创建dom
+          const input = document.createElement('input')
+          input.setAttribute('value', val)
+          input.style.position = 'fixed'
+          input.style.left = '999px'
+          input.style.top = '10px'
+          // 选中文本
+          document.body.appendChild(input)
+          input.select()
           document.execCommand('copy')
+          //  删除dom
+          document.body.removeChild(input)
 
           callback()
         }
-        //  删除dom
-        document.body.removeChild(input)
       })
     },
     updated(el, bind) {
