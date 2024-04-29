@@ -1,7 +1,12 @@
 import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 import defaultData from '@/config/default-data'
-import { ElMessage } from 'element-plus'
+import {
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
+  ElMessage,
+} from 'element-plus'
 
 export default defineComponent({
   setup() {
@@ -39,10 +44,10 @@ export default defineComponent({
     const slots = {
       dropdown: () => {
         return (
-          <el-dropdown-menu class="user-dropdown">
+          <ElDropdownMenu class="user-dropdown">
             {sizeSelect.map((item: SizeSelect, index: number) => {
               return (
-                <el-dropdown-item
+                <ElDropdownItem
                   key={'locale' + index}
                   onClick={() => {
                     setSize(item.value)
@@ -69,19 +74,19 @@ export default defineComponent({
                     ></i>
                     {t(item.label)}
                   </div>
-                </el-dropdown-item>
+                </ElDropdownItem>
               )
             })}
-          </el-dropdown-menu>
+          </ElDropdownMenu>
         )
       },
     }
 
     return () => (
       <div class="item">
-        <el-dropdown class="avatar-container" trigger="hover" v-slots={slots}>
+        <ElDropdown class="avatar-container" trigger="hover" v-slots={slots}>
           <div class={[defaultData.iconfont, 'vitefont-size']}></div>
-        </el-dropdown>
+        </ElDropdown>
       </div>
     )
   },

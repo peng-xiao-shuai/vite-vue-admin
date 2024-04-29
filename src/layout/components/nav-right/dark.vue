@@ -3,6 +3,7 @@ import { defineComponent } from 'vue'
 import { useToggle, useDark } from '@vueuse/core'
 import { Moon, Sunny } from '@element-plus/icons-vue'
 import { useI18n } from 'vue-i18n'
+import { ElTooltip } from 'element-plus'
 
 export default defineComponent({
   setup() {
@@ -12,7 +13,7 @@ export default defineComponent({
 
     return () => (
       <div class="item">
-        <el-tooltip content={t('light/dark')} placement="bottom">
+        <ElTooltip content={t('light/dark')} placement="bottom">
           <div
             class={['switch _flex _flex-align-center', { dark: isDark.value }]}
             onClick={() => toggleDark()}
@@ -21,7 +22,7 @@ export default defineComponent({
               {isDark.value ? <Moon /> : <Sunny />}
             </el-icon>
           </div>
-        </el-tooltip>
+        </ElTooltip>
       </div>
     )
   },

@@ -2,7 +2,7 @@ import { defineComponent, ref } from 'vue'
 import screenFull from 'screenfull'
 import { useI18n } from 'vue-i18n'
 import defaultData from '@/config/default-data'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElTooltip } from 'element-plus'
 
 export default defineComponent({
   setup() {
@@ -32,7 +32,7 @@ export default defineComponent({
 
     return () => (
       <div class="item">
-        <el-tooltip content={t('full.screen')} placement="bottom">
+        <ElTooltip content={t('full.screen')} placement="bottom">
           <i
             class={[
               defaultData.iconfont,
@@ -42,7 +42,7 @@ export default defineComponent({
               click()
             }}
           ></i>
-        </el-tooltip>
+        </ElTooltip>
       </div>
     )
   },

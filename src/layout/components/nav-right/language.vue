@@ -1,6 +1,7 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
 import defaultData from '@/config/default-data'
+import { ElDropdownMenu, ElDropdownItem, ElDropdown } from 'element-plus'
 
 export default defineComponent({
   setup() {
@@ -24,10 +25,10 @@ export default defineComponent({
     const slots = {
       dropdown: () => {
         return (
-          <el-dropdown-menu class="user-dropdown">
+          <ElDropdownMenu class="user-dropdown">
             {localeSelect.map((item: Item, index: number) => {
               return (
-                <el-dropdown-item
+                <ElDropdownItem
                   key={'locale' + index}
                   onClick={() => {
                     setLocale(item.value)
@@ -54,24 +55,24 @@ export default defineComponent({
                     ></i>
                     {item.label}
                   </div>
-                </el-dropdown-item>
+                </ElDropdownItem>
               )
             })}
-          </el-dropdown-menu>
+          </ElDropdownMenu>
         )
       },
     }
 
     return () => (
       <div class="item">
-        <el-dropdown class="avatar-container" trigger="hover" v-slots={slots}>
+        <ElDropdown class="avatar-container" trigger="hover" v-slots={slots}>
           <div
             class={[
               defaultData.iconfont,
               navSetting.locale == 'en-US' ? 'vitelanguage2' : 'vitelanguage2',
             ]}
           ></div>
-        </el-dropdown>
+        </ElDropdown>
       </div>
     )
   },

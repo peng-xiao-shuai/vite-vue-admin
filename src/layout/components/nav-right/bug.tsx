@@ -2,6 +2,7 @@ import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import defaultData from '@/config/default-data'
 import { useSettingStore } from '@/stores'
+import { ElTooltip } from 'element-plus'
 
 export default defineComponent({
   setup(_props) {
@@ -15,7 +16,7 @@ export default defineComponent({
 
     return () => (
       <div class="item">
-        <el-tooltip
+        <ElTooltip
           content={
             settingStore.getBugNumber === 0
               ? '没有日志或异常'
@@ -31,7 +32,7 @@ export default defineComponent({
 
             <span class="bugNum"></span>
           </div>
-        </el-tooltip>
+        </ElTooltip>
       </div>
     )
   },

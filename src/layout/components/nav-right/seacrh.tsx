@@ -9,6 +9,7 @@ import { defineComponent } from 'vue'
 import defaultData from '@/config/default-data'
 import { useI18n } from 'vue-i18n'
 import { useSettingStore } from '@/stores'
+import { ElTooltip } from 'element-plus'
 
 export default defineComponent({
   setup() {
@@ -17,7 +18,7 @@ export default defineComponent({
 
     return () => (
       <div class="item">
-        <el-tooltip content={t('search')} placement="bottom">
+        <ElTooltip content={t('search')} placement="bottom">
           <i
             class={[defaultData.iconfont, 'vitesousuo-']}
             onClick={() => {
@@ -26,7 +27,7 @@ export default defineComponent({
               }))
             }}
           ></i>
-        </el-tooltip>
+        </ElTooltip>
       </div>
     )
   },
