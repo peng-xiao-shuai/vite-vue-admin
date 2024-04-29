@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import viteCompression from 'vite-plugin-compression'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
@@ -19,12 +20,26 @@ export default defineConfig({
       // 指定symbolId格式
       symbolId: 'icon-[dir]-[name]',
     }),
+    AutoImport({
+      dts: 'src/auto-imports.d.ts',
+      imports: ['vue', 'vue-router'],
+      // eslint报错解决
+      eslintrc: {
+        enabled: true, // Default `false`
+        filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
+        globalsPropValue: true, // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
+      },
+      resolvers: [ElementPlusResolver()],
+    }),
     Components({
-      globs: [
-        'src/components/*.{vue|tsx}',
+      dirs: [
+        'src/components',
+        'src/icons',
         'src/views/**/components/*.{vue|tsx}',
       ],
-      include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/],
+      extensions: ['vue', 'tsx', 'svg'],
+      // 配置文件生成位置
+      dts: 'src/components.d.ts',
       resolvers: [
         ElementPlusResolver({
           importStyle: 'sass',
@@ -40,6 +55,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
       '#': path.resolve(__dirname, 'typings'),
       'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
+      '/^~(.*)$/': 'node_modules/$1',
     },
   },
   css: {

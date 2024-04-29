@@ -1,26 +1,134 @@
 {
   "editor.formatOnSave": true,
   "npm.packageManager": "pnpm",
-  "eslint.probe": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "html",
-    "vue",
-    "markdown",
-    "json",
-    "jsonc"
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.eol": "\n",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/*.log": true,
+    "**/*.log*": true,
+    "**/bower_components": true,
+    "**/dist": true,
+    "**/elehukouben": true,
+    "**/.git": true,
+    "**/.gitignore": true,
+    "**/.svn": true,
+    "**/.DS_Store": true,
+    "**/.idea": true,
+    "**/.vscode": false,
+    "**/yarn.lock": true,
+    "**/tmp": true,
+    "out": true,
+    "dist": true,
+    "node_modules": true,
+    "CHANGELOG.md": true,
+    "examples": true,
+    "res": true,
+    "screenshots": true,
+    "yarn-error.log": true,
+    "**/.yarn": true
+  },
+  "files.exclude": {
+    "**/.cache": true,
+    "**/.editorconfig": true,
+    "**/.eslintcache": true,
+    "**/bower_components": true,
+    "**/.idea": true,
+    "**/tmp": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.vscode/**": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
+    "**/bower_components/**": true,
+    "**/dist/**": true,
+    "**/yarn.lock": true
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "[vue]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.fixAll.stylelint": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.words": [
+    "browserslist",
+    "tailwindcss",
+    "peng-xiao-shuai",
+    "esnext",
+    "tinymce",
+    "qrcode",
+    "sider",
+    "pinia",
+    "sider",
+    "nprogress",
+    "INTLIFY",
+    "stylelint",
+    "esno",
+    "vitejs",
+    "sortablejs",
+    "mockjs",
+    "commitlint",
+    "unplugin",
+    "vditor",
+    "echarts",
+    "vueuse",
+    "lintstagedrc",
+    "tailwindcss",
+    "sider",
+    "pnpm",
   ],
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "html",
-    "vue",
-    "markdown",
-    "json",
-    "jsonc"
+  // 控制相关文件嵌套展示
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "$(capture).test.ts, $(capture).test.tsx",
+    "*.tsx": "$(capture).test.ts, $(capture).test.tsx",
+    ".env": ".env.*",
+    "CHANGELOG.md": "CHANGELOG*",
+    "package.json": "index.html,pnpm-lock.yaml,yarn.lock,pnpm-workspace.yaml,LICENSE,.gitattributes,.gitignore,.gitpod.yml,CNAME,README*,.npmrc,.browserslistrc",
+    ".eslintrc.json": ".eslintignore,.eslintrc-auto-import.json,.prettierignore,.stylelintignore,.commitlintrc.js,.prettierrc",
+    "env.d.ts": "*.d.ts",
+    "vite.config.js": "tsconfig.json,tailwind.config.js,jsconfig.json, .cz-config.js"
+  },
+  "terminal.integrated.scrollback": 10000,
+  "cSpell.enableFiletypes": [
+    "!tailwindcss"
   ]
 }
