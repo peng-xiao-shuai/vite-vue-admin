@@ -15,20 +15,28 @@ import { NextLoading } from '@/utils/loading' // progress bar
  * @param {boolean} breadcrumb 是否不展示在 “面包屑”组件上展示
  * @param {number} sort 动态添加排序
  */
+export type Meta = {
+  title: string
+  icon?: string
+  id?: number | string
+  locale?: string
+  breadcrumb?: boolean
+  url?: string
+  iframeUrl?: string
+  iframeData?: any
+}
+
 export type Routers = RouteRecordRaw & {
-  meta: {
-    title: string
-    icon?: string
-    id?: number | string
-    locale?: string
-    breadcrumb?: boolean
-    url?: string
-    iframeUrl?: string
-    iframeData?: any
-  }
+  meta: Meta
   hidden?: boolean
   // 动态添加
   sort?: number
+}
+
+declare module 'vue-router' {
+  interface RouteMeta extends Meta {
+    [s: string]: Meta[keyof Meta]
+  }
 }
 
 const routes: Routers[] = [
