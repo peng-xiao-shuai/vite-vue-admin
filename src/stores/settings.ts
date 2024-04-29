@@ -20,7 +20,7 @@ export const useSettingStore = defineStore('setting', () => {
   const waterMark = reactive(config.waterMark)
   const getBugNumber = computed(() => {
     return errorLog.value.filter(
-      (item: Log) => item.type === 'Bug' || item.type === 'Ajax'
+      (item: Log) => item.type === 'Bug' || item.type === 'Ajax',
     ).length
   })
 
