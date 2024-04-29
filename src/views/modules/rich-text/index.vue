@@ -68,7 +68,7 @@ export default defineComponent({
 
     function getData() {
       richTextFun().then((response) => {
-        myValue.value = response.data
+        myValue.value = response.data.data
       })
     }
     function getTinyMceFun() {

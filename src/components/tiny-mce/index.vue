@@ -81,12 +81,12 @@ export default defineComponent({
     function getContentFun() {
       context.emit(
         'update:modelValue',
-        window.tinymce.get(tinymceId).getContent()
+        window.tinymce.get(tinymceId).getContent(),
       )
     }
 
     function init() {
-      window.tinymce.init({
+      window.tinymce?.init({
         selector: `#${tinymceId}`,
         branding: false, // 去水印
         language_url: '/static/zh_CN.js', //语言包路径地址
