@@ -1,9 +1,13 @@
 /// <reference types="vite/client" />
+
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
-  const defineComponent: DefineComponent<{}, {}, any>
+  const defineComponent: DefineComponent<object, object, any>
   export default defineComponent
 }
+
+declare module '@/*'
+declare module '*.js'
 
 declare module 'js-cookie'
 declare module 'nprogress'

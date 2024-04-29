@@ -62,7 +62,9 @@
             您的浏览器不支持视频播放
           </video>
           <div class="_flex _flex-center _flex-wrap file-type" v-else>
-            <el-icon><DocumentChecked /></el-icon>
+            <el-icon>
+              <DocumentChecked />
+            </el-icon>
             <div class="_word-break">{{ file.name }}</div>
           </div>
         </div>
@@ -124,7 +126,7 @@ const props = withDefaults(
       'mp4、ogg、flv、avi、wmv、rmvb、mov',
       'pdf、txt、doc、docx、excel、ppt',
     ],
-  }
+  },
 )
 
 const emits = defineEmits(['update:modelValue'])
@@ -148,7 +150,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 )
 
 const onError = (err: Error, uploadFile: UploadFile) => {
@@ -171,7 +173,7 @@ const beforeUpload = (rawFile: UploadRawFile) => {
     return false
   }
 
-  if (rawFile.size! / 1024 / 1024 >= props.fileSize) {
+  if (rawFile.size! / 1024 / 1024 >= Number(props.fileSize)) {
     ElMessage({
       message: '文件大小不能超过' + props.fileSize + 'MB',
       type: 'warning',
@@ -244,11 +246,13 @@ export default {
     height: 100%;
     padding: 10px;
     box-sizing: border-box;
+
     i {
       font-size: 50px;
       margin-bottom: 10px;
     }
   }
+
   .position {
     position: absolute;
     top: 0;

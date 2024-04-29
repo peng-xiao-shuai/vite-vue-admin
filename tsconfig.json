@@ -17,7 +17,7 @@
   "compilerOptions": {
     "types": [
       "vite/client",
-      "./components"
+      "./src/components.d.ts"
     ],
     "paths": {
       "@/*": [
