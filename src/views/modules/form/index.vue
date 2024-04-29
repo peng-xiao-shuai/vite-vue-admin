@@ -61,8 +61,8 @@
 <script>
 // 时间选择器 element-plus 自带翻译bug
 import { ElConfigProvider } from 'element-plus'
-import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-import zhEn from 'element-plus/lib/locale/lang/en'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import zhEn from 'element-plus/es/locale/lang/en'
 
 import { defineComponent } from 'vue'
 
