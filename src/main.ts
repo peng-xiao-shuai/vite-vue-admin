@@ -88,7 +88,6 @@ for (const key in ElementIcon) {
     (ElementIcon as { [s: string]: Component })[key]
   )
 }
-console.log(ElementIcon)
 
 directive(app)
 
