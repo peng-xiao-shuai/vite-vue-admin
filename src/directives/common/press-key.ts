@@ -21,9 +21,22 @@ interface keys {
 }
 const keys: keys = {}
 
-// 判断类型
-const ifType = (el: Element): boolean => {
-  return el.tagName == 'INPUT' || el.tagName == 'TEXTAREA'
+/**
+ * 判断类型
+ * @param {Element} el
+ */
+const ifType = (
+  el: Element | null,
+): HTMLInputElement | HTMLTextAreaElement | undefined => {
+  if (!el) return undefined
+
+  const isInput = (el: Element) =>
+    el.tagName == 'INPUT' || el.tagName == 'TEXTAREA'
+
+  if (isInput(el)) return el as HTMLInputElement | HTMLTextAreaElement
+  else if (el.children.length && isInput(el.children[0]))
+    return el.children[0] as HTMLInputElement | HTMLTextAreaElement
+  else undefined
 }
 
 export default function pressKey(app: App) {
@@ -31,10 +44,6 @@ export default function pressKey(app: App) {
     mounted(el, bind) {
       // 判断是否是 input 或者 textarea 由于 el-input是一个div元素且它的下级才是input 故此获取children
       const inputNode = ifType(el)
-        ? el
-        : el.children.length && ifType(el.children[0])
-        ? el.children[0]
-        : undefined
 
       if (!bind.arg) {
         console.error('请绑定需要触发的键，例如v-press-key:s')
@@ -89,12 +98,15 @@ export default function pressKey(app: App) {
       }
 
       window.onkeydown = function keydown(event: KeyboardEvent) {
+        if (ifType(document.activeElement)) {
+          return
+        }
         // 获取匹配项
         const match = Object.keys(keys).filter(
           (item) =>
             event.key.toUpperCase() == item ||
             event.key.toLowerCase() == item ||
-            event.key == item
+            event.key == item,
         )
 
         match.length && keys[match[0]].funVal()
