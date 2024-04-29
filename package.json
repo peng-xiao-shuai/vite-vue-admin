@@ -26,7 +26,7 @@
     "@vueuse/core": "^9.13.0",
     "axios": "^0.21.4",
     "echarts": "^5.4.1",
-    "el-plus-powerful-table-ts": "2.1.15",
+    "el-plus-powerful-table-ts": "2.2.9",
     "element-plus": "^2.4.3",
     "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",

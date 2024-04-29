@@ -70,7 +70,13 @@
       </div>
       <powerful-table
         ref="Table"
-        :list="powerfulTableData.list"
+        :list-request="{
+          listApi: tableFun,
+          pageNoKey: 'pageNum',
+          listsKey: 'list',
+          responseKey: 'data.data',
+          listQuery: powerfulTableData.listQuery,
+        }"
         :header="header"
         :isSelect="true"
         :tableName="'Table'"
@@ -145,7 +151,6 @@ export default defineComponent({
         powerfulTableData.total = response.data.total
       })
     }
-    getList()
 
     const handleSortCustom: Handlers['sort-custom'] = (e) => {
       powerfulTableData.listQuery[e.prop] = e.order
@@ -217,7 +222,7 @@ export default defineComponent({
           if (arr.indexOf(item) == -1) {
             powerfulTableData.listQuery[item] = ''
           }
-        }
+        },
       )
     }
 
@@ -250,7 +255,7 @@ export default defineComponent({
       selectMenuList,
       powerfulTableData,
       header,
-
+      tableFun,
       // 方法
       handleResetSearch,
       handleBtnClick,
