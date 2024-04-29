@@ -66,13 +66,13 @@
 </template>
 
 <script lang="ts" setup>
-import { useSearch } from '@/hooks/states'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { Routers } from '@/router/index'
-import { useUserStore } from '@/stores'
+import { useSettingStore, useUserStore } from '@/stores'
 const userStore = useUserStore()
+const settingStore = useSettingStore()
 const router = useRouter()
 const route = useRoute()
 const { t } = useI18n()
@@ -81,7 +81,9 @@ const searchValue = ref<string>('')
 watch(
   () => route.path,
   () => {
-    useSearch.value = false
+    settingStore.$patch((state) => {
+      state.isSearch = false
+    })
   }
 )
 
@@ -211,3 +213,4 @@ const navTo = (item: Arr) => {
   }
 }
 </style>
+@/hooks/useSearch

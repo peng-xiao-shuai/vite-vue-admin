@@ -53,7 +53,12 @@
               style="height: 100%"
               v-show="!useSearch"
               v-press-key:escape="
-                () => $throttle(() => (useSearch = false), 100)
+                () =>
+                  $throttle(settingStore.$patch, 100, [
+                    (state) => {
+                      state.isSearch = false
+                    },
+                  ])
               "
             >
               <router-view v-if="!meta.iframeUrl" />
@@ -82,7 +87,6 @@ import setting from './components/setting.vue'
 import { computed, defineComponent, ref } from 'vue'
 import { useSettingStore } from '@/stores/index'
 import { useRoute } from 'vue-router'
-import { useSearch } from '@/hooks/states'
 import defaultData from '@/config/default-data'
 import cn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
@@ -114,7 +118,7 @@ export default defineComponent({
       isCollapse,
       meta,
       locale,
-      useSearch,
+      settingStore,
     }
   },
 })
