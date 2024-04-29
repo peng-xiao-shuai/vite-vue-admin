@@ -9,7 +9,7 @@ import '#/amap'
 
 export const useQQMap = (
   content = { lat: 39.90923, lng: 116.397428 },
-  idName = 'container'
+  idName = 'container',
 ) => {
   const qq = window.qq
   const center = new qq.maps.LatLng(content.lat, content.lng)
@@ -55,7 +55,7 @@ export const useQQMap = (
     listener.push(
       qq.maps.event.addListener(marker, 'dragstart', () => {
         marker.setAnimation(qq.maps.MarkerAnimation.UP)
-      })
+      }),
     )
     // 拖拽结束
     listener.push(
@@ -67,8 +67,8 @@ export const useQQMap = (
           marker.setAnimation(qq.maps.MarkerAnimation.DOWN)
 
           geocoderFun(e.latLng)
-        }
-      )
+        },
+      ),
     )
   }
   const cb = (detail: Qq.Detail) => {
@@ -150,7 +150,7 @@ const geolocationOptions: AMap.GeolocationOptions = {
 export const useAMapFence = (
   list: Ref<List[]>,
   errorCallback: (result: any) => void,
-  successCallback: (res: { msg: string; status: string }) => void
+  successCallback: (res: { msg: string; status: string }) => void,
 ) => {
   const { name } = useRoute()
   let _AMap: typeof AMap | undefined = undefined
@@ -253,7 +253,7 @@ export const useAMapFence = (
             // 将当前绘制的多边形改为编辑状态
             compilations.polyEditor = new _AMap!.PolygonEditor(
               compilations.map!,
-              obj
+              obj,
             ) // 获取修改多边形实例
             compilations.polyEditor.open() // 修改为编辑状态
 
@@ -291,35 +291,34 @@ export const useAMapFence = (
             id: item.id,
           },
           style: textStyle,
-        })
+        }),
       )
 
+      const newPolygon = new _AMap!.Polygon()
+      newPolygon.setOptions({
+        path: item.fencePath,
+        extData: {
+          id: item.id,
+        },
+        ...PolygonOptions,
+      })
       // 多边形实例
-      compilations.polygons.push(
-        new _AMap!.Polygon({
-          path: item.fencePath,
-          extData: {
-            id: item.id,
+      compilations.polygons.push(newPolygon),
+        compilations.polygons[index].on(
+          'click',
+          ({ target }: { target: AMap.Polygon }) => {
+            if (!isDraw.value) {
+              clear()
+              compilations.polyEditor = new _AMap!.PolygonEditor(
+                compilations.map!,
+                target,
+              ) // 获取修改多边形实例
+              compilations.polyEditor.open() // 修改为编辑状态
+
+              Object.assign(currentData, <List>find(target))
+            }
           },
-          ...PolygonOptions,
-        })
-      )
-
-      compilations.polygons[index].on(
-        'click',
-        ({ target }: { target: AMap.Polygon }) => {
-          if (!isDraw.value) {
-            clear()
-            compilations.polyEditor = new _AMap!.PolygonEditor(
-              compilations.map!,
-              target
-            ) // 获取修改多边形实例
-            compilations.polyEditor.open() // 修改为编辑状态
-
-            Object.assign(currentData, <List>find(target))
-          }
-        }
-      )
+        )
     })
 
     compilations.map!.add([...compilations.polygons, ...compilations.texts])
@@ -359,16 +358,16 @@ export const useAMapFence = (
       //   id,
       // })
 
+      const newPolygon = new _AMap!.Polygon()
+      newPolygon.setOptions({
+        path: polygon?.getPath() as AMap.Vector2[],
+        extData: {
+          id,
+        },
+        ...PolygonOptions,
+      })
       // 渲染多边形和文本
-      compilations.polygons.push(
-        new _AMap!.Polygon({
-          path: polygon?.getPath() as AMap.Vector2[],
-          extData: {
-            id,
-          },
-          ...PolygonOptions,
-        })
-      )
+      compilations.polygons.push(newPolygon)
       compilations.texts.push(
         new _AMap!.Text({
           position: (polygon?.getPath() as AMap.Vector2[])[0],
@@ -377,7 +376,7 @@ export const useAMapFence = (
             id,
           },
           style: textStyle,
-        })
+        }),
       )
 
       compilations.polygons[compilations.polygons.length - 1].on(
@@ -387,12 +386,12 @@ export const useAMapFence = (
             clear()
             compilations.polyEditor = new _AMap!.PolygonEditor(
               compilations.map!,
-              target
+              target,
             ) // 获取修改多边形实例
             compilations.polyEditor.open() // 修改为编辑状态
             Object.assign(currentData, find(target))
           }
-        }
+        },
       )
 
       compilations.map?.add([
@@ -427,7 +426,7 @@ export const useAMapFence = (
       [<AMap.Polygon>find(item.id)],
       false,
       [60, 60, 60, 60],
-      16
+      16,
     )
   }
   /**
@@ -441,7 +440,7 @@ export const useAMapFence = (
     viewPolygon(item)
     compilations.polyEditor = new _AMap!.PolygonEditor(
       compilations.map!,
-      <AMap.Polygon>find(item.id)
+      <AMap.Polygon>find(item.id),
     ) // 获取修改多边形实例
     compilations.polyEditor.open() // 修改为编辑状态
 
@@ -471,7 +470,7 @@ export const useAMapFence = (
       return list.value.find((item) => item.id == target.getExtData().id)
     } else {
       return compilations.polygons.find(
-        (item) => item && item.getExtData().id == target
+        (item) => item && item.getExtData().id == target,
       )!
     }
   }
@@ -484,7 +483,7 @@ export const useAMapFence = (
    */
   const findSearch = (
     address: string,
-    callback: (status: string, result: object) => void = () => {}
+    callback: (status: string, result: object) => void = () => {},
   ) => {
     if (!!compilations.placeSearch) {
       compilations.placeSearch.search(address, callback)
@@ -496,7 +495,7 @@ export const useAMapFence = (
    * @param {'map' | 'polyEditor' | 'mouseTool' | 'placeSearch' | 'polygons' | 'texts'} variable 变量
    */
   const get = <K extends keyof typeof compilations>(
-    variable: K
+    variable: K,
   ): (typeof compilations)[K] => {
     return compilations[variable]
   }
