@@ -53,8 +53,8 @@ const iconSvg: { [s: string]: Component } = shallowReactive({})
 const getIconFonts = async () => {
   axios.get(defaultData.iconFontUrl).then((res) => {
     // 获取所有的 字体图标
-    iconFont.value = [...res.data.data.matchAll(/([\w|\-|\d]+):before/g)].map(
-      (item: string[]) => item[1]
+    iconFont.value = [...res.data.matchAll(/([\w|\-|\d]+):before/g)].map(
+      (item: string[]) => item[1],
     )
   })
 }

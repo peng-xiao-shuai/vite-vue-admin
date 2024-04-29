@@ -78,10 +78,10 @@ watchEffect(() => {
 const getIconFonts = async () => {
   axios.get(defaultData.iconFontUrl).then((res) => {
     // 获取所有的 字体图标
-    cacheIconFont = [...res.data.data.matchAll(/([\w|\-|\d]+):before/g)].map(
+    cacheIconFont = [...res.data.matchAll(/([\w|\-|\d]+):before/g)].map(
       (item: string[]) => ({
         name: item[1],
-      })
+      }),
     )
     options.value = [...cacheIconFont]
     loading.value = false
@@ -89,11 +89,14 @@ const getIconFonts = async () => {
 }
 
 const getElementIcon = async () => {
-  import('@element-plus/icons-vue').then((res) => {
+  type Icon = {
+    [key: string]: Component
+  }
+  import('@element-plus/icons-vue').then((res: Icon) => {
     for (const i in res) {
       cacheIconSvg.push({
-        name: (res[i] as Component).name!,
-        component: res[i] as Component,
+        name: res[i].name!,
+        component: res[i],
       })
     }
     options.value = [...cacheIconSvg]
@@ -105,6 +108,8 @@ const getElementIcon = async () => {
 watch(
   () => props.type,
   (val) => {
+    console.log(val)
+
     if (val == 'icon-font' || !val) {
       getIconFonts()
     } else {
@@ -113,7 +118,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 )
 
 // 搜索
@@ -132,7 +137,7 @@ const remoteMethod = (str: string) => {
   }
 }
 .icons {
-  padding: 5px 10px;
+  padding: 0 10px;
   display: grid;
   grid-row-gap: 5px;
   grid-column-gap: 5px;
@@ -179,6 +184,17 @@ const remoteMethod = (str: string) => {
     border: 1px solid var(--el-color-primary);
     color: var(--el-color-primary);
     box-shadow: 0 0 2px 0 var(--el-color-primary);
+  }
+}
+</style>
+
+<style lang="scss">
+.el-select-dropdown {
+  .el-scrollbar {
+    padding: 10px 0;
+  }
+  .el-select-dropdown__list {
+    padding: 0;
   }
 }
 </style>
