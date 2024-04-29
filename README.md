@@ -70,6 +70,18 @@ mockXHR()
 // }
 ```
 
+3. **Image download success can not open** [solution](https://blog.csdn.net/m0_71182944/article/details/127161279)
+
+```js
+// node_modules/mockjs/dist/mock.js
+if (!this.match) {
+  // 8364 line added
+  this.custom.xhr.responseType = this.responseType
+  this.custom.xhr.send(data)
+  return
+}
+```
+
 ### Install dependencies,
 
 ```bash

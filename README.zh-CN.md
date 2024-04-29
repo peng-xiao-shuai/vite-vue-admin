@@ -70,6 +70,19 @@ mockXHR()
 // }
 ```
 
+3. **图片下载成功打不开** [解决方案](https://blog.csdn.net/m0_71182944/article/details/127161279)
+
+```js
+// node_modules/mockjs/dist/mock.js
+// 原生 XHR
+if (!this.match) {
+  // 8364行添加
+  this.custom.xhr.responseType = this.responseType
+  this.custom.xhr.send(data)
+  return
+}
+```
+
 ## 安装依赖项
 
 ```bash
