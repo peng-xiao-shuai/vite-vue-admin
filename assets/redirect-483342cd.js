@@ -1,0 +1,1 @@
+import{b as t,c as o,h as u}from"./index-e341999d.js";const p={setup(){let s=t(),a=o();const{params:e,query:r}=a;return console.log(e,r,a),s.replace({name:e.__name,params:JSON.parse(e.params),query:r}),()=>[u("div")]}};export{p as default};

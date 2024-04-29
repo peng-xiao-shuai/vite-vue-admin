@@ -1,1 +1,0 @@
-var r={},p={get exports(){return r},set exports(e){r=e}};(function(e){function u(t){return t&&t.__esModule?t:{default:t}}e.exports=u,e.exports.__esModule=!0,e.exports.default=e.exports})(p);export{r as i};
