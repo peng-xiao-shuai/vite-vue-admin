@@ -89,7 +89,10 @@ export default defineComponent({
       window.tinymce?.init({
         selector: `#${tinymceId}`,
         branding: false, // 去水印
-        language_url: '/static/zh_CN.js', //语言包路径地址
+        language_url:
+          import.meta.env === 'production'
+            ? '/vite-vue-admin/static/zh_CN.js'
+            : '/static/zh_CN.js', //语言包路径地址
         language: 'zh_CN',
         height: props.height, //编辑器高度
         width: props.width, //编辑器宽度
