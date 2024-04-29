@@ -35,7 +35,15 @@
         <div
           class="view"
           id="view"
-          v-press-key:s="() => $throttle(() => (useSearch = true), 100)"
+          v-press-key:s="
+            () => {
+              $throttle(settingStore.$patch, 100, [
+                (state: typeof settingStore) => {
+                  state.isSearch = true
+                },
+              ])
+            }
+          "
           :style="{
             height: `calc(100% - ${
               drawerSetting.isTagsView ? '91px' : '50px'
@@ -45,17 +53,17 @@
           <setting />
 
           <transition name="searchView">
-            <search-view v-show="useSearch" class="search-view" />
+            <search-view v-show="settingStore.isSearch" class="search-view" />
           </transition>
 
           <transition name="searchView">
             <el-scrollbar
               style="height: 100%"
-              v-show="!useSearch"
+              v-show="!settingStore.isSearch"
               v-press-key:escape="
                 () =>
                   $throttle(settingStore.$patch, 100, [
-                    (state) => {
+                    (state: typeof settingStore) => {
                       state.isSearch = false
                     },
                   ])
@@ -66,7 +74,7 @@
                 v-else
                 :src="meta.iframeUrl"
                 frameborder="0"
-                v-bind="meta.iframeData"
+                v-bind="{ ...(meta.iframeData || {}) }"
               ></iframe>
             </el-scrollbar>
           </transition>
@@ -84,7 +92,6 @@ import routerView from './components/router-view.vue'
 import SearchView from './components/search-view.vue'
 import setting from './components/setting.vue'
 
-import { computed, defineComponent, ref } from 'vue'
 import { useSettingStore } from '@/stores/index'
 import { useRoute } from 'vue-router'
 import defaultData from '@/config/default-data'
