@@ -251,7 +251,7 @@ export default defineComponent({
         var substr = state.formInline2.showUnit
           ? column.label.substring(
               column.label.indexOf('(') + 1,
-              column.label.indexOf(')')
+              column.label.indexOf(')'),
             )
           : ''
         const values = data.map((item: any) => Number(item[column.property]))

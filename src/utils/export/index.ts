@@ -8,7 +8,7 @@ export function exportExcelSheet(
       list: [],
     },
   ],
-  configData: ExportConfigData = {}
+  configData: ExportConfigData = {},
 ) {
   import('@/utils/export/exportToExcel').then((excel) => {
     const headers: string[][] = []
@@ -54,7 +54,7 @@ export function exportExcelSheet(
         aligns: aligns,
         stripes: stripes,
       },
-      configData
+      configData,
     )
 
     /**
