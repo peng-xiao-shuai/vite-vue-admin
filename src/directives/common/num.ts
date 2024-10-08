@@ -9,13 +9,13 @@ import type { App } from 'vue'
 let inputNode: HTMLElement
 
 const float = (arg = 'number', modifiers?: {}, vals?: (number | string)[]) => {
-  inputNode.addEventListener('input', (e: Event) => {
+  inputNode.addEventListener(vals?.length ? 'change' : 'input', (e: Event) => {
     const keys = Object.keys(modifiers || {})
 
     let value =
       (e.target as any).value.replace(
         /[a-z]|[\u4e00-\u9fa5]|[^\x00-\xff]/gi,
-        ''
+        '',
       ) || ''
 
     // 为空说明只输入了 '/[a-z]|[\u4e00-\u9fa5]|[^\x00-\xff]/ig' 可以匹配的字符
@@ -36,6 +36,7 @@ const float = (arg = 'number', modifiers?: {}, vals?: (number | string)[]) => {
     }
 
     if (arg == 'float') {
+      value = String(value)
       // 只能有一位小数点
       // 小数长度 不能 大于 Number(keys[0]
       if (

@@ -22,9 +22,19 @@
         </el-input>
       </div>
       <div>
-        <div class="tipBox">整数 || 小数（固定范围）</div>
+        <div class="tipBox">整数（固定范围）</div>
         <el-input v-model="inputs.numberScope" placeholder="" v-num="[1, 10]">
           <template #append> v-num="[1, 10]" </template>
+        </el-input>
+      </div>
+      <div>
+        <div class="tipBox">小数（固定范围）</div>
+        <el-input
+          v-model="inputs.numberFloatScope"
+          placeholder=""
+          v-num:float.2="[1, 10]"
+        >
+          <template #append> v-num:float="[1, 10]" </template>
         </el-input>
       </div>
     </div>
@@ -41,6 +51,7 @@ export default defineComponent({
         float: 0,
         floatLength: 0,
         numberScope: 1,
+        numberFloatScope: 1,
       }),
     }
   },
