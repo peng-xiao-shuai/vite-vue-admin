@@ -25,33 +25,33 @@ const keys: keys = {}
  * 判断类型
  * @param {Element} el
  */
-const ifType = (
-  el: Element | null,
-): HTMLInputElement | HTMLTextAreaElement | undefined => {
+type InputElement = HTMLInputElement | HTMLTextAreaElement
+const ifType = (el: Element | null): InputElement | undefined => {
   if (!el) return undefined
 
-  const isInput = (el: Element) =>
-    el.tagName == 'INPUT' || el.tagName == 'TEXTAREA'
+  if (el.tagName == 'INPUT' || el.tagName == 'TEXTAREA')
+    return el as InputElement
 
-  if (isInput(el)) return el as HTMLInputElement | HTMLTextAreaElement
-  else if (el.children.length && isInput(el.children[0]))
-    return el.children[0] as HTMLInputElement | HTMLTextAreaElement
-  else undefined
+  const isElComponent =
+    el.classList.contains('el-input') || el.classList.contains('el-textarea')
+
+  const inner = isElComponent
+    ? ((el.getElementsByClassName('el-input__inner')[0] ||
+        el.getElementsByClassName('el-textarea__inner')[0]) as
+        | InputElement
+        | undefined)
+    : undefined
+  return inner
 }
 
 export default function pressKey(app: App) {
   app.directive('press-key', {
     mounted(el, bind) {
-      // 判断是否是 input 或者 textarea 由于 el-input是一个div元素且它的下级才是input 故此获取children
+      // 判断是否是 input 或者 textarea 需要注意的是 el-input是一个div元素
       const inputNode = ifType(el)
 
       if (!bind.arg) {
         console.error('请绑定需要触发的键，例如v-press-key:s')
-        return
-      }
-
-      if (Object.keys(keys).filter((item) => item == bind.arg).length) {
-        console.error('绑定的按键 ' + bind.arg + ' 与已有的重名')
         return
       }
 
@@ -63,8 +63,13 @@ export default function pressKey(app: App) {
       // 获取对象键值
       const k =
         inputNode == undefined
-          ? bind.arg
+          ? bind.arg + (id ? '-' + id : '')
           : bind.arg + '-' + inputNode.tagName + (id ? '-' + id : '')
+
+      if (Object.keys(keys).filter((item) => item == k).length) {
+        console.error('绑定的按键 ' + bind.arg + ' 与已有的重名')
+        return
+      }
       // 储存数据
       keys[k] = {
         arg: bind.arg,

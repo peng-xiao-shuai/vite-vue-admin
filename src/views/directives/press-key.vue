@@ -110,7 +110,7 @@
           class="tipBox"
           v-press-key:d.100="() => msg('按键 d 触发 携带id，全局', 'error')"
         >
-          d 按键，携带id（全局触发）
+          d 按键，携带id（不会触发）
         </div>
       </div>
 
@@ -123,35 +123,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="grid grid-c-3">
-        <div>
-          <div class="tipBox" v-press-key:q="() => msg('按键 q 触发')">q 按键 （全局按键触发）</div>
-          <el-input v-model="inputs.q" >
-            <template #append>
-              v-press-key:q
-            </template>
-          </el-input>
-        </div>
-
-        <div>
-          <div class="tipBox">q 按键 携带id（全局按键触发）</div>
-          <el-input v-model="inputs.q" v-press-key:q.100="() => msg('按键 q 触发 携带 id 为 100')">
-            <template #append>
-              v-press-key:q.100
-            </template>
-          </el-input>
-        </div>
-
-        <div>
-          <div class="tipBox">q 按键 携带id（全局按键触发）</div>
-          <el-input v-model="inputs.q" v-press-key:q.200="() => msg('按键 q 触发 携带 id 为 200')">
-            <template #append>
-              v-press-key:q.200
-            </template>
-          </el-input>
-        </div>
-      </div> -->
   </el-card>
 </template>
 
