@@ -22,7 +22,7 @@ export function debounce(app: App) {
         Function,
         number,
         any[],
-        boolean
+        boolean,
       ] = binding.value
       let timer: any
       // 只执行一次
@@ -69,7 +69,7 @@ export function throttle(app: App) {
         Function,
         number,
         any[],
-        boolean
+        boolean,
       ] = binding.value
 
       let bol = true
