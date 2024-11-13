@@ -52,8 +52,8 @@
           <div class="form-box-title">{{ t('login') }}</div>
         </template>
         <template #footer>
-          <el-text tag="div">账号：admin 密码：123456</el-text>
-          <el-text tag="div">账号：ordinary 密码：123456</el-text>
+          <el-text tag="div" type="">账号：admin 密码：123456</el-text>
+          <el-text tag="div" type="">账号：ordinary 密码：123456</el-text>
         </template>
       </login-form>
     </div>
@@ -157,9 +157,9 @@ onUnmounted(() => {
         border-radius: 13px 13px 0 0;
         background-image: url('@/assets/window.png'),
           linear-gradient(
-            45deg,
+            -135deg,
             var(--el-color-primary),
-            var(--el-color-primary-light-8)
+            var(--el-color-primary-light-5)
           );
         background-repeat: no-repeat;
         background-size: 100%;
@@ -173,7 +173,7 @@ onUnmounted(() => {
       align-content: center;
       &-title {
         width: 100%;
-        color: var(--el-color-primary-light-8);
+        color: #e6c8ff;
         text-align: center;
         padding: 20px 0;
         font-size: calc(var(--el-font-size-large) + 10px);
@@ -181,7 +181,7 @@ onUnmounted(() => {
     }
     .el-text {
       text-align: center;
-      color: var(--el-color-primary-light-8);
+      color: #e6c8ff;
       width: 100%;
     }
   }

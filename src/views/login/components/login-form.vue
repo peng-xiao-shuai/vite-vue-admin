@@ -145,7 +145,7 @@ export interface FormData {
       width: 100%;
       height: 35px;
       border-radius: 50px;
-      color: var(--el-color-primary);
+      color: var(--el-color-primary-dark-2);
       border: none;
       letter-spacing: 10px;
       font-size: var(--el-font-size-large);
