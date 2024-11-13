@@ -22,9 +22,7 @@ export default defineComponent({
           <i
             class={[defaultData.iconfont, 'vitesousuo-']}
             onClick={() => {
-              settingStore.$patch((state) => ({
-                isSearch: state.isSearch,
-              }))
+              settingStore.$patch((state) => (state.isSearch = !state.isSearch))
             }}
           ></i>
         </ElTooltip>
