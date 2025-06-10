@@ -5,7 +5,7 @@
       echartsId="pillar-cake"
       :height="600"
       :colors="colors"
-      :information="chart.value"
+      :information="chart"
       title="南丁格尔玫瑰图"
       types="pie"
     />
@@ -21,7 +21,7 @@ export default defineComponent({
   name: 'EChartsLine',
   components: { easyEchart },
   setup() {
-    let chart = reactive({ value: {} })
+    let chart = reactive({ homeDateInfoResult: [], horizontalList: [] })
 
     // 曲线图线段颜色
     const colors: string[] = [
@@ -38,7 +38,7 @@ export default defineComponent({
     // 浏览量
     function handlePageview() {
       cakeFun().then((res) => {
-        chart.value = res.data
+        Object.assign(chart, res.data.data)
       })
     }
     return {

@@ -5,7 +5,7 @@
       echartsId="line-echart"
       :height="600"
       :colors="colors"
-      :information="chart.value"
+      :information="chart"
       title="折线图"
       types="line"
     />
@@ -22,7 +22,7 @@ export default defineComponent({
   name: 'EChartsLine',
   components: { easyEchart },
   setup() {
-    let chart = reactive({ value: {} })
+    let chart = reactive({ homeDateInfoResult: [], horizontalList: [] })
     // 曲线图颜色
     type ChartColor = {
       opacity: number
@@ -78,7 +78,7 @@ export default defineComponent({
             color: colors[index],
           })
         })
-        chart.value = res.data
+        Object.assign(chart, res.data.data)
       })
     }
     return {

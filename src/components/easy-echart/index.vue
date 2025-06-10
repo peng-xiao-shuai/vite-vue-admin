@@ -69,7 +69,7 @@ export default defineComponent({
           props.information.homeDateInfoResult.length)
           ? false
           : true
-      if (props.information.horizontalList) {
+      if (props.information.horizontalList?.length) {
         old = props.information.homeDateInfoResult
 
         switch (props.types) {

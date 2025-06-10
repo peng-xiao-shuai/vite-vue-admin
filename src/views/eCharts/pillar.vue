@@ -5,7 +5,7 @@
       echartsId="pillar-echart"
       :height="600"
       :colors="colors"
-      :information="chart.value"
+      :information="chart"
       title="柱状图"
       types="pillar"
     />
@@ -21,7 +21,7 @@ export default defineComponent({
   name: 'EChartsLine',
   components: { easyEchart },
   setup() {
-    let chart = reactive({ value: {} })
+    let chart = reactive({ homeDateInfoResult: [], horizontalList: [] })
     // 曲线图线段颜色
     const colors: string[] = [
       '#5BB1FF',
@@ -33,7 +33,7 @@ export default defineComponent({
     handlePillar()
     function handlePillar() {
       pillarFun().then((res) => {
-        chart.value = res.data
+        Object.assign(chart, res.data.data)
       })
     }
     return {
