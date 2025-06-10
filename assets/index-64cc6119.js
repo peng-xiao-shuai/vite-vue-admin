@@ -1,0 +1,1 @@
+import{_ as t,o as c,f as r,g as e,w as _,k as d,i,E as l}from"./index-eb619e6a.js";const p={name:"Interlink"},f={class:"app-container"};function m(s,a,u,w,$,h){const o=i,n=l;return c(),r("div",f,[e(n,{shadow:s.defaultData.cardShadow},{default:_(()=>[e(o),a[0]||(a[0]=d("div",{class:"icons"},null,-1))]),_:1,__:[0]},8,["shadow"])])}const x=t(p,[["render",m]]);export{x as default};
